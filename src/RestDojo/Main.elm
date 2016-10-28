@@ -31,12 +31,12 @@ type alias Model =
 initModel : ( Model, Cmd Msg )
 initModel =
     { teams =
-        [ Team 1 "Alpha" "ver 0.1" 675
-        , Team 2 "Bravo" "ver 1.1" 543
-        , Team 3 "Charlie" "ver 1.0" 145
-        , Team 4 "Delta" "ver 0.99" 99
+        [ Team 3 "Charlie" "ver 1.0" 145
+        , Team 1 "Alpha" "ver 0.1" 675
         , Team 5 "Echo" "ver blabla" 87
+        , Team 4 "Delta" "ver 0.99" 99
         , Team 6 "Foxtrot" "ver 0.1.99" 67
+        , Team 2 "Bravo" "ver 1.1" 543
         ]
     }
         ! []
@@ -76,17 +76,17 @@ viewHeader =
 
 viewTeams : List Team -> Html Msg
 viewTeams teams =
-    section []
-        [ article []
-            (h2
-                []
-                [ text "Teams" ]
-                :: (List.map
-                        viewTeam
-                        teams
-                   )
-            )
-        ]
+    let
+        h2Teams =
+            h2 [] [ text "Teams" ]
+
+        divTeams =
+            List.map viewTeam <| List.reverse <| List.sortBy .points teams
+    in
+        section []
+            [ article []
+                (h2Teams :: divTeams)
+            ]
 
 
 viewTeam : Team -> Html Msg
