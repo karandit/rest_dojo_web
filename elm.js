@@ -8622,7 +8622,7 @@ var _user$project$RestDojo_API$teamDecoder = A5(
 var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
 var _user$project$RestDojo_API$apiUrl = '/api';
 var _user$project$RestDojo_API$getTeams = function () {
-	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/teams');
+	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/teams.json');
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$teamsDecoder, url);
 }();
 
