@@ -1,7 +1,9 @@
 module RestDojo.Main exposing (..)
 
-import Html exposing (Html, text, div, header, h1)
+import Html exposing (Html, text, div, span, img, article, header, h1, h2, section)
+import Html.Attributes exposing (class, src)
 import Html.App
+import RestDojo.Types exposing (..)
 
 
 -- MAIN ----------------------------------------------------------------------------------------------------------------
@@ -22,13 +24,20 @@ main =
 
 
 type alias Model =
-    { players : String
+    { teams : List Team
     }
 
 
 initModel : ( Model, Cmd Msg )
 initModel =
-    { players = ""
+    { teams =
+        [ Team 1 "Alpha" "ver 0.1" 675
+        , Team 2 "Bravo" "ver 1.1" 543
+        , Team 3 "Charlie" "ver 1.0" 145
+        , Team 4 "Delta" "ver 0.99" 99
+        , Team 5 "Echo" "ver blabla" 87
+        , Team 6 "Foxtrot" "ver 0.1.99" 67
+        ]
     }
         ! []
 
@@ -53,7 +62,42 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ header []
-            [ h1 [] [ text "Rest Dojo" ]
+        [ viewHeader model
+        , viewTeams model.teams
+        ]
+
+
+viewHeader : Model -> Html Msg
+viewHeader model =
+    header []
+        [ h1 [] [ text "Rest Dojo" ]
+        ]
+
+
+viewTeams : List Team -> Html Msg
+viewTeams teams =
+    section []
+        [ article []
+            (h2
+                []
+                [ text "Teams" ]
+                :: (List.map
+                        viewTeam
+                        teams
+                   )
+            )
+        ]
+
+
+viewTeam : Team -> Html Msg
+viewTeam team =
+    div [ class "rd-team" ]
+        [ img
+            [ src <| "https://robohash.org/" ++ team.name
+            , class <| "rd-team-avatar rd-team-" ++ toString team.id
             ]
+            []
+        , span [ class "rd-team-name" ] [ text team.name ]
+        , span [ class "rd-team-descr" ] [ text team.descr ]
+        , span [ class <| "rd-team-points rd-team-background-" ++ toString team.id ] [ text <| toString team.points ]
         ]
