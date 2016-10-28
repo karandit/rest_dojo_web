@@ -11,18 +11,14 @@ import RestDojo.Types exposing (..)
 
 apiUrl : String
 apiUrl =
-    "http://karandit.github.io/rest_dojo_web/api"
-
-
-
--- "http://localhost:3000"
+    "/api"
 
 
 getTeams : Task Error (List Team)
 getTeams =
     let
         url =
-            apiUrl ++ "/teams"
+            apiUrl ++ "/teams.json"
     in
         Http.get teamsDecoder url
 
