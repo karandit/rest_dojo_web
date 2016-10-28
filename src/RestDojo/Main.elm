@@ -3,7 +3,10 @@ module RestDojo.Main exposing (..)
 import Html exposing (Html, text, a, div, span, img, article, header, h1, h2, section, canvas)
 import Html.Attributes exposing (class, src, id, href)
 import Html.App
+import Http
+import Task
 import RestDojo.Types exposing (..)
+import RestDojo.API as API exposing (..)
 
 
 -- MAIN ----------------------------------------------------------------------------------------------------------------
@@ -31,23 +34,15 @@ type alias Model =
 
 initModel : ( Model, Cmd Msg )
 initModel =
-    { teams =
-        [ Team 3 "Charlie" "ver 1.0" 145
-        , Team 1 "Alpha" "ver 0.1" 675
-        , Team 5 "Echo" "ver blabla" 87
-        , Team 4 "Delta" "ver 0.99" 99
-        , Team 6 "Foxtrot" "ver 0.1.99" 67
-        , Team 2 "Bravo" "ver 1.1" 543
-        ]
-    , events =
-        [ Event 3 "Charlie"
-        , Event 3 "Charlie"
-        , Event 3 "Charlie"
-        , Event 2 "Bravo"
-        , Event 4 "Delta"
-        ]
+    { teams = []
+    , events = []
     }
-        ! []
+        ! [ initTeams ]
+
+
+initTeams : Cmd Msg
+initTeams =
+    Task.perform TeamsLoadFailed TeamsLoadSucceed (API.getTeams)
 
 
 
@@ -56,11 +51,18 @@ initModel =
 
 type Msg
     = NotYet
+    | TeamsLoadSucceed (List Team)
+    | TeamsLoadFailed Http.Error
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    model ! []
+    case msg of
+        TeamsLoadSucceed loadedTeams ->
+            { model | teams = loadedTeams } ! []
+
+        _ ->
+            model ! []
 
 
 
