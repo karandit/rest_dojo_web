@@ -28,3 +28,122 @@ h1 {
   padding: 10px;
   margin: 10px;
 }
+
+h2 {
+  border-bottom: 2px solid #383e4c;
+  font-weight: 300;
+}
+
+section {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+article {
+  padding: 10px;
+  margin: 1px;
+  background: #262c37;
+  flex: 1;
+}
+
+article:nth-of-type(2) {
+  flex: 4;
+}
+
+.rd-team {
+  position: relative;
+  margin: 4px;
+  border-bottom: 1px solid #383e4c;
+}
+
+.rd-team-1 {
+  border-color: #7e5ae2;
+}
+
+.rd-team-2 {
+  border-color: #e25abc;
+
+}
+.rd-team-3 {
+  border-color: #e25a77 ;
+}
+
+.rd-team-4 {
+  border-color: #7e9ce2;
+}
+
+.rd-team-5 {
+  border-color: #F78764;
+
+}
+.rd-team-6 {
+  border-color: #1784c7;
+}
+
+.rd-team-background-1 {
+  background-color: #7e5ae2;
+}
+
+.rd-team-background-2 {
+  background-color: #e25abc;
+
+}
+.rd-team-background-3 {
+  background-color: #e25a77;
+}
+
+.rd-team-background-4 {
+  background-color: #7e9ce2;
+}
+
+.rd-team-background-5 {
+  background-color: #F78764;
+
+}
+.rd-team-background-6 {
+  background-color: #1784c7;
+}
+
+.rd-team-name {
+  position: absolute;
+  left: 100px;
+  font-size: 1.2rem;
+}
+
+.rd-team-descr {
+  position: absolute;
+  left: 100px;
+  top: 30px;
+  color: #757983;
+}
+
+.rd-team-action {
+  position: absolute;
+  left: 100px;
+  top: 55px;
+
+  padding: 0.2em;
+  border: #40C9A2 2px solid;
+  border-radius: .25em;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.rd-team-points {
+  position: absolute;
+  right: 0px;
+  padding: 0.2em 0.4em;
+  border-radius: .25em;
+  font-size: 1.2rem;
+}
+
+.rd-team-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  border-width: 3px;
+  border-style: solid;
+}
