@@ -8620,7 +8620,7 @@ var _user$project$RestDojo_API$teamDecoder = A5(
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'descr', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'points', _elm_lang$core$Json_Decode$int));
 var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
-var _user$project$RestDojo_API$apiUrl = 'http://karandit.github.io/rest_dojo_web/api';
+var _user$project$RestDojo_API$apiUrl = '/api';
 var _user$project$RestDojo_API$getTeams = function () {
 	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/teams');
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$teamsDecoder, url);
