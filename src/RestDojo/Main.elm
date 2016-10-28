@@ -62,13 +62,13 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ viewHeader model
+        [ viewHeader
         , viewTeams model.teams
         ]
 
 
-viewHeader : Model -> Html Msg
-viewHeader model =
+viewHeader : Html Msg
+viewHeader =
     header []
         [ h1 [] [ text "Rest Dojo" ]
         ]
