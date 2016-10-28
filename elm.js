@@ -7800,7 +7800,107 @@ var _user$project$RestDojo_Types$Team = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, descr: c, points: d};
 	});
+var _user$project$RestDojo_Types$Event = F2(
+	function (a, b) {
+		return {teamId: a, teamName: b};
+	});
 
+var _user$project$RestDojo_Main$viewEvent = function (event) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('rd-team')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$span,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('rd-team-name')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$a,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$href('')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Game')
+							])),
+						_elm_lang$html$Html$text(
+						A2(_elm_lang$core$Basics_ops['++'], ' won by ', event.teamName))
+					])),
+				A2(
+				_elm_lang$html$Html$img,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$src(
+						A2(_elm_lang$core$Basics_ops['++'], 'https://robohash.org/', event.teamName)),
+						_elm_lang$html$Html_Attributes$class(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'rd-team-avatar rd-team-',
+							_elm_lang$core$Basics$toString(event.teamId)))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
+			]));
+};
+var _user$project$RestDojo_Main$viewEvents = function (events) {
+	var divEvents = A2(_elm_lang$core$List$map, _user$project$RestDojo_Main$viewEvent, events);
+	var h2Events = A2(
+		_elm_lang$html$Html$h2,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html$text('Events')
+			]));
+	return A2(
+		_elm_lang$html$Html$article,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List_ops['::'], h2Events, divEvents));
+};
+var _user$project$RestDojo_Main$viewPoints = function (teams) {
+	return A2(
+		_elm_lang$html$Html$article,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$h2,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Points')
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('rd-points')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$canvas,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$id('chartPoints')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
+					]))
+			]));
+};
 var _user$project$RestDojo_Main$viewTeam = function (team) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -7862,28 +7962,29 @@ var _user$project$RestDojo_Main$viewTeam = function (team) {
 			]));
 };
 var _user$project$RestDojo_Main$viewTeams = function (teams) {
-	return A2(
-		_elm_lang$html$Html$section,
+	var divTeams = A2(
+		_elm_lang$core$List$map,
+		_user$project$RestDojo_Main$viewTeam,
+		_elm_lang$core$List$reverse(
+			A2(
+				_elm_lang$core$List$sortBy,
+				function (_) {
+					return _.points;
+				},
+				teams)));
+	var h2Teams = A2(
+		_elm_lang$html$Html$h2,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				A2(
-				_elm_lang$html$Html$article,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				A2(
-					_elm_lang$core$List_ops['::'],
-					A2(
-						_elm_lang$html$Html$h2,
-						_elm_lang$core$Native_List.fromArray(
-							[]),
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html$text('Teams')
-							])),
-					A2(_elm_lang$core$List$map, _user$project$RestDojo_Main$viewTeam, teams)))
+				_elm_lang$html$Html$text('Teams')
 			]));
+	return A2(
+		_elm_lang$html$Html$article,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List_ops['::'], h2Teams, divTeams));
 };
 var _user$project$RestDojo_Main$viewHeader = A2(
 	_elm_lang$html$Html$header,
@@ -7908,7 +8009,16 @@ var _user$project$RestDojo_Main$view = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				_user$project$RestDojo_Main$viewHeader,
-				_user$project$RestDojo_Main$viewTeams(model.teams)
+				A2(
+				_elm_lang$html$Html$section,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_user$project$RestDojo_Main$viewTeams(model.teams),
+						_user$project$RestDojo_Main$viewPoints(model.teams),
+						_user$project$RestDojo_Main$viewEvents(model.events)
+					]))
 			]));
 };
 var _user$project$RestDojo_Main$update = F2(
@@ -7924,12 +8034,20 @@ var _user$project$RestDojo_Main$initModel = A2(
 	{
 		teams: _elm_lang$core$Native_List.fromArray(
 			[
-				A4(_user$project$RestDojo_Types$Team, 1, 'Alpha', 'ver 0.1', 675),
-				A4(_user$project$RestDojo_Types$Team, 2, 'Bravo', 'ver 1.1', 543),
 				A4(_user$project$RestDojo_Types$Team, 3, 'Charlie', 'ver 1.0', 145),
-				A4(_user$project$RestDojo_Types$Team, 4, 'Delta', 'ver 0.99', 99),
+				A4(_user$project$RestDojo_Types$Team, 1, 'Alpha', 'ver 0.1', 675),
 				A4(_user$project$RestDojo_Types$Team, 5, 'Echo', 'ver blabla', 87),
-				A4(_user$project$RestDojo_Types$Team, 6, 'Foxtrot', 'ver 0.1.99', 67)
+				A4(_user$project$RestDojo_Types$Team, 4, 'Delta', 'ver 0.99', 99),
+				A4(_user$project$RestDojo_Types$Team, 6, 'Foxtrot', 'ver 0.1.99', 67),
+				A4(_user$project$RestDojo_Types$Team, 2, 'Bravo', 'ver 1.1', 543)
+			]),
+		events: _elm_lang$core$Native_List.fromArray(
+			[
+				A2(_user$project$RestDojo_Types$Event, 3, 'Charlie'),
+				A2(_user$project$RestDojo_Types$Event, 3, 'Charlie'),
+				A2(_user$project$RestDojo_Types$Event, 3, 'Charlie'),
+				A2(_user$project$RestDojo_Types$Event, 2, 'Bravo'),
+				A2(_user$project$RestDojo_Types$Event, 4, 'Delta')
 			])
 	},
 	_elm_lang$core$Native_List.fromArray(
@@ -7945,9 +8063,10 @@ var _user$project$RestDojo_Main$main = {
 			}
 		})
 };
-var _user$project$RestDojo_Main$Model = function (a) {
-	return {teams: a};
-};
+var _user$project$RestDojo_Main$Model = F2(
+	function (a, b) {
+		return {teams: a, events: b};
+	});
 var _user$project$RestDojo_Main$NotYet = {ctor: 'NotYet'};
 
 var Elm = {};
