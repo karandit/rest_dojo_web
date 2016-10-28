@@ -11,3 +11,9 @@ type alias Team =
     , descr : String
     , points : Int
     }
+
+
+type alias Event =
+    { teamId : TeamId
+    , teamName : String
+    }

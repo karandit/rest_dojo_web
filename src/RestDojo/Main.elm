@@ -1,7 +1,7 @@
 module RestDojo.Main exposing (..)
 
-import Html exposing (Html, text, div, span, img, article, header, h1, h2, section)
-import Html.Attributes exposing (class, src)
+import Html exposing (Html, text, a, div, span, img, article, header, h1, h2, section, canvas)
+import Html.Attributes exposing (class, src, id, href)
 import Html.App
 import RestDojo.Types exposing (..)
 
@@ -25,6 +25,7 @@ main =
 
 type alias Model =
     { teams : List Team
+    , events : List Event
     }
 
 
@@ -37,6 +38,13 @@ initModel =
         , Team 4 "Delta" "ver 0.99" 99
         , Team 6 "Foxtrot" "ver 0.1.99" 67
         , Team 2 "Bravo" "ver 1.1" 543
+        ]
+    , events =
+        [ Event 3 "Charlie"
+        , Event 3 "Charlie"
+        , Event 3 "Charlie"
+        , Event 2 "Bravo"
+        , Event 4 "Delta"
         ]
     }
         ! []
@@ -63,7 +71,11 @@ view : Model -> Html Msg
 view model =
     div []
         [ viewHeader
-        , viewTeams model.teams
+        , section []
+            [ viewTeams model.teams
+            , viewPoints model.teams
+            , viewEvents model.events
+            ]
         ]
 
 
@@ -83,10 +95,7 @@ viewTeams teams =
         divTeams =
             List.map viewTeam <| List.reverse <| List.sortBy .points teams
     in
-        section []
-            [ article []
-                (h2Teams :: divTeams)
-            ]
+        article [] <| h2Teams :: divTeams
 
 
 viewTeam : Team -> Html Msg
@@ -100,4 +109,39 @@ viewTeam team =
         , span [ class "rd-team-name" ] [ text team.name ]
         , span [ class "rd-team-descr" ] [ text team.descr ]
         , span [ class <| "rd-team-points rd-team-background-" ++ toString team.id ] [ text <| toString team.points ]
+        ]
+
+
+viewPoints : List Team -> Html Msg
+viewPoints teams =
+    article []
+        [ h2 [] [ text "Points" ]
+        , div [ class "rd-points" ] [ canvas [ id "chartPoints" ] [] ]
+        ]
+
+
+viewEvents : List Event -> Html Msg
+viewEvents events =
+    let
+        h2Events =
+            h2 [] [ text "Events" ]
+
+        divEvents =
+            List.map viewEvent events
+    in
+        article [] <| h2Events :: divEvents
+
+
+viewEvent : Event -> Html Msg
+viewEvent event =
+    div [ class "rd-team" ]
+        [ span [ class "rd-team-name" ]
+            [ a [ href "" ] [ text "Game" ]
+            , text <| " won by " ++ event.teamName
+            ]
+        , img
+            [ src <| "https://robohash.org/" ++ event.teamName
+            , class <| "rd-team-avatar rd-team-" ++ toString event.teamId
+            ]
+            []
         ]
