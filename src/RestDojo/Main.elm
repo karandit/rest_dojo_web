@@ -45,6 +45,11 @@ initTeams =
     Task.perform TeamsLoadFailed TeamsLoadSucceed (API.getTeams)
 
 
+initEvents : Cmd Msg
+initEvents =
+    Task.perform EventsLoadFailed EventsLoadSucceed (API.getEvents)
+
+
 
 -- UPDATE --------------------------------------------------------------------------------------------------------------
 
@@ -53,13 +58,18 @@ type Msg
     = NotYet
     | TeamsLoadSucceed (List Team)
     | TeamsLoadFailed Http.Error
+    | EventsLoadSucceed (List Event)
+    | EventsLoadFailed Http.Error
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         TeamsLoadSucceed loadedTeams ->
-            { model | teams = loadedTeams } ! []
+            { model | teams = loadedTeams } ! [ initEvents ]
+
+        EventsLoadSucceed loadedEvents ->
+            { model | events = loadedEvents } ! []
 
         _ ->
             model ! []
@@ -136,14 +146,21 @@ viewEvents events =
 
 viewEvent : Event -> Html Msg
 viewEvent event =
+    case event of
+        GameWonBy teamId ->
+            viewEventGameWonBy teamId "Alpha"
+
+
+viewEventGameWonBy : TeamId -> String -> Html Msg
+viewEventGameWonBy teamId teamName =
     div [ class "rd-team" ]
         [ span [ class "rd-team-name" ]
             [ a [ href "" ] [ text "Game" ]
-            , text <| " won by " ++ event.teamName
+            , text <| " won by " ++ teamName
             ]
         , img
-            [ src <| "https://robohash.org/" ++ event.teamName
-            , class <| "rd-team-avatar rd-team-" ++ toString event.teamId
+            [ src <| "https://robohash.org/" ++ teamName
+            , class <| "rd-team-avatar rd-team-" ++ toString teamId
             ]
             []
         ]

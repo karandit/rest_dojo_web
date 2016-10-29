@@ -13,7 +13,5 @@ type alias Team =
     }
 
 
-type alias Event =
-    { teamId : TeamId
-    , teamName : String
-    }
+type Event
+    = GameWonBy TeamId

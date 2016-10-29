@@ -1,4 +1,4 @@
-module RestDojo.API exposing (getTeams)
+module RestDojo.API exposing (getTeams, getEvents)
 
 import Json.Decode as Json exposing (..)
 import Http exposing (Error)
@@ -23,6 +23,15 @@ getTeams =
         Http.get teamsDecoder url
 
 
+getEvents : Task Error (List Event)
+getEvents =
+    let
+        url =
+            apiUrl ++ "/events"
+    in
+        Http.get eventsDecoder url
+
+
 
 -- Json decoders/encoders ----------------------------------------------------------------------------------------------
 
@@ -39,3 +48,14 @@ teamDecoder =
         ("name" := Json.string)
         ("descr" := Json.string)
         ("points" := Json.int)
+
+
+eventsDecoder : Decoder (List Event)
+eventsDecoder =
+    Json.list eventDecoder
+
+
+eventDecoder : Decoder Event
+eventDecoder =
+    Json.object1 GameWonBy
+        ("gameWonBy" := Json.int)
