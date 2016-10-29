@@ -49,22 +49,22 @@ initModel flags =
 
 initBillboard : String -> Cmd Msg
 initBillboard url =
-    Task.perform BillboardLoadFailed BillboardLoadSucceed (API.getBillboard url)
+    Task.perform ErrorOccured BillboardLoadSucceed (API.getBillboard url)
 
 
 initDojos : String -> Cmd Msg
 initDojos url =
-    Task.perform DojosLoadFailed DojosLoadSucceed (API.getDojos url)
+    Task.perform ErrorOccured DojosLoadSucceed (API.getDojos url)
 
 
 initTeams : String -> Cmd Msg
 initTeams url =
-    Task.perform TeamsLoadFailed TeamsLoadSucceed (API.getTeams url)
+    Task.perform ErrorOccured TeamsLoadSucceed (API.getTeams url)
 
 
 initEvents : String -> List Team -> Cmd Msg
 initEvents url teams =
-    Task.perform EventsLoadFailed EventsLoadSucceed (API.getEvents url teams)
+    Task.perform ErrorOccured EventsLoadSucceed (API.getEvents url teams)
 
 
 
@@ -73,13 +73,10 @@ initEvents url teams =
 
 type Msg
     = BillboardLoadSucceed Billboard
-    | BillboardLoadFailed Http.Error
     | DojosLoadSucceed (List Dojo)
-    | DojosLoadFailed Http.Error
     | TeamsLoadSucceed (List Team)
-    | TeamsLoadFailed Http.Error
     | EventsLoadSucceed (List Event)
-    | EventsLoadFailed Http.Error
+    | ErrorOccured Http.Error
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
