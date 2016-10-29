@@ -45,9 +45,9 @@ initTeams =
     Task.perform TeamsLoadFailed TeamsLoadSucceed (API.getTeams)
 
 
-initEvents : Cmd Msg
-initEvents =
-    Task.perform EventsLoadFailed EventsLoadSucceed (API.getEvents)
+initEvents : List Team -> Cmd Msg
+initEvents teams =
+    Task.perform EventsLoadFailed EventsLoadSucceed (API.getEvents teams)
 
 
 
@@ -55,8 +55,7 @@ initEvents =
 
 
 type Msg
-    = NotYet
-    | TeamsLoadSucceed (List Team)
+    = TeamsLoadSucceed (List Team)
     | TeamsLoadFailed Http.Error
     | EventsLoadSucceed (List Event)
     | EventsLoadFailed Http.Error
@@ -66,7 +65,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         TeamsLoadSucceed loadedTeams ->
-            { model | teams = loadedTeams } ! [ initEvents ]
+            { model | teams = loadedTeams } ! [ initEvents loadedTeams ]
 
         EventsLoadSucceed loadedEvents ->
             { model | events = loadedEvents } ! []
@@ -147,20 +146,35 @@ viewEvents events =
 viewEvent : Event -> Html Msg
 viewEvent event =
     case event of
-        GameWonBy teamId ->
-            viewEventGameWonBy teamId "Alpha"
+        GameWonBy winnerTeam ->
+            viewEventGameWonBy winnerTeam
 
 
-viewEventGameWonBy : TeamId -> String -> Html Msg
-viewEventGameWonBy teamId teamName =
-    div [ class "rd-team" ]
-        [ span [ class "rd-team-name" ]
-            [ a [ href "" ] [ text "Game" ]
-            , text <| " won by " ++ teamName
+viewEventGameWonBy : Maybe Team -> Html Msg
+viewEventGameWonBy team =
+    let
+        label =
+            case team of
+                Just winnerTeam ->
+                    " won by " ++ winnerTeam.name
+
+                Nothing ->
+                    " remained unsolved"
+
+        avatarAttr =
+            case team of
+                Just winnerTeam ->
+                    [ src <| "https://robohash.org/" ++ winnerTeam.name
+                    , class <| "rd-team-avatar rd-team-" ++ toString winnerTeam.id
+                    ]
+
+                Nothing ->
+                    [ class "rd-team-avatar" ]
+    in
+        div [ class "rd-team" ]
+            [ span [ class "rd-team-name" ]
+                [ a [ href "" ] [ text "Game" ]
+                , text label
+                ]
+            , img avatarAttr []
             ]
-        , img
-            [ src <| "https://robohash.org/" ++ teamName
-            , class <| "rd-team-avatar rd-team-" ++ toString teamId
-            ]
-            []
-        ]

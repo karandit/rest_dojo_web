@@ -14,4 +14,4 @@ type alias Team =
 
 
 type Event
-    = GameWonBy TeamId
+    = GameWonBy (Maybe Team)
