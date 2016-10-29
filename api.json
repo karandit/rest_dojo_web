@@ -1,8 +1,15 @@
 {
   "billboard": {
+    "dojos": "http://localhost:3000/dojos",
     "teams": "http://localhost:3000/teams",
     "events": "http://localhost:3000/events"
   },
+  "dojos": [
+    { "id": 8, "label": "2016-05-01", "state": "past"},
+    { "id": 9, "label": "2016-05-02", "state": "past"},
+    { "id": 11, "label": "2016-10-29", "state": "running"},
+    { "id": 12, "label": "2016-12-06", "state": "upcoming"}
+  ],
   "teams":  [
       { "id": 1,
         "name": "Alpha",

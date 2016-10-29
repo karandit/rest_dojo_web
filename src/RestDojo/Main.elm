@@ -40,7 +40,7 @@ type alias Model =
 
 initModel : Flags -> ( Model, Cmd Msg )
 initModel flags =
-    { billboard = Billboard "" ""
+    { billboard = Billboard "" "" ""
     , teams = []
     , events = []
     }
@@ -50,6 +50,11 @@ initModel flags =
 initBillboard : String -> Cmd Msg
 initBillboard url =
     Task.perform BillboardLoadFailed BillboardLoadSucceed (API.getBillboard url)
+
+
+initDojos : String -> Cmd Msg
+initDojos url =
+    Task.perform DojosLoadFailed DojosLoadSucceed (API.getDojos url)
 
 
 initTeams : String -> Cmd Msg
@@ -69,6 +74,8 @@ initEvents url teams =
 type Msg
     = BillboardLoadSucceed Billboard
     | BillboardLoadFailed Http.Error
+    | DojosLoadSucceed (List Dojo)
+    | DojosLoadFailed Http.Error
     | TeamsLoadSucceed (List Team)
     | TeamsLoadFailed Http.Error
     | EventsLoadSucceed (List Event)
@@ -79,7 +86,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "msg" msg of
         BillboardLoadSucceed billboard ->
-            { model | billboard = billboard } ! [ initTeams billboard.teamsUrl ]
+            { model | billboard = billboard } ! [ initTeams billboard.teamsUrl, initDojos billboard.dojosUrl ]
 
         TeamsLoadSucceed loadedTeams ->
             { model | teams = loadedTeams } ! [ initEvents model.billboard.eventsUrl loadedTeams ]

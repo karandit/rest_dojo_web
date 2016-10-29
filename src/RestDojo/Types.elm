@@ -1,6 +1,17 @@
 module RestDojo.Types exposing (..)
 
 
+type alias DojoId =
+    Int
+
+
+type alias Dojo =
+    { id : TeamId
+    , label : String
+    , state : String
+    }
+
+
 type alias TeamId =
     Int
 
@@ -18,6 +29,7 @@ type Event
 
 
 type alias Billboard =
-    { teamsUrl : String
+    { dojosUrl : String
+    , teamsUrl : String
     , eventsUrl : String
     }
