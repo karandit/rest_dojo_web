@@ -102,7 +102,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ viewHeader
+        [ viewBreadcrumbs
         , section []
             [ viewTeams model.teams
             , viewPoints model.teams
@@ -111,8 +111,8 @@ view model =
         ]
 
 
-viewHeader : Html Msg
-viewHeader =
+viewBreadcrumbs : Html Msg
+viewBreadcrumbs =
     header []
         [ h1 [] [ text "Rest Dojo" ]
         ]
