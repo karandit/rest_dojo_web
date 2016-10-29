@@ -8607,11 +8607,23 @@ var _user$project$RestDojo_Types$Team = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, descr: c, points: d};
 	});
-var _user$project$RestDojo_Types$Event = F2(
-	function (a, b) {
-		return {teamId: a, teamName: b};
-	});
+var _user$project$RestDojo_Types$GameWonBy = function (a) {
+	return {ctor: 'GameWonBy', _0: a};
+};
 
+var _user$project$RestDojo_API$eventDecoder = function (teamsByTeamId) {
+	return A2(
+		_elm_lang$core$Json_Decode$map,
+		function (teamId) {
+			return _user$project$RestDojo_Types$GameWonBy(
+				A2(_elm_lang$core$Dict$get, teamId, teamsByTeamId));
+		},
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'gameWonBy', _elm_lang$core$Json_Decode$int));
+};
+var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
+	return _elm_lang$core$Json_Decode$list(
+		_user$project$RestDojo_API$eventDecoder(teamsByTeamId));
+};
 var _user$project$RestDojo_API$teamDecoder = A5(
 	_elm_lang$core$Json_Decode$object4,
 	_user$project$RestDojo_Types$Team,
@@ -8625,8 +8637,51 @@ var _user$project$RestDojo_API$getTeams = function () {
 	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/teams.json');
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$teamsDecoder, url);
 }();
+var _user$project$RestDojo_API$getEvents = function (teams) {
+	var teamsByTeamId = _elm_lang$core$Dict$fromList(
+		A2(
+			_elm_lang$core$List$map,
+			function (team) {
+				return {ctor: '_Tuple2', _0: team.id, _1: team};
+			},
+			teams));
+	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/events.json');
+	return A2(
+		_evancz$elm_http$Http$get,
+		_user$project$RestDojo_API$eventsDecoder(teamsByTeamId),
+		url);
+};
 
-var _user$project$RestDojo_Main$viewEvent = function (event) {
+var _user$project$RestDojo_Main$viewEventGameWonBy = function (team) {
+	var avatarAttr = function () {
+		var _p0 = team;
+		if (_p0.ctor === 'Just') {
+			var _p1 = _p0._0;
+			return _elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$src(
+					A2(_elm_lang$core$Basics_ops['++'], 'https://robohash.org/', _p1.name)),
+					_elm_lang$html$Html_Attributes$class(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'rd-team-avatar rd-team-',
+						_elm_lang$core$Basics$toString(_p1.id)))
+				]);
+		} else {
+			return _elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('rd-team-avatar')
+				]);
+		}
+	}();
+	var label = function () {
+		var _p2 = team;
+		if (_p2.ctor === 'Just') {
+			return A2(_elm_lang$core$Basics_ops['++'], ' won by ', _p2._0.name);
+		} else {
+			return ' remained unsolved';
+		}
+	}();
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -8653,24 +8708,18 @@ var _user$project$RestDojo_Main$viewEvent = function (event) {
 							[
 								_elm_lang$html$Html$text('Game')
 							])),
-						_elm_lang$html$Html$text(
-						A2(_elm_lang$core$Basics_ops['++'], ' won by ', event.teamName))
+						_elm_lang$html$Html$text(label)
 					])),
 				A2(
 				_elm_lang$html$Html$img,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$src(
-						A2(_elm_lang$core$Basics_ops['++'], 'https://robohash.org/', event.teamName)),
-						_elm_lang$html$Html_Attributes$class(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'rd-team-avatar rd-team-',
-							_elm_lang$core$Basics$toString(event.teamId)))
-					]),
+				avatarAttr,
 				_elm_lang$core$Native_List.fromArray(
 					[]))
 			]));
+};
+var _user$project$RestDojo_Main$viewEvent = function (event) {
+	var _p3 = event;
+	return _user$project$RestDojo_Main$viewEventGameWonBy(_p3._0);
 };
 var _user$project$RestDojo_Main$viewEvents = function (events) {
 	var divEvents = A2(_elm_lang$core$List$map, _user$project$RestDojo_Main$viewEvent, events);
@@ -8842,28 +8891,53 @@ var _user$project$RestDojo_Main$view = function (model) {
 					]))
 			]));
 };
-var _user$project$RestDojo_Main$update = F2(
-	function (msg, model) {
-		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
-		if (_p0.ctor === 'TeamsLoadSucceed') {
-			return A2(
-				_elm_lang$core$Platform_Cmd_ops['!'],
-				_elm_lang$core$Native_Utils.update(
-					model,
-					{teams: _p0._0}),
-				_elm_lang$core$Native_List.fromArray(
-					[]));
-		} else {
-			return A2(
-				_elm_lang$core$Platform_Cmd_ops['!'],
-				model,
-				_elm_lang$core$Native_List.fromArray(
-					[]));
-		}
-	});
 var _user$project$RestDojo_Main$Model = F2(
 	function (a, b) {
 		return {teams: a, events: b};
+	});
+var _user$project$RestDojo_Main$EventsLoadFailed = function (a) {
+	return {ctor: 'EventsLoadFailed', _0: a};
+};
+var _user$project$RestDojo_Main$EventsLoadSucceed = function (a) {
+	return {ctor: 'EventsLoadSucceed', _0: a};
+};
+var _user$project$RestDojo_Main$initEvents = function (teams) {
+	return A3(
+		_elm_lang$core$Task$perform,
+		_user$project$RestDojo_Main$EventsLoadFailed,
+		_user$project$RestDojo_Main$EventsLoadSucceed,
+		_user$project$RestDojo_API$getEvents(teams));
+};
+var _user$project$RestDojo_Main$update = F2(
+	function (msg, model) {
+		var _p4 = A2(_elm_lang$core$Debug$log, 'msg', msg);
+		switch (_p4.ctor) {
+			case 'TeamsLoadSucceed':
+				var _p5 = _p4._0;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{teams: _p5}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$RestDojo_Main$initEvents(_p5)
+						]));
+			case 'EventsLoadSucceed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{events: _p4._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+		}
 	});
 var _user$project$RestDojo_Main$TeamsLoadFailed = function (a) {
 	return {ctor: 'TeamsLoadFailed', _0: a};
@@ -8888,12 +8962,11 @@ var _user$project$RestDojo_Main$main = {
 			init: _user$project$RestDojo_Main$initModel,
 			update: _user$project$RestDojo_Main$update,
 			view: _user$project$RestDojo_Main$view,
-			subscriptions: function (_p1) {
+			subscriptions: function (_p6) {
 				return _elm_lang$core$Platform_Sub$none;
 			}
 		})
 };
-var _user$project$RestDojo_Main$NotYet = {ctor: 'NotYet'};
 
 var Elm = {};
 Elm['RestDojo'] = Elm['RestDojo'] || {};
