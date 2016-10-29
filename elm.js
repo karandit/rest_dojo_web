@@ -8844,7 +8844,7 @@ var _user$project$RestDojo_Main$view = function (model) {
 };
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
+		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
 		if (_p0.ctor === 'TeamsLoadSucceed') {
 			return A2(
 				_elm_lang$core$Platform_Cmd_ops['!'],
