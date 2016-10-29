@@ -1,5 +1,4 @@
-{
-  "teams": [
+[
     { "id": 1,
       "name": "Alpha",
       "descr" : "ver 0.1",
@@ -30,5 +29,4 @@
       "descr" : "ver 0.1.99",
       "points": 247
     }
-  ]
-}
+]
