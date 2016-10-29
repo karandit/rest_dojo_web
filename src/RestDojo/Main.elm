@@ -12,9 +12,14 @@ import RestDojo.API as API exposing (..)
 -- MAIN ----------------------------------------------------------------------------------------------------------------
 
 
-main : Program Never
+type alias Flags =
+    { baseUrl : String
+    }
+
+
+main : Program Flags
 main =
-    Html.App.program
+    Html.App.programWithFlags
         { init = initModel
         , update = update
         , view = view
@@ -33,18 +38,18 @@ type alias Model =
     }
 
 
-initModel : ( Model, Cmd Msg )
-initModel =
+initModel : Flags -> ( Model, Cmd Msg )
+initModel flags =
     { billboard = Billboard "" ""
     , teams = []
     , events = []
     }
-        ! [ initBillboard ]
+        ! [ initBillboard flags.baseUrl ]
 
 
-initBillboard : Cmd Msg
-initBillboard =
-    Task.perform BillboardLoadFailed BillboardLoadSucceed (API.getBillboard)
+initBillboard : String -> Cmd Msg
+initBillboard url =
+    Task.perform BillboardLoadFailed BillboardLoadSucceed (API.getBillboard url)
 
 
 initTeams : String -> Cmd Msg

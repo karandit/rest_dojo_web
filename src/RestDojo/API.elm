@@ -10,15 +10,9 @@ import RestDojo.Types exposing (..)
 -- API end-points ------------------------------------------------------------------------------------------------------
 
 
-apiUrl : String
-apiUrl =
-    -- "/rest_dojo_web/api"
-    "http://localhost:3000/billboard"
-
-
-getBillboard : Task Error Billboard
-getBillboard =
-    Http.get billboardDecoder apiUrl
+getBillboard : String -> Task Error Billboard
+getBillboard url =
+    Http.get billboardDecoder url
 
 
 getTeams : String -> Task Error (List Team)
