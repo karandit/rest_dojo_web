@@ -1,0 +1,4 @@
+{
+  "teams": "/rest_dojo_web/teams.json",
+  "events": "/rest_dojo_web/events.json"
+}

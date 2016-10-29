@@ -8607,6 +8607,10 @@ var _user$project$RestDojo_Types$Team = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, descr: c, points: d};
 	});
+var _user$project$RestDojo_Types$Billboard = F2(
+	function (a, b) {
+		return {teamsUrl: a, eventsUrl: b};
+	});
 var _user$project$RestDojo_Types$GameWonBy = function (a) {
 	return {ctor: 'GameWonBy', _0: a};
 };
@@ -8632,25 +8636,30 @@ var _user$project$RestDojo_API$teamDecoder = A5(
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'descr', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'points', _elm_lang$core$Json_Decode$int));
 var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
-var _user$project$RestDojo_API$apiUrl = '/rest_dojo_web/api';
-var _user$project$RestDojo_API$getTeams = function () {
-	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/teams.json');
+var _user$project$RestDojo_API$billboardDecoder = A3(
+	_elm_lang$core$Json_Decode$object2,
+	_user$project$RestDojo_Types$Billboard,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'teams', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'events', _elm_lang$core$Json_Decode$string));
+var _user$project$RestDojo_API$getEvents = F2(
+	function (url, teams) {
+		var teamsByTeamId = _elm_lang$core$Dict$fromList(
+			A2(
+				_elm_lang$core$List$map,
+				function (team) {
+					return {ctor: '_Tuple2', _0: team.id, _1: team};
+				},
+				teams));
+		return A2(
+			_evancz$elm_http$Http$get,
+			_user$project$RestDojo_API$eventsDecoder(teamsByTeamId),
+			url);
+	});
+var _user$project$RestDojo_API$getTeams = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$teamsDecoder, url);
-}();
-var _user$project$RestDojo_API$getEvents = function (teams) {
-	var teamsByTeamId = _elm_lang$core$Dict$fromList(
-		A2(
-			_elm_lang$core$List$map,
-			function (team) {
-				return {ctor: '_Tuple2', _0: team.id, _1: team};
-			},
-			teams));
-	var url = A2(_elm_lang$core$Basics_ops['++'], _user$project$RestDojo_API$apiUrl, '/events.json');
-	return A2(
-		_evancz$elm_http$Http$get,
-		_user$project$RestDojo_API$eventsDecoder(teamsByTeamId),
-		url);
 };
+var _user$project$RestDojo_API$apiUrl = '/rest_dojo_web/api/billboard.json';
+var _user$project$RestDojo_API$getBillboard = A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, _user$project$RestDojo_API$apiUrl);
 
 var _user$project$RestDojo_Main$viewEventGameWonBy = function (team) {
 	var avatarAttr = function () {
@@ -8891,9 +8900,9 @@ var _user$project$RestDojo_Main$view = function (model) {
 					]))
 			]));
 };
-var _user$project$RestDojo_Main$Model = F2(
-	function (a, b) {
-		return {teams: a, events: b};
+var _user$project$RestDojo_Main$Model = F3(
+	function (a, b, c) {
+		return {billboard: a, teams: b, events: c};
 	});
 var _user$project$RestDojo_Main$EventsLoadFailed = function (a) {
 	return {ctor: 'EventsLoadFailed', _0: a};
@@ -8901,27 +8910,52 @@ var _user$project$RestDojo_Main$EventsLoadFailed = function (a) {
 var _user$project$RestDojo_Main$EventsLoadSucceed = function (a) {
 	return {ctor: 'EventsLoadSucceed', _0: a};
 };
-var _user$project$RestDojo_Main$initEvents = function (teams) {
+var _user$project$RestDojo_Main$initEvents = F2(
+	function (url, teams) {
+		return A3(
+			_elm_lang$core$Task$perform,
+			_user$project$RestDojo_Main$EventsLoadFailed,
+			_user$project$RestDojo_Main$EventsLoadSucceed,
+			A2(_user$project$RestDojo_API$getEvents, url, teams));
+	});
+var _user$project$RestDojo_Main$TeamsLoadFailed = function (a) {
+	return {ctor: 'TeamsLoadFailed', _0: a};
+};
+var _user$project$RestDojo_Main$TeamsLoadSucceed = function (a) {
+	return {ctor: 'TeamsLoadSucceed', _0: a};
+};
+var _user$project$RestDojo_Main$initTeams = function (url) {
 	return A3(
 		_elm_lang$core$Task$perform,
-		_user$project$RestDojo_Main$EventsLoadFailed,
-		_user$project$RestDojo_Main$EventsLoadSucceed,
-		_user$project$RestDojo_API$getEvents(teams));
+		_user$project$RestDojo_Main$TeamsLoadFailed,
+		_user$project$RestDojo_Main$TeamsLoadSucceed,
+		_user$project$RestDojo_API$getTeams(url));
 };
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
 		var _p4 = A2(_elm_lang$core$Debug$log, 'msg', msg);
 		switch (_p4.ctor) {
-			case 'TeamsLoadSucceed':
+			case 'BillboardLoadSucceed':
 				var _p5 = _p4._0;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{teams: _p5}),
+						{billboard: _p5}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$RestDojo_Main$initEvents(_p5)
+							_user$project$RestDojo_Main$initTeams(_p5.teamsUrl)
+						]));
+			case 'TeamsLoadSucceed':
+				var _p6 = _p4._0;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{teams: _p6}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(_user$project$RestDojo_Main$initEvents, model.billboard.eventsUrl, _p6)
 						]));
 			case 'EventsLoadSucceed':
 				return A2(
@@ -8939,30 +8973,31 @@ var _user$project$RestDojo_Main$update = F2(
 						[]));
 		}
 	});
-var _user$project$RestDojo_Main$TeamsLoadFailed = function (a) {
-	return {ctor: 'TeamsLoadFailed', _0: a};
+var _user$project$RestDojo_Main$BillboardLoadFailed = function (a) {
+	return {ctor: 'BillboardLoadFailed', _0: a};
 };
-var _user$project$RestDojo_Main$TeamsLoadSucceed = function (a) {
-	return {ctor: 'TeamsLoadSucceed', _0: a};
+var _user$project$RestDojo_Main$BillboardLoadSucceed = function (a) {
+	return {ctor: 'BillboardLoadSucceed', _0: a};
 };
-var _user$project$RestDojo_Main$initTeams = A3(_elm_lang$core$Task$perform, _user$project$RestDojo_Main$TeamsLoadFailed, _user$project$RestDojo_Main$TeamsLoadSucceed, _user$project$RestDojo_API$getTeams);
+var _user$project$RestDojo_Main$initBillboard = A3(_elm_lang$core$Task$perform, _user$project$RestDojo_Main$BillboardLoadFailed, _user$project$RestDojo_Main$BillboardLoadSucceed, _user$project$RestDojo_API$getBillboard);
 var _user$project$RestDojo_Main$initModel = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
 	{
+		billboard: A2(_user$project$RestDojo_Types$Billboard, '', ''),
 		teams: _elm_lang$core$Native_List.fromArray(
 			[]),
 		events: _elm_lang$core$Native_List.fromArray(
 			[])
 	},
 	_elm_lang$core$Native_List.fromArray(
-		[_user$project$RestDojo_Main$initTeams]));
+		[_user$project$RestDojo_Main$initBillboard]));
 var _user$project$RestDojo_Main$main = {
 	main: _elm_lang$html$Html_App$program(
 		{
 			init: _user$project$RestDojo_Main$initModel,
 			update: _user$project$RestDojo_Main$update,
 			view: _user$project$RestDojo_Main$view,
-			subscriptions: function (_p6) {
+			subscriptions: function (_p7) {
 				return _elm_lang$core$Platform_Sub$none;
 			}
 		})
