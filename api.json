@@ -1,4 +1,8 @@
 {
+  "billboard": {
+    "teams": "http://localhost:3000/teams",
+    "events": "http://localhost:3000/events"
+  },
   "teams":  [
       { "id": 1,
         "name": "Alpha",

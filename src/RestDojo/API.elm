@@ -1,4 +1,4 @@
-module RestDojo.API exposing (getTeams, getEvents)
+module RestDojo.API exposing (getTeams, getEvents, getBillboard)
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
@@ -12,24 +12,23 @@ import RestDojo.Types exposing (..)
 
 apiUrl : String
 apiUrl =
-    "/rest_dojo_web/api"
+    -- "/rest_dojo_web/api"
+    "http://localhost:3000/billboard"
 
 
-getTeams : Task Error (List Team)
-getTeams =
+getBillboard : Task Error Billboard
+getBillboard =
+    Http.get billboardDecoder apiUrl
+
+
+getTeams : String -> Task Error (List Team)
+getTeams url =
+    Http.get teamsDecoder url
+
+
+getEvents : String -> List Team -> Task Error (List Event)
+getEvents url teams =
     let
-        url =
-            apiUrl ++ "/teams.json"
-    in
-        Http.get teamsDecoder url
-
-
-getEvents : List Team -> Task Error (List Event)
-getEvents teams =
-    let
-        url =
-            apiUrl ++ "/events"
-
         teamsByTeamId =
             Dict.fromList <| List.map (\team -> ( team.id, team )) teams
     in
@@ -38,6 +37,13 @@ getEvents teams =
 
 
 -- Json decoders/encoders ----------------------------------------------------------------------------------------------
+
+
+billboardDecoder : Decoder Billboard
+billboardDecoder =
+    Json.object2 Billboard
+        ("teams" := Json.string)
+        ("events" := Json.string)
 
 
 teamsDecoder : Decoder (List Team)

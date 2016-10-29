@@ -27,27 +27,34 @@ main =
 
 
 type alias Model =
-    { teams : List Team
+    { billboard : Billboard
+    , teams : List Team
     , events : List Event
     }
 
 
 initModel : ( Model, Cmd Msg )
 initModel =
-    { teams = []
+    { billboard = Billboard "" ""
+    , teams = []
     , events = []
     }
-        ! [ initTeams ]
+        ! [ initBillboard ]
 
 
-initTeams : Cmd Msg
-initTeams =
-    Task.perform TeamsLoadFailed TeamsLoadSucceed (API.getTeams)
+initBillboard : Cmd Msg
+initBillboard =
+    Task.perform BillboardLoadFailed BillboardLoadSucceed (API.getBillboard)
 
 
-initEvents : List Team -> Cmd Msg
-initEvents teams =
-    Task.perform EventsLoadFailed EventsLoadSucceed (API.getEvents teams)
+initTeams : String -> Cmd Msg
+initTeams url =
+    Task.perform TeamsLoadFailed TeamsLoadSucceed (API.getTeams url)
+
+
+initEvents : String -> List Team -> Cmd Msg
+initEvents url teams =
+    Task.perform EventsLoadFailed EventsLoadSucceed (API.getEvents url teams)
 
 
 
@@ -55,7 +62,9 @@ initEvents teams =
 
 
 type Msg
-    = TeamsLoadSucceed (List Team)
+    = BillboardLoadSucceed Billboard
+    | BillboardLoadFailed Http.Error
+    | TeamsLoadSucceed (List Team)
     | TeamsLoadFailed Http.Error
     | EventsLoadSucceed (List Event)
     | EventsLoadFailed Http.Error
@@ -63,9 +72,12 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    case Debug.log "msg" msg of
+        BillboardLoadSucceed billboard ->
+            { model | billboard = billboard } ! [ initTeams billboard.teamsUrl ]
+
         TeamsLoadSucceed loadedTeams ->
-            { model | teams = loadedTeams } ! [ initEvents loadedTeams ]
+            { model | teams = loadedTeams } ! [ initEvents model.billboard.eventsUrl loadedTeams ]
 
         EventsLoadSucceed loadedEvents ->
             { model | events = loadedEvents } ! []

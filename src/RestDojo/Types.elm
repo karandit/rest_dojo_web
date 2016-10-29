@@ -15,3 +15,9 @@ type alias Team =
 
 type Event
     = GameWonBy (Maybe Team)
+
+
+type alias Billboard =
+    { teamsUrl : String
+    , eventsUrl : String
+    }
