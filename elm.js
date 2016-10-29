@@ -8658,8 +8658,9 @@ var _user$project$RestDojo_API$getEvents = F2(
 var _user$project$RestDojo_API$getTeams = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$teamsDecoder, url);
 };
-var _user$project$RestDojo_API$apiUrl = '/rest_dojo_web/api/billboard.json';
-var _user$project$RestDojo_API$getBillboard = A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, _user$project$RestDojo_API$apiUrl);
+var _user$project$RestDojo_API$getBillboard = function (url) {
+	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, url);
+};
 
 var _user$project$RestDojo_Main$viewEventGameWonBy = function (team) {
 	var avatarAttr = function () {
@@ -8900,6 +8901,9 @@ var _user$project$RestDojo_Main$view = function (model) {
 					]))
 			]));
 };
+var _user$project$RestDojo_Main$Flags = function (a) {
+	return {baseUrl: a};
+};
 var _user$project$RestDojo_Main$Model = F3(
 	function (a, b, c) {
 		return {billboard: a, teams: b, events: c};
@@ -8979,20 +8983,30 @@ var _user$project$RestDojo_Main$BillboardLoadFailed = function (a) {
 var _user$project$RestDojo_Main$BillboardLoadSucceed = function (a) {
 	return {ctor: 'BillboardLoadSucceed', _0: a};
 };
-var _user$project$RestDojo_Main$initBillboard = A3(_elm_lang$core$Task$perform, _user$project$RestDojo_Main$BillboardLoadFailed, _user$project$RestDojo_Main$BillboardLoadSucceed, _user$project$RestDojo_API$getBillboard);
-var _user$project$RestDojo_Main$initModel = A2(
-	_elm_lang$core$Platform_Cmd_ops['!'],
-	{
-		billboard: A2(_user$project$RestDojo_Types$Billboard, '', ''),
-		teams: _elm_lang$core$Native_List.fromArray(
-			[]),
-		events: _elm_lang$core$Native_List.fromArray(
-			[])
-	},
-	_elm_lang$core$Native_List.fromArray(
-		[_user$project$RestDojo_Main$initBillboard]));
+var _user$project$RestDojo_Main$initBillboard = function (url) {
+	return A3(
+		_elm_lang$core$Task$perform,
+		_user$project$RestDojo_Main$BillboardLoadFailed,
+		_user$project$RestDojo_Main$BillboardLoadSucceed,
+		_user$project$RestDojo_API$getBillboard(url));
+};
+var _user$project$RestDojo_Main$initModel = function (flags) {
+	return A2(
+		_elm_lang$core$Platform_Cmd_ops['!'],
+		{
+			billboard: A2(_user$project$RestDojo_Types$Billboard, '', ''),
+			teams: _elm_lang$core$Native_List.fromArray(
+				[]),
+			events: _elm_lang$core$Native_List.fromArray(
+				[])
+		},
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$RestDojo_Main$initBillboard(flags.baseUrl)
+			]));
+};
 var _user$project$RestDojo_Main$main = {
-	main: _elm_lang$html$Html_App$program(
+	main: _elm_lang$html$Html_App$programWithFlags(
 		{
 			init: _user$project$RestDojo_Main$initModel,
 			update: _user$project$RestDojo_Main$update,
@@ -9000,6 +9014,13 @@ var _user$project$RestDojo_Main$main = {
 			subscriptions: function (_p7) {
 				return _elm_lang$core$Platform_Sub$none;
 			}
+		}),
+	flags: A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'baseUrl', _elm_lang$core$Json_Decode$string),
+		function (baseUrl) {
+			return _elm_lang$core$Json_Decode$succeed(
+				{baseUrl: baseUrl});
 		})
 };
 
