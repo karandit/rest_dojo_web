@@ -11,7 +11,7 @@ import RestDojo.Types exposing (..)
 
 apiUrl : String
 apiUrl =
-    "/api"
+    "/rest_dojo_web/api"
 
 
 getTeams : Task Error (List Team)
