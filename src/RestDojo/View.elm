@@ -73,7 +73,7 @@ viewDojoPage dojo =
     [ section []
         [ viewTeams dojo.teams
         , viewPoints dojo.teams
-        , viewEvents dojo.events
+        , viewEvents dojo
         ]
     ]
 
@@ -138,27 +138,27 @@ viewPoints teams =
         ]
 
 
-viewEvents : List Event -> Html Msg
-viewEvents events =
+viewEvents : Dojo -> Html Msg
+viewEvents dojo =
     let
         h2Events =
             h2 [] [ text "Events" ]
 
         divEvents =
-            List.map viewEvent events
+            List.map (viewEvent dojo.id) dojo.events
     in
         article [] <| h2Events :: divEvents
 
 
-viewEvent : Event -> Html Msg
-viewEvent event =
+viewEvent : DojoId -> Event -> Html Msg
+viewEvent dojoId event =
     case event of
-        GameWonBy winnerTeam ->
-            viewEventGameWonBy winnerTeam
+        GameWonBy gameId winnerTeam ->
+            viewEventGameWonBy dojoId gameId winnerTeam
 
 
-viewEventGameWonBy : Maybe Team -> Html Msg
-viewEventGameWonBy team =
+viewEventGameWonBy : DojoId -> GameId -> Maybe Team -> Html Msg
+viewEventGameWonBy dojoId gameId team =
     let
         label =
             case team of
@@ -180,7 +180,7 @@ viewEventGameWonBy team =
     in
         div [ class "rd-team" ]
             [ span [ class "rd-team-name" ]
-                [ a [ href "" ] [ text "Game" ]
+                [ button [ onClick <| SelectGame dojoId gameId ] [ text "Game" ]
                 , text label
                 ]
             , img avatarAttr []

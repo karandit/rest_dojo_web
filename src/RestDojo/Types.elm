@@ -35,8 +35,12 @@ type alias Team =
     }
 
 
+type alias GameId =
+    Int
+
+
 type Event
-    = GameWonBy (Maybe Team)
+    = GameWonBy GameId (Maybe Team)
 
 
 type alias Billboard =
@@ -55,6 +59,7 @@ type Msg
     = BillboardLoadSucceed Billboard
     | DojosLoadSucceed (List Dojo)
     | SelectDojo Dojo
+    | SelectGame DojoId GameId
     | TeamsLoadSucceed Dojo (List Team)
     | EventsLoadSucceed Dojo (List Event)
     | ErrorOccured Http.Error
