@@ -112,7 +112,7 @@ gameDecoder =
         )
         ("bots"
             := Json.list
-                (Json.object3
+                (Json.object4
                     Bot
                     ("teamId" := Json.int)
                     ("persons" := Json.list personDecoder)
