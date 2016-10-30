@@ -32,11 +32,9 @@ main =
 
 initModel : Flags -> ( Model, Cmd Msg )
 initModel flags =
-    { billboard = Billboard "" "" ""
+    { billboard = Billboard ""
     , route = HomeRoute
     , dojos = []
-    , teams = []
-    , events = []
     }
         ! [ initBillboard flags.baseUrl ]
 
@@ -51,14 +49,14 @@ initDojos url =
     Task.perform ErrorOccured DojosLoadSucceed (API.getDojos url)
 
 
-initTeams : String -> Cmd Msg
-initTeams url =
-    Task.perform ErrorOccured TeamsLoadSucceed (API.getTeams url)
+initTeams : Dojo -> Cmd Msg
+initTeams dojo =
+    Task.perform ErrorOccured (TeamsLoadSucceed dojo) (API.getTeams dojo.teamsUrl)
 
 
-initEvents : String -> List Team -> Cmd Msg
-initEvents url teams =
-    Task.perform ErrorOccured EventsLoadSucceed (API.getEvents url teams)
+initEvents : Dojo -> List Team -> Cmd Msg
+initEvents dojo teams =
+    Task.perform ErrorOccured (EventsLoadSucceed dojo) (API.getEvents dojo.eventsUrl teams)
 
 
 
@@ -69,19 +67,30 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "msg" msg of
         BillboardLoadSucceed billboard ->
-            { model | billboard = billboard } ! [ initTeams billboard.teamsUrl, initDojos billboard.dojosUrl ]
+            { model | billboard = billboard } ! [ initDojos billboard.dojosUrl ]
 
         DojosLoadSucceed loadedDojos ->
             { model | dojos = loadedDojos } ! []
 
-        TeamsLoadSucceed loadedTeams ->
-            { model | teams = loadedTeams } ! [ initEvents model.billboard.eventsUrl loadedTeams ]
-
-        EventsLoadSucceed loadedEvents ->
-            { model | events = loadedEvents } ! []
-
         SelectDojo dojo ->
-            { model | route = DojoRoute dojo } ! []
+            { model | route = DojoRoute dojo.id } ! [ initTeams dojo ]
+
+        TeamsLoadSucceed oldDojo loadedTeams ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
+
+        EventsLoadSucceed oldDojo loadedEvents ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
         _ ->
             model ! []
+
+
+updateDojo dojoId updater dojos =
+    dojos
+        |> List.map
+            (\dojo ->
+                if dojo.id == dojoId then
+                    updater dojo
+                else
+                    dojo
+            )

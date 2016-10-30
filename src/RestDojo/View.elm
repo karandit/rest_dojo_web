@@ -18,19 +18,23 @@ view model =
 
 viewHeader : Model -> List (Html Msg)
 viewHeader model =
-    [ viewBreadcrumbs model.route ]
+    [ viewBreadcrumbs model ]
 
 
-viewBreadcrumbs : Route -> Html Msg
-viewBreadcrumbs route =
+viewBreadcrumbs : Model -> Html Msg
+viewBreadcrumbs model =
     let
         breadcrumbs =
-            case route of
+            case model.route of
                 HomeRoute ->
                     [ text "Rest Dojo" ]
 
-                DojoRoute dojo ->
-                    [ text "Rest Dojo", text " \\ ", text dojo.label ]
+                DojoRoute dojoId ->
+                    let
+                        dojoLabel =
+                            model.dojos |> List.filter (\dojo -> dojo.id == dojoId) |> List.head |> Maybe.map .label |> Maybe.withDefault "Unknow dojo"
+                    in
+                        [ text "Rest Dojo", text " \\ ", text dojoLabel ]
     in
         header []
             [ h1 [] breadcrumbs
@@ -43,8 +47,17 @@ viewContent model =
         HomeRoute ->
             viewHomePage model.dojos
 
-        DojoRoute dojo ->
-            viewDojoPage model dojo
+        DojoRoute dojoId ->
+            let
+                foundDojo =
+                    model.dojos |> List.filter (\dojo -> dojo.id == dojoId) |> List.head
+            in
+                case foundDojo of
+                    Just dojo ->
+                        viewDojoPage dojo
+
+                    Nothing ->
+                        viewNotFound
 
 
 viewHomePage : List Dojo -> List (Html Msg)
@@ -55,12 +68,12 @@ viewHomePage dojos =
     ]
 
 
-viewDojoPage : Model -> Dojo -> List (Html Msg)
-viewDojoPage model dojo =
+viewDojoPage : Dojo -> List (Html Msg)
+viewDojoPage dojo =
     [ section []
-        [ viewTeams model.teams
-        , viewPoints model.teams
-        , viewEvents model.events
+        [ viewTeams dojo.teams
+        , viewPoints dojo.teams
+        , viewEvents dojo.events
         ]
     ]
 
@@ -72,7 +85,9 @@ viewDojos label state dojos =
             h2 [] [ text label ]
 
         divDojos =
-            List.map viewDojo <| List.filter (\dojo -> dojo.state == state) dojos
+            dojos
+                |> List.filter (\dojo -> dojo.state == state)
+                |> List.map viewDojo
     in
         article [] <| h2Dojos :: divDojos
 
@@ -170,6 +185,11 @@ viewEventGameWonBy team =
                 ]
             , img avatarAttr []
             ]
+
+
+viewNotFound : List (Html Msg)
+viewNotFound =
+    [ div [] [ text "Not Found" ] ]
 
 
 avatar : String -> String

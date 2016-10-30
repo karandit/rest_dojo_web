@@ -5,7 +5,7 @@ import Http
 
 type Route
     = HomeRoute
-    | DojoRoute Dojo
+    | DojoRoute DojoId
 
 
 type alias DojoId =
@@ -13,9 +13,13 @@ type alias DojoId =
 
 
 type alias Dojo =
-    { id : TeamId
+    { teams : List Team
+    , events : List Event
+    , id : TeamId
     , label : String
     , state : String
+    , teamsUrl : String
+    , eventsUrl : String
     }
 
 
@@ -37,8 +41,6 @@ type Event
 
 type alias Billboard =
     { dojosUrl : String
-    , teamsUrl : String
-    , eventsUrl : String
     }
 
 
@@ -46,8 +48,6 @@ type alias Model =
     { billboard : Billboard
     , route : Route
     , dojos : List Dojo
-    , teams : List Team
-    , events : List Event
     }
 
 
@@ -55,6 +55,6 @@ type Msg
     = BillboardLoadSucceed Billboard
     | DojosLoadSucceed (List Dojo)
     | SelectDojo Dojo
-    | TeamsLoadSucceed (List Team)
-    | EventsLoadSucceed (List Event)
+    | TeamsLoadSucceed Dojo (List Team)
+    | EventsLoadSucceed Dojo (List Event)
     | ErrorOccured Http.Error

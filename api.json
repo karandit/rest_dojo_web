@@ -1,55 +1,169 @@
 {
   "billboard": {
-    "dojos": "http://localhost:3000/dojos",
-    "teams": "http://localhost:3000/teams",
-    "events": "http://localhost:3000/events"
+    "dojos": "http://localhost:3000/dojos"
   },
   "dojos": [
-    { "id": 8, "label": "2016-05-01", "state": "past"},
-    { "id": 9, "label": "2016-05-02", "state": "past"},
-    { "id": 11, "label": "2016-10-29", "state": "running"},
-    { "id": 12, "label": "2016-12-06", "state": "upcoming"}
+    {
+      "id": 8,
+      "label": "2016-05-01 Air",
+      "state": "past",
+      "teamsUrl": "http://localhost:3000/dojos/8/teams",
+      "eventsUrl": "http://localhost:3000/dojos/8/events"
+    },
+    {
+      "id": 9,
+      "label": "2016-05-02 US Presidents",
+      "state": "past",
+      "teamsUrl": "http://localhost:3000/dojos/9/teams",
+      "eventsUrl": "http://localhost:3000/dojos/9/events"
+    },
+    {
+      "id": 11,
+      "label": "2016-10-29 US States",
+      "state": "running",
+      "teamsUrl": "http://localhost:3000/dojos/11/teams",
+      "eventsUrl": "http://localhost:3000/dojos/11/events"
+    }
   ],
   "teams":  [
       { "id": 1,
+        "dojoId": 8,
         "name": "Alpha",
         "descr" : "ver 0.1",
         "points": 145
       },
       { "id": 2,
+        "dojoId": 8,
         "name": "Bravo",
         "descr" : "ver 0.100",
         "points": 68
       },
       { "id": 3,
+        "dojoId": 8,
         "name": "Charlie",
         "descr" : "ver 0.3",
         "points": 362
       },
       { "id": 4,
+        "dojoId": 8,
         "name": "Delta",
         "descr" : "blabla",
         "points": 68
       },
       { "id": 5,
+        "dojoId": 8,
         "name": "Echo",
         "descr" : "ver 0.6",
         "points": 21
       },
       { "id": 6,
+        "dojoId": 8,
         "name": "Foxtrot",
         "descr" : "ver 0.1.99",
         "points": 247
+      },
+
+      { "id": 1,
+        "dojoId": 9,
+        "name": "Washington",
+        "descr" : "ver first",
+        "points": 45
+      },
+      { "id": 2,
+        "dojoId": 9,
+        "name": "Jefferson",
+        "descr" : "ver 0.100",
+        "points": 24
+      },
+      { "id": 3,
+        "dojoId": 9,
+        "name": "Lincoln",
+        "descr" : "ver 0.3",
+        "points": 11
+      },
+      { "id": 4,
+        "dojoId": 9,
+        "name": "Grant",
+        "descr" : "blabla",
+        "points": 101
+      },
+      { "id": 5,
+        "dojoId": 9,
+        "name": "Roosevelt",
+        "descr" : "ver 0.6",
+        "points": 37
+      },
+      { "id": 6,
+        "dojoId": 9,
+        "name": "Kennedy",
+        "descr" : "ver 0.1.99",
+        "points": 57
+      },
+
+      { "id": 1,
+        "dojoId": 11,
+        "name": "Alabama",
+        "descr" : "ver first",
+        "points": 201
+      },
+      { "id": 2,
+        "dojoId": 11,
+        "name": "Connecticut",
+        "descr" : "ver 0.100",
+        "points": 310
+      },
+      { "id": 3,
+        "dojoId": 11,
+        "name": "Florida",
+        "descr" : "ver 0.3",
+        "points": 109
+      },
+      { "id": 4,
+        "dojoId": 11,
+        "name": "Nebraska",
+        "descr" : "blabla",
+        "points": 156
+      },
+      { "id": 5,
+        "dojoId": 11,
+        "name": "Oklahoma",
+        "descr" : "ver 0.6",
+        "points": 210
+      },
+      { "id": 6,
+        "dojoId": 11,
+        "name": "Utah",
+        "descr" : "ver 0.1.99",
+        "points": 315
       }
+
     ],
   "events": [
-    {"gameWonBy": 1},
-    {"gameWonBy": 2},
-    {"gameWonBy": 3},
-    {"gameWonBy": 3},
-    {"gameWonBy": 22},
-    {"gameWonBy": 3},
-    {"gameWonBy": 3},
-    {"gameWonBy": 2}
+    {"gameWonBy": 1, "dojoId": 8},
+    {"gameWonBy": 1, "dojoId": 8},
+    {"gameWonBy": 2, "dojoId": 8},
+    {"gameWonBy": 3, "dojoId": 8},
+    {"gameWonBy": 4, "dojoId": 8},
+    {"gameWonBy": 4, "dojoId": 8},
+    {"gameWonBy": 4, "dojoId": 8},
+    {"gameWonBy": 1, "dojoId": 8},
+
+    {"gameWonBy": 1, "dojoId": 9},
+    {"gameWonBy": 1, "dojoId": 9},
+    {"gameWonBy": 2, "dojoId": 9},
+    {"gameWonBy": 3, "dojoId": 9},
+    {"gameWonBy": 4, "dojoId": 9},
+    {"gameWonBy": 4, "dojoId": 9},
+    {"gameWonBy": 4, "dojoId": 9},
+    {"gameWonBy": 1, "dojoId": 9},
+
+    {"gameWonBy": 1, "dojoId": 11},
+    {"gameWonBy": 1, "dojoId": 11},
+    {"gameWonBy": 2, "dojoId": 11},
+    {"gameWonBy": 3, "dojoId": 11},
+    {"gameWonBy": 4, "dojoId": 11},
+    {"gameWonBy": 4, "dojoId": 11},
+    {"gameWonBy": 4, "dojoId": 11},
+    {"gameWonBy": 1, "dojoId": 11}
   ]
 }

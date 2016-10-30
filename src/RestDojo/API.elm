@@ -40,19 +40,19 @@ getEvents url teams =
 
 billboardDecoder : Decoder Billboard
 billboardDecoder =
-    Json.object3 Billboard
+    Json.object1 Billboard
         ("dojos" := Json.string)
-        ("teams" := Json.string)
-        ("events" := Json.string)
 
 
 dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
     Json.list <|
-        Json.object3 Dojo
+        Json.object5 (Dojo [] [])
             ("id" := Json.int)
             ("label" := Json.string)
             ("state" := Json.string)
+            ("teamsUrl" := Json.string)
+            ("eventsUrl" := Json.string)
 
 
 teamsDecoder : Decoder (List Team)
