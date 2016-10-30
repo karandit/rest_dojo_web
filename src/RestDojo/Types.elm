@@ -1,5 +1,7 @@
 module RestDojo.Types exposing (..)
 
+import Http
+
 
 type Route
     = HomeRoute
@@ -38,3 +40,20 @@ type alias Billboard =
     , teamsUrl : String
     , eventsUrl : String
     }
+
+
+type alias Model =
+    { billboard : Billboard
+    , route : Route
+    , dojos : List Dojo
+    , teams : List Team
+    , events : List Event
+    }
+
+
+type Msg
+    = BillboardLoadSucceed Billboard
+    | DojosLoadSucceed (List Dojo)
+    | TeamsLoadSucceed (List Team)
+    | EventsLoadSucceed (List Event)
+    | ErrorOccured Http.Error
