@@ -57,16 +57,12 @@ dojosDecoder =
 
 teamsDecoder : Decoder (List Team)
 teamsDecoder =
-    Json.list teamDecoder
-
-
-teamDecoder : Decoder Team
-teamDecoder =
-    Json.object4 Team
-        ("id" := Json.int)
-        ("name" := Json.string)
-        ("descr" := Json.string)
-        ("points" := Json.int)
+    Json.list <|
+        Json.object4 Team
+            ("id" := Json.int)
+            ("name" := Json.string)
+            ("descr" := Json.string)
+            ("points" := Json.int)
 
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)
