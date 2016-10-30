@@ -23,9 +23,18 @@ viewHeader model =
 
 viewBreadcrumbs : Route -> Html Msg
 viewBreadcrumbs route =
-    header []
-        [ h1 [] [ text "Rest Dojo" ]
-        ]
+    let
+        breadcrumbs =
+            case route of
+                HomeRoute ->
+                    [ text "Rest Dojo" ]
+
+                DojoRoute dojo ->
+                    [ text "Rest Dojo", text " \\ ", text dojo.label ]
+    in
+        header []
+            [ h1 [] breadcrumbs
+            ]
 
 
 viewContent : Model -> List (Html Msg)
