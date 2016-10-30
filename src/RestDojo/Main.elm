@@ -134,7 +134,7 @@ viewTeam : Team -> Html Msg
 viewTeam team =
     div [ class "rd-team" ]
         [ img
-            [ src <| "https://robohash.org/" ++ team.name
+            [ src <| avatar team.name
             , class <| "rd-team-avatar rd-team-" ++ toString team.id
             ]
             []
@@ -185,7 +185,7 @@ viewEventGameWonBy team =
         avatarAttr =
             case team of
                 Just winnerTeam ->
-                    [ src <| "https://robohash.org/" ++ winnerTeam.name
+                    [ src <| avatar winnerTeam.name
                     , class <| "rd-team-avatar rd-team-" ++ toString winnerTeam.id
                     ]
 
@@ -199,3 +199,8 @@ viewEventGameWonBy team =
                 ]
             , img avatarAttr []
             ]
+
+
+avatar : String -> String
+avatar name =
+    "http://robohash.herokuapp.com/" ++ name ++ ".png"
