@@ -1,0 +1,33 @@
+[
+  { "id": 1,
+    "name": "Washington",
+    "descr" : "ver first",
+    "points": 45
+  },
+  { "id": 2,
+    "name": "Jefferson",
+    "descr" : "ver 0.100",
+    "points": 24
+  },
+  { "id": 3,
+    "name": "Lincoln",
+    "descr" : "ver 0.3",
+    "points": 11
+  },
+  { "id": 4,
+    "name": "Grant",
+    "descr" : "blabla",
+    "points": 101
+  },
+  { "id": 5,
+    "name": "Roosevelt",
+    "descr" : "ver 0.6",
+    "points": 37
+  },
+  { "id": 6,
+    "name": "Kennedy",
+    "descr" : "ver 0.1.99",
+    "points": 57
+  }
+
+]

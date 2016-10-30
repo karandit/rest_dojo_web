@@ -8245,6 +8245,107 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode_ops[':='], 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['target', 'checked']),
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['target', 'value']),
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 //import Dict, List, Maybe, Native.Scheduler //
 
 var _evancz$elm_http$Native_Http = function() {
@@ -8603,16 +8704,47 @@ var _evancz$elm_http$Http$post = F3(
 			A2(_evancz$elm_http$Http$send, _evancz$elm_http$Http$defaultSettings, request));
 	});
 
+var _user$project$RestDojo_Types$Dojo = F7(
+	function (a, b, c, d, e, f, g) {
+		return {teams: a, events: b, id: c, label: d, state: e, teamsUrl: f, eventsUrl: g};
+	});
 var _user$project$RestDojo_Types$Team = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, descr: c, points: d};
 	});
-var _user$project$RestDojo_Types$Billboard = F2(
-	function (a, b) {
-		return {teamsUrl: a, eventsUrl: b};
+var _user$project$RestDojo_Types$Billboard = function (a) {
+	return {dojosUrl: a};
+};
+var _user$project$RestDojo_Types$Model = F3(
+	function (a, b, c) {
+		return {billboard: a, route: b, dojos: c};
 	});
+var _user$project$RestDojo_Types$DojoRoute = function (a) {
+	return {ctor: 'DojoRoute', _0: a};
+};
+var _user$project$RestDojo_Types$HomeRoute = {ctor: 'HomeRoute'};
 var _user$project$RestDojo_Types$GameWonBy = function (a) {
 	return {ctor: 'GameWonBy', _0: a};
+};
+var _user$project$RestDojo_Types$ErrorOccured = function (a) {
+	return {ctor: 'ErrorOccured', _0: a};
+};
+var _user$project$RestDojo_Types$EventsLoadSucceed = F2(
+	function (a, b) {
+		return {ctor: 'EventsLoadSucceed', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$TeamsLoadSucceed = F2(
+	function (a, b) {
+		return {ctor: 'TeamsLoadSucceed', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$SelectDojo = function (a) {
+	return {ctor: 'SelectDojo', _0: a};
+};
+var _user$project$RestDojo_Types$DojosLoadSucceed = function (a) {
+	return {ctor: 'DojosLoadSucceed', _0: a};
+};
+var _user$project$RestDojo_Types$BillboardLoadSucceed = function (a) {
+	return {ctor: 'BillboardLoadSucceed', _0: a};
 };
 
 var _user$project$RestDojo_API$eventDecoder = function (teamsByTeamId) {
@@ -8636,11 +8768,24 @@ var _user$project$RestDojo_API$teamDecoder = A5(
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'descr', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'points', _elm_lang$core$Json_Decode$int));
 var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
-var _user$project$RestDojo_API$billboardDecoder = A3(
-	_elm_lang$core$Json_Decode$object2,
+var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
+	A6(
+		_elm_lang$core$Json_Decode$object5,
+		A2(
+			_user$project$RestDojo_Types$Dojo,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[])),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'label', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'state', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'teamsUrl', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'eventsUrl', _elm_lang$core$Json_Decode$string)));
+var _user$project$RestDojo_API$billboardDecoder = A2(
+	_elm_lang$core$Json_Decode$object1,
 	_user$project$RestDojo_Types$Billboard,
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'teams', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'events', _elm_lang$core$Json_Decode$string));
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'dojos', _elm_lang$core$Json_Decode$string));
 var _user$project$RestDojo_API$getEvents = F2(
 	function (url, teams) {
 		var teamsByTeamId = _elm_lang$core$Dict$fromList(
@@ -8658,11 +8803,31 @@ var _user$project$RestDojo_API$getEvents = F2(
 var _user$project$RestDojo_API$getTeams = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$teamsDecoder, url);
 };
+var _user$project$RestDojo_API$getDojos = function (url) {
+	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$dojosDecoder, url);
+};
 var _user$project$RestDojo_API$getBillboard = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, url);
 };
 
-var _user$project$RestDojo_Main$viewEventGameWonBy = function (team) {
+var _user$project$RestDojo_View$avatar = function (name) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'http://robohash.herokuapp.com/',
+		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
+};
+var _user$project$RestDojo_View$viewNotFound = _elm_lang$core$Native_List.fromArray(
+	[
+		A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html$text('Not Found')
+			]))
+	]);
+var _user$project$RestDojo_View$viewEventGameWonBy = function (team) {
 	var avatarAttr = function () {
 		var _p0 = team;
 		if (_p0.ctor === 'Just') {
@@ -8670,7 +8835,7 @@ var _user$project$RestDojo_Main$viewEventGameWonBy = function (team) {
 			return _elm_lang$core$Native_List.fromArray(
 				[
 					_elm_lang$html$Html_Attributes$src(
-					A2(_elm_lang$core$Basics_ops['++'], 'https://robohash.org/', _p1.name)),
+					_user$project$RestDojo_View$avatar(_p1.name)),
 					_elm_lang$html$Html_Attributes$class(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
@@ -8727,12 +8892,12 @@ var _user$project$RestDojo_Main$viewEventGameWonBy = function (team) {
 					[]))
 			]));
 };
-var _user$project$RestDojo_Main$viewEvent = function (event) {
+var _user$project$RestDojo_View$viewEvent = function (event) {
 	var _p3 = event;
-	return _user$project$RestDojo_Main$viewEventGameWonBy(_p3._0);
+	return _user$project$RestDojo_View$viewEventGameWonBy(_p3._0);
 };
-var _user$project$RestDojo_Main$viewEvents = function (events) {
-	var divEvents = A2(_elm_lang$core$List$map, _user$project$RestDojo_Main$viewEvent, events);
+var _user$project$RestDojo_View$viewEvents = function (events) {
+	var divEvents = A2(_elm_lang$core$List$map, _user$project$RestDojo_View$viewEvent, events);
 	var h2Events = A2(
 		_elm_lang$html$Html$h2,
 		_elm_lang$core$Native_List.fromArray(
@@ -8747,7 +8912,7 @@ var _user$project$RestDojo_Main$viewEvents = function (events) {
 			[]),
 		A2(_elm_lang$core$List_ops['::'], h2Events, divEvents));
 };
-var _user$project$RestDojo_Main$viewPoints = function (teams) {
+var _user$project$RestDojo_View$viewPoints = function (teams) {
 	return A2(
 		_elm_lang$html$Html$article,
 		_elm_lang$core$Native_List.fromArray(
@@ -8781,7 +8946,7 @@ var _user$project$RestDojo_Main$viewPoints = function (teams) {
 					]))
 			]));
 };
-var _user$project$RestDojo_Main$viewTeam = function (team) {
+var _user$project$RestDojo_View$viewTeam = function (team) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -8795,7 +8960,7 @@ var _user$project$RestDojo_Main$viewTeam = function (team) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$src(
-						A2(_elm_lang$core$Basics_ops['++'], 'https://robohash.org/', team.name)),
+						_user$project$RestDojo_View$avatar(team.name)),
 						_elm_lang$html$Html_Attributes$class(
 						A2(
 							_elm_lang$core$Basics_ops['++'],
@@ -8841,10 +9006,10 @@ var _user$project$RestDojo_Main$viewTeam = function (team) {
 					]))
 			]));
 };
-var _user$project$RestDojo_Main$viewTeams = function (teams) {
+var _user$project$RestDojo_View$viewTeams = function (teams) {
 	var divTeams = A2(
 		_elm_lang$core$List$map,
-		_user$project$RestDojo_Main$viewTeam,
+		_user$project$RestDojo_View$viewTeam,
 		_elm_lang$core$List$reverse(
 			A2(
 				_elm_lang$core$List$sortBy,
@@ -8866,107 +9031,293 @@ var _user$project$RestDojo_Main$viewTeams = function (teams) {
 			[]),
 		A2(_elm_lang$core$List_ops['::'], h2Teams, divTeams));
 };
-var _user$project$RestDojo_Main$viewHeader = A2(
-	_elm_lang$html$Html$header,
-	_elm_lang$core$Native_List.fromArray(
-		[]),
-	_elm_lang$core$Native_List.fromArray(
-		[
+var _user$project$RestDojo_View$viewDojo = function (dojo) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('rd-team')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$img,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$src(
+						_user$project$RestDojo_View$avatar('aa')),
+						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('rd-team-name'),
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$RestDojo_Types$SelectDojo(dojo))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(dojo.label)
+					]))
+			]));
+};
+var _user$project$RestDojo_View$viewDojos = F3(
+	function (label, state, dojos) {
+		var divDojos = A2(
+			_elm_lang$core$List$map,
+			_user$project$RestDojo_View$viewDojo,
 			A2(
-			_elm_lang$html$Html$h1,
+				_elm_lang$core$List$filter,
+				function (dojo) {
+					return _elm_lang$core$Native_Utils.eq(dojo.state, state);
+				},
+				dojos));
+		var h2Dojos = A2(
+			_elm_lang$html$Html$h2,
 			_elm_lang$core$Native_List.fromArray(
 				[]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					_elm_lang$html$Html$text('Rest Dojo')
+					_elm_lang$html$Html$text(label)
+				]));
+		return A2(
+			_elm_lang$html$Html$article,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(_elm_lang$core$List_ops['::'], h2Dojos, divDojos));
+	});
+var _user$project$RestDojo_View$viewDojoPage = function (dojo) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$section,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_user$project$RestDojo_View$viewTeams(dojo.teams),
+					_user$project$RestDojo_View$viewPoints(dojo.teams),
+					_user$project$RestDojo_View$viewEvents(dojo.events)
 				]))
-		]));
-var _user$project$RestDojo_Main$view = function (model) {
+		]);
+};
+var _user$project$RestDojo_View$viewHomePage = function (dojos) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$section,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A3(_user$project$RestDojo_View$viewDojos, 'Running Dojos', 'running', dojos)
+				])),
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[])),
+			A2(
+			_elm_lang$html$Html$section,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A3(_user$project$RestDojo_View$viewDojos, 'Past Dojos', 'past', dojos)
+				]))
+		]);
+};
+var _user$project$RestDojo_View$viewContent = function (model) {
+	var _p4 = model.route;
+	if (_p4.ctor === 'HomeRoute') {
+		return _user$project$RestDojo_View$viewHomePage(model.dojos);
+	} else {
+		var foundDojo = _elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$filter,
+				function (dojo) {
+					return _elm_lang$core$Native_Utils.eq(dojo.id, _p4._0);
+				},
+				model.dojos));
+		var _p5 = foundDojo;
+		if (_p5.ctor === 'Just') {
+			return _user$project$RestDojo_View$viewDojoPage(_p5._0);
+		} else {
+			return _user$project$RestDojo_View$viewNotFound;
+		}
+	}
+};
+var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
+	var breadcrumbs = function () {
+		var _p6 = model.route;
+		if (_p6.ctor === 'HomeRoute') {
+			return _elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text('Rest Dojo')
+				]);
+		} else {
+			var dojoLabel = A2(
+				_elm_lang$core$Maybe$withDefault,
+				'Unknow dojo',
+				A2(
+					_elm_lang$core$Maybe$map,
+					function (_) {
+						return _.label;
+					},
+					_elm_lang$core$List$head(
+						A2(
+							_elm_lang$core$List$filter,
+							function (dojo) {
+								return _elm_lang$core$Native_Utils.eq(dojo.id, _p6._0);
+							},
+							model.dojos))));
+			return _elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text('Rest Dojo'),
+					_elm_lang$html$Html$text(' \\ '),
+					_elm_lang$html$Html$text(dojoLabel)
+				]);
+		}
+	}();
 	return A2(
-		_elm_lang$html$Html$div,
+		_elm_lang$html$Html$header,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_user$project$RestDojo_Main$viewHeader,
 				A2(
-				_elm_lang$html$Html$section,
+				_elm_lang$html$Html$h1,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_user$project$RestDojo_Main$viewTeams(model.teams),
-						_user$project$RestDojo_Main$viewPoints(model.teams),
-						_user$project$RestDojo_Main$viewEvents(model.events)
-					]))
+				breadcrumbs)
 			]));
 };
-var _user$project$RestDojo_Main$Flags = function (a) {
-	return {baseUrl: a};
+var _user$project$RestDojo_View$viewHeader = function (model) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			_user$project$RestDojo_View$viewBreadcrumbs(model)
+		]);
 };
-var _user$project$RestDojo_Main$Model = F3(
-	function (a, b, c) {
-		return {billboard: a, teams: b, events: c};
+var _user$project$RestDojo_View$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_user$project$RestDojo_View$viewHeader(model),
+			_user$project$RestDojo_View$viewContent(model)));
+};
+
+var _user$project$RestDojo_Main$updateDojo = F3(
+	function (dojoId, updater, dojos) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (dojo) {
+				return _elm_lang$core$Native_Utils.eq(dojo.id, dojoId) ? updater(dojo) : dojo;
+			},
+			dojos);
 	});
-var _user$project$RestDojo_Main$EventsLoadFailed = function (a) {
-	return {ctor: 'EventsLoadFailed', _0: a};
-};
-var _user$project$RestDojo_Main$EventsLoadSucceed = function (a) {
-	return {ctor: 'EventsLoadSucceed', _0: a};
-};
 var _user$project$RestDojo_Main$initEvents = F2(
-	function (url, teams) {
+	function (dojo, teams) {
 		return A3(
 			_elm_lang$core$Task$perform,
-			_user$project$RestDojo_Main$EventsLoadFailed,
-			_user$project$RestDojo_Main$EventsLoadSucceed,
-			A2(_user$project$RestDojo_API$getEvents, url, teams));
+			_user$project$RestDojo_Types$ErrorOccured,
+			_user$project$RestDojo_Types$EventsLoadSucceed(dojo),
+			A2(_user$project$RestDojo_API$getEvents, dojo.eventsUrl, teams));
 	});
-var _user$project$RestDojo_Main$TeamsLoadFailed = function (a) {
-	return {ctor: 'TeamsLoadFailed', _0: a};
-};
-var _user$project$RestDojo_Main$TeamsLoadSucceed = function (a) {
-	return {ctor: 'TeamsLoadSucceed', _0: a};
-};
-var _user$project$RestDojo_Main$initTeams = function (url) {
+var _user$project$RestDojo_Main$initTeams = function (dojo) {
 	return A3(
 		_elm_lang$core$Task$perform,
-		_user$project$RestDojo_Main$TeamsLoadFailed,
-		_user$project$RestDojo_Main$TeamsLoadSucceed,
-		_user$project$RestDojo_API$getTeams(url));
+		_user$project$RestDojo_Types$ErrorOccured,
+		_user$project$RestDojo_Types$TeamsLoadSucceed(dojo),
+		_user$project$RestDojo_API$getTeams(dojo.teamsUrl));
+};
+var _user$project$RestDojo_Main$initDojos = function (url) {
+	return A3(
+		_elm_lang$core$Task$perform,
+		_user$project$RestDojo_Types$ErrorOccured,
+		_user$project$RestDojo_Types$DojosLoadSucceed,
+		_user$project$RestDojo_API$getDojos(url));
 };
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
-		var _p4 = A2(_elm_lang$core$Debug$log, 'msg', msg);
-		switch (_p4.ctor) {
+		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
+		switch (_p0.ctor) {
 			case 'BillboardLoadSucceed':
-				var _p5 = _p4._0;
+				var _p1 = _p0._0;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{billboard: _p5}),
+						{billboard: _p1}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$RestDojo_Main$initTeams(_p5.teamsUrl)
+							_user$project$RestDojo_Main$initDojos(_p1.dojosUrl)
+						]));
+			case 'DojosLoadSucceed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{dojos: _p0._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'SelectDojo':
+				var _p2 = _p0._0;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							route: _user$project$RestDojo_Types$DojoRoute(_p2.id)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$RestDojo_Main$initTeams(_p2)
 						]));
 			case 'TeamsLoadSucceed':
-				var _p6 = _p4._0;
+				var _p4 = _p0._0;
+				var _p3 = _p0._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{teams: _p6}),
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p4.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{teams: _p3});
+								},
+								model.dojos)
+						}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							A2(_user$project$RestDojo_Main$initEvents, model.billboard.eventsUrl, _p6)
+							A2(_user$project$RestDojo_Main$initEvents, _p4, _p3)
 						]));
 			case 'EventsLoadSucceed':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{events: _p4._0}),
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p0._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{events: _p0._1});
+								},
+								model.dojos)
+						}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			default:
@@ -8977,27 +9328,20 @@ var _user$project$RestDojo_Main$update = F2(
 						[]));
 		}
 	});
-var _user$project$RestDojo_Main$BillboardLoadFailed = function (a) {
-	return {ctor: 'BillboardLoadFailed', _0: a};
-};
-var _user$project$RestDojo_Main$BillboardLoadSucceed = function (a) {
-	return {ctor: 'BillboardLoadSucceed', _0: a};
-};
 var _user$project$RestDojo_Main$initBillboard = function (url) {
 	return A3(
 		_elm_lang$core$Task$perform,
-		_user$project$RestDojo_Main$BillboardLoadFailed,
-		_user$project$RestDojo_Main$BillboardLoadSucceed,
+		_user$project$RestDojo_Types$ErrorOccured,
+		_user$project$RestDojo_Types$BillboardLoadSucceed,
 		_user$project$RestDojo_API$getBillboard(url));
 };
 var _user$project$RestDojo_Main$initModel = function (flags) {
 	return A2(
 		_elm_lang$core$Platform_Cmd_ops['!'],
 		{
-			billboard: A2(_user$project$RestDojo_Types$Billboard, '', ''),
-			teams: _elm_lang$core$Native_List.fromArray(
-				[]),
-			events: _elm_lang$core$Native_List.fromArray(
+			billboard: _user$project$RestDojo_Types$Billboard(''),
+			route: _user$project$RestDojo_Types$HomeRoute,
+			dojos: _elm_lang$core$Native_List.fromArray(
 				[])
 		},
 		_elm_lang$core$Native_List.fromArray(
@@ -9010,8 +9354,8 @@ var _user$project$RestDojo_Main$main = {
 		{
 			init: _user$project$RestDojo_Main$initModel,
 			update: _user$project$RestDojo_Main$update,
-			view: _user$project$RestDojo_Main$view,
-			subscriptions: function (_p7) {
+			view: _user$project$RestDojo_View$view,
+			subscriptions: function (_p5) {
 				return _elm_lang$core$Platform_Sub$none;
 			}
 		}),
@@ -9022,6 +9366,9 @@ var _user$project$RestDojo_Main$main = {
 			return _elm_lang$core$Json_Decode$succeed(
 				{baseUrl: baseUrl});
 		})
+};
+var _user$project$RestDojo_Main$Flags = function (a) {
+	return {baseUrl: a};
 };
 
 var Elm = {};

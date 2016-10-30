@@ -1,4 +1,3 @@
 {
-  "teams": "/rest_dojo_web/api/teams.json",
-  "events": "/rest_dojo_web/api/events.json"
+  "dojos": "/rest_dojo_web/api/dojos.json"
 }
