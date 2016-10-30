@@ -139,32 +139,7 @@
 
     ],
   "events": [
-    {"gameWonBy": 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/101"},
-    {"gameWonBy": 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/102"},
-    {"gameWonBy": 2, "dojoId": 8, "gameUrl": "http://localhost:3000/games/103"},
-    {"gameWonBy": 3, "dojoId": 8, "gameUrl": "http://localhost:3000/games/104"},
-    {"gameWonBy": 4, "dojoId": 8, "gameUrl": "http://localhost:3000/games/105"},
-    {"gameWonBy" : 4, "dojoId": 8, "gameUrl": "http://localhost:3000/games/106"},
-    {"gameWonBy" : 4, "dojoId": 8, "gameUrl": "http://localhost:3000/games/107"},
-    {"gameWonBy" : 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/108"},
-
-    {"gameWonBy" : 1, "dojoId": 9, "gameUrl": "http://localhost:3000/games/201"},
-    {"gameWonBy" : 1, "dojoId": 9, "gameUrl": "http://localhost:3000/games/202"},
-    {"gameWonBy" : 2, "dojoId": 9, "gameUrl": "http://localhost:3000/games/203"},
-    {"gameWonBy" : 3, "dojoId": 9, "gameUrl": "http://localhost:3000/games/204"},
-    {"gameWonBy" : 4, "dojoId": 9, "gameUrl": "http://localhost:3000/games/205"},
-    {"gameWonBy" : 4, "dojoId": 9, "gameUrl": "http://localhost:3000/games/206"},
-    {"gameWonBy" : 4, "dojoId": 9, "gameUrl": "http://localhost:3000/games/207"},
-    {"gameWonBy" : 1, "dojoId": 9, "gameUrl": "http://localhost:3000/games/208"},
-
-    {"gameWonBy" : 1, "dojoId": 11, "gameUrl": "http://localhost:3000/games/301"},
-    {"gameWonBy" : 1, "dojoId": 11, "gameUrl": "http://localhost:3000/games/302"},
-    {"gameWonBy" : 2, "dojoId": 11, "gameUrl": "http://localhost:3000/games/303"},
-    {"gameWonBy" : 3, "dojoId": 11, "gameUrl": "http://localhost:3000/games/304"},
-    {"gameWonBy" : 4, "dojoId": 11, "gameUrl": "http://localhost:3000/games/305"},
-    {"gameWonBy" : 4, "dojoId": 11, "gameUrl": "http://localhost:3000/games/306"},
-    {"gameWonBy" : 4, "dojoId": 11, "gameUrl": "http://localhost:3000/games/307"},
-    {"gameWonBy" : 1, "dojoId": 11, "gameUrl": "http://localhost:3000/games/308"}
+    {"gameWonBy": 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/101"}
   ],
   "games": [
     {
@@ -174,7 +149,38 @@
         "location" : "Kitchen",
         "person" : "ColMustard"
       },
-      "bots": [1, 2, 3, 4, 5, 6]
+      "bots": [{
+        "teamId": 1,
+        "weapons": ["Candlestick", "IcePick"],
+        "locations" : ["Billiards"],
+        "persons" : []
+      }, {
+        "teamId": 2,
+        "weapons": ["Poison"],
+        "locations" : ["Conservatory", "Library"],
+        "persons" : []
+      }, {
+        "teamId": 3,
+        "weapons": [],
+        "locations" : ["Lounge"],
+        "persons" : ["MrsWhite", "MsPeacock"]
+      }, {
+        "teamId": 4,
+        "weapons": ["Poker"],
+        "locations" : ["Stairs"],
+        "persons" : ["MsScarlett"]
+      }, {
+        "teamId": 5,
+        "weapons": [],
+        "locations" : ["Studio", "BedRoom"],
+        "persons" : ["ProfPlum"]
+      }, {
+        "teamId": 6,
+        "weapons": ["Shears"],
+        "locations" : ["TrophyHall"],
+        "persons" : ["RevGreen"]
+      }],
+      "rounds": []
     }
   ]
 

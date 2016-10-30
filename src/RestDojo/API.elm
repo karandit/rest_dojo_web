@@ -93,23 +93,29 @@ teamsDecoder =
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)
 eventsDecoder teamsByTeamId =
-    Json.list <| eventDecoder teamsByTeamId
-
-
-eventDecoder : Dict TeamId Team -> Decoder Event
-eventDecoder teamsByTeamId =
-    Json.object2 (,)
-        ("gameUrl" := Json.string)
-        ("gameWonBy" := Json.int)
-        |> Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId))
+    Json.list <|
+        Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId)) <|
+            Json.object2 (,)
+                ("gameUrl" := Json.string)
+                ("gameWonBy" := Json.int)
 
 
 gameDecoder : Decoder Game
 gameDecoder =
-    Json.object2 Game
+    Json.object3 Game
         ("id" := Json.int)
-    <|
-        Json.object3 Question
-            ("person" := personDecoder)
-            ("weapon" := weaponDecoder)
-            ("location" := locationDecoder)
+        ("secret"
+            := Json.object3 Question
+                ("person" := personDecoder)
+                ("weapon" := weaponDecoder)
+                ("location" := locationDecoder)
+        )
+        ("bots"
+            := Json.list
+                (Json.object3
+                    Bot
+                    ("persons" := Json.list personDecoder)
+                    ("weapons" := Json.list weaponDecoder)
+                    ("locations" := Json.list locationDecoder)
+                )
+        )

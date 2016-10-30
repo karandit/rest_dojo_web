@@ -58,9 +58,18 @@ type alias Question =
     }
 
 
+type alias Bot =
+    { --team : Team
+      persons : List Person
+    , weapons : List Weapon
+    , locations : List Location
+    }
+
+
 type alias Game =
     { id : GameId
     , secret : Question
+    , bots : List Bot
     }
 
 
