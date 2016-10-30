@@ -75,6 +75,9 @@ update msg model =
         SelectDojo dojo ->
             { model | route = DojoRoute dojo.id } ! [ initTeams dojo ]
 
+        SelectGame dojoId gameId ->
+            { model | route = GameRoute dojoId gameId } ! []
+
         TeamsLoadSucceed oldDojo loadedTeams ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
 

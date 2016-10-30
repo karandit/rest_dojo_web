@@ -6,6 +6,7 @@ import Http
 type Route
     = HomeRoute
     | DojoRoute DojoId
+    | GameRoute DojoId GameId
 
 
 type alias DojoId =
