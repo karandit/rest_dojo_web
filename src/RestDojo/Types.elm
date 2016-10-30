@@ -1,6 +1,7 @@
 module RestDojo.Types exposing (..)
 
 import Http
+import RestDojo.Cluedo.CluedoTypes exposing (..)
 
 
 type Route
@@ -44,8 +45,16 @@ type alias GameId =
     Int
 
 
+type alias Question =
+    { person : Person
+    , weapon : Weapon
+    , location : Location
+    }
+
+
 type alias Game =
     { id : GameId
+    , secret : Question
     }
 
 

@@ -169,6 +169,11 @@
   "games": [
     {
       "id": 101,
+      "secret": {
+        "weapon": "Revolver",
+        "location" : "Kitchen",
+        "person" : "ColMustard"
+      },
       "bots": [1, 2, 3, 4, 5, 6]
     }
   ]

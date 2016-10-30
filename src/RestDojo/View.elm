@@ -6,6 +6,7 @@ import Html.Events exposing (onClick)
 import RestDojo.Types exposing (..)
 import RestDojo.ViewHome as ViewHome
 import RestDojo.ViewDojo as ViewDojo
+import RestDojo.Cluedo.CluedoView as ViewCluedo
 
 
 -- VIEW ----------------------------------------------------------------------------------------------------------------
@@ -72,7 +73,7 @@ viewContent model =
                         viewNotFound
 
         GameRoute dojoId game ->
-            viewNotFound
+            ViewCluedo.view game
 
 
 viewNotFound : List (Html Msg)

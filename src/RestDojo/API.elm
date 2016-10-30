@@ -5,6 +5,7 @@ import Json.Decode as Json exposing (..)
 import Http exposing (Error)
 import Task exposing (Task)
 import RestDojo.Types exposing (..)
+import RestDojo.Cluedo.CluedoTypes exposing (..)
 
 
 -- API end-points ------------------------------------------------------------------------------------------------------
@@ -85,5 +86,10 @@ eventDecoder teamsByTeamId =
 
 gameDecoder : Decoder Game
 gameDecoder =
-    Json.object1 Game
+    Json.object2 Game
         ("id" := Json.int)
+    <|
+        Json.object3 Question
+            ("person" := personDecoder)
+            ("weapon" := weaponDecoder)
+            ("location" := locationDecoder)
