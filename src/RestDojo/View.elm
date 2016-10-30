@@ -46,7 +46,7 @@ viewBreadcrumbs model =
                         dojoLabel =
                             foundDojo |> Maybe.map .label |> Maybe.withDefault "Unknow dojo"
                     in
-                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| toString game ]
+                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| toString game.id ]
     in
         header []
             [ h1 [] breadcrumbs

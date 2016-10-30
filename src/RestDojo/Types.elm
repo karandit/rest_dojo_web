@@ -40,8 +40,13 @@ type alias GameUrl =
     String
 
 
+type alias GameId =
+    Int
+
+
 type alias Game =
-    ()
+    { id : GameId
+    }
 
 
 type Event
@@ -64,7 +69,8 @@ type Msg
     = BillboardLoadSucceed Billboard
     | DojosLoadSucceed (List Dojo)
     | SelectDojo Dojo
-    | SelectGame DojoId GameUrl
+    | SelectGame Dojo GameUrl
+    | GameLoadSucceed Dojo Game
     | TeamsLoadSucceed Dojo (List Team)
     | EventsLoadSucceed Dojo (List Event)
     | ErrorOccured Http.Error

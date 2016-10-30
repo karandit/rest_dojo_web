@@ -1,4 +1,4 @@
-module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos)
+module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getGame)
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
@@ -32,6 +32,11 @@ getEvents url teams =
             Dict.fromList <| List.map (\team -> ( team.id, team )) teams
     in
         Http.get (eventsDecoder teamsByTeamId) url
+
+
+getGame : GameUrl -> Task Error Game
+getGame url =
+    Http.get gameDecoder url
 
 
 
@@ -76,3 +81,9 @@ eventDecoder teamsByTeamId =
         ("gameUrl" := Json.string)
         ("gameWonBy" := Json.int)
         |> Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId))
+
+
+gameDecoder : Decoder Game
+gameDecoder =
+    Json.object1 Game
+        ("id" := Json.int)

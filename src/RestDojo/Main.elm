@@ -59,6 +59,11 @@ initEvents dojo teams =
     Task.perform ErrorOccured (EventsLoadSucceed dojo) (API.getEvents dojo.eventsUrl teams)
 
 
+initGame : Dojo -> GameUrl -> Cmd Msg
+initGame dojo gameUrl =
+    Task.perform ErrorOccured (GameLoadSucceed dojo) (API.getGame gameUrl)
+
+
 
 -- UPDATE --------------------------------------------------------------------------------------------------------------
 
@@ -75,8 +80,11 @@ update msg model =
         SelectDojo dojo ->
             { model | route = DojoRoute dojo.id } ! [ initTeams dojo ]
 
-        SelectGame dojoId gameUrl ->
-            { model | route = GameRoute dojoId () } ! []
+        SelectGame dojo gameUrl ->
+            model ! [ initGame dojo gameUrl ]
+
+        GameLoadSucceed dojo game ->
+            { model | route = GameRoute dojo.id game } ! []
 
         TeamsLoadSucceed oldDojo loadedTeams ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]

@@ -60,20 +60,20 @@ viewEvents dojo =
             h2 [] [ text "Events" ]
 
         divEvents =
-            List.map (viewEvent dojo.id) dojo.events
+            List.map (viewEvent dojo) dojo.events
     in
         article [] <| h2Events :: divEvents
 
 
-viewEvent : DojoId -> Event -> Html Msg
-viewEvent dojoId event =
+viewEvent : Dojo -> Event -> Html Msg
+viewEvent dojo event =
     case event of
         GameWonBy gameUrl winnerTeam ->
-            viewEventGameWonBy dojoId gameUrl winnerTeam
+            viewEventGameWonBy dojo gameUrl winnerTeam
 
 
-viewEventGameWonBy : DojoId -> GameUrl -> Maybe Team -> Html Msg
-viewEventGameWonBy dojoId gameUrl team =
+viewEventGameWonBy : Dojo -> GameUrl -> Maybe Team -> Html Msg
+viewEventGameWonBy dojo gameUrl team =
     let
         label =
             case team of
@@ -95,7 +95,7 @@ viewEventGameWonBy dojoId gameUrl team =
     in
         div [ class "rd-team" ]
             [ span [ class "rd-team-name" ]
-                [ button [ onClick <| SelectGame dojoId gameUrl ] [ text "Game" ]
+                [ button [ onClick <| SelectGame dojo gameUrl ] [ text "Game" ]
                 , text label
                 ]
             , img avatarAttr []
