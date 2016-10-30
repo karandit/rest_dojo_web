@@ -8704,6 +8704,112 @@ var _evancz$elm_http$Http$post = F3(
 			A2(_evancz$elm_http$Http$send, _evancz$elm_http$Http$defaultSettings, request));
 	});
 
+var _user$project$RestDojo_Cluedo_CluedoTypes$TrophyHall = {ctor: 'TrophyHall'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Studio = {ctor: 'Studio'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Stairs = {ctor: 'Stairs'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Lounge = {ctor: 'Lounge'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Library = {ctor: 'Library'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Kitchen = {ctor: 'Kitchen'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Conservatory = {ctor: 'Conservatory'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Billiards = {ctor: 'Billiards'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$BedRoom = {ctor: 'BedRoom'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder = function () {
+	var decodeToType = function (string) {
+		var _p0 = string;
+		switch (_p0) {
+			case 'BedRoom':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$BedRoom);
+			case 'Billiards':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Billiards);
+			case 'Conservatory':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Conservatory);
+			case 'Kitchen':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Kitchen);
+			case 'Library':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Library);
+			case 'Lounge':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Lounge);
+			case 'Stairs':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Stairs);
+			case 'Studio':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Studio);
+			case 'TrophyHall':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$TrophyHall);
+			default:
+				return _elm_lang$core$Result$Err(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Not valid pattern for decoder to Weapon. Pattern: ',
+						_elm_lang$core$Basics$toString(string)));
+		}
+	};
+	return A2(_elm_lang$core$Json_Decode$customDecoder, _elm_lang$core$Json_Decode$string, decodeToType);
+}();
+var _user$project$RestDojo_Cluedo_CluedoTypes$RevGreen = {ctor: 'RevGreen'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$ProfPlum = {ctor: 'ProfPlum'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$MsScarlett = {ctor: 'MsScarlett'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$MsPeacock = {ctor: 'MsPeacock'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$MrsWhite = {ctor: 'MrsWhite'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$ColMustard = {ctor: 'ColMustard'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder = function () {
+	var decodeToType = function (string) {
+		var _p1 = string;
+		switch (_p1) {
+			case 'ColMustard':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$ColMustard);
+			case 'MrsWhite':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$MrsWhite);
+			case 'MsPeacock':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$MsPeacock);
+			case 'MsScarlett':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$MsScarlett);
+			case 'ProfPlum':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$ProfPlum);
+			case 'RevGreen':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$RevGreen);
+			default:
+				return _elm_lang$core$Result$Err(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Not valid pattern for decoder to Person. Pattern: ',
+						_elm_lang$core$Basics$toString(string)));
+		}
+	};
+	return A2(_elm_lang$core$Json_Decode$customDecoder, _elm_lang$core$Json_Decode$string, decodeToType);
+}();
+var _user$project$RestDojo_Cluedo_CluedoTypes$Shears = {ctor: 'Shears'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Revolver = {ctor: 'Revolver'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Poker = {ctor: 'Poker'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Poison = {ctor: 'Poison'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$IcePick = {ctor: 'IcePick'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$Candlestick = {ctor: 'Candlestick'};
+var _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder = function () {
+	var decodeToType = function (string) {
+		var _p2 = string;
+		switch (_p2) {
+			case 'Candlestick':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Candlestick);
+			case 'IcePick':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$IcePick);
+			case 'Poison':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Poison);
+			case 'Poker':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Poker);
+			case 'Revolver':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Revolver);
+			case 'Shears':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Cluedo_CluedoTypes$Shears);
+			default:
+				return _elm_lang$core$Result$Err(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Not valid pattern for decoder to Weapon. Pattern: ',
+						_elm_lang$core$Basics$toString(string)));
+		}
+	};
+	return A2(_elm_lang$core$Json_Decode$customDecoder, _elm_lang$core$Json_Decode$string, decodeToType);
+}();
+
 var _user$project$RestDojo_Types$Dojo = F7(
 	function (a, b, c, d, e, f, g) {
 		return {teams: a, events: b, id: c, label: d, state: e, teamsUrl: f, eventsUrl: g};
@@ -8712,6 +8818,18 @@ var _user$project$RestDojo_Types$Team = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, descr: c, points: d};
 	});
+var _user$project$RestDojo_Types$Question = F3(
+	function (a, b, c) {
+		return {person: a, weapon: b, location: c};
+	});
+var _user$project$RestDojo_Types$Bot = F4(
+	function (a, b, c, d) {
+		return {teamId: a, persons: b, weapons: c, locations: d};
+	});
+var _user$project$RestDojo_Types$Game = F3(
+	function (a, b, c) {
+		return {id: a, secret: b, bots: c};
+	});
 var _user$project$RestDojo_Types$Billboard = function (a) {
 	return {dojosUrl: a};
 };
@@ -8719,13 +8837,21 @@ var _user$project$RestDojo_Types$Model = F3(
 	function (a, b, c) {
 		return {billboard: a, route: b, dojos: c};
 	});
+var _user$project$RestDojo_Types$GameRoute = F2(
+	function (a, b) {
+		return {ctor: 'GameRoute', _0: a, _1: b};
+	});
 var _user$project$RestDojo_Types$DojoRoute = function (a) {
 	return {ctor: 'DojoRoute', _0: a};
 };
 var _user$project$RestDojo_Types$HomeRoute = {ctor: 'HomeRoute'};
-var _user$project$RestDojo_Types$GameWonBy = function (a) {
-	return {ctor: 'GameWonBy', _0: a};
-};
+var _user$project$RestDojo_Types$Upcoming = {ctor: 'Upcoming'};
+var _user$project$RestDojo_Types$Running = {ctor: 'Running'};
+var _user$project$RestDojo_Types$Past = {ctor: 'Past'};
+var _user$project$RestDojo_Types$GameWonBy = F2(
+	function (a, b) {
+		return {ctor: 'GameWonBy', _0: a, _1: b};
+	});
 var _user$project$RestDojo_Types$ErrorOccured = function (a) {
 	return {ctor: 'ErrorOccured', _0: a};
 };
@@ -8737,6 +8863,14 @@ var _user$project$RestDojo_Types$TeamsLoadSucceed = F2(
 	function (a, b) {
 		return {ctor: 'TeamsLoadSucceed', _0: a, _1: b};
 	});
+var _user$project$RestDojo_Types$GameLoadSucceed = F2(
+	function (a, b) {
+		return {ctor: 'GameLoadSucceed', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$SelectGame = F2(
+	function (a, b) {
+		return {ctor: 'SelectGame', _0: a, _1: b};
+	});
 var _user$project$RestDojo_Types$SelectDojo = function (a) {
 	return {ctor: 'SelectDojo', _0: a};
 };
@@ -8747,27 +8881,87 @@ var _user$project$RestDojo_Types$BillboardLoadSucceed = function (a) {
 	return {ctor: 'BillboardLoadSucceed', _0: a};
 };
 
-var _user$project$RestDojo_API$eventDecoder = function (teamsByTeamId) {
-	return A2(
-		_elm_lang$core$Json_Decode$map,
-		function (teamId) {
-			return _user$project$RestDojo_Types$GameWonBy(
-				A2(_elm_lang$core$Dict$get, teamId, teamsByTeamId));
-		},
-		A2(_elm_lang$core$Json_Decode_ops[':='], 'gameWonBy', _elm_lang$core$Json_Decode$int));
-};
+var _user$project$RestDojo_API$gameDecoder = A4(
+	_elm_lang$core$Json_Decode$object3,
+	_user$project$RestDojo_Types$Game,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
+	A2(
+		_elm_lang$core$Json_Decode_ops[':='],
+		'secret',
+		A4(
+			_elm_lang$core$Json_Decode$object3,
+			_user$project$RestDojo_Types$Question,
+			A2(_elm_lang$core$Json_Decode_ops[':='], 'person', _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder),
+			A2(_elm_lang$core$Json_Decode_ops[':='], 'weapon', _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder),
+			A2(_elm_lang$core$Json_Decode_ops[':='], 'location', _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))),
+	A2(
+		_elm_lang$core$Json_Decode_ops[':='],
+		'bots',
+		_elm_lang$core$Json_Decode$list(
+			A5(
+				_elm_lang$core$Json_Decode$object4,
+				_user$project$RestDojo_Types$Bot,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'teamId', _elm_lang$core$Json_Decode$int),
+				A2(
+					_elm_lang$core$Json_Decode_ops[':='],
+					'persons',
+					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$personDecoder)),
+				A2(
+					_elm_lang$core$Json_Decode_ops[':='],
+					'weapons',
+					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder)),
+				A2(
+					_elm_lang$core$Json_Decode_ops[':='],
+					'locations',
+					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))))));
 var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 	return _elm_lang$core$Json_Decode$list(
-		_user$project$RestDojo_API$eventDecoder(teamsByTeamId));
+		A2(
+			_elm_lang$core$Json_Decode$map,
+			function (_p0) {
+				var _p1 = _p0;
+				return A2(
+					_user$project$RestDojo_Types$GameWonBy,
+					_p1._0,
+					A2(_elm_lang$core$Dict$get, _p1._1, teamsByTeamId));
+			},
+			A3(
+				_elm_lang$core$Json_Decode$object2,
+				F2(
+					function (v0, v1) {
+						return {ctor: '_Tuple2', _0: v0, _1: v1};
+					}),
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'gameUrl', _elm_lang$core$Json_Decode$string),
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'gameWonBy', _elm_lang$core$Json_Decode$int))));
 };
-var _user$project$RestDojo_API$teamDecoder = A5(
-	_elm_lang$core$Json_Decode$object4,
-	_user$project$RestDojo_Types$Team,
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'name', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'descr', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'points', _elm_lang$core$Json_Decode$int));
-var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
+var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(
+	A5(
+		_elm_lang$core$Json_Decode$object4,
+		_user$project$RestDojo_Types$Team,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'name', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'descr', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'points', _elm_lang$core$Json_Decode$int)));
+var _user$project$RestDojo_API$dojoStateDecoder = function () {
+	var decodeToType = function (string) {
+		var _p2 = string;
+		switch (_p2) {
+			case 'running':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Types$Running);
+			case 'past':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Types$Past);
+			case 'upcoming':
+				return _elm_lang$core$Result$Ok(_user$project$RestDojo_Types$Upcoming);
+			default:
+				return _elm_lang$core$Result$Err(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Not valid pattern for decoder to DojoState. Pattern: ',
+						_elm_lang$core$Basics$toString(string)));
+		}
+	};
+	return A2(_elm_lang$core$Json_Decode$customDecoder, _elm_lang$core$Json_Decode$string, decodeToType);
+}();
 var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
 	A6(
 		_elm_lang$core$Json_Decode$object5,
@@ -8779,13 +8973,16 @@ var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
 				[])),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'label', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode_ops[':='], 'state', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'state', _user$project$RestDojo_API$dojoStateDecoder),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'teamsUrl', _elm_lang$core$Json_Decode$string),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'eventsUrl', _elm_lang$core$Json_Decode$string)));
 var _user$project$RestDojo_API$billboardDecoder = A2(
 	_elm_lang$core$Json_Decode$object1,
 	_user$project$RestDojo_Types$Billboard,
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'dojos', _elm_lang$core$Json_Decode$string));
+var _user$project$RestDojo_API$getGame = function (url) {
+	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$gameDecoder, url);
+};
 var _user$project$RestDojo_API$getEvents = F2(
 	function (url, teams) {
 		var teamsByTeamId = _elm_lang$core$Dict$fromList(
@@ -8810,53 +9007,89 @@ var _user$project$RestDojo_API$getBillboard = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, url);
 };
 
-var _user$project$RestDojo_View$avatar = function (name) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'http://robohash.herokuapp.com/',
-		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
+var _user$project$RestDojo_Cluedo_CluedoView$viewCard = function (card) {
+	return _elm_lang$html$Html$text(
+		_elm_lang$core$Basics$toString(card));
 };
-var _user$project$RestDojo_View$viewNotFound = _elm_lang$core$Native_List.fromArray(
-	[
-		A2(
+var _user$project$RestDojo_Cluedo_CluedoView$viewBot = function (bot) {
+	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html$text('Not Found')
-			]))
-	]);
-var _user$project$RestDojo_View$viewEventGameWonBy = function (team) {
-	var avatarAttr = function () {
-		var _p0 = team;
-		if (_p0.ctor === 'Just') {
-			var _p1 = _p0._0;
-			return _elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$src(
-					_user$project$RestDojo_View$avatar(_p1.name)),
-					_elm_lang$html$Html_Attributes$class(
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'rd-team-avatar rd-team-',
-						_elm_lang$core$Basics$toString(_p1.id)))
-				]);
-		} else {
-			return _elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('rd-team-avatar')
-				]);
-		}
-	}();
-	var label = function () {
-		var _p2 = team;
-		if (_p2.ctor === 'Just') {
-			return A2(_elm_lang$core$Basics_ops['++'], ' won by ', _p2._0.name);
-		} else {
-			return ' remained unsolved';
-		}
-	}();
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCard, bot.persons)),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCard, bot.locations)),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCard, bot.weapons)),
+				A2(
+				_elm_lang$html$Html$hr,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
+			]));
+};
+var _user$project$RestDojo_Cluedo_CluedoView$view = function (game) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(game.secret.person))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(game.secret.weapon))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(game.secret.location))
+					])),
+				A2(
+				_elm_lang$html$Html$hr,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
+			]),
+		A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewBot, game.bots));
+};
+
+var _user$project$RestDojo_ViewHome$avatar = function (name) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'http://robohash.herokuapp.com/',
+		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
+};
+var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -8866,38 +9099,165 @@ var _user$project$RestDojo_View$viewEventGameWonBy = function (team) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$span,
+				_elm_lang$html$Html$img,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Attributes$class('rd-team-name')
+						_elm_lang$html$Html_Attributes$src(
+						_user$project$RestDojo_ViewHome$avatar('aa')),
+						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('rd-team-name'),
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$RestDojo_Types$SelectDojo(dojo))
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						A2(
-						_elm_lang$html$Html$a,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$href('')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html$text('Game')
-							])),
-						_elm_lang$html$Html$text(label)
-					])),
-				A2(
-				_elm_lang$html$Html$img,
-				avatarAttr,
-				_elm_lang$core$Native_List.fromArray(
-					[]))
+						_elm_lang$html$Html$text(dojo.label)
+					]))
 			]));
 };
-var _user$project$RestDojo_View$viewEvent = function (event) {
-	var _p3 = event;
-	return _user$project$RestDojo_View$viewEventGameWonBy(_p3._0);
+var _user$project$RestDojo_ViewHome$viewDojos = F3(
+	function (label, state, dojos) {
+		var divDojos = A2(
+			_elm_lang$core$List$map,
+			_user$project$RestDojo_ViewHome$viewDojo,
+			A2(
+				_elm_lang$core$List$filter,
+				function (dojo) {
+					return _elm_lang$core$Native_Utils.eq(dojo.state, state);
+				},
+				dojos));
+		var h2Dojos = A2(
+			_elm_lang$html$Html$h2,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(label)
+				]));
+		return A2(
+			_elm_lang$html$Html$article,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(_elm_lang$core$List_ops['::'], h2Dojos, divDojos));
+	});
+var _user$project$RestDojo_ViewHome$view = function (dojos) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$section,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A3(_user$project$RestDojo_ViewHome$viewDojos, 'Running Dojos', _user$project$RestDojo_Types$Running, dojos)
+				])),
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[])),
+			A2(
+			_elm_lang$html$Html$section,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A3(_user$project$RestDojo_ViewHome$viewDojos, 'Past Dojos', _user$project$RestDojo_Types$Past, dojos)
+				]))
+		]);
 };
-var _user$project$RestDojo_View$viewEvents = function (events) {
-	var divEvents = A2(_elm_lang$core$List$map, _user$project$RestDojo_View$viewEvent, events);
+
+var _user$project$RestDojo_ViewDojo$avatar = function (name) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'http://robohash.herokuapp.com/',
+		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
+};
+var _user$project$RestDojo_ViewDojo$viewEventGameWonBy = F3(
+	function (dojo, gameUrl, team) {
+		var avatarAttr = function () {
+			var _p0 = team;
+			if (_p0.ctor === 'Just') {
+				var _p1 = _p0._0;
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$src(
+						_user$project$RestDojo_ViewDojo$avatar(_p1.name)),
+						_elm_lang$html$Html_Attributes$class(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'rd-team-avatar rd-team-',
+							_elm_lang$core$Basics$toString(_p1.id)))
+					]);
+			} else {
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
+					]);
+			}
+		}();
+		var label = function () {
+			var _p2 = team;
+			if (_p2.ctor === 'Just') {
+				return A2(_elm_lang$core$Basics_ops['++'], ' won by ', _p2._0.name);
+			} else {
+				return ' remained unsolved';
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('rd-team')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$span,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('rd-team-name')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$button,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Events$onClick(
+									A2(_user$project$RestDojo_Types$SelectGame, dojo, gameUrl))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text('Game')
+								])),
+							_elm_lang$html$Html$text(label)
+						])),
+					A2(
+					_elm_lang$html$Html$img,
+					avatarAttr,
+					_elm_lang$core$Native_List.fromArray(
+						[]))
+				]));
+	});
+var _user$project$RestDojo_ViewDojo$viewEvent = F2(
+	function (dojo, event) {
+		var _p3 = event;
+		return A3(_user$project$RestDojo_ViewDojo$viewEventGameWonBy, dojo, _p3._0, _p3._1);
+	});
+var _user$project$RestDojo_ViewDojo$viewEvents = function (dojo) {
+	var divEvents = A2(
+		_elm_lang$core$List$map,
+		_user$project$RestDojo_ViewDojo$viewEvent(dojo),
+		dojo.events);
 	var h2Events = A2(
 		_elm_lang$html$Html$h2,
 		_elm_lang$core$Native_List.fromArray(
@@ -8912,7 +9272,7 @@ var _user$project$RestDojo_View$viewEvents = function (events) {
 			[]),
 		A2(_elm_lang$core$List_ops['::'], h2Events, divEvents));
 };
-var _user$project$RestDojo_View$viewPoints = function (teams) {
+var _user$project$RestDojo_ViewDojo$viewPoints = function (teams) {
 	return A2(
 		_elm_lang$html$Html$article,
 		_elm_lang$core$Native_List.fromArray(
@@ -8946,7 +9306,7 @@ var _user$project$RestDojo_View$viewPoints = function (teams) {
 					]))
 			]));
 };
-var _user$project$RestDojo_View$viewTeam = function (team) {
+var _user$project$RestDojo_ViewDojo$viewTeam = function (team) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -8960,7 +9320,7 @@ var _user$project$RestDojo_View$viewTeam = function (team) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_View$avatar(team.name)),
+						_user$project$RestDojo_ViewDojo$avatar(team.name)),
 						_elm_lang$html$Html_Attributes$class(
 						A2(
 							_elm_lang$core$Basics_ops['++'],
@@ -9006,10 +9366,10 @@ var _user$project$RestDojo_View$viewTeam = function (team) {
 					]))
 			]));
 };
-var _user$project$RestDojo_View$viewTeams = function (teams) {
+var _user$project$RestDojo_ViewDojo$viewTeams = function (teams) {
 	var divTeams = A2(
 		_elm_lang$core$List$map,
-		_user$project$RestDojo_View$viewTeam,
+		_user$project$RestDojo_ViewDojo$viewTeam,
 		_elm_lang$core$List$reverse(
 			A2(
 				_elm_lang$core$List$sortBy,
@@ -9031,156 +9391,113 @@ var _user$project$RestDojo_View$viewTeams = function (teams) {
 			[]),
 		A2(_elm_lang$core$List_ops['::'], h2Teams, divTeams));
 };
-var _user$project$RestDojo_View$viewDojo = function (dojo) {
-	return A2(
+var _user$project$RestDojo_ViewDojo$view = function (dojo) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$section,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_user$project$RestDojo_ViewDojo$viewTeams(dojo.teams),
+					_user$project$RestDojo_ViewDojo$viewPoints(dojo.teams),
+					_user$project$RestDojo_ViewDojo$viewEvents(dojo)
+				]))
+		]);
+};
+
+var _user$project$RestDojo_View$viewNotFound = _elm_lang$core$Native_List.fromArray(
+	[
+		A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$html$Html_Attributes$class('rd-team')
-			]),
+			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				A2(
-				_elm_lang$html$Html$img,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_View$avatar('aa')),
-						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('rd-team-name'),
-						_elm_lang$html$Html_Events$onClick(
-						_user$project$RestDojo_Types$SelectDojo(dojo))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(dojo.label)
-					]))
-			]));
-};
-var _user$project$RestDojo_View$viewDojos = F3(
-	function (label, state, dojos) {
-		var divDojos = A2(
-			_elm_lang$core$List$map,
-			_user$project$RestDojo_View$viewDojo,
-			A2(
-				_elm_lang$core$List$filter,
-				function (dojo) {
-					return _elm_lang$core$Native_Utils.eq(dojo.state, state);
-				},
-				dojos));
-		var h2Dojos = A2(
-			_elm_lang$html$Html$h2,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html$text(label)
-				]));
-		return A2(
-			_elm_lang$html$Html$article,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			A2(_elm_lang$core$List_ops['::'], h2Dojos, divDojos));
-	});
-var _user$project$RestDojo_View$viewDojoPage = function (dojo) {
-	return _elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_elm_lang$html$Html$section,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_user$project$RestDojo_View$viewTeams(dojo.teams),
-					_user$project$RestDojo_View$viewPoints(dojo.teams),
-					_user$project$RestDojo_View$viewEvents(dojo.events)
-				]))
-		]);
-};
-var _user$project$RestDojo_View$viewHomePage = function (dojos) {
-	return _elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_elm_lang$html$Html$section,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					A3(_user$project$RestDojo_View$viewDojos, 'Running Dojos', 'running', dojos)
-				])),
-			A2(
-			_elm_lang$html$Html$div,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[])),
-			A2(
-			_elm_lang$html$Html$section,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					A3(_user$project$RestDojo_View$viewDojos, 'Past Dojos', 'past', dojos)
-				]))
-		]);
-};
+				_elm_lang$html$Html$text('Not Found')
+			]))
+	]);
 var _user$project$RestDojo_View$viewContent = function (model) {
-	var _p4 = model.route;
-	if (_p4.ctor === 'HomeRoute') {
-		return _user$project$RestDojo_View$viewHomePage(model.dojos);
-	} else {
-		var foundDojo = _elm_lang$core$List$head(
-			A2(
-				_elm_lang$core$List$filter,
-				function (dojo) {
-					return _elm_lang$core$Native_Utils.eq(dojo.id, _p4._0);
-				},
-				model.dojos));
-		var _p5 = foundDojo;
-		if (_p5.ctor === 'Just') {
-			return _user$project$RestDojo_View$viewDojoPage(_p5._0);
-		} else {
-			return _user$project$RestDojo_View$viewNotFound;
-		}
+	var _p0 = model.route;
+	switch (_p0.ctor) {
+		case 'HomeRoute':
+			return _user$project$RestDojo_ViewHome$view(model.dojos);
+		case 'DojoRoute':
+			var foundDojo = _elm_lang$core$List$head(
+				A2(
+					_elm_lang$core$List$filter,
+					function (dojo) {
+						return _elm_lang$core$Native_Utils.eq(dojo.id, _p0._0);
+					},
+					model.dojos));
+			var _p1 = foundDojo;
+			if (_p1.ctor === 'Just') {
+				return _user$project$RestDojo_ViewDojo$view(_p1._0);
+			} else {
+				return _user$project$RestDojo_View$viewNotFound;
+			}
+		default:
+			return _user$project$RestDojo_Cluedo_CluedoView$view(_p0._1);
 	}
 };
 var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 	var breadcrumbs = function () {
-		var _p6 = model.route;
-		if (_p6.ctor === 'HomeRoute') {
-			return _elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html$text('Rest Dojo')
-				]);
-		} else {
-			var dojoLabel = A2(
-				_elm_lang$core$Maybe$withDefault,
-				'Unknow dojo',
-				A2(
-					_elm_lang$core$Maybe$map,
-					function (_) {
-						return _.label;
-					},
-					_elm_lang$core$List$head(
-						A2(
-							_elm_lang$core$List$filter,
-							function (dojo) {
-								return _elm_lang$core$Native_Utils.eq(dojo.id, _p6._0);
-							},
-							model.dojos))));
-			return _elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html$text('Rest Dojo'),
-					_elm_lang$html$Html$text(' \\ '),
-					_elm_lang$html$Html$text(dojoLabel)
-				]);
+		var _p2 = model.route;
+		switch (_p2.ctor) {
+			case 'HomeRoute':
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Rest Dojo')
+					]);
+			case 'DojoRoute':
+				var dojoLabel = A2(
+					_elm_lang$core$Maybe$withDefault,
+					'Unknow dojo',
+					A2(
+						_elm_lang$core$Maybe$map,
+						function (_) {
+							return _.label;
+						},
+						_elm_lang$core$List$head(
+							A2(
+								_elm_lang$core$List$filter,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.eq(dojo.id, _p2._0);
+								},
+								model.dojos))));
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Rest Dojo'),
+						_elm_lang$html$Html$text(' \\ '),
+						_elm_lang$html$Html$text(dojoLabel)
+					]);
+			default:
+				var foundDojo = _elm_lang$core$List$head(
+					A2(
+						_elm_lang$core$List$filter,
+						function (dojo) {
+							return _elm_lang$core$Native_Utils.eq(dojo.id, _p2._0);
+						},
+						model.dojos));
+				var dojoLabel = A2(
+					_elm_lang$core$Maybe$withDefault,
+					'Unknow dojo',
+					A2(
+						_elm_lang$core$Maybe$map,
+						function (_) {
+							return _.label;
+						},
+						foundDojo));
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Rest Dojo'),
+						_elm_lang$html$Html$text(' \\ '),
+						_elm_lang$html$Html$text(dojoLabel),
+						_elm_lang$html$Html$text(' \\ '),
+						_elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(_p2._1.id))
+					]);
 		}
 	}();
 	return A2(
@@ -9221,6 +9538,14 @@ var _user$project$RestDojo_Main$updateDojo = F3(
 				return _elm_lang$core$Native_Utils.eq(dojo.id, dojoId) ? updater(dojo) : dojo;
 			},
 			dojos);
+	});
+var _user$project$RestDojo_Main$initGame = F2(
+	function (dojo, gameUrl) {
+		return A3(
+			_elm_lang$core$Task$perform,
+			_user$project$RestDojo_Types$ErrorOccured,
+			_user$project$RestDojo_Types$GameLoadSucceed(dojo),
+			_user$project$RestDojo_API$getGame(gameUrl));
 	});
 var _user$project$RestDojo_Main$initEvents = F2(
 	function (dojo, teams) {
@@ -9280,6 +9605,24 @@ var _user$project$RestDojo_Main$update = F2(
 						[
 							_user$project$RestDojo_Main$initTeams(_p2)
 						]));
+			case 'SelectGame':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(_user$project$RestDojo_Main$initGame, _p0._0, _p0._1)
+						]));
+			case 'GameLoadSucceed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							route: A2(_user$project$RestDojo_Types$GameRoute, _p0._0.id, _p0._1)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 			case 'TeamsLoadSucceed':
 				var _p4 = _p0._0;
 				var _p3 = _p0._1;

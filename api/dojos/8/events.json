@@ -1,10 +1,3 @@
 [
-  {"gameWonBy": 1},
-  {"gameWonBy": 1},
-  {"gameWonBy": 2},
-  {"gameWonBy": 3},
-  {"gameWonBy": 4},
-  {"gameWonBy": 4},
-  {"gameWonBy": 4},
-  {"gameWonBy": 1}
+  {"gameWonBy": 1, "gameUrl": "/rest_dojo_web/api/dojos/8/games/101.json"}
 ]
