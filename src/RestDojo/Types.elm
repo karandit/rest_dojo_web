@@ -1,6 +1,11 @@
 module RestDojo.Types exposing (..)
 
 
+type Route
+    = HomeRoute
+    | DojoRoute Dojo
+
+
 type alias DojoId =
     Int
 

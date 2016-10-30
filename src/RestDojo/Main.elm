@@ -1,6 +1,6 @@
 module RestDojo.Main exposing (..)
 
-import Html exposing (Html, text, a, div, span, img, article, header, h1, h2, section, canvas)
+import Html exposing (Html, text, a, div, span, img, article, header, hr, h1, h2, section, canvas)
 import Html.Attributes exposing (class, src, id, href)
 import Html.App
 import Http
@@ -33,6 +33,8 @@ main =
 
 type alias Model =
     { billboard : Billboard
+    , route : Route
+    , dojos : List Dojo
     , teams : List Team
     , events : List Event
     }
@@ -41,6 +43,8 @@ type alias Model =
 initModel : Flags -> ( Model, Cmd Msg )
 initModel flags =
     { billboard = Billboard "" "" ""
+    , route = HomeRoute
+    , dojos = []
     , teams = []
     , events = []
     }
@@ -85,6 +89,9 @@ update msg model =
         BillboardLoadSucceed billboard ->
             { model | billboard = billboard } ! [ initTeams billboard.teamsUrl, initDojos billboard.dojosUrl ]
 
+        DojosLoadSucceed loadedDojos ->
+            { model | dojos = loadedDojos } ! []
+
         TeamsLoadSucceed loadedTeams ->
             { model | teams = loadedTeams } ! [ initEvents model.billboard.eventsUrl loadedTeams ]
 
@@ -101,20 +108,72 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ viewBreadcrumbs
-        , section []
-            [ viewTeams model.teams
-            , viewPoints model.teams
-            , viewEvents model.events
-            ]
+    div [] <|
+        (viewHeader model)
+            ++ (viewContent model)
+
+
+viewHeader : Model -> List (Html Msg)
+viewHeader model =
+    [ viewBreadcrumbs model.route ]
+
+
+viewBreadcrumbs : Route -> Html Msg
+viewBreadcrumbs route =
+    header []
+        [ h1 [] [ text "Rest Dojo" ]
         ]
 
 
-viewBreadcrumbs : Html Msg
-viewBreadcrumbs =
-    header []
-        [ h1 [] [ text "Rest Dojo" ]
+viewContent : Model -> List (Html Msg)
+viewContent model =
+    case model.route of
+        HomeRoute ->
+            viewHomePage model.dojos
+
+        DojoRoute dojo ->
+            viewDojoPage model dojo
+
+
+viewHomePage : List Dojo -> List (Html Msg)
+viewHomePage dojos =
+    [ section [] [ viewDojos "Running Dojos" "running" dojos ]
+    , div [] []
+    , section [] [ viewDojos "Past Dojos" "past" dojos ]
+    ]
+
+
+viewDojoPage : Model -> Dojo -> List (Html Msg)
+viewDojoPage model dojo =
+    [ section []
+        [ viewTeams model.teams
+        , viewPoints model.teams
+        , viewEvents model.events
+        ]
+    ]
+
+
+viewDojos : String -> String -> List Dojo -> Html Msg
+viewDojos label state dojos =
+    let
+        h2Dojos =
+            h2 [] [ text label ]
+
+        divDojos =
+            List.map viewDojo <| List.filter (\dojo -> dojo.state == state) dojos
+    in
+        article [] <| h2Dojos :: divDojos
+
+
+viewDojo : Dojo -> Html Msg
+viewDojo dojo =
+    div [ class "rd-team" ]
+        [ img
+            [ src <| avatar "aa", class "rd-team-avatar" ]
+            []
+        , span
+            [ class "rd-team-name" ]
+            [ text dojo.label ]
         ]
 
 
