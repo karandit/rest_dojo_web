@@ -14,12 +14,18 @@ type alias DojoId =
     Int
 
 
+type DojoState
+    = Past
+    | Running
+    | Upcoming
+
+
 type alias Dojo =
     { teams : List Team
     , events : List Event
     , id : TeamId
     , label : String
-    , state : String
+    , state : DojoState
     , teamsUrl : String
     , eventsUrl : String
     }

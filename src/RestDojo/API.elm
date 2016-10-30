@@ -56,9 +56,29 @@ dojosDecoder =
         Json.object5 (Dojo [] [])
             ("id" := Json.int)
             ("label" := Json.string)
-            ("state" := Json.string)
+            ("state" := dojoStateDecoder)
             ("teamsUrl" := Json.string)
             ("eventsUrl" := Json.string)
+
+
+dojoStateDecoder : Json.Decoder DojoState
+dojoStateDecoder =
+    let
+        decodeToType string =
+            case string of
+                "running" ->
+                    Result.Ok Running
+
+                "past" ->
+                    Result.Ok Past
+
+                "upcoming" ->
+                    Result.Ok Upcoming
+
+                _ ->
+                    Result.Err ("Not valid pattern for decoder to DojoState. Pattern: " ++ (toString string))
+    in
+        Json.customDecoder Json.string decodeToType
 
 
 teamsDecoder : Decoder (List Team)

@@ -11,13 +11,13 @@ import RestDojo.Types exposing (..)
 
 view : List Dojo -> List (Html Msg)
 view dojos =
-    [ section [] [ viewDojos "Running Dojos" "running" dojos ]
+    [ section [] [ viewDojos "Running Dojos" Running dojos ]
     , div [] []
-    , section [] [ viewDojos "Past Dojos" "past" dojos ]
+    , section [] [ viewDojos "Past Dojos" Past dojos ]
     ]
 
 
-viewDojos : String -> String -> List Dojo -> Html Msg
+viewDojos : String -> DojoState -> List Dojo -> Html Msg
 viewDojos label state dojos =
     let
         h2Dojos =
