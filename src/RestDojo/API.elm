@@ -114,6 +114,7 @@ gameDecoder =
             := Json.list
                 (Json.object3
                     Bot
+                    ("teamId" := Json.int)
                     ("persons" := Json.list personDecoder)
                     ("weapons" := Json.list weaponDecoder)
                     ("locations" := Json.list locationDecoder)

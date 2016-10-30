@@ -59,8 +59,8 @@ type alias Question =
 
 
 type alias Bot =
-    { --team : Team
-      persons : List Person
+    { teamId : TeamId
+    , persons : List Person
     , weapons : List Weapon
     , locations : List Location
     }
