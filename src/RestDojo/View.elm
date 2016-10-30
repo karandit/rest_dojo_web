@@ -1,7 +1,8 @@
 module RestDojo.View exposing (view)
 
-import Html exposing (Html, text, a, div, span, img, article, header, hr, h1, h2, section, canvas)
+import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, section, canvas)
 import Html.Attributes exposing (class, src, id, href)
+import Html.Events exposing (onClick)
 import RestDojo.Types exposing (..)
 
 
@@ -73,8 +74,8 @@ viewDojo dojo =
         [ img
             [ src <| avatar "aa", class "rd-team-avatar" ]
             []
-        , span
-            [ class "rd-team-name" ]
+        , button
+            [ class "rd-team-name", onClick (SelectDojo dojo) ]
             [ text dojo.label ]
         ]
 

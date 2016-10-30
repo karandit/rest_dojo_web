@@ -54,6 +54,7 @@ type alias Model =
 type Msg
     = BillboardLoadSucceed Billboard
     | DojosLoadSucceed (List Dojo)
+    | SelectDojo Dojo
     | TeamsLoadSucceed (List Team)
     | EventsLoadSucceed (List Event)
     | ErrorOccured Http.Error

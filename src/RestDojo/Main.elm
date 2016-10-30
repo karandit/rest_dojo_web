@@ -80,5 +80,8 @@ update msg model =
         EventsLoadSucceed loadedEvents ->
             { model | events = loadedEvents } ! []
 
+        SelectDojo dojo ->
+            { model | route = DojoRoute dojo } ! []
+
         _ ->
             model ! []
