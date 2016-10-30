@@ -38,7 +38,7 @@ viewBreadcrumbs model =
                     in
                         [ text "Rest Dojo", text " \\ ", text dojoLabel ]
 
-                GameRoute dojoId gameId ->
+                GameRoute dojoId game ->
                     let
                         foundDojo =
                             model.dojos |> List.filter (\dojo -> dojo.id == dojoId) |> List.head
@@ -46,7 +46,7 @@ viewBreadcrumbs model =
                         dojoLabel =
                             foundDojo |> Maybe.map .label |> Maybe.withDefault "Unknow dojo"
                     in
-                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| toString gameId ]
+                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| toString game ]
     in
         header []
             [ h1 [] breadcrumbs
@@ -71,7 +71,7 @@ viewContent model =
                     Nothing ->
                         viewNotFound
 
-        GameRoute dojoId gameId ->
+        GameRoute dojoId game ->
             viewNotFound
 
 

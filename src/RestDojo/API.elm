@@ -73,6 +73,6 @@ eventsDecoder teamsByTeamId =
 eventDecoder : Dict TeamId Team -> Decoder Event
 eventDecoder teamsByTeamId =
     Json.object2 (,)
-        ("id" := Json.int)
+        ("gameUrl" := Json.string)
         ("gameWonBy" := Json.int)
-        |> Json.map (\( gameId, teamId ) -> GameWonBy gameId (Dict.get teamId teamsByTeamId))
+        |> Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId))

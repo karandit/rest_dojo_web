@@ -6,7 +6,7 @@ import Http
 type Route
     = HomeRoute
     | DojoRoute DojoId
-    | GameRoute DojoId GameId
+    | GameRoute DojoId Game
 
 
 type alias DojoId =
@@ -36,12 +36,16 @@ type alias Team =
     }
 
 
-type alias GameId =
-    Int
+type alias GameUrl =
+    String
+
+
+type alias Game =
+    ()
 
 
 type Event
-    = GameWonBy GameId (Maybe Team)
+    = GameWonBy GameUrl (Maybe Team)
 
 
 type alias Billboard =
@@ -60,7 +64,7 @@ type Msg
     = BillboardLoadSucceed Billboard
     | DojosLoadSucceed (List Dojo)
     | SelectDojo Dojo
-    | SelectGame DojoId GameId
+    | SelectGame DojoId GameUrl
     | TeamsLoadSucceed Dojo (List Team)
     | EventsLoadSucceed Dojo (List Event)
     | ErrorOccured Http.Error

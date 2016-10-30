@@ -68,12 +68,12 @@ viewEvents dojo =
 viewEvent : DojoId -> Event -> Html Msg
 viewEvent dojoId event =
     case event of
-        GameWonBy gameId winnerTeam ->
-            viewEventGameWonBy dojoId gameId winnerTeam
+        GameWonBy gameUrl winnerTeam ->
+            viewEventGameWonBy dojoId gameUrl winnerTeam
 
 
-viewEventGameWonBy : DojoId -> GameId -> Maybe Team -> Html Msg
-viewEventGameWonBy dojoId gameId team =
+viewEventGameWonBy : DojoId -> GameUrl -> Maybe Team -> Html Msg
+viewEventGameWonBy dojoId gameUrl team =
     let
         label =
             case team of
@@ -95,7 +95,7 @@ viewEventGameWonBy dojoId gameId team =
     in
         div [ class "rd-team" ]
             [ span [ class "rd-team-name" ]
-                [ button [ onClick <| SelectGame dojoId gameId ] [ text "Game" ]
+                [ button [ onClick <| SelectGame dojoId gameUrl ] [ text "Game" ]
                 , text label
                 ]
             , img avatarAttr []
