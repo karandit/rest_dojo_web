@@ -9007,39 +9007,39 @@ var _user$project$RestDojo_API$getBillboard = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, url);
 };
 
-var _user$project$RestDojo_Cluedo_CluedoView$viewCard = function (card) {
-	return _elm_lang$html$Html$text(
-		_elm_lang$core$Basics$toString(card));
-};
+var _user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize = F3(
+	function (w, h, cardName) {
+		return A2(
+			_elm_lang$html$Html$img,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$src(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'img/cards/',
+						A2(_elm_lang$core$Basics_ops['++'], cardName, '.png'))),
+					_elm_lang$html$Html_Attributes$width(w),
+					_elm_lang$html$Html_Attributes$height(h),
+					_elm_lang$html$Html_Attributes$title(cardName)
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[]));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall = A2(_user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize, 80, 100);
+var _user$project$RestDojo_Cluedo_CluedoView$viewCard = A2(_user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize, 144, 180);
 var _user$project$RestDojo_Cluedo_CluedoView$viewBot = function (bot) {
+	var allBotCards = A2(
+		_elm_lang$core$Basics_ops['++'],
+		A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.persons),
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.locations),
+			A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.weapons)));
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCard, bot.persons)),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCard, bot.locations)),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCard, bot.weapons)),
-				A2(
-				_elm_lang$html$Html$hr,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[]))
-			]));
+		A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall, allBotCards));
 };
 var _user$project$RestDojo_Cluedo_CluedoView$view = function (game) {
 	return A2(
@@ -9050,29 +9050,15 @@ var _user$project$RestDojo_Cluedo_CluedoView$view = function (game) {
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(game.secret.person))
-					])),
 				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(game.secret.weapon))
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(game.secret.location))
-					])),
+					_elm_lang$core$List$map,
+					_user$project$RestDojo_Cluedo_CluedoView$viewCard,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Basics$toString(game.secret.person),
+							_elm_lang$core$Basics$toString(game.secret.weapon),
+							_elm_lang$core$Basics$toString(game.secret.location)
+						]))),
 				A2(
 				_elm_lang$html$Html$hr,
 				_elm_lang$core$Native_List.fromArray(
