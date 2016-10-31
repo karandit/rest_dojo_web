@@ -8843,9 +8843,13 @@ var _user$project$RestDojo_Types$Answered = F2(
 	function (a, b) {
 		return {by: a, answer: b};
 	});
-var _user$project$RestDojo_Types$Round = F2(
+var _user$project$RestDojo_Types$Interrogation = F2(
 	function (a, b) {
 		return {asked: a, answered: b};
+	});
+var _user$project$RestDojo_Types$Accusation = F2(
+	function (a, b) {
+		return {asked: a, answer: b};
 	});
 var _user$project$RestDojo_Types$Game = F4(
 	function (a, b, c, d) {
@@ -8869,6 +8873,12 @@ var _user$project$RestDojo_Types$HomeRoute = {ctor: 'HomeRoute'};
 var _user$project$RestDojo_Types$Upcoming = {ctor: 'Upcoming'};
 var _user$project$RestDojo_Types$Running = {ctor: 'Running'};
 var _user$project$RestDojo_Types$Past = {ctor: 'Past'};
+var _user$project$RestDojo_Types$Accuse = function (a) {
+	return {ctor: 'Accuse', _0: a};
+};
+var _user$project$RestDojo_Types$Interrogate = function (a) {
+	return {ctor: 'Interrogate', _0: a};
+};
 var _user$project$RestDojo_Types$GameWonBy = F2(
 	function (a, b) {
 		return {ctor: 'GameWonBy', _0: a, _1: b};
@@ -8908,6 +8918,11 @@ var _user$project$RestDojo_API$questionDecoder = A4(
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'person', _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder),
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'weapon', _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder),
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'location', _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder));
+var _user$project$RestDojo_API$askedDecoder = A3(
+	_elm_lang$core$Json_Decode$object2,
+	_user$project$RestDojo_Types$Asked,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'question', _user$project$RestDojo_API$questionDecoder));
 var _user$project$RestDojo_API$gameDecoder = A5(
 	_elm_lang$core$Json_Decode$object4,
 	_user$project$RestDojo_Types$Game,
@@ -8937,34 +8952,42 @@ var _user$project$RestDojo_API$gameDecoder = A5(
 		_elm_lang$core$Json_Decode_ops[':='],
 		'rounds',
 		_elm_lang$core$Json_Decode$list(
-			A3(
-				_elm_lang$core$Json_Decode$object2,
-				_user$project$RestDojo_Types$Round,
-				A2(
-					_elm_lang$core$Json_Decode_ops[':='],
-					'asked',
-					A3(
-						_elm_lang$core$Json_Decode$object2,
-						_user$project$RestDojo_Types$Asked,
-						A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$string),
-						A2(_elm_lang$core$Json_Decode_ops[':='], 'question', _user$project$RestDojo_API$questionDecoder))),
-				A2(
-					_elm_lang$core$Json_Decode_ops[':='],
-					'answered',
-					_elm_lang$core$Json_Decode$list(
+			_elm_lang$core$Json_Decode$oneOf(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$core$Json_Decode$map,
+						_user$project$RestDojo_Types$Interrogate,
 						A3(
 							_elm_lang$core$Json_Decode$object2,
-							_user$project$RestDojo_Types$Answered,
-							A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$string),
+							_user$project$RestDojo_Types$Interrogation,
+							A2(_elm_lang$core$Json_Decode_ops[':='], 'asked', _user$project$RestDojo_API$askedDecoder),
 							A2(
 								_elm_lang$core$Json_Decode_ops[':='],
-								'answer',
-								_elm_lang$core$Json_Decode$oneOf(
-									_elm_lang$core$Native_List.fromArray(
-										[
-											_elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
-											A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string)
-										]))))))))));
+								'answered',
+								_elm_lang$core$Json_Decode$list(
+									A3(
+										_elm_lang$core$Json_Decode$object2,
+										_user$project$RestDojo_Types$Answered,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$string),
+										A2(
+											_elm_lang$core$Json_Decode_ops[':='],
+											'answer',
+											_elm_lang$core$Json_Decode$oneOf(
+												_elm_lang$core$Native_List.fromArray(
+													[
+														_elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+														A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string)
+													])))))))),
+						A2(
+						_elm_lang$core$Json_Decode$map,
+						_user$project$RestDojo_Types$Accuse,
+						A3(
+							_elm_lang$core$Json_Decode$object2,
+							_user$project$RestDojo_Types$Accusation,
+							A2(_elm_lang$core$Json_Decode_ops[':='], 'accused', _user$project$RestDojo_API$askedDecoder),
+							A2(_elm_lang$core$Json_Decode_ops[':='], 'answer', _elm_lang$core$Json_Decode$bool)))
+					])))));
 var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 	return _elm_lang$core$Json_Decode$list(
 		A2(
@@ -9139,7 +9162,7 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize = F2(
 var _user$project$RestDojo_Cluedo_CluedoView$viewQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize(_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall);
 var _user$project$RestDojo_Cluedo_CluedoView$viewRound = function (_p0) {
 	var _p1 = _p0;
-	var _p2 = _p1._1;
+	var _p5 = _p1._1;
 	var answeredBy = function (answered) {
 		return A2(
 			_elm_lang$core$Basics_ops['++'],
@@ -9153,16 +9176,43 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewRound = function (_p0) {
 					A2(_elm_lang$core$Maybe$withDefault, 'None', answered.answer))
 				]));
 	};
-	var answers = A2(_elm_lang$core$List$concatMap, answeredBy, _p2.answered);
-	var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(_p2.asked.question);
-	var askedBy = _user$project$RestDojo_Cluedo_CluedoView$teamImgByName(_p2.asked.by);
+	var answers = function () {
+		var _p2 = _p5;
+		if (_p2.ctor === 'Interrogate') {
+			return A2(_elm_lang$core$List$concatMap, answeredBy, _p2._0.answered);
+		} else {
+			return _elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(
+					_elm_lang$core$Basics$toString(_p2._0.answer))
+				]);
+		}
+	}();
+	var asked = function () {
+		var _p3 = _p5;
+		if (_p3.ctor === 'Interrogate') {
+			return _p3._0.asked;
+		} else {
+			return _p3._0.asked;
+		}
+	}();
+	var askedBy = _user$project$RestDojo_Cluedo_CluedoView$teamImgByName(asked.by);
+	var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(asked.question);
+	var roundType = function () {
+		var _p4 = _p5;
+		if (_p4.ctor === 'Interrogate') {
+			return 'Asked #';
+		} else {
+			return 'Accused #';
+		}
+	}();
 	var roundLabel = _elm_lang$html$Html$text(
 		A2(
 			F2(
 				function (x, y) {
 					return A2(_elm_lang$core$Basics_ops['++'], x, y);
 				}),
-			'#',
+			roundType,
 			_elm_lang$core$Basics$toString(_p1._0 + 1)));
 	return A2(
 		_elm_lang$html$Html$div,
