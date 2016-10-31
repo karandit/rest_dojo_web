@@ -23,7 +23,7 @@ type DojoState
 type alias Dojo =
     { teams : List Team
     , events : List Event
-    , id : TeamId
+    , id : DojoId
     , label : String
     , state : DojoState
     , teamsUrl : String

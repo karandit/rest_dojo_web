@@ -73,7 +73,16 @@ viewContent model =
                         viewNotFound
 
         GameRoute dojoId game ->
-            ViewCluedo.view game
+            let
+                foundDojo =
+                    model.dojos |> List.filter (\dojo -> dojo.id == dojoId) |> List.head
+            in
+                case foundDojo of
+                    Just dojo ->
+                        ViewCluedo.view dojo game
+
+                    Nothing ->
+                        viewNotFound
 
 
 viewNotFound : List (Html Msg)

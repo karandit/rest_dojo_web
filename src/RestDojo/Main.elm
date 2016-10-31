@@ -97,11 +97,11 @@ update msg model =
 
 
 updateDojo dojoId updater dojos =
-    dojos
-        |> List.map
-            (\dojo ->
-                if dojo.id == dojoId then
-                    updater dojo
-                else
-                    dojo
-            )
+    List.map
+        (\dojo ->
+            if dojo.id == dojoId then
+                updater dojo
+            else
+                dojo
+        )
+        dojos
