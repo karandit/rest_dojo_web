@@ -59,7 +59,7 @@ type alias Question =
 
 
 type alias Bot =
-    { teamId : TeamId
+    { teamName : String
     , persons : List Person
     , weapons : List Weapon
     , locations : List Location

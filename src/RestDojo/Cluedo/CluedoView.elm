@@ -1,6 +1,5 @@
 module RestDojo.Cluedo.CluedoView exposing (view)
 
-import Dict exposing (Dict)
 import Html exposing (Html, text, div, span, article, hr, img)
 import Html.Attributes exposing (class, title, src, width, height)
 import RestDojo.Types exposing (..)
@@ -9,15 +8,11 @@ import RestDojo.Util exposing (..)
 
 view : Dojo -> Game -> List (Html Msg)
 view dojo game =
-    let
-        teamsByTeamId =
-            Dict.fromList <| List.map (\team -> ( team.id, team )) dojo.teams
-    in
-        [ viewSecret game.secret
-        , viewBots teamsByTeamId game.bots
-        , hr [] []
-        , viewRounds game.rounds
-        ]
+    [ viewSecret game.secret
+    , viewBots game.bots
+    , hr [] []
+    , viewRounds game.rounds
+    ]
 
 
 viewSecret : Question -> Html Msg
@@ -35,13 +30,13 @@ viewQuestionWithSize displayer question =
     List.map displayer [ toString question.person, toString question.weapon, toString question.location ]
 
 
-viewBots : Dict TeamId Team -> List Bot -> Html Msg
-viewBots teamsByTeamId bots =
-    div [] (List.map (viewBot teamsByTeamId) bots)
+viewBots : List Bot -> Html Msg
+viewBots bots =
+    div [] <| List.map viewBot bots
 
 
-viewBot : Dict TeamId Team -> Bot -> Html Msg
-viewBot teamsByTeamId bot =
+viewBot : Bot -> Html Msg
+viewBot bot =
     let
         allBotCards =
             (List.map toString bot.persons) ++ (List.map toString bot.locations) ++ (List.map toString bot.weapons)
@@ -49,26 +44,7 @@ viewBot teamsByTeamId bot =
         cardImgs =
             List.map viewCardSmall allBotCards
     in
-        div [] <| (teamImg teamsByTeamId bot.teamId) :: cardImgs
-
-
-teamImg teamsByTeamId teamId =
-    let
-        foundTeam =
-            Dict.get teamId teamsByTeamId
-
-        avatarAttr =
-            case foundTeam of
-                Just team ->
-                    [ src <| avatar team.name
-                    , class "rd-team-avatar"
-                    , title team.name
-                    ]
-
-                Nothing ->
-                    [ class "rd-team-avatar" ]
-    in
-        img avatarAttr []
+        div [] <| (teamImgByName bot.teamName) :: cardImgs
 
 
 teamImgByName teamName =
