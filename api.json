@@ -188,7 +188,7 @@
       }
     ],
       "rounds": [{
-        "asked": {"by": 1, "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
+        "asked": {"by": "Alpha", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
         "answered": [
           {"by": "Bravo", "answer": null},
           {"by": "Charlie", "answer": null},
@@ -196,7 +196,7 @@
         ]
       },
       {
-        "asked": {"by": 2, "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
+        "asked": {"by": "Bravo", "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
         "answered": [
           {"by": "Charlie", "answer": null},
           {"by": "Delta", "answer": null},

@@ -128,7 +128,7 @@ gameDecoder =
                 (Json.object2 Round
                     ("asked"
                         := (Json.object2 Asked
-                                ("by" := Json.int)
+                                ("by" := Json.string)
                                 ("question" := questionDecoder)
                            )
                     )

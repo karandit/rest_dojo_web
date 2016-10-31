@@ -67,7 +67,7 @@ type alias Bot =
 
 
 type alias Asked =
-    { by : TeamId
+    { by : String
     , question : Question
     }
 

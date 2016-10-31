@@ -16,7 +16,7 @@ view dojo game =
         [ viewSecret game.secret
         , viewBots teamsByTeamId game.bots
         , hr [] []
-        , viewRounds teamsByTeamId game.rounds
+        , viewRounds game.rounds
         ]
 
 
@@ -82,16 +82,16 @@ teamImgByName teamName =
         img avatarAttr []
 
 
-viewRounds : Dict TeamId Team -> List Round -> Html Msg
-viewRounds teamsByTeamId rounds =
-    div [] (List.map (viewRound teamsByTeamId) rounds)
+viewRounds : List Round -> Html Msg
+viewRounds rounds =
+    div [] (List.map viewRound rounds)
 
 
-viewRound : Dict TeamId Team -> Round -> Html Msg
-viewRound teamsByTeamId round =
+viewRound : Round -> Html Msg
+viewRound round =
     let
         askedBy =
-            teamImg teamsByTeamId round.asked.by
+            teamImgByName round.asked.by
 
         askedQuestion =
             viewQuestion round.asked.question
