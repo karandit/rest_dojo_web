@@ -13,22 +13,39 @@ view dojo game =
         teamsByTeamId =
             Dict.fromList <| List.map (\team -> ( team.id, team )) dojo.teams
     in
-        [ div [] <| List.map viewCard [ toString game.secret.person, toString game.secret.weapon, toString game.secret.location ]
+        [ viewSecret game.secret
+        , viewBots teamsByTeamId game.bots
         , hr [] []
+        , viewRounds teamsByTeamId game.rounds
         ]
-            ++ (List.map (viewBot teamsByTeamId) game.bots)
 
 
-allBotCards : Bot -> List String
-allBotCards bot =
-    (List.map toString bot.persons) ++ (List.map toString bot.locations) ++ (List.map toString bot.weapons)
+viewSecret : Question -> Html Msg
+viewSecret secret =
+    div [] <| List.map viewCard [ toString secret.person, toString secret.weapon, toString secret.location ]
+
+
+viewBots : Dict TeamId Team -> List Bot -> Html Msg
+viewBots teamsByTeamId bots =
+    div [] (List.map (viewBot teamsByTeamId) bots)
 
 
 viewBot : Dict TeamId Team -> Bot -> Html Msg
 viewBot teamsByTeamId bot =
     let
+        allBotCards =
+            (List.map toString bot.persons) ++ (List.map toString bot.locations) ++ (List.map toString bot.weapons)
+
+        cardImgs =
+            List.map viewCardSmall allBotCards
+    in
+        span [] <| (teamImg teamsByTeamId bot.teamId) :: cardImgs
+
+
+teamImg teamsByTeamId teamId =
+    let
         foundTeam =
-            Dict.get bot.teamId teamsByTeamId
+            Dict.get teamId teamsByTeamId
 
         avatarAttr =
             case foundTeam of
@@ -40,14 +57,18 @@ viewBot teamsByTeamId bot =
 
                 Nothing ->
                     [ class "rd-team-avatar" ]
-
-        botImg =
-            img avatarAttr []
-
-        cardImgs =
-            List.map viewCardSmall <| allBotCards bot
     in
-        span [] <| botImg :: cardImgs
+        img avatarAttr []
+
+
+viewRounds : Dict TeamId Team -> List Round -> Html Msg
+viewRounds teamsByTeamId rounds =
+    div [] (List.map (viewRound teamsByTeamId) rounds)
+
+
+viewRound : Dict TeamId Team -> Round -> Html Msg
+viewRound teamsByTeamId round =
+    teamImg teamsByTeamId round.asked.by
 
 
 viewCard : String -> Html Msg

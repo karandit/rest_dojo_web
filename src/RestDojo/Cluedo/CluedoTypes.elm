@@ -36,6 +36,12 @@ type Weapon
     | Shears
 
 
+type Card
+    = LocationCard Location
+    | PersonCard Person
+    | WeaponCard Weapon
+
+
 
 -- Json decoders/encoders ----------------------------------------------------------------------------------------------
 

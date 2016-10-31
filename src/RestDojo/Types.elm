@@ -66,10 +66,30 @@ type alias Bot =
     }
 
 
+type alias Asked =
+    { by : TeamId
+    , question : Question
+    }
+
+
+type alias Answered =
+    { by : TeamId
+    , answer : Maybe Card
+    }
+
+
+type alias Round =
+    { asked :
+        Asked
+        -- , anwered : List Answered
+    }
+
+
 type alias Game =
     { id : GameId
     , secret : Question
     , bots : List Bot
+    , rounds : List Round
     }
 
 

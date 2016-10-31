@@ -149,39 +149,61 @@
         "location" : "Kitchen",
         "person" : "ColMustard"
       },
-      "bots": [{
+      "bots": [
+        {
         "teamId": 1,
         "weapons": ["Candlestick", "IcePick"],
         "locations" : ["Billiards"],
         "persons" : []
-      }, {
+      },
+      {
         "teamId": 2,
         "weapons": ["Poison"],
         "locations" : ["Conservatory", "Library"],
         "persons" : []
-      }, {
+      },
+      {
         "teamId": 3,
         "weapons": [],
         "locations" : ["Lounge"],
         "persons" : ["MrsWhite", "MsPeacock"]
-      }, {
+      },
+      {
         "teamId": 4,
         "weapons": ["Poker"],
         "locations" : ["Stairs"],
         "persons" : ["MsScarlett"]
-      }, {
+      },
+      {
         "teamId": 5,
         "weapons": [],
         "locations" : ["Studio", "BedRoom"],
         "persons" : ["ProfPlum"]
-      }, {
+      },
+      {
         "teamId": 6,
         "weapons": ["Shears"],
         "locations" : ["TrophyHall"],
         "persons" : ["RevGreen"]
-      }],
-      "rounds": []
-    }
+      }
+    ],
+      "rounds": [{
+        "asked": {"by": 1, "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
+        "answered": [
+          {"by": 2, "answer": null},
+          {"by": 3, "answer": null},
+          {"by": 4, "answer": "Poker"}
+        ]
+      },
+      {
+        "asked": {"by": 2, "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
+        "answered": [
+          {"by": 3, "answer": null},
+          {"by": 4, "answer": null},
+          {"by": 5, "answer": "Studio"}
+        ]
+      }
+    ]
+  }
   ]
-
 }

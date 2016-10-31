@@ -100,16 +100,19 @@ eventsDecoder teamsByTeamId =
                 ("gameWonBy" := Json.int)
 
 
+questionDecoder : Decoder Question
+questionDecoder =
+    Json.object3 Question
+        ("person" := personDecoder)
+        ("weapon" := weaponDecoder)
+        ("location" := locationDecoder)
+
+
 gameDecoder : Decoder Game
 gameDecoder =
-    Json.object3 Game
+    Json.object4 Game
         ("id" := Json.int)
-        ("secret"
-            := Json.object3 Question
-                ("person" := personDecoder)
-                ("weapon" := weaponDecoder)
-                ("location" := locationDecoder)
-        )
+        ("secret" := questionDecoder)
         ("bots"
             := Json.list
                 (Json.object4
@@ -118,5 +121,16 @@ gameDecoder =
                     ("persons" := Json.list personDecoder)
                     ("weapons" := Json.list weaponDecoder)
                     ("locations" := Json.list locationDecoder)
+                )
+        )
+        ("rounds"
+            := Json.list
+                (Json.object1 Round
+                    ("asked"
+                        := (Json.object2 Asked
+                                ("by" := Json.int)
+                                ("question" := questionDecoder)
+                           )
+                    )
                 )
         )
