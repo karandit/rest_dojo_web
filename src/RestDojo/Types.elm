@@ -73,15 +73,13 @@ type alias Asked =
 
 
 type alias Answered =
-    { by : TeamId
-    , answer : Maybe Card
+    { by : String
     }
 
 
 type alias Round =
-    { asked :
-        Asked
-        -- , anwered : List Answered
+    { asked : Asked
+    , anwered : List Answered
     }
 
 

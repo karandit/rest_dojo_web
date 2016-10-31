@@ -125,12 +125,18 @@ gameDecoder =
         )
         ("rounds"
             := Json.list
-                (Json.object1 Round
+                (Json.object2 Round
                     ("asked"
                         := (Json.object2 Asked
                                 ("by" := Json.int)
                                 ("question" := questionDecoder)
                            )
+                    )
+                    ("answered"
+                        := Json.list
+                            (Json.object1 Answered
+                                ("by" := Json.string)
+                            )
                     )
                 )
         )

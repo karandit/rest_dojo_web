@@ -190,17 +190,17 @@
       "rounds": [{
         "asked": {"by": 1, "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
         "answered": [
-          {"by": 2, "answer": null},
-          {"by": 3, "answer": null},
-          {"by": 4, "answer": "Poker"}
+          {"by": "Bravo", "answer": "Kitchen"},
+          {"by": "Charlie", "answer": "RevGreen"},
+          {"by": "Delta", "answer": "Poker"}
         ]
       },
       {
         "asked": {"by": 2, "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
         "answered": [
-          {"by": 3, "answer": null},
-          {"by": 4, "answer": null},
-          {"by": 5, "answer": "Studio"}
+          {"by": "Charlie", "answer": "MrsWhite"},
+          {"by": "Delta", "answer": "Stairs"},
+          {"by": "Echo", "answer": "Studio"}
         ]
       }
     ]
