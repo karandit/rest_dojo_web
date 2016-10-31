@@ -96,8 +96,11 @@ viewRound teamsByTeamId round =
         askedQuestion =
             viewQuestion round.asked.question
 
+        answeredBy answered =
+            [ teamImgByName answered.by ] ++ [ viewCardSmall answered.answer ]
+
         answers =
-            List.map teamImgByName <| List.map .by round.answered
+            List.concatMap answeredBy round.answered
     in
         div [] <| [ askedBy ] ++ askedQuestion ++ answers
 

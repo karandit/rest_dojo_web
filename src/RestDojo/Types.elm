@@ -74,6 +74,7 @@ type alias Asked =
 
 type alias Answered =
     { by : String
+    , answer : String
     }
 
 

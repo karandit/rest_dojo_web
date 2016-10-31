@@ -134,8 +134,9 @@ gameDecoder =
                     )
                     ("answered"
                         := Json.list
-                            (Json.object1 Answered
+                            (Json.object2 Answered
                                 ("by" := Json.string)
+                                ("answer" := Json.string)
                             )
                     )
                 )
