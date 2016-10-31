@@ -66,20 +66,41 @@ viewRounds rounds =
 viewRound : ( Int, Round ) -> Html Msg
 viewRound ( idx, round ) =
     let
+        roundType =
+            case round of
+                Interrogate _ ->
+                    "Asked #"
+
+                Accuse _ ->
+                    "Accused #"
+
         roundLabel =
-            text <| (++) "#" <| toString <| idx + 1
+            text <| (++) roundType <| toString <| idx + 1
+
+        asked =
+            case round of
+                Interrogate interrogation ->
+                    interrogation.asked
+
+                Accuse accusation ->
+                    accusation.asked
 
         askedBy =
-            teamImgByName round.asked.by
+            teamImgByName asked.by
 
         askedQuestion =
-            viewQuestion round.asked.question
+            viewQuestion asked.question
 
         answeredBy answered =
             [ teamImgByName answered.by ] ++ [ viewCardSmall <| Maybe.withDefault "None" answered.answer ]
 
         answers =
-            List.concatMap answeredBy round.answered
+            case round of
+                Interrogate interrogation ->
+                    List.concatMap answeredBy interrogation.answered
+
+                Accuse accusation ->
+                    [ text <| toString accusation.answer ]
     in
         div [] <| [ roundLabel, askedBy ] ++ askedQuestion ++ answers
 

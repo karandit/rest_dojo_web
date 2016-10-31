@@ -78,9 +78,20 @@ type alias Answered =
     }
 
 
-type alias Round =
+type Round
+    = Interrogate Interrogation
+    | Accuse Accusation
+
+
+type alias Interrogation =
     { asked : Asked
     , answered : List Answered
+    }
+
+
+type alias Accusation =
+    { asked : Asked
+    , answer : Bool
     }
 
 

@@ -108,6 +108,13 @@ questionDecoder =
         ("location" := locationDecoder)
 
 
+askedDecoder : Decoder Asked
+askedDecoder =
+    Json.object2 Asked
+        ("by" := Json.string)
+        ("question" := questionDecoder)
+
+
 gameDecoder : Decoder Game
 gameDecoder =
     Json.object4 Game
@@ -125,19 +132,25 @@ gameDecoder =
         )
         ("rounds"
             := Json.list
-                (Json.object2 Round
-                    ("asked"
-                        := (Json.object2 Asked
-                                ("by" := Json.string)
-                                ("question" := questionDecoder)
-                           )
-                    )
-                    ("answered"
-                        := Json.list
-                            (Json.object2 Answered
-                                ("by" := Json.string)
-                                ("answer" := Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
+                (Json.oneOf
+                    [ (Json.map Interrogate
+                        (Json.object2 Interrogation
+                            ("asked" := askedDecoder)
+                            ("answered"
+                                := Json.list
+                                    (Json.object2 Answered
+                                        ("by" := Json.string)
+                                        ("answer" := Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
+                                    )
                             )
-                    )
+                        )
+                      )
+                    , (Json.map Accuse
+                        (Json.object2 Accusation
+                            ("accused" := askedDecoder)
+                            ("answer" := Json.bool)
+                        )
+                      )
+                    ]
                 )
         )

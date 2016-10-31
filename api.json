@@ -187,7 +187,8 @@
         "persons" : ["RevGreen"]
       }
     ],
-      "rounds": [{
+    "rounds": [
+      {
         "asked": {"by": "Alpha", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
         "answered": [
           {"by": "Bravo", "answer": null},
@@ -204,6 +205,10 @@
           {"by": "Foxtrot", "answer": null},
           {"by": "Alpha", "answer": "Studio"}
         ]
+      },
+      {
+        "accused": {"by": "Charlie", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
+        "answer": true
       }
     ]
   }
