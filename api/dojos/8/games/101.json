@@ -6,32 +6,32 @@
     "person" : "ColMustard"
   },
   "bots": [{
-    "teamId": 1,
+    "teamName": "Alpha",
     "weapons": ["Candlestick", "IcePick"],
     "locations" : ["Billiards"],
     "persons" : []
   }, {
-    "teamId": 2,
+    "teamName": "Bravo",
     "weapons": ["Poison"],
     "locations" : ["Conservatory", "Library"],
     "persons" : []
   }, {
-    "teamId": 3,
+    "teamName": "Charlie",
     "weapons": [],
     "locations" : ["Lounge"],
     "persons" : ["MrsWhite", "MsPeacock"]
   }, {
-    "teamId": 4,
+    "teamName": "Delta",
     "weapons": ["Poker"],
     "locations" : ["Stairs"],
     "persons" : ["MsScarlett"]
   }, {
-    "teamId": 5,
+    "teamName": "Echo",
     "weapons": [],
     "locations" : ["Studio", "BedRoom"],
     "persons" : ["ProfPlum"]
   }, {
-    "teamId": 6,
+    "teamName": "Foxtrot",
     "weapons": ["Shears"],
     "locations" : ["TrophyHall"],
     "persons" : ["RevGreen"]
@@ -55,5 +55,4 @@
     ]
   }
 ]
-
 }
