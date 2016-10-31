@@ -84,14 +84,14 @@ teamImgByName teamName =
 
 viewRounds : List Round -> Html Msg
 viewRounds rounds =
-    div [] (List.map viewRound rounds)
+    div [] <| List.map viewRound <| List.indexedMap (,) rounds
 
 
-viewRound : Round -> Html Msg
-viewRound round =
+viewRound : ( Int, Round ) -> Html Msg
+viewRound ( idx, round ) =
     let
         roundLabel =
-            text "#1"
+            text <| (++) "#" <| toString <| idx + 1
 
         askedBy =
             teamImgByName round.asked.by
