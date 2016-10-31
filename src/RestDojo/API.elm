@@ -136,7 +136,7 @@ gameDecoder =
                         := Json.list
                             (Json.object2 Answered
                                 ("by" := Json.string)
-                                ("answer" := Json.string)
+                                ("answer" := Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
                             )
                     )
                 )

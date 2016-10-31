@@ -97,7 +97,7 @@ viewRound teamsByTeamId round =
             viewQuestion round.asked.question
 
         answeredBy answered =
-            [ teamImgByName answered.by ] ++ [ viewCardSmall answered.answer ]
+            [ teamImgByName answered.by ] ++ [ viewCardSmall <| Maybe.withDefault "None" answered.answer ]
 
         answers =
             List.concatMap answeredBy round.answered
