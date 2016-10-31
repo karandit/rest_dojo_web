@@ -35,5 +35,25 @@
     "weapons": ["Shears"],
     "locations" : ["TrophyHall"],
     "persons" : ["RevGreen"]
-  }]
+  }],
+  "rounds": [{
+    "asked": {"by": 1, "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
+    "answered": [
+      {"by": "Bravo", "answer": null},
+      {"by": "Charlie", "answer": null},
+      {"by": "Delta", "answer": "Poker"}
+    ]
+  },
+  {
+    "asked": {"by": 2, "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
+    "answered": [
+      {"by": "Charlie", "answer": null},
+      {"by": "Delta", "answer": null},
+      {"by": "Echo", "answer": null},
+      {"by": "Foxtrot", "answer": null},
+      {"by": "Alpha", "answer": "Studio"}
+    ]
+  }
+]
+
 }

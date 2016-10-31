@@ -8809,6 +8809,15 @@ var _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder = function () {
 	};
 	return A2(_elm_lang$core$Json_Decode$customDecoder, _elm_lang$core$Json_Decode$string, decodeToType);
 }();
+var _user$project$RestDojo_Cluedo_CluedoTypes$WeaponCard = function (a) {
+	return {ctor: 'WeaponCard', _0: a};
+};
+var _user$project$RestDojo_Cluedo_CluedoTypes$PersonCard = function (a) {
+	return {ctor: 'PersonCard', _0: a};
+};
+var _user$project$RestDojo_Cluedo_CluedoTypes$LocationCard = function (a) {
+	return {ctor: 'LocationCard', _0: a};
+};
 
 var _user$project$RestDojo_Types$Dojo = F7(
 	function (a, b, c, d, e, f, g) {
@@ -8826,9 +8835,21 @@ var _user$project$RestDojo_Types$Bot = F4(
 	function (a, b, c, d) {
 		return {teamId: a, persons: b, weapons: c, locations: d};
 	});
-var _user$project$RestDojo_Types$Game = F3(
-	function (a, b, c) {
-		return {id: a, secret: b, bots: c};
+var _user$project$RestDojo_Types$Asked = F2(
+	function (a, b) {
+		return {by: a, question: b};
+	});
+var _user$project$RestDojo_Types$Answered = F2(
+	function (a, b) {
+		return {by: a, answer: b};
+	});
+var _user$project$RestDojo_Types$Round = F2(
+	function (a, b) {
+		return {asked: a, answered: b};
+	});
+var _user$project$RestDojo_Types$Game = F4(
+	function (a, b, c, d) {
+		return {id: a, secret: b, bots: c, rounds: d};
 	});
 var _user$project$RestDojo_Types$Billboard = function (a) {
 	return {dojosUrl: a};
@@ -8881,19 +8902,17 @@ var _user$project$RestDojo_Types$BillboardLoadSucceed = function (a) {
 	return {ctor: 'BillboardLoadSucceed', _0: a};
 };
 
-var _user$project$RestDojo_API$gameDecoder = A4(
+var _user$project$RestDojo_API$questionDecoder = A4(
 	_elm_lang$core$Json_Decode$object3,
+	_user$project$RestDojo_Types$Question,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'person', _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'weapon', _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'location', _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder));
+var _user$project$RestDojo_API$gameDecoder = A5(
+	_elm_lang$core$Json_Decode$object4,
 	_user$project$RestDojo_Types$Game,
 	A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
-	A2(
-		_elm_lang$core$Json_Decode_ops[':='],
-		'secret',
-		A4(
-			_elm_lang$core$Json_Decode$object3,
-			_user$project$RestDojo_Types$Question,
-			A2(_elm_lang$core$Json_Decode_ops[':='], 'person', _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder),
-			A2(_elm_lang$core$Json_Decode_ops[':='], 'weapon', _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder),
-			A2(_elm_lang$core$Json_Decode_ops[':='], 'location', _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'secret', _user$project$RestDojo_API$questionDecoder),
 	A2(
 		_elm_lang$core$Json_Decode_ops[':='],
 		'bots',
@@ -8913,7 +8932,39 @@ var _user$project$RestDojo_API$gameDecoder = A4(
 				A2(
 					_elm_lang$core$Json_Decode_ops[':='],
 					'locations',
-					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))))));
+					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))))),
+	A2(
+		_elm_lang$core$Json_Decode_ops[':='],
+		'rounds',
+		_elm_lang$core$Json_Decode$list(
+			A3(
+				_elm_lang$core$Json_Decode$object2,
+				_user$project$RestDojo_Types$Round,
+				A2(
+					_elm_lang$core$Json_Decode_ops[':='],
+					'asked',
+					A3(
+						_elm_lang$core$Json_Decode$object2,
+						_user$project$RestDojo_Types$Asked,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$int),
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'question', _user$project$RestDojo_API$questionDecoder))),
+				A2(
+					_elm_lang$core$Json_Decode_ops[':='],
+					'answered',
+					_elm_lang$core$Json_Decode$list(
+						A3(
+							_elm_lang$core$Json_Decode$object2,
+							_user$project$RestDojo_Types$Answered,
+							A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$string),
+							A2(
+								_elm_lang$core$Json_Decode_ops[':='],
+								'answer',
+								_elm_lang$core$Json_Decode$oneOf(
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+											A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string)
+										]))))))))));
 var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 	return _elm_lang$core$Json_Decode$list(
 		A2(
@@ -9007,6 +9058,13 @@ var _user$project$RestDojo_API$getBillboard = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, url);
 };
 
+var _user$project$RestDojo_Util$avatar = function (name) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'http://robohash.herokuapp.com/',
+		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
+};
+
 var _user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize = F3(
 	function (w, h, cardName) {
 		return A2(
@@ -9027,54 +9085,159 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize = F3(
 	});
 var _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall = A2(_user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize, 80, 100);
 var _user$project$RestDojo_Cluedo_CluedoView$viewCard = A2(_user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize, 144, 180);
-var _user$project$RestDojo_Cluedo_CluedoView$viewBot = function (bot) {
-	var allBotCards = A2(
-		_elm_lang$core$Basics_ops['++'],
-		A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.persons),
-		A2(
+var _user$project$RestDojo_Cluedo_CluedoView$teamImgByName = function (teamName) {
+	var avatarAttr = _elm_lang$core$Native_List.fromArray(
+		[
+			_elm_lang$html$Html_Attributes$src(
+			_user$project$RestDojo_Util$avatar(teamName)),
+			_elm_lang$html$Html_Attributes$class('rd-team-avatar'),
+			_elm_lang$html$Html_Attributes$title(teamName)
+		]);
+	return A2(
+		_elm_lang$html$Html$img,
+		avatarAttr,
+		_elm_lang$core$Native_List.fromArray(
+			[]));
+};
+var _user$project$RestDojo_Cluedo_CluedoView$teamImg = F2(
+	function (teamsByTeamId, teamId) {
+		var foundTeam = A2(_elm_lang$core$Dict$get, teamId, teamsByTeamId);
+		var avatarAttr = function () {
+			var _p0 = foundTeam;
+			if (_p0.ctor === 'Just') {
+				var _p1 = _p0._0;
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$src(
+						_user$project$RestDojo_Util$avatar(_p1.name)),
+						_elm_lang$html$Html_Attributes$class('rd-team-avatar'),
+						_elm_lang$html$Html_Attributes$title(_p1.name)
+					]);
+			} else {
+				return _elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
+					]);
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$img,
+			avatarAttr,
+			_elm_lang$core$Native_List.fromArray(
+				[]));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewBot = F2(
+	function (teamsByTeamId, bot) {
+		var allBotCards = A2(
 			_elm_lang$core$Basics_ops['++'],
-			A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.locations),
-			A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.weapons)));
+			A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.persons),
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.locations),
+				A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, bot.weapons)));
+		var cardImgs = A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall, allBotCards);
+		return A2(
+			_elm_lang$html$Html$span,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(
+				_elm_lang$core$List_ops['::'],
+				A2(_user$project$RestDojo_Cluedo_CluedoView$teamImg, teamsByTeamId, bot.teamId),
+				cardImgs));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewBots = F2(
+	function (teamsByTeamId, bots) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(
+				_elm_lang$core$List$map,
+				_user$project$RestDojo_Cluedo_CluedoView$viewBot(teamsByTeamId),
+				bots));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize = F2(
+	function (displayer, question) {
+		return A2(
+			_elm_lang$core$List$map,
+			displayer,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$core$Basics$toString(question.person),
+					_elm_lang$core$Basics$toString(question.weapon),
+					_elm_lang$core$Basics$toString(question.location)
+				]));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize(_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall);
+var _user$project$RestDojo_Cluedo_CluedoView$viewRound = F2(
+	function (teamsByTeamId, round) {
+		var answeredBy = function (answered) {
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_user$project$RestDojo_Cluedo_CluedoView$teamImgByName(answered.by)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall(
+						A2(_elm_lang$core$Maybe$withDefault, 'None', answered.answer))
+					]));
+		};
+		var answers = A2(_elm_lang$core$List$concatMap, answeredBy, round.answered);
+		var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(round.asked.question);
+		var askedBy = A2(_user$project$RestDojo_Cluedo_CluedoView$teamImg, teamsByTeamId, round.asked.by);
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Native_List.fromArray(
+					[askedBy]),
+				A2(_elm_lang$core$Basics_ops['++'], askedQuestion, answers)));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewRounds = F2(
+	function (teamsByTeamId, rounds) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(
+				_elm_lang$core$List$map,
+				_user$project$RestDojo_Cluedo_CluedoView$viewRound(teamsByTeamId),
+				rounds));
+	});
+var _user$project$RestDojo_Cluedo_CluedoView$viewSecret = function (question) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
-		A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall, allBotCards));
+		A2(_user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize, _user$project$RestDojo_Cluedo_CluedoView$viewCard, question));
 };
-var _user$project$RestDojo_Cluedo_CluedoView$view = function (game) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		_elm_lang$core$Native_List.fromArray(
+var _user$project$RestDojo_Cluedo_CluedoView$view = F2(
+	function (dojo, game) {
+		var teamsByTeamId = _elm_lang$core$Dict$fromList(
+			A2(
+				_elm_lang$core$List$map,
+				function (team) {
+					return {ctor: '_Tuple2', _0: team.id, _1: team};
+				},
+				dojo.teams));
+		return _elm_lang$core$Native_List.fromArray(
 			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				A2(
-					_elm_lang$core$List$map,
-					_user$project$RestDojo_Cluedo_CluedoView$viewCard,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$core$Basics$toString(game.secret.person),
-							_elm_lang$core$Basics$toString(game.secret.weapon),
-							_elm_lang$core$Basics$toString(game.secret.location)
-						]))),
+				_user$project$RestDojo_Cluedo_CluedoView$viewSecret(game.secret),
+				A2(_user$project$RestDojo_Cluedo_CluedoView$viewBots, teamsByTeamId, game.bots),
 				A2(
 				_elm_lang$html$Html$hr,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
-					[]))
-			]),
-		A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewBot, game.bots));
-};
+					[])),
+				A2(_user$project$RestDojo_Cluedo_CluedoView$viewRounds, teamsByTeamId, game.rounds)
+			]);
+	});
 
-var _user$project$RestDojo_ViewHome$avatar = function (name) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'http://robohash.herokuapp.com/',
-		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
-};
 var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -9089,7 +9252,7 @@ var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_ViewHome$avatar('aa')),
+						_user$project$RestDojo_Util$avatar('aa')),
 						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
 					]),
 				_elm_lang$core$Native_List.fromArray(
@@ -9161,12 +9324,6 @@ var _user$project$RestDojo_ViewHome$view = function (dojos) {
 		]);
 };
 
-var _user$project$RestDojo_ViewDojo$avatar = function (name) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'http://robohash.herokuapp.com/',
-		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
-};
 var _user$project$RestDojo_ViewDojo$viewEventGameWonBy = F3(
 	function (dojo, gameUrl, team) {
 		var avatarAttr = function () {
@@ -9176,7 +9333,7 @@ var _user$project$RestDojo_ViewDojo$viewEventGameWonBy = F3(
 				return _elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_ViewDojo$avatar(_p1.name)),
+						_user$project$RestDojo_Util$avatar(_p1.name)),
 						_elm_lang$html$Html_Attributes$class(
 						A2(
 							_elm_lang$core$Basics_ops['++'],
@@ -9306,7 +9463,7 @@ var _user$project$RestDojo_ViewDojo$viewTeam = function (team) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_ViewDojo$avatar(team.name)),
+						_user$project$RestDojo_Util$avatar(team.name)),
 						_elm_lang$html$Html_Attributes$class(
 						A2(
 							_elm_lang$core$Basics_ops['++'],
@@ -9424,13 +9581,25 @@ var _user$project$RestDojo_View$viewContent = function (model) {
 				return _user$project$RestDojo_View$viewNotFound;
 			}
 		default:
-			return _user$project$RestDojo_Cluedo_CluedoView$view(_p0._1);
+			var foundDojo = _elm_lang$core$List$head(
+				A2(
+					_elm_lang$core$List$filter,
+					function (dojo) {
+						return _elm_lang$core$Native_Utils.eq(dojo.id, _p0._0);
+					},
+					model.dojos));
+			var _p2 = foundDojo;
+			if (_p2.ctor === 'Just') {
+				return A2(_user$project$RestDojo_Cluedo_CluedoView$view, _p2._0, _p0._1);
+			} else {
+				return _user$project$RestDojo_View$viewNotFound;
+			}
 	}
 };
 var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 	var breadcrumbs = function () {
-		var _p2 = model.route;
-		switch (_p2.ctor) {
+		var _p3 = model.route;
+		switch (_p3.ctor) {
 			case 'HomeRoute':
 				return _elm_lang$core$Native_List.fromArray(
 					[
@@ -9449,7 +9618,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 							A2(
 								_elm_lang$core$List$filter,
 								function (dojo) {
-									return _elm_lang$core$Native_Utils.eq(dojo.id, _p2._0);
+									return _elm_lang$core$Native_Utils.eq(dojo.id, _p3._0);
 								},
 								model.dojos))));
 				return _elm_lang$core$Native_List.fromArray(
@@ -9463,7 +9632,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 					A2(
 						_elm_lang$core$List$filter,
 						function (dojo) {
-							return _elm_lang$core$Native_Utils.eq(dojo.id, _p2._0);
+							return _elm_lang$core$Native_Utils.eq(dojo.id, _p3._0);
 						},
 						model.dojos));
 				var dojoLabel = A2(
@@ -9482,7 +9651,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 						_elm_lang$html$Html$text(dojoLabel),
 						_elm_lang$html$Html$text(' \\ '),
 						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(_p2._1.id))
+						_elm_lang$core$Basics$toString(_p3._1.id))
 					]);
 		}
 	}();
