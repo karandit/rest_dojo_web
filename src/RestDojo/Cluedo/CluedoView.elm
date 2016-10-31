@@ -49,7 +49,7 @@ viewBot teamsByTeamId bot =
         cardImgs =
             List.map viewCardSmall allBotCards
     in
-        span [] <| (teamImg teamsByTeamId bot.teamId) :: cardImgs
+        div [] <| (teamImg teamsByTeamId bot.teamId) :: cardImgs
 
 
 teamImg teamsByTeamId teamId =
@@ -90,6 +90,9 @@ viewRounds rounds =
 viewRound : Round -> Html Msg
 viewRound round =
     let
+        roundLabel =
+            text "#1"
+
         askedBy =
             teamImgByName round.asked.by
 
@@ -102,7 +105,7 @@ viewRound round =
         answers =
             List.concatMap answeredBy round.answered
     in
-        div [] <| [ askedBy ] ++ askedQuestion ++ answers
+        div [] <| [ roundLabel, askedBy ] ++ askedQuestion ++ answers
 
 
 viewCard : String -> Html Msg
