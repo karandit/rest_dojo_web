@@ -8946,7 +8946,7 @@ var _user$project$RestDojo_API$gameDecoder = A5(
 					A3(
 						_elm_lang$core$Json_Decode$object2,
 						_user$project$RestDojo_Types$Asked,
-						A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$int),
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'by', _elm_lang$core$Json_Decode$string),
 						A2(_elm_lang$core$Json_Decode_ops[':='], 'question', _user$project$RestDojo_API$questionDecoder))),
 				A2(
 					_elm_lang$core$Json_Decode_ops[':='],
@@ -9169,45 +9169,40 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize = F2(
 				]));
 	});
 var _user$project$RestDojo_Cluedo_CluedoView$viewQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize(_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall);
-var _user$project$RestDojo_Cluedo_CluedoView$viewRound = F2(
-	function (teamsByTeamId, round) {
-		var answeredBy = function (answered) {
-			return A2(
-				_elm_lang$core$Basics_ops['++'],
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_user$project$RestDojo_Cluedo_CluedoView$teamImgByName(answered.by)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall(
-						A2(_elm_lang$core$Maybe$withDefault, 'None', answered.answer))
-					]));
-		};
-		var answers = A2(_elm_lang$core$List$concatMap, answeredBy, round.answered);
-		var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(round.asked.question);
-		var askedBy = A2(_user$project$RestDojo_Cluedo_CluedoView$teamImg, teamsByTeamId, round.asked.by);
+var _user$project$RestDojo_Cluedo_CluedoView$viewRound = function (round) {
+	var answeredBy = function (answered) {
 		return A2(
-			_elm_lang$html$Html$div,
+			_elm_lang$core$Basics_ops['++'],
 			_elm_lang$core$Native_List.fromArray(
-				[]),
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				_elm_lang$core$Native_List.fromArray(
-					[askedBy]),
-				A2(_elm_lang$core$Basics_ops['++'], askedQuestion, answers)));
-	});
-var _user$project$RestDojo_Cluedo_CluedoView$viewRounds = F2(
-	function (teamsByTeamId, rounds) {
-		return A2(
-			_elm_lang$html$Html$div,
+				[
+					_user$project$RestDojo_Cluedo_CluedoView$teamImgByName(answered.by)
+				]),
 			_elm_lang$core$Native_List.fromArray(
-				[]),
-			A2(
-				_elm_lang$core$List$map,
-				_user$project$RestDojo_Cluedo_CluedoView$viewRound(teamsByTeamId),
-				rounds));
-	});
+				[
+					_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall(
+					A2(_elm_lang$core$Maybe$withDefault, 'None', answered.answer))
+				]));
+	};
+	var answers = A2(_elm_lang$core$List$concatMap, answeredBy, round.answered);
+	var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(round.asked.question);
+	var askedBy = _user$project$RestDojo_Cluedo_CluedoView$teamImgByName(round.asked.by);
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Native_List.fromArray(
+				[askedBy]),
+			A2(_elm_lang$core$Basics_ops['++'], askedQuestion, answers)));
+};
+var _user$project$RestDojo_Cluedo_CluedoView$viewRounds = function (rounds) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewRound, rounds));
+};
 var _user$project$RestDojo_Cluedo_CluedoView$viewSecret = function (question) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -9234,7 +9229,7 @@ var _user$project$RestDojo_Cluedo_CluedoView$view = F2(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[])),
-				A2(_user$project$RestDojo_Cluedo_CluedoView$viewRounds, teamsByTeamId, game.rounds)
+				_user$project$RestDojo_Cluedo_CluedoView$viewRounds(game.rounds)
 			]);
 	});
 
