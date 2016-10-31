@@ -61,12 +61,23 @@ teamImg teamsByTeamId teamId =
             case foundTeam of
                 Just team ->
                     [ src <| avatar team.name
-                    , class <| "rd-team-avatar rd-team-" ++ toString team.id
+                    , class "rd-team-avatar"
                     , title team.name
                     ]
 
                 Nothing ->
                     [ class "rd-team-avatar" ]
+    in
+        img avatarAttr []
+
+
+teamImgByName teamName =
+    let
+        avatarAttr =
+            [ src <| avatar teamName
+            , class "rd-team-avatar"
+            , title teamName
+            ]
     in
         img avatarAttr []
 
@@ -84,8 +95,11 @@ viewRound teamsByTeamId round =
 
         askedQuestion =
             viewQuestion round.asked.question
+
+        answers =
+            List.map teamImgByName <| List.map .by round.answered
     in
-        div [] <| askedBy :: askedQuestion
+        div [] <| [ askedBy ] ++ askedQuestion ++ answers
 
 
 viewCard : String -> Html Msg

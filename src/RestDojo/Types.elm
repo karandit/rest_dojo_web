@@ -79,7 +79,7 @@ type alias Answered =
 
 type alias Round =
     { asked : Asked
-    , anwered : List Answered
+    , answered : List Answered
     }
 
 
