@@ -4,6 +4,7 @@ import Html exposing (Html, text, a, button, div, span, img, article, header, hr
 import Html.Attributes exposing (class, src, id, href)
 import Html.Events exposing (onClick)
 import RestDojo.Types exposing (..)
+import RestDojo.Util exposing (..)
 
 
 -- VIEW ----------------------------------------------------------------------------------------------------------------
@@ -42,8 +43,3 @@ viewDojo dojo =
             [ class "rd-team-name", onClick (SelectDojo dojo) ]
             [ text dojo.label ]
         ]
-
-
-avatar : String -> String
-avatar name =
-    "http://robohash.herokuapp.com/" ++ name ++ ".png"
