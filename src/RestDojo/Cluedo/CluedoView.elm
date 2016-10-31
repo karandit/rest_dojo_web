@@ -21,8 +21,18 @@ view dojo game =
 
 
 viewSecret : Question -> Html Msg
-viewSecret secret =
-    div [] <| List.map viewCard [ toString secret.person, toString secret.weapon, toString secret.location ]
+viewSecret question =
+    div [] <| viewQuestionWithSize viewCard question
+
+
+viewQuestion : Question -> List (Html Msg)
+viewQuestion =
+    viewQuestionWithSize viewCardSmall
+
+
+viewQuestionWithSize : (String -> Html Msg) -> Question -> List (Html Msg)
+viewQuestionWithSize displayer question =
+    List.map displayer [ toString question.person, toString question.weapon, toString question.location ]
 
 
 viewBots : Dict TeamId Team -> List Bot -> Html Msg
@@ -68,7 +78,14 @@ viewRounds teamsByTeamId rounds =
 
 viewRound : Dict TeamId Team -> Round -> Html Msg
 viewRound teamsByTeamId round =
-    teamImg teamsByTeamId round.asked.by
+    let
+        askedBy =
+            teamImg teamsByTeamId round.asked.by
+
+        askedQuestion =
+            viewQuestion round.asked.question
+    in
+        div [] <| askedBy :: askedQuestion
 
 
 viewCard : String -> Html Msg
