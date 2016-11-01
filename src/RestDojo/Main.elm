@@ -7,6 +7,7 @@ import RestDojo.Types exposing (..)
 import RestDojo.API as API exposing (..)
 import RestDojo.View exposing (..)
 import RestDojo.Chartjs exposing (..)
+import List.Extra
 
 
 -- MAIN ----------------------------------------------------------------------------------------------------------------
@@ -33,16 +34,14 @@ port chart : ChartInput -> Cmd msg
 mapToChartInput : PointHistory -> ChartInput
 mapToChartInput pointHistory =
     { labels = pointHistory.games
-    , datasets = List.map (\teamPoints -> { label = teamPoints.teamName, data = teamPoints.data, borderColor = "#7e5ae2" }) pointHistory.teams
+    , datasets =
+        pointHistory.teams
+            |> List.Extra.zip [ "#7e5ae2", "#e25abc", "#e25a77", "#7e9ce2", "#f78764", "#1784c7" ]
+            |> List.map (\( color, teamPoints ) -> { label = teamPoints.teamName, data = teamPoints.data, borderColor = color })
     }
 
 
 
--- , borderColor = "#7e5ae2"
--- , borderColor = "#e25a77"
--- , borderColor = "#7e9ce2"
--- , borderColor = "#F78764"
--- , borderColor = "#1784c7"
 -- MODEL ---------------------------------------------------------------------------------------------------------------
 
 
