@@ -1,0 +1,28 @@
+{
+  "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
+  "teams": [ {
+      "teamName" : "Alabama",
+      "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+    },
+    {
+      "teamName" : "Connecticut",
+      "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+    },
+    {
+      "teamName" : "Florida",
+      "data" : [ 0, 2, 3, 3, 3, 4, 21 ]
+    },
+    {
+      "teamName" : "Nebraska",
+      "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+    },
+    {
+      "teamName" : "Oklahoma",
+      "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+    },
+    {
+      "teamName" : "Utah",
+      "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+    }
+  ]
+}

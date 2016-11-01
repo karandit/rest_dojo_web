@@ -1,0 +1,28 @@
+{
+  "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
+  "teams": [ {
+      "teamName" : "Washington",
+      "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+    },
+    {
+      "teamName" : "Jefferson",
+      "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+    },
+    {
+      "teamName" : "Lincoln",
+      "data" : [ 0, 1, 3, 3, 3, 4, 21 ]
+    },
+    {
+      "teamName" : "Grant",
+      "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+    },
+    {
+      "teamName" : "Roosevelt",
+      "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+    },
+    {
+      "teamName" : "Kennedy",
+      "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+    }
+  ]
+}

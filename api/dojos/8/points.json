@@ -1,0 +1,28 @@
+{
+    "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
+    "teams": [ {
+        "teamName" : "Alpha",
+        "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+      },
+      {
+        "teamName" : "Bravo",
+        "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+      },
+      {
+        "teamName" : "Charlie",
+        "data" : [ 0, 3, 3, 3, 3, 4, 21 ]
+      },
+      {
+        "teamName" : "Delta",
+        "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+      },
+      {
+        "teamName" : "Echo",
+        "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+      },
+      {
+        "teamName" : "Foxtrot",
+        "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+      }
+    ]
+  }
