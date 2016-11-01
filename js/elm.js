@@ -9081,6 +9081,15 @@ var _user$project$RestDojo_API$getBillboard = function (url) {
 	return A2(_evancz$elm_http$Http$get, _user$project$RestDojo_API$billboardDecoder, url);
 };
 
+var _user$project$RestDojo_Chartjs$ChartDataSet = F3(
+	function (a, b, c) {
+		return {label: a, data: b, borderColor: c};
+	});
+var _user$project$RestDojo_Chartjs$ChartInput = F2(
+	function (a, b) {
+		return {labels: a, datasets: b};
+	});
+
 var _user$project$RestDojo_Util$avatar = function (name) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -9749,6 +9758,91 @@ var _user$project$RestDojo_Main$initDojos = function (url) {
 		_user$project$RestDojo_Types$DojosLoadSucceed,
 		_user$project$RestDojo_API$getDojos(url));
 };
+var _user$project$RestDojo_Main$initBillboard = function (url) {
+	return A3(
+		_elm_lang$core$Task$perform,
+		_user$project$RestDojo_Types$ErrorOccured,
+		_user$project$RestDojo_Types$BillboardLoadSucceed,
+		_user$project$RestDojo_API$getBillboard(url));
+};
+var _user$project$RestDojo_Main$initModel = function (flags) {
+	return A2(
+		_elm_lang$core$Platform_Cmd_ops['!'],
+		{
+			billboard: _user$project$RestDojo_Types$Billboard(''),
+			route: _user$project$RestDojo_Types$HomeRoute,
+			dojos: _elm_lang$core$Native_List.fromArray(
+				[])
+		},
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$RestDojo_Main$initBillboard(flags.baseUrl)
+			]));
+};
+var _user$project$RestDojo_Main$chartFakeInput = {
+	labels: _elm_lang$core$Native_List.fromArray(
+		['M', 'T', 'W', 'T', 'F', 'S', 'S']),
+	datasets: _elm_lang$core$Native_List.fromArray(
+		[
+			{
+			label: 'Alpha',
+			data: _elm_lang$core$Native_List.fromArray(
+				[0, 5, 7, 14, 14, 14, 14]),
+			borderColor: '#7e5ae2'
+		},
+			{
+			label: 'Bravo',
+			data: _elm_lang$core$Native_List.fromArray(
+				[0, 5, 5, 12, 13, 20, 21]),
+			borderColor: '#e25abc'
+		},
+			{
+			label: 'Charlie',
+			data: _elm_lang$core$Native_List.fromArray(
+				[0, 6, 3, 3, 3, 4, 21]),
+			borderColor: '#e25a77'
+		},
+			{
+			label: 'Delta',
+			data: _elm_lang$core$Native_List.fromArray(
+				[0, 7, 8, 8, 9, 10, 10]),
+			borderColor: '#7e9ce2'
+		},
+			{
+			label: 'Echo',
+			data: _elm_lang$core$Native_List.fromArray(
+				[0, 3, 3, 3, 3, 3, 4]),
+			borderColor: '#F78764'
+		},
+			{
+			label: 'Foxtrot',
+			data: _elm_lang$core$Native_List.fromArray(
+				[0, 1, 1, 1, 1, 1, 1]),
+			borderColor: '#1784c7'
+		}
+		])
+};
+var _user$project$RestDojo_Main$chart = _elm_lang$core$Native_Platform.outgoingPort(
+	'chart',
+	function (v) {
+		return {
+			labels: _elm_lang$core$Native_List.toArray(v.labels).map(
+				function (v) {
+					return v;
+				}),
+			datasets: _elm_lang$core$Native_List.toArray(v.datasets).map(
+				function (v) {
+					return {
+						label: v.label,
+						data: _elm_lang$core$Native_List.toArray(v.data).map(
+							function (v) {
+								return v;
+							}),
+						borderColor: v.borderColor
+					};
+				})
+		};
+	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
 		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
@@ -9783,7 +9877,8 @@ var _user$project$RestDojo_Main$update = F2(
 						}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$RestDojo_Main$initTeams(_p2)
+							_user$project$RestDojo_Main$initTeams(_p2),
+							_user$project$RestDojo_Main$chart(_user$project$RestDojo_Main$chartFakeInput)
 						]));
 			case 'SelectGame':
 				return A2(
@@ -9851,27 +9946,6 @@ var _user$project$RestDojo_Main$update = F2(
 						[]));
 		}
 	});
-var _user$project$RestDojo_Main$initBillboard = function (url) {
-	return A3(
-		_elm_lang$core$Task$perform,
-		_user$project$RestDojo_Types$ErrorOccured,
-		_user$project$RestDojo_Types$BillboardLoadSucceed,
-		_user$project$RestDojo_API$getBillboard(url));
-};
-var _user$project$RestDojo_Main$initModel = function (flags) {
-	return A2(
-		_elm_lang$core$Platform_Cmd_ops['!'],
-		{
-			billboard: _user$project$RestDojo_Types$Billboard(''),
-			route: _user$project$RestDojo_Types$HomeRoute,
-			dojos: _elm_lang$core$Native_List.fromArray(
-				[])
-		},
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_user$project$RestDojo_Main$initBillboard(flags.baseUrl)
-			]));
-};
 var _user$project$RestDojo_Main$main = {
 	main: _elm_lang$html$Html_App$programWithFlags(
 		{
