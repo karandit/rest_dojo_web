@@ -30,39 +30,19 @@ main =
 port chart : ChartInput -> Cmd msg
 
 
-chartFakeInput : ChartInput
-chartFakeInput =
-    { labels = [ "M", "T", "W", "T", "F", "S", "S" ]
-    , datasets =
-        [ { label = "Alpha"
-          , data = [ 0, 5, 7, 14, 14, 14, 14 ]
-          , borderColor = "#7e5ae2"
-          }
-        , { label = "Bravo"
-          , data = [ 0, 5, 5, 12, 13, 20, 21 ]
-          , borderColor = "#e25abc"
-          }
-        , { label = "Charlie"
-          , data = [ 0, 6, 3, 3, 3, 4, 21 ]
-          , borderColor = "#e25a77"
-          }
-        , { label = "Delta"
-          , data = [ 0, 7, 8, 8, 9, 10, 10 ]
-          , borderColor = "#7e9ce2"
-          }
-        , { label = "Echo"
-          , data = [ 0, 3, 3, 3, 3, 3, 4 ]
-          , borderColor = "#F78764"
-          }
-        , { label = "Foxtrot"
-          , data = [ 0, 1, 1, 1, 1, 1, 1 ]
-          , borderColor = "#1784c7"
-          }
-        ]
+mapToChartInput : PointHistory -> ChartInput
+mapToChartInput pointHistory =
+    { labels = pointHistory.games
+    , datasets = List.map (\teamPoints -> { label = teamPoints.teamName, data = teamPoints.data, borderColor = "#7e5ae2" }) pointHistory.teams
     }
 
 
 
+-- , borderColor = "#7e5ae2"
+-- , borderColor = "#e25a77"
+-- , borderColor = "#7e9ce2"
+-- , borderColor = "#F78764"
+-- , borderColor = "#1784c7"
 -- MODEL ---------------------------------------------------------------------------------------------------------------
 
 
@@ -90,6 +70,11 @@ initTeams dojo =
     Task.perform ErrorOccured (TeamsLoadSucceed dojo) (API.getTeams dojo.teamsUrl)
 
 
+loadPointHistory : Dojo -> Cmd Msg
+loadPointHistory dojo =
+    Task.perform ErrorOccured PointHistoryLoadSucceed (API.getPointHistory dojo.pointHistoryUrl)
+
+
 initEvents : Dojo -> List Team -> Cmd Msg
 initEvents dojo teams =
     Task.perform ErrorOccured (EventsLoadSucceed dojo) (API.getEvents dojo.eventsUrl teams)
@@ -114,10 +99,13 @@ update msg model =
             { model | dojos = loadedDojos } ! []
 
         SelectDojo dojo ->
-            { model | route = DojoRoute dojo.id } ! [ initTeams dojo, chart chartFakeInput ]
+            { model | route = DojoRoute dojo.id } ! [ initTeams dojo, loadPointHistory dojo ]
 
         SelectGame dojo gameUrl ->
             model ! [ initGame dojo gameUrl ]
+
+        PointHistoryLoadSucceed pointHistory ->
+            model ! [ chart <| mapToChartInput pointHistory ]
 
         GameLoadSucceed dojo game ->
             { model | route = GameRoute dojo.id game } ! []

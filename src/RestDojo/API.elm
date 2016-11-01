@@ -1,4 +1,4 @@
-module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getGame)
+module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getGame, getPointHistory)
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
@@ -24,6 +24,11 @@ getDojos url =
 getTeams : String -> Task Error (List Team)
 getTeams url =
     Http.get teamsDecoder url
+
+
+getPointHistory : String -> Task Error PointHistory
+getPointHistory url =
+    Http.get pointHistoryDecoder url
 
 
 getEvents : String -> List Team -> Task Error (List Event)
@@ -53,12 +58,13 @@ billboardDecoder =
 dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
     Json.list <|
-        Json.object5 (Dojo [] [])
+        Json.object6 (Dojo [] [])
             ("id" := Json.int)
             ("label" := Json.string)
             ("state" := dojoStateDecoder)
             ("teamsUrl" := Json.string)
             ("eventsUrl" := Json.string)
+            ("pointHistoryUrl" := Json.string)
 
 
 dojoStateDecoder : Json.Decoder DojoState
@@ -79,6 +85,19 @@ dojoStateDecoder =
                     Result.Err ("Not valid pattern for decoder to DojoState. Pattern: " ++ (toString string))
     in
         Json.customDecoder Json.string decodeToType
+
+
+pointHistoryDecoder : Decoder PointHistory
+pointHistoryDecoder =
+    Json.object2 PointHistory
+        ("games" := Json.list Json.string)
+        ("teams"
+            := Json.list
+                (Json.object2 TeamPoints
+                    ("teamName" := Json.string)
+                    ("data" := Json.list Json.int)
+                )
+        )
 
 
 teamsDecoder : Decoder (List Team)

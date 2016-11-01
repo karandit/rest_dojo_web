@@ -28,6 +28,7 @@ type alias Dojo =
     , state : DojoState
     , teamsUrl : String
     , eventsUrl : String
+    , pointHistoryUrl : String
     }
 
 
@@ -107,6 +108,18 @@ type Event
     = GameWonBy GameUrl (Maybe Team)
 
 
+type alias TeamPoints =
+    { teamName : String
+    , data : List Int
+    }
+
+
+type alias PointHistory =
+    { games : List String
+    , teams : List TeamPoints
+    }
+
+
 type alias Billboard =
     { dojosUrl : String
     }
@@ -124,6 +137,7 @@ type Msg
     | DojosLoadSucceed (List Dojo)
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
+    | PointHistoryLoadSucceed PointHistory
     | GameLoadSucceed Dojo Game
     | TeamsLoadSucceed Dojo (List Team)
     | EventsLoadSucceed Dojo (List Event)
