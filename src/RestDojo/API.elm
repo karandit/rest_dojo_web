@@ -58,7 +58,7 @@ billboardDecoder =
 dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
     Json.list <|
-        Json.object6 (Dojo [] [])
+        Json.object6 (Dojo [] [] False)
             ("id" := Json.int)
             ("label" := Json.string)
             ("state" := dojoStateDecoder)

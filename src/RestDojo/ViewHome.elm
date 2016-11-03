@@ -37,7 +37,7 @@ viewDojo dojo =
     div [ class "rd-team" ]
         [ img
             --TODO : use a proper icon instead of avatars
-            [ src <| avatar "aa", class "rd-team-avatar" ]
+            [ src <| avatar dojo.label, class "rd-team-avatar" ]
             []
         , button
             [ class "rd-team-name", onClick (SelectDojo dojo) ]

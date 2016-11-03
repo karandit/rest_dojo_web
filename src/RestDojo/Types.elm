@@ -23,6 +23,7 @@ type DojoState
 type alias Dojo =
     { teams : List Team
     , events : List Event
+    , dialog : Bool
     , id : DojoId
     , label : String
     , state : DojoState
@@ -141,4 +142,6 @@ type Msg
     | GameLoadSucceed Dojo Game
     | TeamsLoadSucceed Dojo (List Team)
     | EventsLoadSucceed Dojo (List Event)
+    | ShowTeamDialog Dojo Team
+    | CloseTeamDialog Dojo
     | ErrorOccured Http.Error

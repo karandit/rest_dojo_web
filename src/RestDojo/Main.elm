@@ -112,6 +112,12 @@ update msg model =
         TeamsLoadSucceed oldDojo loadedTeams ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
 
+        ShowTeamDialog oldDojo team ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = True }) model.dojos } ! []
+
+        CloseTeamDialog oldDojo ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = False }) model.dojos } ! []
+
         EventsLoadSucceed oldDojo loadedEvents ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
