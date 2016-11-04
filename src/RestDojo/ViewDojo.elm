@@ -36,11 +36,24 @@ viewDialogTeam : Dojo -> Team -> Html Msg
 viewDialogTeam dojo team =
     div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
         [ div [ class "rd-modal__dialog" ]
-            [ div [ class <| "rd-modal__header rd-team-background-" ++ (toString team.id) ] []
+            [ div [ class <| "rd-modal__header rd-team-background-" ++ (toString team.id) ]
+                [ div [] [ teamImg team ]
+                , div [ class "rd-modal__header-title" ] [ text team.name ]
+                ]
             , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]
+
+
+teamImg team =
+    let
+        avatarAttr =
+            [ src <| avatar team.name
+            , class <| "rd-team-avatar rd-team-" ++ toString team.id
+            ]
+    in
+        img avatarAttr []
 
 
 viewTeams : Dojo -> List Team -> Html Msg
@@ -58,11 +71,7 @@ viewTeams dojo teams =
 viewTeam : Dojo -> Team -> Html Msg
 viewTeam dojo team =
     div [ class "rd-team" ]
-        [ img
-            [ src <| avatar team.name
-            , class <| "rd-team-avatar rd-team-" ++ toString team.id
-            ]
-            []
+        [ teamImg team
         , span [ class "rd-team-name" ] [ text team.name ]
         , span [ class "rd-team-descr" ] [ text team.descr ]
         , span [ class "rd-team-action", onClick <| ShowTeamDialog dojo team ] [ text "Team" ]

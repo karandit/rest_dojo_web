@@ -277,6 +277,12 @@ article:nth-of-type(2) {
 	position: relative;
 }
 
+
+.rd-modal__header-title {
+  color: #fff;
+  font-size: 1.5em;
+}
+
 /* ------------------ Input fields ---------------------------------*/
 .input {
 	position: relative;
