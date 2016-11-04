@@ -113,10 +113,10 @@ update msg model =
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
 
         ShowTeamDialog oldDojo team ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = True }) model.dojos } ! []
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just team }) model.dojos } ! []
 
         CloseTeamDialog oldDojo ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = False }) model.dojos } ! []
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Nothing }) model.dojos } ! []
 
         EventsLoadSucceed oldDojo loadedEvents ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []

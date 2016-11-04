@@ -23,7 +23,7 @@ type DojoState
 type alias Dojo =
     { teams : List Team
     , events : List Event
-    , dialog : Bool
+    , dialog : Maybe Team
     , id : DojoId
     , label : String
     , state : DojoState

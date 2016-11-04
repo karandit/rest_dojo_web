@@ -19,31 +19,26 @@ view dojo =
         , viewEvents dojo
         ]
     ]
-        ++ (if dojo.dialog then
-                [ viewDialog dojo ]
-            else
-                []
-           )
+        ++ (viewDialog dojo)
 
 
-viewDialog : Dojo -> Html Msg
+viewDialog : Dojo -> List (Html Msg)
 viewDialog dojo =
+    case dojo.dialog of
+        Just team ->
+            [ viewDialogTeam dojo team ]
+
+        Nothing ->
+            []
+
+
+viewDialogTeam : Dojo -> Team -> Html Msg
+viewDialogTeam dojo team =
     div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
         [ div [ class "rd-modal__dialog" ]
-            [ div [ class "rd-modal__header rd-team-background-1" ]
-                []
-            , div [ class "input input--hoshi" ]
-                [ input [ class "input__field input__field--hoshi", id "input-4", type' "text" ]
-                    []
-                , label [ class "input__label input__label--hoshi input__label--hoshi-color-2", for "input-4" ]
-                    [ span [ class "input__label-content input__label-content--hoshi" ]
-                        [ text "Team name" ]
-                    ]
-                ]
-            , button [ class "rd-modal__action" ]
-                [ text "Close" ]
-            , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ]
-                [ text "Close" ]
+            [ div [ class <| "rd-modal__header rd-team-background-" ++ (toString team.id) ] []
+            , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
+            , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]
 
