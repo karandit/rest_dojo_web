@@ -10719,6 +10719,23 @@ var _user$project$RestDojo_ViewDojo$viewPoints = function (teams) {
 					]))
 			]));
 };
+var _user$project$RestDojo_ViewDojo$teamImg = function (team) {
+	var avatarAttr = _elm_lang$core$Native_List.fromArray(
+		[
+			_elm_lang$html$Html_Attributes$src(
+			_user$project$RestDojo_Util$avatar(team.name)),
+			_elm_lang$html$Html_Attributes$class(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'rd-team-avatar rd-team-',
+				_elm_lang$core$Basics$toString(team.id)))
+		]);
+	return A2(
+		_elm_lang$html$Html$img,
+		avatarAttr,
+		_elm_lang$core$Native_List.fromArray(
+			[]));
+};
 var _user$project$RestDojo_ViewDojo$viewTeam = F2(
 	function (dojo, team) {
 		return A2(
@@ -10729,20 +10746,7 @@ var _user$project$RestDojo_ViewDojo$viewTeam = F2(
 				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					A2(
-					_elm_lang$html$Html$img,
-					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html_Attributes$src(
-							_user$project$RestDojo_Util$avatar(team.name)),
-							_elm_lang$html$Html_Attributes$class(
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'rd-team-avatar rd-team-',
-								_elm_lang$core$Basics$toString(team.id)))
-						]),
-					_elm_lang$core$Native_List.fromArray(
-						[])),
+					_user$project$RestDojo_ViewDojo$teamImg(team),
 					A2(
 					_elm_lang$html$Html$span,
 					_elm_lang$core$Native_List.fromArray(
@@ -10848,7 +10852,26 @@ var _user$project$RestDojo_ViewDojo$viewDialogTeam = F2(
 										_elm_lang$core$Basics$toString(team.id)))
 								]),
 							_elm_lang$core$Native_List.fromArray(
-								[])),
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_user$project$RestDojo_ViewDojo$teamImg(team)
+										])),
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('rd-modal__header-title')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html$text(team.name)
+										]))
+								])),
 							A2(
 							_elm_lang$html$Html$button,
 							_elm_lang$core$Native_List.fromArray(

@@ -204,6 +204,7 @@ article:nth-of-type(2) {
 }
 
 .rd-modal__dialog .cd-popup-close {
+  cursor: pointer;
   position: absolute;
   top: 8px;
   right: 8px;
@@ -273,8 +274,14 @@ article:nth-of-type(2) {
 /*--------------------  Modal Dialog Header -------------------------------*/
 .rd-modal__header {
 	border-radius: 10px 10px 0 0;
-	padding: 4em 0 9em;
+	padding: 4em 0 4em;
 	position: relative;
+}
+
+
+.rd-modal__header-title {
+  color: #fff;
+  font-size: 1.5em;
 }
 
 /* ------------------ Input fields ---------------------------------*/
