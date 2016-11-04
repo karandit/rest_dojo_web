@@ -10013,9 +10013,9 @@ var _user$project$RestDojo_Cluedo_CluedoTypes$LocationCard = function (a) {
 	return {ctor: 'LocationCard', _0: a};
 };
 
-var _user$project$RestDojo_Types$Dojo = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {teams: a, events: b, id: c, label: d, state: e, teamsUrl: f, eventsUrl: g, pointHistoryUrl: h};
+var _user$project$RestDojo_Types$Dojo = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {teams: a, events: b, dialog: c, id: d, label: e, state: f, teamsUrl: g, eventsUrl: h, pointHistoryUrl: i};
 	});
 var _user$project$RestDojo_Types$Team = F4(
 	function (a, b, c, d) {
@@ -10088,6 +10088,13 @@ var _user$project$RestDojo_Types$GameWonBy = F2(
 var _user$project$RestDojo_Types$ErrorOccured = function (a) {
 	return {ctor: 'ErrorOccured', _0: a};
 };
+var _user$project$RestDojo_Types$CloseTeamDialog = function (a) {
+	return {ctor: 'CloseTeamDialog', _0: a};
+};
+var _user$project$RestDojo_Types$ShowTeamDialog = F2(
+	function (a, b) {
+		return {ctor: 'ShowTeamDialog', _0: a, _1: b};
+	});
 var _user$project$RestDojo_Types$EventsLoadSucceed = F2(
 	function (a, b) {
 		return {ctor: 'EventsLoadSucceed', _0: a, _1: b};
@@ -10263,12 +10270,13 @@ var _user$project$RestDojo_API$dojoStateDecoder = function () {
 var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
 	A7(
 		_elm_lang$core$Json_Decode$object6,
-		A2(
+		A3(
 			_user$project$RestDojo_Types$Dojo,
 			_elm_lang$core$Native_List.fromArray(
 				[]),
 			_elm_lang$core$Native_List.fromArray(
-				[])),
+				[]),
+			_elm_lang$core$Maybe$Nothing),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'label', _elm_lang$core$Json_Decode$string),
 		A2(_elm_lang$core$Json_Decode_ops[':='], 'state', _user$project$RestDojo_API$dojoStateDecoder),
@@ -10514,7 +10522,7 @@ var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_Util$avatar('aa')),
+						_user$project$RestDojo_Util$avatar(dojo.label)),
 						_elm_lang$html$Html_Attributes$class('rd-team-avatar')
 					]),
 				_elm_lang$core$Native_List.fromArray(
@@ -10711,105 +10719,192 @@ var _user$project$RestDojo_ViewDojo$viewPoints = function (teams) {
 					]))
 			]));
 };
-var _user$project$RestDojo_ViewDojo$viewTeam = function (team) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$html$Html_Attributes$class('rd-team')
-			]),
-		_elm_lang$core$Native_List.fromArray(
-			[
+var _user$project$RestDojo_ViewDojo$viewTeam = F2(
+	function (dojo, team) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('rd-team')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$img,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$src(
+							_user$project$RestDojo_Util$avatar(team.name)),
+							_elm_lang$html$Html_Attributes$class(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'rd-team-avatar rd-team-',
+								_elm_lang$core$Basics$toString(team.id)))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+					A2(
+					_elm_lang$html$Html$span,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('rd-team-name')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(team.name)
+						])),
+					A2(
+					_elm_lang$html$Html$span,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('rd-team-descr')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(team.descr)
+						])),
+					A2(
+					_elm_lang$html$Html$span,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('rd-team-action'),
+							_elm_lang$html$Html_Events$onClick(
+							A2(_user$project$RestDojo_Types$ShowTeamDialog, dojo, team))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text('Team')
+						])),
+					A2(
+					_elm_lang$html$Html$span,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'rd-team-points rd-team-background-',
+								_elm_lang$core$Basics$toString(team.id)))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(team.points))
+						]))
+				]));
+	});
+var _user$project$RestDojo_ViewDojo$viewTeams = F2(
+	function (dojo, teams) {
+		var divTeams = A2(
+			_elm_lang$core$List$map,
+			_user$project$RestDojo_ViewDojo$viewTeam(dojo),
+			_elm_lang$core$List$reverse(
 				A2(
-				_elm_lang$html$Html$img,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_Util$avatar(team.name)),
-						_elm_lang$html$Html_Attributes$class(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'rd-team-avatar rd-team-',
-							_elm_lang$core$Basics$toString(team.id)))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[])),
-				A2(
-				_elm_lang$html$Html$span,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('rd-team-name')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(team.name)
-					])),
-				A2(
-				_elm_lang$html$Html$span,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('rd-team-descr')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(team.descr)
-					])),
-				A2(
-				_elm_lang$html$Html$span,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'rd-team-points rd-team-background-',
-							_elm_lang$core$Basics$toString(team.id)))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(team.points))
-					]))
-			]));
-};
-var _user$project$RestDojo_ViewDojo$viewTeams = function (teams) {
-	var divTeams = A2(
-		_elm_lang$core$List$map,
-		_user$project$RestDojo_ViewDojo$viewTeam,
-		_elm_lang$core$List$reverse(
-			A2(
-				_elm_lang$core$List$sortBy,
-				function (_) {
-					return _.points;
-				},
-				teams)));
-	var h2Teams = A2(
-		_elm_lang$html$Html$h2,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$html$Html$text('Teams')
-			]));
-	return A2(
-		_elm_lang$html$Html$article,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		A2(_elm_lang$core$List_ops['::'], h2Teams, divTeams));
-};
-var _user$project$RestDojo_ViewDojo$view = function (dojo) {
-	return _elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_elm_lang$html$Html$section,
+					_elm_lang$core$List$sortBy,
+					function (_) {
+						return _.points;
+					},
+					teams)));
+		var h2Teams = A2(
+			_elm_lang$html$Html$h2,
 			_elm_lang$core$Native_List.fromArray(
 				[]),
 			_elm_lang$core$Native_List.fromArray(
 				[
-					_user$project$RestDojo_ViewDojo$viewTeams(dojo.teams),
-					_user$project$RestDojo_ViewDojo$viewPoints(dojo.teams),
-					_user$project$RestDojo_ViewDojo$viewEvents(dojo)
-				]))
-		]);
+					_elm_lang$html$Html$text('Teams')
+				]));
+		return A2(
+			_elm_lang$html$Html$article,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(_elm_lang$core$List_ops['::'], h2Teams, divTeams));
+	});
+var _user$project$RestDojo_ViewDojo$viewDialogTeam = F2(
+	function (dojo, team) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('rd-modal rd-nodal--visible'),
+					A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'alert')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('rd-modal__dialog')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'rd-modal__header rd-team-background-',
+										_elm_lang$core$Basics$toString(team.id)))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$button,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('rd-modal__action'),
+									_elm_lang$html$Html_Events$onClick(
+									_user$project$RestDojo_Types$CloseTeamDialog(dojo))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text('Close')
+								])),
+							A2(
+							_elm_lang$html$Html$a,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('cd-popup-close img-replace'),
+									_elm_lang$html$Html_Events$onClick(
+									_user$project$RestDojo_Types$CloseTeamDialog(dojo))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text('Close')
+								]))
+						]))
+				]));
+	});
+var _user$project$RestDojo_ViewDojo$viewDialog = function (dojo) {
+	var _p4 = dojo.dialog;
+	if (_p4.ctor === 'Just') {
+		return _elm_lang$core$Native_List.fromArray(
+			[
+				A2(_user$project$RestDojo_ViewDojo$viewDialogTeam, dojo, _p4._0)
+			]);
+	} else {
+		return _elm_lang$core$Native_List.fromArray(
+			[]);
+	}
+};
+var _user$project$RestDojo_ViewDojo$view = function (dojo) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$section,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(_user$project$RestDojo_ViewDojo$viewTeams, dojo, dojo.teams),
+						_user$project$RestDojo_ViewDojo$viewPoints(dojo.teams),
+						_user$project$RestDojo_ViewDojo$viewEvents(dojo)
+					]))
+			]),
+		_user$project$RestDojo_ViewDojo$viewDialog(dojo));
 };
 
 var _user$project$RestDojo_View$viewNotFound = _elm_lang$core$Native_List.fromArray(
@@ -11138,6 +11233,44 @@ var _user$project$RestDojo_Main$update = F2(
 						[
 							A2(_user$project$RestDojo_Main$initEvents, _p7, _p6)
 						]));
+			case 'ShowTeamDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p3._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{
+											dialog: _elm_lang$core$Maybe$Just(_p3._1)
+										});
+								},
+								model.dojos)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'CloseTeamDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p3._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{dialog: _elm_lang$core$Maybe$Nothing});
+								},
+								model.dojos)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 			case 'EventsLoadSucceed':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
