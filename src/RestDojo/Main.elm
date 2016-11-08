@@ -24,11 +24,17 @@ main =
         { init = initModel
         , update = update
         , view = view
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = \_ -> authentications LoggedIn
         }
 
 
 port chart : ChartInput -> Cmd msg
+
+
+port auth0 : String -> Cmd msg
+
+
+port authentications : (User -> msg) -> Sub msg
 
 
 mapToChartInput : PointHistory -> ChartInput
@@ -50,6 +56,7 @@ initModel flags =
     { billboard = Billboard ""
     , route = HomeRoute
     , dojos = []
+    , user = Nothing
     }
         ! [ initBillboard flags.baseUrl ]
 
@@ -111,6 +118,12 @@ update msg model =
 
         TeamsLoadSucceed oldDojo loadedTeams ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
+
+        LoginPushed ->
+            model ! [ auth0 "test" ]
+
+        LoggedIn loggeduser ->
+            { model | user = Just loggeduser } ! []
 
         ShowTeamDialog oldDojo team ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just team }) model.dojos } ! []

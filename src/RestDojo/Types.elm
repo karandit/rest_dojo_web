@@ -4,6 +4,13 @@ import Http
 import RestDojo.Cluedo.CluedoTypes exposing (..)
 
 
+type alias User =
+    { name : String
+    , picture : String
+    , nickname : String
+    }
+
+
 type Route
     = HomeRoute
     | DojoRoute DojoId
@@ -130,6 +137,7 @@ type alias Model =
     { billboard : Billboard
     , route : Route
     , dojos : List Dojo
+    , user : Maybe User
     }
 
 
@@ -142,6 +150,8 @@ type Msg
     | GameLoadSucceed Dojo Game
     | TeamsLoadSucceed Dojo (List Team)
     | EventsLoadSucceed Dojo (List Event)
+    | LoginPushed
+    | LoggedIn User
     | ShowTeamDialog Dojo Team
     | CloseTeamDialog Dojo
     | ErrorOccured Http.Error

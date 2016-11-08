@@ -21,7 +21,9 @@ view model =
 
 viewHeader : Model -> List (Html Msg)
 viewHeader model =
-    [ viewBreadcrumbs model ]
+    [ viewBreadcrumbs model
+    , viewLogin model
+    ]
 
 
 viewBreadcrumbs : Model -> Html Msg
@@ -52,6 +54,18 @@ viewBreadcrumbs model =
         header []
             [ h1 [] breadcrumbs
             ]
+
+
+viewLogin : Model -> Html Msg
+viewLogin model =
+    case model.user of
+        Just loggedUser ->
+            div [] [ text loggedUser.name ]
+
+        Nothing ->
+            button
+                [ onClick LoginPushed ]
+                [ text "Log in with Github" ]
 
 
 viewContent : Model -> List (Html Msg)

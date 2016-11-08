@@ -2,11 +2,17 @@
 
 var app = Elm.RestDojo.Main.fullscreen({baseUrl: 'http://localhost:3000/billboard'});
 
-var restdojo_chart = undefined;
-
+// ----------------------------------- Elm ports -----------------------------------------------------------------------
 app.ports.chart.subscribe(function(data) {
   waitForElement('#chartPoints', attachChart, data);
 });
+
+app.ports.auth0.subscribe(function(data) {
+  lock.show();
+});
+
+// ----------------------------------- ChartJs -------------------------------------------------------------------------
+var restdojo_chart = undefined;
 
 function attachChart(selector, data) {
   var element = document.querySelector(selector);
@@ -68,3 +74,33 @@ function waitForElement(selector, fn, model, tryCount) {
     }
   }, 50);
 }
+
+// ----------------------------------- Auth0 ---------------------------------------------------------------------------
+// Initiating our Auth0Lock
+var lock = new Auth0Lock(
+  'XOYewkKtWXKkfUCik80F1866hoSJaIgF',
+  'karandit.auth0.com',
+  {
+    allowedConnections: ['github'],
+    auth: {
+      redirect: false,
+      responseType: 'token'
+    }
+  }
+);
+
+// Listening for the authenticated event
+lock.on("authenticated", function(authResult) {
+  // Use the token in authResult to getProfile() and save it to localStorage
+  lock.getProfile(authResult.idToken, function(error, profile) {
+    if (error) {
+      // Handle error
+      return;
+    }
+    app.ports.authentications.send({ name : profile.name, picture : profile.picture, nickname : profile.nickname});
+
+
+    // localStorage.setItem('idToken', authResult.idToken);
+    // localStorage.setItem('profile', JSON.stringify(profile));
+  });
+});
