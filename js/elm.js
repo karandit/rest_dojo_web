@@ -10013,6 +10013,10 @@ var _user$project$RestDojo_Cluedo_CluedoTypes$LocationCard = function (a) {
 	return {ctor: 'LocationCard', _0: a};
 };
 
+var _user$project$RestDojo_Types$User = F3(
+	function (a, b, c) {
+		return {name: a, picture: b, nickname: c};
+	});
 var _user$project$RestDojo_Types$Dojo = F9(
 	function (a, b, c, d, e, f, g, h, i) {
 		return {teams: a, events: b, dialog: c, id: d, label: e, state: f, teamsUrl: g, eventsUrl: h, pointHistoryUrl: i};
@@ -10060,9 +10064,9 @@ var _user$project$RestDojo_Types$PointHistory = F2(
 var _user$project$RestDojo_Types$Billboard = function (a) {
 	return {dojosUrl: a};
 };
-var _user$project$RestDojo_Types$Model = F3(
-	function (a, b, c) {
-		return {billboard: a, route: b, dojos: c};
+var _user$project$RestDojo_Types$Model = F4(
+	function (a, b, c, d) {
+		return {billboard: a, route: b, dojos: c, user: d};
 	});
 var _user$project$RestDojo_Types$GameRoute = F2(
 	function (a, b) {
@@ -10095,6 +10099,10 @@ var _user$project$RestDojo_Types$ShowTeamDialog = F2(
 	function (a, b) {
 		return {ctor: 'ShowTeamDialog', _0: a, _1: b};
 	});
+var _user$project$RestDojo_Types$LoggedIn = function (a) {
+	return {ctor: 'LoggedIn', _0: a};
+};
+var _user$project$RestDojo_Types$LoginPushed = {ctor: 'LoginPushed'};
 var _user$project$RestDojo_Types$EventsLoadSucceed = F2(
 	function (a, b) {
 		return {ctor: 'EventsLoadSucceed', _0: a, _1: b};
@@ -10976,10 +10984,34 @@ var _user$project$RestDojo_View$viewContent = function (model) {
 			}
 	}
 };
+var _user$project$RestDojo_View$viewLogin = function (model) {
+	var _p3 = model.user;
+	if (_p3.ctor === 'Just') {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(_p3._0.name)
+				]));
+	} else {
+		return A2(
+			_elm_lang$html$Html$button,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Events$onClick(_user$project$RestDojo_Types$LoginPushed)
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text('Log in with Github')
+				]));
+	}
+};
 var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 	var breadcrumbs = function () {
-		var _p3 = model.route;
-		switch (_p3.ctor) {
+		var _p4 = model.route;
+		switch (_p4.ctor) {
 			case 'HomeRoute':
 				return _elm_lang$core$Native_List.fromArray(
 					[
@@ -10998,7 +11030,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 							A2(
 								_elm_lang$core$List$filter,
 								function (dojo) {
-									return _elm_lang$core$Native_Utils.eq(dojo.id, _p3._0);
+									return _elm_lang$core$Native_Utils.eq(dojo.id, _p4._0);
 								},
 								model.dojos))));
 				return _elm_lang$core$Native_List.fromArray(
@@ -11012,7 +11044,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 					A2(
 						_elm_lang$core$List$filter,
 						function (dojo) {
-							return _elm_lang$core$Native_Utils.eq(dojo.id, _p3._0);
+							return _elm_lang$core$Native_Utils.eq(dojo.id, _p4._0);
 						},
 						model.dojos));
 				var dojoLabel = A2(
@@ -11031,7 +11063,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 						_elm_lang$html$Html$text(dojoLabel),
 						_elm_lang$html$Html$text(' \\ '),
 						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(_p3._1.id))
+						_elm_lang$core$Basics$toString(_p4._1.id))
 					]);
 		}
 	}();
@@ -11051,7 +11083,8 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 var _user$project$RestDojo_View$viewHeader = function (model) {
 	return _elm_lang$core$Native_List.fromArray(
 		[
-			_user$project$RestDojo_View$viewBreadcrumbs(model)
+			_user$project$RestDojo_View$viewBreadcrumbs(model),
+			_user$project$RestDojo_View$viewLogin(model)
 		]);
 };
 var _user$project$RestDojo_View$view = function (model) {
@@ -11125,7 +11158,8 @@ var _user$project$RestDojo_Main$initModel = function (flags) {
 			billboard: _user$project$RestDojo_Types$Billboard(''),
 			route: _user$project$RestDojo_Types$HomeRoute,
 			dojos: _elm_lang$core$Native_List.fromArray(
-				[])
+				[]),
+			user: _elm_lang$core$Maybe$Nothing
 		},
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -11169,6 +11203,11 @@ var _user$project$RestDojo_Main$chart = _elm_lang$core$Native_Platform.outgoingP
 					};
 				})
 		};
+	});
+var _user$project$RestDojo_Main$auth0 = _elm_lang$core$Native_Platform.outgoingPort(
+	'auth0',
+	function (v) {
+		return v;
 	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
@@ -11256,6 +11295,24 @@ var _user$project$RestDojo_Main$update = F2(
 						[
 							A2(_user$project$RestDojo_Main$initEvents, _p7, _p6)
 						]));
+			case 'LoginPushed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$RestDojo_Main$auth0('test')
+						]));
+			case 'LoggedIn':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							user: _elm_lang$core$Maybe$Just(_p3._0)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 			case 'ShowTeamDialog':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -11320,6 +11377,25 @@ var _user$project$RestDojo_Main$update = F2(
 						[]));
 		}
 	});
+var _user$project$RestDojo_Main$authentications = _elm_lang$core$Native_Platform.incomingPort(
+	'authentications',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'name', _elm_lang$core$Json_Decode$string),
+		function (name) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'picture', _elm_lang$core$Json_Decode$string),
+				function (picture) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'nickname', _elm_lang$core$Json_Decode$string),
+						function (nickname) {
+							return _elm_lang$core$Json_Decode$succeed(
+								{name: name, picture: picture, nickname: nickname});
+						});
+				});
+		}));
 var _user$project$RestDojo_Main$main = {
 	main: _elm_lang$html$Html_App$programWithFlags(
 		{
@@ -11327,7 +11403,7 @@ var _user$project$RestDojo_Main$main = {
 			update: _user$project$RestDojo_Main$update,
 			view: _user$project$RestDojo_View$view,
 			subscriptions: function (_p8) {
-				return _elm_lang$core$Platform_Sub$none;
+				return _user$project$RestDojo_Main$authentications(_user$project$RestDojo_Types$LoggedIn);
 			}
 		}),
 	flags: A2(
