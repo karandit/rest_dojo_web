@@ -1,4 +1,4 @@
-module RestDojo.Cluedo.CluedoAPI exposing (getGame)
+module RestDojo.Cluedo.CluedoAPI exposing (getCluedoGame)
 
 import Http exposing (Request)
 import RestDojo.Cluedo.CluedoTypes exposing (..)
@@ -7,6 +7,6 @@ import RestDojo.Cluedo.CluedoTypes exposing (..)
 -- API end-points ------------------------------------------------------------------------------------------------------
 
 
-getGame : String -> Request Game
-getGame url =
-    Http.get url gameDecoder
+getCluedoGame : String -> Request CluedoGame
+getCluedoGame url =
+    Http.get url cluedoGameDecoder

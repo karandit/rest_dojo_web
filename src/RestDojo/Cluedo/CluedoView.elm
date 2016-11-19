@@ -7,7 +7,7 @@ import RestDojo.Types exposing (..)
 import RestDojo.Util exposing (..)
 
 
-view : Dojo -> Game -> List (Html Msg)
+view : Dojo -> CluedoGame -> List (Html Msg)
 view dojo game =
     [ viewSecret game.secret
     , viewBots game.bots

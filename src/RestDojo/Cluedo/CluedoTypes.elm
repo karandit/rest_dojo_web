@@ -90,7 +90,7 @@ type alias GameId =
     Int
 
 
-type alias Game =
+type alias CluedoGame =
     { id : GameId
     , secret : Question
     , bots : List Bot
@@ -213,9 +213,9 @@ askedDecoder =
         (Json.field "question" questionDecoder)
 
 
-gameDecoder : Decoder Game
-gameDecoder =
-    Json.map4 Game
+cluedoGameDecoder : Decoder CluedoGame
+cluedoGameDecoder =
+    Json.map4 CluedoGame
         (Json.field "id" Json.int)
         (Json.field "secret" questionDecoder)
         (Json.field "bots" <|

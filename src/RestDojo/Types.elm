@@ -14,7 +14,7 @@ type alias User =
 type Route
     = HomeRoute
     | DojoRoute DojoId
-    | GameRoute DojoId Game
+    | GameRoute DojoId CluedoGame
 
 
 type alias DojoId =
@@ -97,7 +97,7 @@ type Msg
     | LoadTeams Dojo (Result Http.Error (List Team))
     | LoadEvents Dojo (Result Http.Error (List Event))
     | LoadPointHistory (Result Http.Error PointHistory)
-    | LoadGame Dojo (Result Http.Error Game)
+    | LoadGame Dojo (Result Http.Error CluedoGame)
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
     | LoginPushed

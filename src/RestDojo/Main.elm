@@ -89,7 +89,7 @@ initEvents dojo teams =
 
 initGame : Dojo -> GameUrl -> Cmd Msg
 initGame dojo gameUrl =
-    Http.send (LoadGame dojo) (CluedoAPI.getGame gameUrl)
+    Http.send (LoadGame dojo) (CluedoAPI.getCluedoGame gameUrl)
 
 
 
