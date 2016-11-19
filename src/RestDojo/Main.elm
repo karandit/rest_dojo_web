@@ -1,6 +1,6 @@
 port module RestDojo.Main exposing (..)
 
-import Html.App
+import Html
 import Http
 import Task
 import RestDojo.Types exposing (..)
@@ -18,9 +18,9 @@ type alias Flags =
     }
 
 
-main : Program Flags
+main : Program Flags Model Msg
 main =
-    Html.App.programWithFlags
+    Html.programWithFlags
         { init = initModel
         , update = update
         , view = view
@@ -63,32 +63,32 @@ initModel flags =
 
 initBillboard : String -> Cmd Msg
 initBillboard url =
-    Task.perform ErrorOccured BillboardLoadSucceed (API.getBillboard url)
+    Http.send BillboardLoadSucceed (API.getBillboard url)
 
 
 initDojos : String -> Cmd Msg
 initDojos url =
-    Task.perform ErrorOccured DojosLoadSucceed (API.getDojos url)
+    Http.send DojosLoadSucceed (API.getDojos url)
 
 
 initTeams : Dojo -> Cmd Msg
 initTeams dojo =
-    Task.perform ErrorOccured (TeamsLoadSucceed dojo) (API.getTeams dojo.teamsUrl)
+    Http.send (TeamsLoadSucceed dojo) (API.getTeams dojo.teamsUrl)
 
 
 loadPointHistory : Dojo -> Cmd Msg
 loadPointHistory dojo =
-    Task.perform ErrorOccured PointHistoryLoadSucceed (API.getPointHistory dojo.pointHistoryUrl)
+    Http.send PointHistoryLoadSucceed (API.getPointHistory dojo.pointHistoryUrl)
 
 
 initEvents : Dojo -> List Team -> Cmd Msg
 initEvents dojo teams =
-    Task.perform ErrorOccured (EventsLoadSucceed dojo) (API.getEvents dojo.eventsUrl teams)
+    Http.send (EventsLoadSucceed dojo) (API.getEvents dojo.eventsUrl teams)
 
 
 initGame : Dojo -> GameUrl -> Cmd Msg
 initGame dojo gameUrl =
-    Task.perform ErrorOccured (GameLoadSucceed dojo) (API.getGame gameUrl)
+    Http.send (GameLoadSucceed dojo) (API.getGame gameUrl)
 
 
 
@@ -98,10 +98,10 @@ initGame dojo gameUrl =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "msg" msg of
-        BillboardLoadSucceed billboard ->
+        BillboardLoadSucceed (Ok billboard) ->
             { model | billboard = billboard } ! [ initDojos billboard.dojosUrl ]
 
-        DojosLoadSucceed loadedDojos ->
+        DojosLoadSucceed (Ok loadedDojos) ->
             { model | dojos = loadedDojos } ! []
 
         SelectDojo dojo ->
@@ -110,13 +110,13 @@ update msg model =
         SelectGame dojo gameUrl ->
             model ! [ initGame dojo gameUrl ]
 
-        PointHistoryLoadSucceed pointHistory ->
+        PointHistoryLoadSucceed (Ok pointHistory) ->
             model ! [ chart <| mapToChartInput pointHistory ]
 
-        GameLoadSucceed dojo game ->
+        GameLoadSucceed dojo (Ok game) ->
             { model | route = GameRoute dojo.id game } ! []
 
-        TeamsLoadSucceed oldDojo loadedTeams ->
+        TeamsLoadSucceed oldDojo (Ok loadedTeams) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
 
         LoginPushed ->
@@ -131,7 +131,7 @@ update msg model =
         CloseTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Nothing }) model.dojos } ! []
 
-        EventsLoadSucceed oldDojo loadedEvents ->
+        EventsLoadSucceed oldDojo (Ok loadedEvents) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
         _ ->

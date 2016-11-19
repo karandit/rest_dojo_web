@@ -52,27 +52,27 @@ personDecoder =
         decodeToType string =
             case string of
                 "ColMustard" ->
-                    Result.Ok ColMustard
+                    Json.succeed ColMustard
 
                 "MrsWhite" ->
-                    Result.Ok MrsWhite
+                    Json.succeed MrsWhite
 
                 "MsPeacock" ->
-                    Result.Ok MsPeacock
+                    Json.succeed MsPeacock
 
                 "MsScarlett" ->
-                    Result.Ok MsScarlett
+                    Json.succeed MsScarlett
 
                 "ProfPlum" ->
-                    Result.Ok ProfPlum
+                    Json.succeed ProfPlum
 
                 "RevGreen" ->
-                    Result.Ok RevGreen
+                    Json.succeed RevGreen
 
                 _ ->
-                    Result.Err ("Not valid pattern for decoder to Person. Pattern: " ++ (toString string))
+                    Json.fail <| "Not valid pattern for decoder to Person. Pattern: " ++ (toString string)
     in
-        Json.customDecoder Json.string decodeToType
+        Json.string |> Json.andThen decodeToType
 
 
 weaponDecoder : Json.Decoder Weapon
@@ -81,27 +81,27 @@ weaponDecoder =
         decodeToType string =
             case string of
                 "Candlestick" ->
-                    Result.Ok Candlestick
+                    Json.succeed Candlestick
 
                 "IcePick" ->
-                    Result.Ok IcePick
+                    Json.succeed IcePick
 
                 "Poison" ->
-                    Result.Ok Poison
+                    Json.succeed Poison
 
                 "Poker" ->
-                    Result.Ok Poker
+                    Json.succeed Poker
 
                 "Revolver" ->
-                    Result.Ok Revolver
+                    Json.succeed Revolver
 
                 "Shears" ->
-                    Result.Ok Shears
+                    Json.succeed Shears
 
                 _ ->
-                    Result.Err ("Not valid pattern for decoder to Weapon. Pattern: " ++ (toString string))
+                    Json.fail <| "Not valid pattern for decoder to Weapon. Pattern: " ++ (toString string)
     in
-        Json.customDecoder Json.string decodeToType
+        Json.string |> Json.andThen decodeToType
 
 
 locationDecoder : Json.Decoder Location
@@ -110,33 +110,33 @@ locationDecoder =
         decodeToType string =
             case string of
                 "BedRoom" ->
-                    Result.Ok BedRoom
+                    Json.succeed BedRoom
 
                 "Billiards" ->
-                    Result.Ok Billiards
+                    Json.succeed Billiards
 
                 "Conservatory" ->
-                    Result.Ok Conservatory
+                    Json.succeed Conservatory
 
                 "Kitchen" ->
-                    Result.Ok Kitchen
+                    Json.succeed Kitchen
 
                 "Library" ->
-                    Result.Ok Library
+                    Json.succeed Library
 
                 "Lounge" ->
-                    Result.Ok Lounge
+                    Json.succeed Lounge
 
                 "Stairs" ->
-                    Result.Ok Stairs
+                    Json.succeed Stairs
 
                 "Studio" ->
-                    Result.Ok Studio
+                    Json.succeed Studio
 
                 "TrophyHall" ->
-                    Result.Ok TrophyHall
+                    Json.succeed TrophyHall
 
                 _ ->
-                    Result.Err ("Not valid pattern for decoder to Weapon. Pattern: " ++ (toString string))
+                    Json.fail <| "Not valid pattern for decoder to Weapon. Pattern: " ++ (toString string)
     in
-        Json.customDecoder Json.string decodeToType
+        Json.string |> Json.andThen decodeToType

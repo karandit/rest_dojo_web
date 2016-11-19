@@ -1,7 +1,7 @@
 module RestDojo.ViewDojo exposing (view)
 
 import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, section, canvas, input, label)
-import Html.Attributes exposing (class, src, id, href, attribute, for, type')
+import Html.Attributes exposing (class, src, id, href, attribute, for)
 import Html.Events exposing (onClick)
 import RestDojo.Types exposing (..)
 import RestDojo.Util exposing (..)

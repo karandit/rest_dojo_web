@@ -142,16 +142,15 @@ type alias Model =
 
 
 type Msg
-    = BillboardLoadSucceed Billboard
-    | DojosLoadSucceed (List Dojo)
+    = BillboardLoadSucceed (Result Http.Error Billboard)
+    | DojosLoadSucceed (Result Http.Error (List Dojo))
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
-    | PointHistoryLoadSucceed PointHistory
-    | GameLoadSucceed Dojo Game
-    | TeamsLoadSucceed Dojo (List Team)
-    | EventsLoadSucceed Dojo (List Event)
+    | PointHistoryLoadSucceed (Result Http.Error PointHistory)
+    | GameLoadSucceed Dojo (Result Http.Error Game)
+    | TeamsLoadSucceed Dojo (Result Http.Error (List Team))
+    | EventsLoadSucceed Dojo (Result Http.Error (List Event))
     | LoginPushed
     | LoggedIn User
     | ShowTeamDialog Dojo Team
     | CloseTeamDialog Dojo
-    | ErrorOccured Http.Error
