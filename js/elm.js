@@ -10337,7 +10337,7 @@ var _user$project$RestDojo_Chartjs$ChartInput = F2(
 var _user$project$RestDojo_Util$avatar = function (name) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
-		'http://robohash.herokuapp.com/',
+		'https://robohash.herokuapp.com/',
 		A2(_elm_lang$core$Basics_ops['++'], name, '.png'));
 };
 
