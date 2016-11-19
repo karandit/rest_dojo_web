@@ -2,6 +2,7 @@ module RestDojo.Cluedo.CluedoView exposing (view)
 
 import Html exposing (Html, text, div, span, article, hr, img)
 import Html.Attributes exposing (class, title, src, width, height)
+import RestDojo.Cluedo.CluedoTypes exposing (..)
 import RestDojo.Types exposing (..)
 import RestDojo.Util exposing (..)
 

@@ -7,6 +7,7 @@ import RestDojo.Types exposing (..)
 import RestDojo.API as API exposing (..)
 import RestDojo.View exposing (..)
 import RestDojo.Chartjs exposing (..)
+import RestDojo.Cluedo.CluedoAPI as CluedoAPI exposing (..)
 import List.Extra
 
 
@@ -88,7 +89,7 @@ initEvents dojo teams =
 
 initGame : Dojo -> GameUrl -> Cmd Msg
 initGame dojo gameUrl =
-    Http.send (LoadGame dojo) (API.getGame gameUrl)
+    Http.send (LoadGame dojo) (CluedoAPI.getGame gameUrl)
 
 
 
@@ -135,7 +136,11 @@ update msg model =
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
         _ ->
-            model ! []
+            let
+                _ =
+                    Debug.log "error" msg
+            in
+                model ! []
 
 
 updateDojo dojoId updater dojos =

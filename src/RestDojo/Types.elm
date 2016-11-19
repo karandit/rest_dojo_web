@@ -62,62 +62,6 @@ type alias GameUrl =
     String
 
 
-type alias GameId =
-    Int
-
-
-type alias Question =
-    { person : Person
-    , weapon : Weapon
-    , location : Location
-    }
-
-
-type alias Bot =
-    { teamName : String
-    , persons : List Person
-    , weapons : List Weapon
-    , locations : List Location
-    }
-
-
-type alias Asked =
-    { by : String
-    , question : Question
-    }
-
-
-type alias Answered =
-    { by : String
-    , answer : Maybe String
-    }
-
-
-type Round
-    = Interrogate Interrogation
-    | Accuse Accusation
-
-
-type alias Interrogation =
-    { asked : Asked
-    , answered : List Answered
-    }
-
-
-type alias Accusation =
-    { asked : Asked
-    , answer : Bool
-    }
-
-
-type alias Game =
-    { id : GameId
-    , secret : Question
-    , bots : List Bot
-    , rounds : List Round
-    }
-
-
 type Event
     = GameWonBy GameUrl (Maybe Team)
 

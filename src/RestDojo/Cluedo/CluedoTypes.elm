@@ -42,6 +42,62 @@ type Card
     | WeaponCard Weapon
 
 
+type alias Question =
+    { person : Person
+    , weapon : Weapon
+    , location : Location
+    }
+
+
+type alias Bot =
+    { teamName : String
+    , persons : List Person
+    , weapons : List Weapon
+    , locations : List Location
+    }
+
+
+type alias Asked =
+    { by : String
+    , question : Question
+    }
+
+
+type alias Answered =
+    { by : String
+    , answer : Maybe String
+    }
+
+
+type Round
+    = Interrogate Interrogation
+    | Accuse Accusation
+
+
+type alias Interrogation =
+    { asked : Asked
+    , answered : List Answered
+    }
+
+
+type alias Accusation =
+    { asked : Asked
+    , answer : Bool
+    }
+
+
+type alias GameId =
+    Int
+
+
+type alias Game =
+    { id : GameId
+    , secret : Question
+    , bots : List Bot
+    , rounds : List Round
+    }
+
+
 
 -- Json decoders/encoders ----------------------------------------------------------------------------------------------
 
@@ -140,3 +196,59 @@ locationDecoder =
                     Json.fail <| "Not valid pattern for decoder to Weapon. Pattern: " ++ (toString string)
     in
         Json.string |> Json.andThen decodeToType
+
+
+questionDecoder : Decoder Question
+questionDecoder =
+    Json.map3 Question
+        (Json.field "person" personDecoder)
+        (Json.field "weapon" weaponDecoder)
+        (Json.field "location" locationDecoder)
+
+
+askedDecoder : Decoder Asked
+askedDecoder =
+    Json.map2 Asked
+        (Json.field "by" Json.string)
+        (Json.field "question" questionDecoder)
+
+
+gameDecoder : Decoder Game
+gameDecoder =
+    Json.map4 Game
+        (Json.field "id" Json.int)
+        (Json.field "secret" questionDecoder)
+        (Json.field "bots" <|
+            Json.list
+                (Json.map4
+                    Bot
+                    (Json.field "teamName" Json.string)
+                    (Json.field "persons" <| Json.list personDecoder)
+                    (Json.field "weapons" <| Json.list weaponDecoder)
+                    (Json.field "locations" <| Json.list locationDecoder)
+                )
+        )
+        (Json.field "rounds" <|
+            Json.list
+                (Json.oneOf
+                    [ (Json.map Interrogate
+                        (Json.map2 Interrogation
+                            (Json.field "asked" askedDecoder)
+                            (Json.field "answered" <|
+                                Json.list
+                                    (Json.map2 Answered
+                                        (Json.field "by" Json.string)
+                                        (Json.field "answer" <| Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
+                                    )
+                            )
+                        )
+                      )
+                    , (Json.map Accuse
+                        (Json.map2 Accusation
+                            (Json.field "accused" askedDecoder)
+                            (Json.field "answer" Json.bool)
+                        )
+                      )
+                    ]
+                )
+        )

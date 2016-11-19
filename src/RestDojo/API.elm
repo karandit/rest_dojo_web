@@ -1,10 +1,9 @@
-module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getGame, getPointHistory)
+module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getPointHistory)
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
 import Http exposing (Request)
 import RestDojo.Types exposing (..)
-import RestDojo.Cluedo.CluedoTypes exposing (..)
 
 
 -- API end-points ------------------------------------------------------------------------------------------------------
@@ -37,11 +36,6 @@ getEvents url teams =
             Dict.fromList <| List.map (\team -> ( team.id, team )) teams
     in
         Http.get url (eventsDecoder teamsByTeamId)
-
-
-getGame : GameUrl -> Request Game
-getGame url =
-    Http.get url gameDecoder
 
 
 
@@ -134,59 +128,3 @@ eventsDecoder teamsByTeamId =
             Json.map2 (,)
                 (Json.field "gameUrl" Json.string)
                 (Json.field "gameWonBy" Json.int)
-
-
-questionDecoder : Decoder Question
-questionDecoder =
-    Json.map3 Question
-        (Json.field "person" personDecoder)
-        (Json.field "weapon" weaponDecoder)
-        (Json.field "location" locationDecoder)
-
-
-askedDecoder : Decoder Asked
-askedDecoder =
-    Json.map2 Asked
-        (Json.field "by" Json.string)
-        (Json.field "question" questionDecoder)
-
-
-gameDecoder : Decoder Game
-gameDecoder =
-    Json.map4 Game
-        (Json.field "id" Json.int)
-        (Json.field "secret" questionDecoder)
-        (Json.field "bots" <|
-            Json.list
-                (Json.map4
-                    Bot
-                    (Json.field "teamName" Json.string)
-                    (Json.field "persons" <| Json.list personDecoder)
-                    (Json.field "weapons" <| Json.list weaponDecoder)
-                    (Json.field "locations" <| Json.list locationDecoder)
-                )
-        )
-        (Json.field "rounds" <|
-            Json.list
-                (Json.oneOf
-                    [ (Json.map Interrogate
-                        (Json.map2 Interrogation
-                            (Json.field "asked" askedDecoder)
-                            (Json.field "answered" <|
-                                Json.list
-                                    (Json.map2 Answered
-                                        (Json.field "by" Json.string)
-                                        (Json.field "answer" <| Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
-                                    )
-                            )
-                        )
-                      )
-                    , (Json.map Accuse
-                        (Json.map2 Accusation
-                            (Json.field "accused" askedDecoder)
-                            (Json.field "answer" Json.bool)
-                        )
-                      )
-                    ]
-                )
-        )
