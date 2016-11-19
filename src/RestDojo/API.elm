@@ -57,10 +57,11 @@ billboardDecoder =
 dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
     Json.list <|
-        Json.map6 (Dojo [] [] Nothing)
+        Json.map7 (Dojo [] [] Nothing)
             (Json.field "id" Json.int)
             (Json.field "label" Json.string)
             (Json.field "state" dojoStateDecoder)
+            (Json.field "dojoType" dojoTypeDecoder)
             (Json.field "teamsUrl" Json.string)
             (Json.field "eventsUrl" Json.string)
             (Json.field "pointHistoryUrl" Json.string)
@@ -82,6 +83,23 @@ dojoStateDecoder =
 
                 _ ->
                     Json.fail <| "Not valid pattern for decoder to DojoState. Pattern: " ++ (toString string)
+    in
+        Json.string |> Json.andThen decodeToType
+
+
+dojoTypeDecoder : Json.Decoder DojoType
+dojoTypeDecoder =
+    let
+        decodeToType string =
+            case string of
+                "cluedo" ->
+                    Json.succeed Cluedo
+
+                "minesweeper" ->
+                    Json.succeed Minesweeper
+
+                _ ->
+                    Json.fail <| "Not valid pattern for decoder to DojoType. Pattern: " ++ (toString string)
     in
         Json.string |> Json.andThen decodeToType
 

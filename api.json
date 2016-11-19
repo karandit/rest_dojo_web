@@ -7,6 +7,7 @@
       "id": 8,
       "label": "2016-05-01 Air",
       "state": "past",
+      "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/8/teams",
       "eventsUrl": "http://localhost:3000/dojos/8/events",
       "pointHistoryUrl": "http://localhost:3000/points/8"
@@ -15,6 +16,7 @@
       "id": 9,
       "label": "2016-05-02 US Presidents",
       "state": "past",
+      "dojoType": "minesweeper",
       "teamsUrl": "http://localhost:3000/dojos/9/teams",
       "eventsUrl": "http://localhost:3000/dojos/9/events",
       "pointHistoryUrl": "http://localhost:3000/points/9"
@@ -23,6 +25,7 @@
       "id": 11,
       "label": "2016-10-29 US States",
       "state": "running",
+      "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/11/teams",
       "eventsUrl": "http://localhost:3000/dojos/11/events",
       "pointHistoryUrl": "http://localhost:3000/points/11"

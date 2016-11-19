@@ -27,6 +27,11 @@ type DojoState
     | Upcoming
 
 
+type DojoType
+    = Cluedo
+    | Minesweeper
+
+
 type alias Dojo =
     { teams : List Team
     , events : List Event
@@ -34,6 +39,7 @@ type alias Dojo =
     , id : DojoId
     , label : String
     , state : DojoState
+    , dojoType : DojoType
     , teamsUrl : String
     , eventsUrl : String
     , pointHistoryUrl : String
