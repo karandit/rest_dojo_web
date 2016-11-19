@@ -7,6 +7,7 @@ import RestDojo.Types exposing (..)
 import RestDojo.ViewHome as ViewHome
 import RestDojo.ViewDojo as ViewDojo
 import RestDojo.Cluedo.CluedoView as ViewCluedo
+import RestDojo.Minesweeper.MinesweeperView as ViewMinesweeper
 
 
 -- VIEW ----------------------------------------------------------------------------------------------------------------
@@ -107,8 +108,8 @@ viewContent model =
                             Cluedo cluedoGame ->
                                 ViewCluedo.view dojo cluedoGame
 
-                            _ ->
-                                viewNotFound
+                            Minesweeper minesweeperGame ->
+                                ViewMinesweeper.view dojo minesweeperGame
 
                     Nothing ->
                         viewNotFound

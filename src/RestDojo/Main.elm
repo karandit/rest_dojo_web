@@ -7,7 +7,6 @@ import RestDojo.Types exposing (..)
 import RestDojo.API as API exposing (..)
 import RestDojo.View exposing (..)
 import RestDojo.Chartjs exposing (..)
-import RestDojo.Cluedo.CluedoAPI as CluedoAPI exposing (..)
 import List.Extra
 
 
