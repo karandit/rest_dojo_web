@@ -63,32 +63,32 @@ initModel flags =
 
 initBillboard : String -> Cmd Msg
 initBillboard url =
-    Http.send BillboardLoadSucceed (API.getBillboard url)
+    Http.send LoadBillboard (API.getBillboard url)
 
 
 initDojos : String -> Cmd Msg
 initDojos url =
-    Http.send DojosLoadSucceed (API.getDojos url)
+    Http.send LoadDojos (API.getDojos url)
 
 
 initTeams : Dojo -> Cmd Msg
 initTeams dojo =
-    Http.send (TeamsLoadSucceed dojo) (API.getTeams dojo.teamsUrl)
+    Http.send (LoadTeams dojo) (API.getTeams dojo.teamsUrl)
 
 
 loadPointHistory : Dojo -> Cmd Msg
 loadPointHistory dojo =
-    Http.send PointHistoryLoadSucceed (API.getPointHistory dojo.pointHistoryUrl)
+    Http.send LoadPointHistory (API.getPointHistory dojo.pointHistoryUrl)
 
 
 initEvents : Dojo -> List Team -> Cmd Msg
 initEvents dojo teams =
-    Http.send (EventsLoadSucceed dojo) (API.getEvents dojo.eventsUrl teams)
+    Http.send (LoadEvents dojo) (API.getEvents dojo.eventsUrl teams)
 
 
 initGame : Dojo -> GameUrl -> Cmd Msg
 initGame dojo gameUrl =
-    Http.send (GameLoadSucceed dojo) (API.getGame gameUrl)
+    Http.send (LoadGame dojo) (API.getGame gameUrl)
 
 
 
@@ -98,10 +98,10 @@ initGame dojo gameUrl =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "msg" msg of
-        BillboardLoadSucceed (Ok billboard) ->
+        LoadBillboard (Ok billboard) ->
             { model | billboard = billboard } ! [ initDojos billboard.dojosUrl ]
 
-        DojosLoadSucceed (Ok loadedDojos) ->
+        LoadDojos (Ok loadedDojos) ->
             { model | dojos = loadedDojos } ! []
 
         SelectDojo dojo ->
@@ -110,13 +110,13 @@ update msg model =
         SelectGame dojo gameUrl ->
             model ! [ initGame dojo gameUrl ]
 
-        PointHistoryLoadSucceed (Ok pointHistory) ->
+        LoadPointHistory (Ok pointHistory) ->
             model ! [ chart <| mapToChartInput pointHistory ]
 
-        GameLoadSucceed dojo (Ok game) ->
+        LoadGame dojo (Ok game) ->
             { model | route = GameRoute dojo.id game } ! []
 
-        TeamsLoadSucceed oldDojo (Ok loadedTeams) ->
+        LoadTeams oldDojo (Ok loadedTeams) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
 
         LoginPushed ->
@@ -131,7 +131,7 @@ update msg model =
         CloseTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Nothing }) model.dojos } ! []
 
-        EventsLoadSucceed oldDojo (Ok loadedEvents) ->
+        LoadEvents oldDojo (Ok loadedEvents) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
         _ ->
