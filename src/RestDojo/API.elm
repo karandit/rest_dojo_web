@@ -1,9 +1,11 @@
-module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getPointHistory)
+module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getPointHistory, getGame)
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
 import Http exposing (Request)
 import RestDojo.Types exposing (..)
+import RestDojo.Cluedo.CluedoTypes exposing (..)
+import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
 
 
 -- API end-points ------------------------------------------------------------------------------------------------------
@@ -36,6 +38,11 @@ getEvents url teams =
             Dict.fromList <| List.map (\team -> ( team.id, team )) teams
     in
         Http.get url (eventsDecoder teamsByTeamId)
+
+
+getGame : String -> Dojo -> Request Game
+getGame url dojo =
+    Http.get url <| gameDecoder dojo
 
 
 
@@ -87,10 +94,10 @@ dojoTypeDecoder =
         decodeToType string =
             case string of
                 "cluedo" ->
-                    Json.succeed Cluedo
+                    Json.succeed CluedoDojo
 
                 "minesweeper" ->
-                    Json.succeed Minesweeper
+                    Json.succeed MinesweeperDojo
 
                 _ ->
                     Json.fail <| "Not valid pattern for decoder to DojoType. Pattern: " ++ (toString string)
@@ -128,3 +135,13 @@ eventsDecoder teamsByTeamId =
             Json.map2 (,)
                 (Json.field "gameUrl" Json.string)
                 (Json.field "gameWonBy" Json.int)
+
+
+gameDecoder : Dojo -> Decoder Game
+gameDecoder dojo =
+    case dojo.dojoType of
+        CluedoDojo ->
+            Json.map Cluedo cluedoGameDecoder
+
+        MinesweeperDojo ->
+            Json.map Minesweeper minesweeperGameDecoder

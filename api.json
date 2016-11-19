@@ -232,11 +232,12 @@
     }
   ],
   "events": [
-    {"gameWonBy": 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/101"}
+    {"gameWonBy": 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/801"},
+    {"gameWonBy": 1, "dojoId": 9, "gameUrl": "http://localhost:3000/games/901"}
   ],
   "games": [
     {
-      "id": 101,
+      "id": 801,
       "secret": {
         "weapon": "Revolver",
         "location" : "Kitchen",
@@ -304,6 +305,10 @@
         "answer": true
       }
     ]
+  },
+  {
+    "id": 901,
+    "board": "let's play"
   }
   ]
 }

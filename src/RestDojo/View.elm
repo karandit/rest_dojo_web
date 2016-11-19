@@ -49,11 +49,21 @@ viewBreadcrumbs model =
                         dojoLabel =
                             foundDojo |> Maybe.map .label |> Maybe.withDefault "Unknow dojo"
                     in
-                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| toString game.id ]
+                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| getGameLabel game ]
     in
         header []
             [ h1 [] breadcrumbs
             ]
+
+
+getGameLabel : Game -> String
+getGameLabel game =
+    case game of
+        Cluedo cludoGame ->
+            toString cludoGame.id
+
+        Minesweeper msGame ->
+            "xxx"
 
 
 viewLogin : Model -> Html Msg
@@ -93,7 +103,12 @@ viewContent model =
             in
                 case foundDojo of
                     Just dojo ->
-                        ViewCluedo.view dojo game
+                        case game of
+                            Cluedo cluedoGame ->
+                                ViewCluedo.view dojo cluedoGame
+
+                            _ ->
+                                viewNotFound
 
                     Nothing ->
                         viewNotFound
