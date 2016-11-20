@@ -3,11 +3,13 @@ port module RestDojo.Main exposing (..)
 import Html
 import Http
 import Task
+import Navigation exposing (Location)
 import RestDojo.Types exposing (..)
 import RestDojo.API as API exposing (..)
 import RestDojo.View exposing (..)
 import RestDojo.Chartjs exposing (..)
 import List.Extra
+import UrlParser as Url exposing ((</>), s, int, top)
 
 
 -- MAIN ----------------------------------------------------------------------------------------------------------------
@@ -20,12 +22,33 @@ type alias Flags =
 
 main : Program Flags Model Msg
 main =
-    Html.programWithFlags
+    Navigation.programWithFlags UrlChange
         { init = initModel
         , update = update
         , view = view
         , subscriptions = \_ -> authentications LoggedIn
         }
+
+
+parser : Url.Parser (Route -> a) a
+parser =
+    Url.oneOf
+        [ Url.map HomeRoute top
+        , Url.map DojoRoute (s "dojos" </> int)
+        ]
+
+
+getRoute location =
+    let
+        maybeRoute =
+            Url.parsePath parser location
+    in
+        case maybeRoute of
+            Just route ->
+                route
+
+            Nothing ->
+                NotFoundRoute
 
 
 port chart : ChartInput -> Cmd msg
@@ -51,8 +74,8 @@ mapToChartInput pointHistory =
 -- MODEL ---------------------------------------------------------------------------------------------------------------
 
 
-initModel : Flags -> ( Model, Cmd Msg )
-initModel flags =
+initModel : Flags -> Location -> ( Model, Cmd Msg )
+initModel flags location =
     { billboard = Billboard ""
     , route = HomeRoute
     , dojos = []
@@ -133,6 +156,9 @@ update msg model =
 
         LoadEvents oldDojo (Ok loadedEvents) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
+
+        UrlChange location ->
+            { model | route = getRoute location } ! []
 
         _ ->
             let

@@ -3,6 +3,7 @@ module RestDojo.Types exposing (..)
 import Http
 import RestDojo.Cluedo.CluedoTypes exposing (..)
 import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
+import Navigation
 
 
 type alias User =
@@ -16,6 +17,7 @@ type Route
     = HomeRoute
     | DojoRoute DojoId
     | GameRoute DojoId Game
+    | NotFoundRoute
 
 
 type alias DojoId =
@@ -98,7 +100,8 @@ type Game
 
 
 type Msg
-    = LoadBillboard (Result Http.Error Billboard)
+    = UrlChange Navigation.Location
+    | LoadBillboard (Result Http.Error Billboard)
     | LoadDojos (Result Http.Error (List Dojo))
     | LoadTeams Dojo (Result Http.Error (List Team))
     | LoadEvents Dojo (Result Http.Error (List Event))

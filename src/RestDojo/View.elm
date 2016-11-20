@@ -32,6 +32,9 @@ viewBreadcrumbs model =
     let
         breadcrumbs =
             case model.route of
+                NotFoundRoute ->
+                    [ text "Rest Dojo" ]
+
                 HomeRoute ->
                     [ text "Rest Dojo" ]
 
@@ -82,6 +85,9 @@ viewLogin model =
 viewContent : Model -> List (Html Msg)
 viewContent model =
     case model.route of
+        NotFoundRoute ->
+            viewNotFound
+
         HomeRoute ->
             ViewHome.view model.dojos
 
