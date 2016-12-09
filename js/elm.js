@@ -7496,6 +7496,196 @@ var _elm_lang$core$Json_Decode$bool = _elm_lang$core$Native_Json.decodePrimitive
 var _elm_lang$core$Json_Decode$string = _elm_lang$core$Native_Json.decodePrimitive('string');
 var _elm_lang$core$Json_Decode$Decoder = {ctor: 'Decoder'};
 
+var _elm_lang$core$Process$kill = _elm_lang$core$Native_Scheduler.kill;
+var _elm_lang$core$Process$sleep = _elm_lang$core$Native_Scheduler.sleep;
+var _elm_lang$core$Process$spawn = _elm_lang$core$Native_Scheduler.spawn;
+
+var _elm_lang$dom$Native_Dom = function() {
+
+var fakeNode = {
+	addEventListener: function() {},
+	removeEventListener: function() {}
+};
+
+var onDocument = on(typeof document !== 'undefined' ? document : fakeNode);
+var onWindow = on(typeof window !== 'undefined' ? window : fakeNode);
+
+function on(node)
+{
+	return function(eventName, decoder, toTask)
+	{
+		return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+
+			function performTask(event)
+			{
+				var result = A2(_elm_lang$core$Json_Decode$decodeValue, decoder, event);
+				if (result.ctor === 'Ok')
+				{
+					_elm_lang$core$Native_Scheduler.rawSpawn(toTask(result._0));
+				}
+			}
+
+			node.addEventListener(eventName, performTask);
+
+			return function()
+			{
+				node.removeEventListener(eventName, performTask);
+			};
+		});
+	};
+}
+
+var rAF = typeof requestAnimationFrame !== 'undefined'
+	? requestAnimationFrame
+	: function(callback) { callback(); };
+
+function withNode(id, doStuff)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		rAF(function()
+		{
+			var node = document.getElementById(id);
+			if (node === null)
+			{
+				callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'NotFound', _0: id }));
+				return;
+			}
+			callback(_elm_lang$core$Native_Scheduler.succeed(doStuff(node)));
+		});
+	});
+}
+
+
+// FOCUS
+
+function focus(id)
+{
+	return withNode(id, function(node) {
+		node.focus();
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function blur(id)
+{
+	return withNode(id, function(node) {
+		node.blur();
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+
+// SCROLLING
+
+function getScrollTop(id)
+{
+	return withNode(id, function(node) {
+		return node.scrollTop;
+	});
+}
+
+function setScrollTop(id, desiredScrollTop)
+{
+	return withNode(id, function(node) {
+		node.scrollTop = desiredScrollTop;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function toBottom(id)
+{
+	return withNode(id, function(node) {
+		node.scrollTop = node.scrollHeight;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function getScrollLeft(id)
+{
+	return withNode(id, function(node) {
+		return node.scrollLeft;
+	});
+}
+
+function setScrollLeft(id, desiredScrollLeft)
+{
+	return withNode(id, function(node) {
+		node.scrollLeft = desiredScrollLeft;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function toRight(id)
+{
+	return withNode(id, function(node) {
+		node.scrollLeft = node.scrollWidth;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+
+// SIZE
+
+function width(options, id)
+{
+	return withNode(id, function(node) {
+		switch (options.ctor)
+		{
+			case 'Content':
+				return node.scrollWidth;
+			case 'VisibleContent':
+				return node.clientWidth;
+			case 'VisibleContentWithBorders':
+				return node.offsetWidth;
+			case 'VisibleContentWithBordersAndMargins':
+				var rect = node.getBoundingClientRect();
+				return rect.right - rect.left;
+		}
+	});
+}
+
+function height(options, id)
+{
+	return withNode(id, function(node) {
+		switch (options.ctor)
+		{
+			case 'Content':
+				return node.scrollHeight;
+			case 'VisibleContent':
+				return node.clientHeight;
+			case 'VisibleContentWithBorders':
+				return node.offsetHeight;
+			case 'VisibleContentWithBordersAndMargins':
+				var rect = node.getBoundingClientRect();
+				return rect.bottom - rect.top;
+		}
+	});
+}
+
+return {
+	onDocument: F3(onDocument),
+	onWindow: F3(onWindow),
+
+	focus: focus,
+	blur: blur,
+
+	getScrollTop: getScrollTop,
+	setScrollTop: F2(setScrollTop),
+	getScrollLeft: getScrollLeft,
+	setScrollLeft: F2(setScrollLeft),
+	toBottom: toBottom,
+	toRight: toRight,
+
+	height: F2(height),
+	width: F2(width)
+};
+
+}();
+
+var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
+var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
+
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -10360,6 +10550,591 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
+var _elm_lang$navigation$Native_Navigation = function() {
+
+function go(n)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		if (n !== 0)
+		{
+			history.go(n);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function pushState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.pushState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+function replaceState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.replaceState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+function getLocation()
+{
+	var location = document.location;
+
+	return {
+		href: location.href,
+		host: location.host,
+		hostname: location.hostname,
+		protocol: location.protocol,
+		origin: location.origin,
+		port_: location.port,
+		pathname: location.pathname,
+		search: location.search,
+		hash: location.hash,
+		username: location.username,
+		password: location.password
+	};
+}
+
+
+return {
+	go: go,
+	pushState: pushState,
+	replaceState: replaceState,
+	getLocation: getLocation
+};
+
+}();
+
+var _elm_lang$navigation$Navigation$replaceState = _elm_lang$navigation$Native_Navigation.replaceState;
+var _elm_lang$navigation$Navigation$pushState = _elm_lang$navigation$Native_Navigation.pushState;
+var _elm_lang$navigation$Navigation$go = _elm_lang$navigation$Native_Navigation.go;
+var _elm_lang$navigation$Navigation$spawnPopState = function (router) {
+	return _elm_lang$core$Process$spawn(
+		A3(
+			_elm_lang$dom$Dom_LowLevel$onWindow,
+			'popstate',
+			_elm_lang$core$Json_Decode$value,
+			function (_p0) {
+				return A2(
+					_elm_lang$core$Platform$sendToSelf,
+					router,
+					_elm_lang$navigation$Native_Navigation.getLocation(
+						{ctor: '_Tuple0'}));
+			}));
+};
+var _elm_lang$navigation$Navigation_ops = _elm_lang$navigation$Navigation_ops || {};
+_elm_lang$navigation$Navigation_ops['&>'] = F2(
+	function (task1, task2) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (_p1) {
+				return task2;
+			},
+			task1);
+	});
+var _elm_lang$navigation$Navigation$notify = F3(
+	function (router, subs, location) {
+		var send = function (_p2) {
+			var _p3 = _p2;
+			return A2(
+				_elm_lang$core$Platform$sendToApp,
+				router,
+				_p3._0(location));
+		};
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(_elm_lang$core$List$map, send, subs)),
+			_elm_lang$core$Task$succeed(
+				{ctor: '_Tuple0'}));
+	});
+var _elm_lang$navigation$Navigation$onSelfMsg = F3(
+	function (router, location, state) {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			A3(_elm_lang$navigation$Navigation$notify, router, state.subs, location),
+			_elm_lang$core$Task$succeed(state));
+	});
+var _elm_lang$navigation$Navigation$cmdHelp = F3(
+	function (router, subs, cmd) {
+		var _p4 = cmd;
+		switch (_p4.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$go(_p4._0);
+			case 'New':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$pushState(_p4._0));
+			default:
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$replaceState(_p4._0));
+		}
+	});
+var _elm_lang$navigation$Navigation$subscription = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$command = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$Location = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return {href: a, host: b, hostname: c, protocol: d, origin: e, port_: f, pathname: g, search: h, hash: i, username: j, password: k};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _elm_lang$navigation$Navigation$State = F2(
+	function (a, b) {
+		return {subs: a, process: b};
+	});
+var _elm_lang$navigation$Navigation$init = _elm_lang$core$Task$succeed(
+	A2(
+		_elm_lang$navigation$Navigation$State,
+		{ctor: '[]'},
+		_elm_lang$core$Maybe$Nothing));
+var _elm_lang$navigation$Navigation$onEffects = F4(
+	function (router, cmds, subs, _p5) {
+		var _p6 = _p5;
+		var _p9 = _p6.process;
+		var stepState = function () {
+			var _p7 = {ctor: '_Tuple2', _0: subs, _1: _p9};
+			_v3_2:
+			do {
+				if (_p7._0.ctor === '[]') {
+					if (_p7._1.ctor === 'Just') {
+						return A2(
+							_elm_lang$navigation$Navigation_ops['&>'],
+							_elm_lang$core$Process$kill(_p7._1._0),
+							_elm_lang$core$Task$succeed(
+								A2(_elm_lang$navigation$Navigation$State, subs, _elm_lang$core$Maybe$Nothing)));
+					} else {
+						break _v3_2;
+					}
+				} else {
+					if (_p7._1.ctor === 'Nothing') {
+						return A2(
+							_elm_lang$core$Task$map,
+							function (_p8) {
+								return A2(
+									_elm_lang$navigation$Navigation$State,
+									subs,
+									_elm_lang$core$Maybe$Just(_p8));
+							},
+							_elm_lang$navigation$Navigation$spawnPopState(router));
+					} else {
+						break _v3_2;
+					}
+				}
+			} while(false);
+			return _elm_lang$core$Task$succeed(
+				A2(_elm_lang$navigation$Navigation$State, subs, _p9));
+		}();
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(
+					_elm_lang$core$List$map,
+					A2(_elm_lang$navigation$Navigation$cmdHelp, router, subs),
+					cmds)),
+			stepState);
+	});
+var _elm_lang$navigation$Navigation$Modify = function (a) {
+	return {ctor: 'Modify', _0: a};
+};
+var _elm_lang$navigation$Navigation$modifyUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Modify(url));
+};
+var _elm_lang$navigation$Navigation$New = function (a) {
+	return {ctor: 'New', _0: a};
+};
+var _elm_lang$navigation$Navigation$newUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$New(url));
+};
+var _elm_lang$navigation$Navigation$Jump = function (a) {
+	return {ctor: 'Jump', _0: a};
+};
+var _elm_lang$navigation$Navigation$back = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(0 - n));
+};
+var _elm_lang$navigation$Navigation$forward = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(n));
+};
+var _elm_lang$navigation$Navigation$cmdMap = F2(
+	function (_p10, myCmd) {
+		var _p11 = myCmd;
+		switch (_p11.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$Jump(_p11._0);
+			case 'New':
+				return _elm_lang$navigation$Navigation$New(_p11._0);
+			default:
+				return _elm_lang$navigation$Navigation$Modify(_p11._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$Monitor = function (a) {
+	return {ctor: 'Monitor', _0: a};
+};
+var _elm_lang$navigation$Navigation$program = F2(
+	function (locationToMessage, stuff) {
+		var init = stuff.init(
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$program(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$programWithFlags = F2(
+	function (locationToMessage, stuff) {
+		var init = function (flags) {
+			return A2(
+				stuff.init,
+				flags,
+				_elm_lang$navigation$Native_Navigation.getLocation(
+					{ctor: '_Tuple0'}));
+		};
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$programWithFlags(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$subMap = F2(
+	function (func, _p12) {
+		var _p13 = _p12;
+		return _elm_lang$navigation$Navigation$Monitor(
+			function (_p14) {
+				return func(
+					_p13._0(_p14));
+			});
+	});
+_elm_lang$core$Native_Platform.effectManagers['Navigation'] = {pkg: 'elm-lang/navigation', init: _elm_lang$navigation$Navigation$init, onEffects: _elm_lang$navigation$Navigation$onEffects, onSelfMsg: _elm_lang$navigation$Navigation$onSelfMsg, tag: 'fx', cmdMap: _elm_lang$navigation$Navigation$cmdMap, subMap: _elm_lang$navigation$Navigation$subMap};
+
+var _evancz$url_parser$UrlParser$toKeyValuePair = function (segment) {
+	var _p0 = A2(_elm_lang$core$String$split, '=', segment);
+	if (((_p0.ctor === '::') && (_p0._1.ctor === '::')) && (_p0._1._1.ctor === '[]')) {
+		return A3(
+			_elm_lang$core$Maybe$map2,
+			F2(
+				function (v0, v1) {
+					return {ctor: '_Tuple2', _0: v0, _1: v1};
+				}),
+			_elm_lang$http$Http$decodeUri(_p0._0),
+			_elm_lang$http$Http$decodeUri(_p0._1._0));
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
+var _evancz$url_parser$UrlParser$parseParams = function (queryString) {
+	return _elm_lang$core$Dict$fromList(
+		A2(
+			_elm_lang$core$List$filterMap,
+			_evancz$url_parser$UrlParser$toKeyValuePair,
+			A2(
+				_elm_lang$core$String$split,
+				'&',
+				A2(_elm_lang$core$String$dropLeft, 1, queryString))));
+};
+var _evancz$url_parser$UrlParser$splitUrl = function (url) {
+	var _p1 = A2(_elm_lang$core$String$split, '/', url);
+	if ((_p1.ctor === '::') && (_p1._0 === '')) {
+		return _p1._1;
+	} else {
+		return _p1;
+	}
+};
+var _evancz$url_parser$UrlParser$parseHelp = function (states) {
+	parseHelp:
+	while (true) {
+		var _p2 = states;
+		if (_p2.ctor === '[]') {
+			return _elm_lang$core$Maybe$Nothing;
+		} else {
+			var _p4 = _p2._0;
+			var _p3 = _p4.unvisited;
+			if (_p3.ctor === '[]') {
+				return _elm_lang$core$Maybe$Just(_p4.value);
+			} else {
+				if ((_p3._0 === '') && (_p3._1.ctor === '[]')) {
+					return _elm_lang$core$Maybe$Just(_p4.value);
+				} else {
+					var _v4 = _p2._1;
+					states = _v4;
+					continue parseHelp;
+				}
+			}
+		}
+	}
+};
+var _evancz$url_parser$UrlParser$parse = F3(
+	function (_p5, url, params) {
+		var _p6 = _p5;
+		return _evancz$url_parser$UrlParser$parseHelp(
+			_p6._0(
+				{
+					visited: {ctor: '[]'},
+					unvisited: _evancz$url_parser$UrlParser$splitUrl(url),
+					params: params,
+					value: _elm_lang$core$Basics$identity
+				}));
+	});
+var _evancz$url_parser$UrlParser$parseHash = F2(
+	function (parser, location) {
+		return A3(
+			_evancz$url_parser$UrlParser$parse,
+			parser,
+			A2(_elm_lang$core$String$dropLeft, 1, location.hash),
+			_evancz$url_parser$UrlParser$parseParams(location.search));
+	});
+var _evancz$url_parser$UrlParser$parsePath = F2(
+	function (parser, location) {
+		return A3(
+			_evancz$url_parser$UrlParser$parse,
+			parser,
+			location.pathname,
+			_evancz$url_parser$UrlParser$parseParams(location.search));
+	});
+var _evancz$url_parser$UrlParser$intParamHelp = function (maybeValue) {
+	var _p7 = maybeValue;
+	if (_p7.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Nothing;
+	} else {
+		return _elm_lang$core$Result$toMaybe(
+			_elm_lang$core$String$toInt(_p7._0));
+	}
+};
+var _evancz$url_parser$UrlParser$mapHelp = F2(
+	function (func, _p8) {
+		var _p9 = _p8;
+		return {
+			visited: _p9.visited,
+			unvisited: _p9.unvisited,
+			params: _p9.params,
+			value: func(_p9.value)
+		};
+	});
+var _evancz$url_parser$UrlParser$State = F4(
+	function (a, b, c, d) {
+		return {visited: a, unvisited: b, params: c, value: d};
+	});
+var _evancz$url_parser$UrlParser$Parser = function (a) {
+	return {ctor: 'Parser', _0: a};
+};
+var _evancz$url_parser$UrlParser$s = function (str) {
+	return _evancz$url_parser$UrlParser$Parser(
+		function (_p10) {
+			var _p11 = _p10;
+			var _p12 = _p11.unvisited;
+			if (_p12.ctor === '[]') {
+				return {ctor: '[]'};
+			} else {
+				var _p13 = _p12._0;
+				return _elm_lang$core$Native_Utils.eq(_p13, str) ? {
+					ctor: '::',
+					_0: A4(
+						_evancz$url_parser$UrlParser$State,
+						{ctor: '::', _0: _p13, _1: _p11.visited},
+						_p12._1,
+						_p11.params,
+						_p11.value),
+					_1: {ctor: '[]'}
+				} : {ctor: '[]'};
+			}
+		});
+};
+var _evancz$url_parser$UrlParser$custom = F2(
+	function (tipe, stringToSomething) {
+		return _evancz$url_parser$UrlParser$Parser(
+			function (_p14) {
+				var _p15 = _p14;
+				var _p16 = _p15.unvisited;
+				if (_p16.ctor === '[]') {
+					return {ctor: '[]'};
+				} else {
+					var _p18 = _p16._0;
+					var _p17 = stringToSomething(_p18);
+					if (_p17.ctor === 'Ok') {
+						return {
+							ctor: '::',
+							_0: A4(
+								_evancz$url_parser$UrlParser$State,
+								{ctor: '::', _0: _p18, _1: _p15.visited},
+								_p16._1,
+								_p15.params,
+								_p15.value(_p17._0)),
+							_1: {ctor: '[]'}
+						};
+					} else {
+						return {ctor: '[]'};
+					}
+				}
+			});
+	});
+var _evancz$url_parser$UrlParser$string = A2(_evancz$url_parser$UrlParser$custom, 'STRING', _elm_lang$core$Result$Ok);
+var _evancz$url_parser$UrlParser$int = A2(_evancz$url_parser$UrlParser$custom, 'NUMBER', _elm_lang$core$String$toInt);
+var _evancz$url_parser$UrlParser_ops = _evancz$url_parser$UrlParser_ops || {};
+_evancz$url_parser$UrlParser_ops['</>'] = F2(
+	function (_p20, _p19) {
+		var _p21 = _p20;
+		var _p22 = _p19;
+		return _evancz$url_parser$UrlParser$Parser(
+			function (state) {
+				return A2(
+					_elm_lang$core$List$concatMap,
+					_p22._0,
+					_p21._0(state));
+			});
+	});
+var _evancz$url_parser$UrlParser$map = F2(
+	function (subValue, _p23) {
+		var _p24 = _p23;
+		return _evancz$url_parser$UrlParser$Parser(
+			function (_p25) {
+				var _p26 = _p25;
+				return A2(
+					_elm_lang$core$List$map,
+					_evancz$url_parser$UrlParser$mapHelp(_p26.value),
+					_p24._0(
+						{visited: _p26.visited, unvisited: _p26.unvisited, params: _p26.params, value: subValue}));
+			});
+	});
+var _evancz$url_parser$UrlParser$oneOf = function (parsers) {
+	return _evancz$url_parser$UrlParser$Parser(
+		function (state) {
+			return A2(
+				_elm_lang$core$List$concatMap,
+				function (_p27) {
+					var _p28 = _p27;
+					return _p28._0(state);
+				},
+				parsers);
+		});
+};
+var _evancz$url_parser$UrlParser$top = _evancz$url_parser$UrlParser$Parser(
+	function (state) {
+		return {
+			ctor: '::',
+			_0: state,
+			_1: {ctor: '[]'}
+		};
+	});
+var _evancz$url_parser$UrlParser_ops = _evancz$url_parser$UrlParser_ops || {};
+_evancz$url_parser$UrlParser_ops['<?>'] = F2(
+	function (_p30, _p29) {
+		var _p31 = _p30;
+		var _p32 = _p29;
+		return _evancz$url_parser$UrlParser$Parser(
+			function (state) {
+				return A2(
+					_elm_lang$core$List$concatMap,
+					_p32._0,
+					_p31._0(state));
+			});
+	});
+var _evancz$url_parser$UrlParser$QueryParser = function (a) {
+	return {ctor: 'QueryParser', _0: a};
+};
+var _evancz$url_parser$UrlParser$customParam = F2(
+	function (key, func) {
+		return _evancz$url_parser$UrlParser$QueryParser(
+			function (_p33) {
+				var _p34 = _p33;
+				var _p35 = _p34.params;
+				return {
+					ctor: '::',
+					_0: A4(
+						_evancz$url_parser$UrlParser$State,
+						_p34.visited,
+						_p34.unvisited,
+						_p35,
+						_p34.value(
+							func(
+								A2(_elm_lang$core$Dict$get, key, _p35)))),
+					_1: {ctor: '[]'}
+				};
+			});
+	});
+var _evancz$url_parser$UrlParser$stringParam = function (name) {
+	return A2(_evancz$url_parser$UrlParser$customParam, name, _elm_lang$core$Basics$identity);
+};
+var _evancz$url_parser$UrlParser$intParam = function (name) {
+	return A2(_evancz$url_parser$UrlParser$customParam, name, _evancz$url_parser$UrlParser$intParamHelp);
+};
+
+var _user$project$RestDojo_Cluedo_CluedoTypes$Question = F3(
+	function (a, b, c) {
+		return {person: a, weapon: b, location: c};
+	});
+var _user$project$RestDojo_Cluedo_CluedoTypes$Bot = F4(
+	function (a, b, c, d) {
+		return {teamName: a, persons: b, weapons: c, locations: d};
+	});
+var _user$project$RestDojo_Cluedo_CluedoTypes$Asked = F2(
+	function (a, b) {
+		return {by: a, question: b};
+	});
+var _user$project$RestDojo_Cluedo_CluedoTypes$Answered = F2(
+	function (a, b) {
+		return {by: a, answer: b};
+	});
+var _user$project$RestDojo_Cluedo_CluedoTypes$Interrogation = F2(
+	function (a, b) {
+		return {asked: a, answered: b};
+	});
+var _user$project$RestDojo_Cluedo_CluedoTypes$Accusation = F2(
+	function (a, b) {
+		return {asked: a, answer: b};
+	});
+var _user$project$RestDojo_Cluedo_CluedoTypes$CluedoGame = F4(
+	function (a, b, c, d) {
+		return {id: a, secret: b, bots: c, rounds: d};
+	});
 var _user$project$RestDojo_Cluedo_CluedoTypes$TrophyHall = {ctor: 'TrophyHall'};
 var _user$project$RestDojo_Cluedo_CluedoTypes$Studio = {ctor: 'Studio'};
 var _user$project$RestDojo_Cluedo_CluedoTypes$Stairs = {ctor: 'Stairs'};
@@ -10465,6 +11240,17 @@ var _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder = function () {
 	};
 	return A2(_elm_lang$core$Json_Decode$andThen, decodeToType, _elm_lang$core$Json_Decode$string);
 }();
+var _user$project$RestDojo_Cluedo_CluedoTypes$questionDecoder = A4(
+	_elm_lang$core$Json_Decode$map3,
+	_user$project$RestDojo_Cluedo_CluedoTypes$Question,
+	A2(_elm_lang$core$Json_Decode$field, 'person', _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder),
+	A2(_elm_lang$core$Json_Decode$field, 'weapon', _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder),
+	A2(_elm_lang$core$Json_Decode$field, 'location', _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder));
+var _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_user$project$RestDojo_Cluedo_CluedoTypes$Asked,
+	A2(_elm_lang$core$Json_Decode$field, 'by', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'question', _user$project$RestDojo_Cluedo_CluedoTypes$questionDecoder));
 var _user$project$RestDojo_Cluedo_CluedoTypes$WeaponCard = function (a) {
 	return {ctor: 'WeaponCard', _0: a};
 };
@@ -10474,146 +11260,24 @@ var _user$project$RestDojo_Cluedo_CluedoTypes$PersonCard = function (a) {
 var _user$project$RestDojo_Cluedo_CluedoTypes$LocationCard = function (a) {
 	return {ctor: 'LocationCard', _0: a};
 };
-
-var _user$project$RestDojo_Types$User = F3(
-	function (a, b, c) {
-		return {name: a, picture: b, nickname: c};
-	});
-var _user$project$RestDojo_Types$Dojo = F9(
-	function (a, b, c, d, e, f, g, h, i) {
-		return {teams: a, events: b, dialog: c, id: d, label: e, state: f, teamsUrl: g, eventsUrl: h, pointHistoryUrl: i};
-	});
-var _user$project$RestDojo_Types$Team = F4(
-	function (a, b, c, d) {
-		return {id: a, name: b, descr: c, points: d};
-	});
-var _user$project$RestDojo_Types$Question = F3(
-	function (a, b, c) {
-		return {person: a, weapon: b, location: c};
-	});
-var _user$project$RestDojo_Types$Bot = F4(
-	function (a, b, c, d) {
-		return {teamName: a, persons: b, weapons: c, locations: d};
-	});
-var _user$project$RestDojo_Types$Asked = F2(
-	function (a, b) {
-		return {by: a, question: b};
-	});
-var _user$project$RestDojo_Types$Answered = F2(
-	function (a, b) {
-		return {by: a, answer: b};
-	});
-var _user$project$RestDojo_Types$Interrogation = F2(
-	function (a, b) {
-		return {asked: a, answered: b};
-	});
-var _user$project$RestDojo_Types$Accusation = F2(
-	function (a, b) {
-		return {asked: a, answer: b};
-	});
-var _user$project$RestDojo_Types$Game = F4(
-	function (a, b, c, d) {
-		return {id: a, secret: b, bots: c, rounds: d};
-	});
-var _user$project$RestDojo_Types$TeamPoints = F2(
-	function (a, b) {
-		return {teamName: a, data: b};
-	});
-var _user$project$RestDojo_Types$PointHistory = F2(
-	function (a, b) {
-		return {games: a, teams: b};
-	});
-var _user$project$RestDojo_Types$Billboard = function (a) {
-	return {dojosUrl: a};
-};
-var _user$project$RestDojo_Types$Model = F4(
-	function (a, b, c, d) {
-		return {billboard: a, route: b, dojos: c, user: d};
-	});
-var _user$project$RestDojo_Types$GameRoute = F2(
-	function (a, b) {
-		return {ctor: 'GameRoute', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$DojoRoute = function (a) {
-	return {ctor: 'DojoRoute', _0: a};
-};
-var _user$project$RestDojo_Types$HomeRoute = {ctor: 'HomeRoute'};
-var _user$project$RestDojo_Types$Upcoming = {ctor: 'Upcoming'};
-var _user$project$RestDojo_Types$Running = {ctor: 'Running'};
-var _user$project$RestDojo_Types$Past = {ctor: 'Past'};
-var _user$project$RestDojo_Types$Accuse = function (a) {
+var _user$project$RestDojo_Cluedo_CluedoTypes$Accuse = function (a) {
 	return {ctor: 'Accuse', _0: a};
 };
-var _user$project$RestDojo_Types$Interrogate = function (a) {
+var _user$project$RestDojo_Cluedo_CluedoTypes$Interrogate = function (a) {
 	return {ctor: 'Interrogate', _0: a};
 };
-var _user$project$RestDojo_Types$GameWonBy = F2(
-	function (a, b) {
-		return {ctor: 'GameWonBy', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$CloseTeamDialog = function (a) {
-	return {ctor: 'CloseTeamDialog', _0: a};
-};
-var _user$project$RestDojo_Types$ShowTeamDialog = F2(
-	function (a, b) {
-		return {ctor: 'ShowTeamDialog', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$LoggedIn = function (a) {
-	return {ctor: 'LoggedIn', _0: a};
-};
-var _user$project$RestDojo_Types$LoginPushed = {ctor: 'LoginPushed'};
-var _user$project$RestDojo_Types$EventsLoadSucceed = F2(
-	function (a, b) {
-		return {ctor: 'EventsLoadSucceed', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$TeamsLoadSucceed = F2(
-	function (a, b) {
-		return {ctor: 'TeamsLoadSucceed', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$GameLoadSucceed = F2(
-	function (a, b) {
-		return {ctor: 'GameLoadSucceed', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$PointHistoryLoadSucceed = function (a) {
-	return {ctor: 'PointHistoryLoadSucceed', _0: a};
-};
-var _user$project$RestDojo_Types$SelectGame = F2(
-	function (a, b) {
-		return {ctor: 'SelectGame', _0: a, _1: b};
-	});
-var _user$project$RestDojo_Types$SelectDojo = function (a) {
-	return {ctor: 'SelectDojo', _0: a};
-};
-var _user$project$RestDojo_Types$DojosLoadSucceed = function (a) {
-	return {ctor: 'DojosLoadSucceed', _0: a};
-};
-var _user$project$RestDojo_Types$BillboardLoadSucceed = function (a) {
-	return {ctor: 'BillboardLoadSucceed', _0: a};
-};
-
-var _user$project$RestDojo_API$questionDecoder = A4(
-	_elm_lang$core$Json_Decode$map3,
-	_user$project$RestDojo_Types$Question,
-	A2(_elm_lang$core$Json_Decode$field, 'person', _user$project$RestDojo_Cluedo_CluedoTypes$personDecoder),
-	A2(_elm_lang$core$Json_Decode$field, 'weapon', _user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder),
-	A2(_elm_lang$core$Json_Decode$field, 'location', _user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder));
-var _user$project$RestDojo_API$askedDecoder = A3(
-	_elm_lang$core$Json_Decode$map2,
-	_user$project$RestDojo_Types$Asked,
-	A2(_elm_lang$core$Json_Decode$field, 'by', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode$field, 'question', _user$project$RestDojo_API$questionDecoder));
-var _user$project$RestDojo_API$gameDecoder = A5(
+var _user$project$RestDojo_Cluedo_CluedoTypes$cluedoGameDecoder = A5(
 	_elm_lang$core$Json_Decode$map4,
-	_user$project$RestDojo_Types$Game,
+	_user$project$RestDojo_Cluedo_CluedoTypes$CluedoGame,
 	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
-	A2(_elm_lang$core$Json_Decode$field, 'secret', _user$project$RestDojo_API$questionDecoder),
+	A2(_elm_lang$core$Json_Decode$field, 'secret', _user$project$RestDojo_Cluedo_CluedoTypes$questionDecoder),
 	A2(
 		_elm_lang$core$Json_Decode$field,
 		'bots',
 		_elm_lang$core$Json_Decode$list(
 			A5(
 				_elm_lang$core$Json_Decode$map4,
-				_user$project$RestDojo_Types$Bot,
+				_user$project$RestDojo_Cluedo_CluedoTypes$Bot,
 				A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
 				A2(
 					_elm_lang$core$Json_Decode$field,
@@ -10636,18 +11300,18 @@ var _user$project$RestDojo_API$gameDecoder = A5(
 					ctor: '::',
 					_0: A2(
 						_elm_lang$core$Json_Decode$map,
-						_user$project$RestDojo_Types$Interrogate,
+						_user$project$RestDojo_Cluedo_CluedoTypes$Interrogate,
 						A3(
 							_elm_lang$core$Json_Decode$map2,
-							_user$project$RestDojo_Types$Interrogation,
-							A2(_elm_lang$core$Json_Decode$field, 'asked', _user$project$RestDojo_API$askedDecoder),
+							_user$project$RestDojo_Cluedo_CluedoTypes$Interrogation,
+							A2(_elm_lang$core$Json_Decode$field, 'asked', _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder),
 							A2(
 								_elm_lang$core$Json_Decode$field,
 								'answered',
 								_elm_lang$core$Json_Decode$list(
 									A3(
 										_elm_lang$core$Json_Decode$map2,
-										_user$project$RestDojo_Types$Answered,
+										_user$project$RestDojo_Cluedo_CluedoTypes$Answered,
 										A2(_elm_lang$core$Json_Decode$field, 'by', _elm_lang$core$Json_Decode$string),
 										A2(
 											_elm_lang$core$Json_Decode$field,
@@ -10666,25 +11330,155 @@ var _user$project$RestDojo_API$gameDecoder = A5(
 						ctor: '::',
 						_0: A2(
 							_elm_lang$core$Json_Decode$map,
-							_user$project$RestDojo_Types$Accuse,
+							_user$project$RestDojo_Cluedo_CluedoTypes$Accuse,
 							A3(
 								_elm_lang$core$Json_Decode$map2,
-								_user$project$RestDojo_Types$Accusation,
-								A2(_elm_lang$core$Json_Decode$field, 'accused', _user$project$RestDojo_API$askedDecoder),
+								_user$project$RestDojo_Cluedo_CluedoTypes$Accusation,
+								A2(_elm_lang$core$Json_Decode$field, 'accused', _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder),
 								A2(_elm_lang$core$Json_Decode$field, 'answer', _elm_lang$core$Json_Decode$bool))),
 						_1: {ctor: '[]'}
 					}
 				}))));
+
+var _user$project$RestDojo_Minesweeper_MinesweeperTypes$MinesweeperGame = F2(
+	function (a, b) {
+		return {id: a, board: b};
+	});
+var _user$project$RestDojo_Minesweeper_MinesweeperTypes$minesweeperGameDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_user$project$RestDojo_Minesweeper_MinesweeperTypes$MinesweeperGame,
+	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
+	A2(_elm_lang$core$Json_Decode$field, 'board', _elm_lang$core$Json_Decode$string));
+
+var _user$project$RestDojo_Types$User = F3(
+	function (a, b, c) {
+		return {name: a, picture: b, nickname: c};
+	});
+var _user$project$RestDojo_Types$Dojo = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return {teams: a, events: b, dialog: c, id: d, label: e, state: f, dojoType: g, teamsUrl: h, eventsUrl: i, pointHistoryUrl: j};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$RestDojo_Types$Team = F4(
+	function (a, b, c, d) {
+		return {id: a, name: b, descr: c, points: d};
+	});
+var _user$project$RestDojo_Types$TeamPoints = F2(
+	function (a, b) {
+		return {teamName: a, data: b};
+	});
+var _user$project$RestDojo_Types$PointHistory = F2(
+	function (a, b) {
+		return {games: a, teams: b};
+	});
+var _user$project$RestDojo_Types$Billboard = function (a) {
+	return {dojosUrl: a};
+};
+var _user$project$RestDojo_Types$Model = F4(
+	function (a, b, c, d) {
+		return {billboard: a, route: b, dojos: c, user: d};
+	});
+var _user$project$RestDojo_Types$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$RestDojo_Types$GameRoute = F2(
+	function (a, b) {
+		return {ctor: 'GameRoute', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$DojoRoute = function (a) {
+	return {ctor: 'DojoRoute', _0: a};
+};
+var _user$project$RestDojo_Types$HomeRoute = {ctor: 'HomeRoute'};
+var _user$project$RestDojo_Types$Upcoming = {ctor: 'Upcoming'};
+var _user$project$RestDojo_Types$Running = {ctor: 'Running'};
+var _user$project$RestDojo_Types$Past = {ctor: 'Past'};
+var _user$project$RestDojo_Types$MinesweeperDojo = {ctor: 'MinesweeperDojo'};
+var _user$project$RestDojo_Types$CluedoDojo = {ctor: 'CluedoDojo'};
+var _user$project$RestDojo_Types$GameWonBy = F2(
+	function (a, b) {
+		return {ctor: 'GameWonBy', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$Minesweeper = function (a) {
+	return {ctor: 'Minesweeper', _0: a};
+};
+var _user$project$RestDojo_Types$Cluedo = function (a) {
+	return {ctor: 'Cluedo', _0: a};
+};
+var _user$project$RestDojo_Types$CloseTeamDialog = function (a) {
+	return {ctor: 'CloseTeamDialog', _0: a};
+};
+var _user$project$RestDojo_Types$ShowTeamDialog = F2(
+	function (a, b) {
+		return {ctor: 'ShowTeamDialog', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$LoggedIn = function (a) {
+	return {ctor: 'LoggedIn', _0: a};
+};
+var _user$project$RestDojo_Types$LoginPushed = {ctor: 'LoginPushed'};
+var _user$project$RestDojo_Types$SelectGame = F2(
+	function (a, b) {
+		return {ctor: 'SelectGame', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$SelectDojo = function (a) {
+	return {ctor: 'SelectDojo', _0: a};
+};
+var _user$project$RestDojo_Types$LoadGame = F2(
+	function (a, b) {
+		return {ctor: 'LoadGame', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$LoadPointHistory = function (a) {
+	return {ctor: 'LoadPointHistory', _0: a};
+};
+var _user$project$RestDojo_Types$LoadEvents = F2(
+	function (a, b) {
+		return {ctor: 'LoadEvents', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$LoadTeams = F2(
+	function (a, b) {
+		return {ctor: 'LoadTeams', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$LoadDojos = function (a) {
+	return {ctor: 'LoadDojos', _0: a};
+};
+var _user$project$RestDojo_Types$LoadBillboard = function (a) {
+	return {ctor: 'LoadBillboard', _0: a};
+};
+var _user$project$RestDojo_Types$UrlChange = function (a) {
+	return {ctor: 'UrlChange', _0: a};
+};
+
+var _user$project$RestDojo_API$gameDecoder = function (dojo) {
+	var _p0 = dojo.dojoType;
+	if (_p0.ctor === 'CluedoDojo') {
+		return A2(_elm_lang$core$Json_Decode$map, _user$project$RestDojo_Types$Cluedo, _user$project$RestDojo_Cluedo_CluedoTypes$cluedoGameDecoder);
+	} else {
+		return A2(_elm_lang$core$Json_Decode$map, _user$project$RestDojo_Types$Minesweeper, _user$project$RestDojo_Minesweeper_MinesweeperTypes$minesweeperGameDecoder);
+	}
+};
 var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 	return _elm_lang$core$Json_Decode$list(
 		A2(
 			_elm_lang$core$Json_Decode$map,
-			function (_p0) {
-				var _p1 = _p0;
+			function (_p1) {
+				var _p2 = _p1;
 				return A2(
 					_user$project$RestDojo_Types$GameWonBy,
-					_p1._0,
-					A2(_elm_lang$core$Dict$get, _p1._1, teamsByTeamId));
+					_p2._0,
+					A2(_elm_lang$core$Dict$get, _p2._1, teamsByTeamId));
 			},
 			A3(
 				_elm_lang$core$Json_Decode$map2,
@@ -10722,10 +11516,28 @@ var _user$project$RestDojo_API$pointHistoryDecoder = A3(
 					_elm_lang$core$Json_Decode$field,
 					'data',
 					_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int))))));
+var _user$project$RestDojo_API$dojoTypeDecoder = function () {
+	var decodeToType = function (string) {
+		var _p3 = string;
+		switch (_p3) {
+			case 'cluedo':
+				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$CluedoDojo);
+			case 'minesweeper':
+				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$MinesweeperDojo);
+			default:
+				return _elm_lang$core$Json_Decode$fail(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Not valid pattern for decoder to DojoType. Pattern: ',
+						_elm_lang$core$Basics$toString(string)));
+		}
+	};
+	return A2(_elm_lang$core$Json_Decode$andThen, decodeToType, _elm_lang$core$Json_Decode$string);
+}();
 var _user$project$RestDojo_API$dojoStateDecoder = function () {
 	var decodeToType = function (string) {
-		var _p2 = string;
-		switch (_p2) {
+		var _p4 = string;
+		switch (_p4) {
 			case 'running':
 				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$Running);
 			case 'past':
@@ -10743,8 +11555,8 @@ var _user$project$RestDojo_API$dojoStateDecoder = function () {
 	return A2(_elm_lang$core$Json_Decode$andThen, decodeToType, _elm_lang$core$Json_Decode$string);
 }();
 var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
-	A7(
-		_elm_lang$core$Json_Decode$map6,
+	A8(
+		_elm_lang$core$Json_Decode$map7,
 		A3(
 			_user$project$RestDojo_Types$Dojo,
 			{ctor: '[]'},
@@ -10753,6 +11565,7 @@ var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
 		A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
 		A2(_elm_lang$core$Json_Decode$field, 'label', _elm_lang$core$Json_Decode$string),
 		A2(_elm_lang$core$Json_Decode$field, 'state', _user$project$RestDojo_API$dojoStateDecoder),
+		A2(_elm_lang$core$Json_Decode$field, 'dojoType', _user$project$RestDojo_API$dojoTypeDecoder),
 		A2(_elm_lang$core$Json_Decode$field, 'teamsUrl', _elm_lang$core$Json_Decode$string),
 		A2(_elm_lang$core$Json_Decode$field, 'eventsUrl', _elm_lang$core$Json_Decode$string),
 		A2(_elm_lang$core$Json_Decode$field, 'pointHistoryUrl', _elm_lang$core$Json_Decode$string)));
@@ -10760,9 +11573,13 @@ var _user$project$RestDojo_API$billboardDecoder = A2(
 	_elm_lang$core$Json_Decode$map,
 	_user$project$RestDojo_Types$Billboard,
 	A2(_elm_lang$core$Json_Decode$field, 'dojos', _elm_lang$core$Json_Decode$string));
-var _user$project$RestDojo_API$getGame = function (url) {
-	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$gameDecoder);
-};
+var _user$project$RestDojo_API$getGame = F2(
+	function (url, dojo) {
+		return A2(
+			_elm_lang$http$Http$get,
+			url,
+			_user$project$RestDojo_API$gameDecoder(dojo));
+	});
 var _user$project$RestDojo_API$getEvents = F2(
 	function (url, teams) {
 		var teamsByTeamId = _elm_lang$core$Dict$fromList(
@@ -11042,24 +11859,29 @@ var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 				{ctor: '[]'}),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$button,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('rd-team-name'),
-						_1: {
+				_0: _elm_lang$html$Html$text(
+					_elm_lang$core$Basics$toString(dojo.dojoType)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(
-								_user$project$RestDojo_Types$SelectDojo(dojo)),
+							_0: _elm_lang$html$Html_Attributes$class('rd-team-name'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_user$project$RestDojo_Types$SelectDojo(dojo)),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(dojo.label),
 							_1: {ctor: '[]'}
-						}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(dojo.label),
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };
@@ -11540,6 +12362,15 @@ var _user$project$RestDojo_ViewDojo$view = function (dojo) {
 		_user$project$RestDojo_ViewDojo$viewDialog(dojo));
 };
 
+var _user$project$RestDojo_Minesweeper_MinesweeperView$view = F2(
+	function (dojo, game) {
+		return {
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(game.board),
+			_1: {ctor: '[]'}
+		};
+	});
+
 var _user$project$RestDojo_View$viewNotFound = {
 	ctor: '::',
 	_0: A2(
@@ -11555,6 +12386,8 @@ var _user$project$RestDojo_View$viewNotFound = {
 var _user$project$RestDojo_View$viewContent = function (model) {
 	var _p0 = model.route;
 	switch (_p0.ctor) {
+		case 'NotFoundRoute':
+			return _user$project$RestDojo_View$viewNotFound;
 		case 'HomeRoute':
 			return _user$project$RestDojo_ViewHome$view(model.dojos);
 		case 'DojoRoute':
@@ -11581,21 +12414,27 @@ var _user$project$RestDojo_View$viewContent = function (model) {
 					model.dojos));
 			var _p2 = foundDojo;
 			if (_p2.ctor === 'Just') {
-				return A2(_user$project$RestDojo_Cluedo_CluedoView$view, _p2._0, _p0._1);
+				var _p4 = _p2._0;
+				var _p3 = _p0._1;
+				if (_p3.ctor === 'Cluedo') {
+					return A2(_user$project$RestDojo_Cluedo_CluedoView$view, _p4, _p3._0);
+				} else {
+					return A2(_user$project$RestDojo_Minesweeper_MinesweeperView$view, _p4, _p3._0);
+				}
 			} else {
 				return _user$project$RestDojo_View$viewNotFound;
 			}
 	}
 };
 var _user$project$RestDojo_View$viewLogin = function (model) {
-	var _p3 = model.user;
-	if (_p3.ctor === 'Just') {
+	var _p5 = model.user;
+	if (_p5.ctor === 'Just') {
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html$text(_p3._0.name),
+				_0: _elm_lang$html$Html$text(_p5._0.name),
 				_1: {ctor: '[]'}
 			});
 	} else {
@@ -11613,10 +12452,24 @@ var _user$project$RestDojo_View$viewLogin = function (model) {
 			});
 	}
 };
+var _user$project$RestDojo_View$getGameLabel = function (game) {
+	var _p6 = game;
+	if (_p6.ctor === 'Cluedo') {
+		return _elm_lang$core$Basics$toString(_p6._0.id);
+	} else {
+		return 'xxx';
+	}
+};
 var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 	var breadcrumbs = function () {
-		var _p4 = model.route;
-		switch (_p4.ctor) {
+		var _p7 = model.route;
+		switch (_p7.ctor) {
+			case 'NotFoundRoute':
+				return {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Rest Dojo'),
+					_1: {ctor: '[]'}
+				};
 			case 'HomeRoute':
 				return {
 					ctor: '::',
@@ -11636,7 +12489,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 							A2(
 								_elm_lang$core$List$filter,
 								function (dojo) {
-									return _elm_lang$core$Native_Utils.eq(dojo.id, _p4._0);
+									return _elm_lang$core$Native_Utils.eq(dojo.id, _p7._0);
 								},
 								model.dojos))));
 				return {
@@ -11657,7 +12510,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 					A2(
 						_elm_lang$core$List$filter,
 						function (dojo) {
-							return _elm_lang$core$Native_Utils.eq(dojo.id, _p4._0);
+							return _elm_lang$core$Native_Utils.eq(dojo.id, _p7._0);
 						},
 						model.dojos));
 				var dojoLabel = A2(
@@ -11684,7 +12537,7 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html$text(
-										_elm_lang$core$Basics$toString(_p4._1.id)),
+										_user$project$RestDojo_View$getGameLabel(_p7._1)),
 									_1: {ctor: '[]'}
 								}
 							}
@@ -11739,55 +12592,56 @@ var _user$project$RestDojo_Main$initGame = F2(
 	function (dojo, gameUrl) {
 		return A2(
 			_elm_lang$http$Http$send,
-			_user$project$RestDojo_Types$GameLoadSucceed(dojo),
-			_user$project$RestDojo_API$getGame(gameUrl));
+			_user$project$RestDojo_Types$LoadGame(dojo),
+			A2(_user$project$RestDojo_API$getGame, gameUrl, dojo));
 	});
 var _user$project$RestDojo_Main$initEvents = F2(
 	function (dojo, teams) {
 		return A2(
 			_elm_lang$http$Http$send,
-			_user$project$RestDojo_Types$EventsLoadSucceed(dojo),
+			_user$project$RestDojo_Types$LoadEvents(dojo),
 			A2(_user$project$RestDojo_API$getEvents, dojo.eventsUrl, teams));
 	});
 var _user$project$RestDojo_Main$loadPointHistory = function (dojo) {
 	return A2(
 		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$PointHistoryLoadSucceed,
+		_user$project$RestDojo_Types$LoadPointHistory,
 		_user$project$RestDojo_API$getPointHistory(dojo.pointHistoryUrl));
 };
 var _user$project$RestDojo_Main$initTeams = function (dojo) {
 	return A2(
 		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$TeamsLoadSucceed(dojo),
+		_user$project$RestDojo_Types$LoadTeams(dojo),
 		_user$project$RestDojo_API$getTeams(dojo.teamsUrl));
 };
 var _user$project$RestDojo_Main$initDojos = function (url) {
 	return A2(
 		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$DojosLoadSucceed,
+		_user$project$RestDojo_Types$LoadDojos,
 		_user$project$RestDojo_API$getDojos(url));
 };
 var _user$project$RestDojo_Main$initBillboard = function (url) {
 	return A2(
 		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$BillboardLoadSucceed,
+		_user$project$RestDojo_Types$LoadBillboard,
 		_user$project$RestDojo_API$getBillboard(url));
 };
-var _user$project$RestDojo_Main$initModel = function (flags) {
-	return A2(
-		_elm_lang$core$Platform_Cmd_ops['!'],
-		{
-			billboard: _user$project$RestDojo_Types$Billboard(''),
-			route: _user$project$RestDojo_Types$HomeRoute,
-			dojos: {ctor: '[]'},
-			user: _elm_lang$core$Maybe$Nothing
-		},
-		{
-			ctor: '::',
-			_0: _user$project$RestDojo_Main$initBillboard(flags.baseUrl),
-			_1: {ctor: '[]'}
-		});
-};
+var _user$project$RestDojo_Main$initModel = F2(
+	function (flags, location) {
+		return A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			{
+				billboard: _user$project$RestDojo_Types$Billboard(''),
+				route: _user$project$RestDojo_Types$HomeRoute,
+				dojos: {ctor: '[]'},
+				user: _elm_lang$core$Maybe$Nothing
+			},
+			{
+				ctor: '::',
+				_0: _user$project$RestDojo_Main$initBillboard(flags.baseUrl),
+				_1: {ctor: '[]'}
+			});
+	});
 var _user$project$RestDojo_Main$mapToChartInput = function (pointHistory) {
 	return {
 		labels: pointHistory.games,
@@ -11828,6 +12682,31 @@ var _user$project$RestDojo_Main$mapToChartInput = function (pointHistory) {
 				pointHistory.teams))
 	};
 };
+var _user$project$RestDojo_Main$parser = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$RestDojo_Types$HomeRoute, _evancz$url_parser$UrlParser$top),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_user$project$RestDojo_Types$DojoRoute,
+				A2(
+					_evancz$url_parser$UrlParser_ops['</>'],
+					_evancz$url_parser$UrlParser$s('dojos'),
+					_evancz$url_parser$UrlParser$int)),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$RestDojo_Main$getRoute = function (location) {
+	var maybeRoute = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$RestDojo_Main$parser, location);
+	var _p3 = maybeRoute;
+	if (_p3.ctor === 'Just') {
+		return _p3._0;
+	} else {
+		return _user$project$RestDojo_Types$NotFoundRoute;
+	}
+};
 var _user$project$RestDojo_Main$chart = _elm_lang$core$Native_Platform.outgoingPort(
 	'chart',
 	function (v) {
@@ -11856,52 +12735,52 @@ var _user$project$RestDojo_Main$auth0 = _elm_lang$core$Native_Platform.outgoingP
 	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
-		var _p3 = A2(_elm_lang$core$Debug$log, 'msg', msg);
-		_v1_12:
+		var _p4 = A2(_elm_lang$core$Debug$log, 'msg', msg);
+		_v2_13:
 		do {
-			switch (_p3.ctor) {
-				case 'BillboardLoadSucceed':
-					if (_p3._0.ctor === 'Ok') {
-						var _p4 = _p3._0._0;
+			switch (_p4.ctor) {
+				case 'LoadBillboard':
+					if (_p4._0.ctor === 'Ok') {
+						var _p5 = _p4._0._0;
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
 								model,
-								{billboard: _p4}),
+								{billboard: _p5}),
 							{
 								ctor: '::',
-								_0: _user$project$RestDojo_Main$initDojos(_p4.dojosUrl),
+								_0: _user$project$RestDojo_Main$initDojos(_p5.dojosUrl),
 								_1: {ctor: '[]'}
 							});
 					} else {
-						break _v1_12;
+						break _v2_13;
 					}
-				case 'DojosLoadSucceed':
-					if (_p3._0.ctor === 'Ok') {
+				case 'LoadDojos':
+					if (_p4._0.ctor === 'Ok') {
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
 								model,
-								{dojos: _p3._0._0}),
+								{dojos: _p4._0._0}),
 							{ctor: '[]'});
 					} else {
-						break _v1_12;
+						break _v2_13;
 					}
 				case 'SelectDojo':
-					var _p5 = _p3._0;
+					var _p6 = _p4._0;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								route: _user$project$RestDojo_Types$DojoRoute(_p5.id)
+								route: _user$project$RestDojo_Types$DojoRoute(_p6.id)
 							}),
 						{
 							ctor: '::',
-							_0: _user$project$RestDojo_Main$initTeams(_p5),
+							_0: _user$project$RestDojo_Main$initTeams(_p6),
 							_1: {
 								ctor: '::',
-								_0: _user$project$RestDojo_Main$loadPointHistory(_p5),
+								_0: _user$project$RestDojo_Main$loadPointHistory(_p6),
 								_1: {ctor: '[]'}
 							}
 						});
@@ -11911,40 +12790,40 @@ var _user$project$RestDojo_Main$update = F2(
 						model,
 						{
 							ctor: '::',
-							_0: A2(_user$project$RestDojo_Main$initGame, _p3._0, _p3._1),
+							_0: A2(_user$project$RestDojo_Main$initGame, _p4._0, _p4._1),
 							_1: {ctor: '[]'}
 						});
-				case 'PointHistoryLoadSucceed':
-					if (_p3._0.ctor === 'Ok') {
+				case 'LoadPointHistory':
+					if (_p4._0.ctor === 'Ok') {
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							model,
 							{
 								ctor: '::',
 								_0: _user$project$RestDojo_Main$chart(
-									_user$project$RestDojo_Main$mapToChartInput(_p3._0._0)),
+									_user$project$RestDojo_Main$mapToChartInput(_p4._0._0)),
 								_1: {ctor: '[]'}
 							});
 					} else {
-						break _v1_12;
+						break _v2_13;
 					}
-				case 'GameLoadSucceed':
-					if (_p3._1.ctor === 'Ok') {
+				case 'LoadGame':
+					if (_p4._1.ctor === 'Ok') {
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
 								model,
 								{
-									route: A2(_user$project$RestDojo_Types$GameRoute, _p3._0.id, _p3._1._0)
+									route: A2(_user$project$RestDojo_Types$GameRoute, _p4._0.id, _p4._1._0)
 								}),
 							{ctor: '[]'});
 					} else {
-						break _v1_12;
+						break _v2_13;
 					}
-				case 'TeamsLoadSucceed':
-					if (_p3._1.ctor === 'Ok') {
-						var _p7 = _p3._0;
-						var _p6 = _p3._1._0;
+				case 'LoadTeams':
+					if (_p4._1.ctor === 'Ok') {
+						var _p8 = _p4._0;
+						var _p7 = _p4._1._0;
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
@@ -11952,21 +12831,21 @@ var _user$project$RestDojo_Main$update = F2(
 								{
 									dojos: A3(
 										_user$project$RestDojo_Main$updateDojo,
-										_p7.id,
+										_p8.id,
 										function (dojo) {
 											return _elm_lang$core$Native_Utils.update(
 												dojo,
-												{teams: _p6});
+												{teams: _p7});
 										},
 										model.dojos)
 								}),
 							{
 								ctor: '::',
-								_0: A2(_user$project$RestDojo_Main$initEvents, _p7, _p6),
+								_0: A2(_user$project$RestDojo_Main$initEvents, _p8, _p7),
 								_1: {ctor: '[]'}
 							});
 					} else {
-						break _v1_12;
+						break _v2_13;
 					}
 				case 'LoginPushed':
 					return A2(
@@ -11983,7 +12862,7 @@ var _user$project$RestDojo_Main$update = F2(
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								user: _elm_lang$core$Maybe$Just(_p3._0)
+								user: _elm_lang$core$Maybe$Just(_p4._0)
 							}),
 						{ctor: '[]'});
 				case 'ShowTeamDialog':
@@ -11994,12 +12873,12 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p3._0.id,
+									_p4._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
 											{
-												dialog: _elm_lang$core$Maybe$Just(_p3._1)
+												dialog: _elm_lang$core$Maybe$Just(_p4._1)
 											});
 									},
 									model.dojos)
@@ -12013,7 +12892,7 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p3._0.id,
+									_p4._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
@@ -12022,8 +12901,8 @@ var _user$project$RestDojo_Main$update = F2(
 									model.dojos)
 							}),
 						{ctor: '[]'});
-				default:
-					if (_p3._1.ctor === 'Ok') {
+				case 'LoadEvents':
+					if (_p4._1.ctor === 'Ok') {
 						return A2(
 							_elm_lang$core$Platform_Cmd_ops['!'],
 							_elm_lang$core$Native_Utils.update(
@@ -12031,20 +12910,30 @@ var _user$project$RestDojo_Main$update = F2(
 								{
 									dojos: A3(
 										_user$project$RestDojo_Main$updateDojo,
-										_p3._0.id,
+										_p4._0.id,
 										function (dojo) {
 											return _elm_lang$core$Native_Utils.update(
 												dojo,
-												{events: _p3._1._0});
+												{events: _p4._1._0});
 										},
 										model.dojos)
 								}),
 							{ctor: '[]'});
 					} else {
-						break _v1_12;
+						break _v2_13;
 					}
+				default:
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								route: _user$project$RestDojo_Main$getRoute(_p4._0)
+							}),
+						{ctor: '[]'});
 			}
 		} while(false);
+		var _p9 = A2(_elm_lang$core$Debug$log, 'error', msg);
 		return A2(
 			_elm_lang$core$Platform_Cmd_ops['!'],
 			model,
@@ -12069,12 +12958,14 @@ var _user$project$RestDojo_Main$authentications = _elm_lang$core$Native_Platform
 				A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
 		},
 		A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string)));
-var _user$project$RestDojo_Main$main = _elm_lang$html$Html$programWithFlags(
+var _user$project$RestDojo_Main$main = A2(
+	_elm_lang$navigation$Navigation$programWithFlags,
+	_user$project$RestDojo_Types$UrlChange,
 	{
 		init: _user$project$RestDojo_Main$initModel,
 		update: _user$project$RestDojo_Main$update,
 		view: _user$project$RestDojo_View$view,
-		subscriptions: function (_p8) {
+		subscriptions: function (_p10) {
 			return _user$project$RestDojo_Main$authentications(_user$project$RestDojo_Types$LoggedIn);
 		}
 	})(
