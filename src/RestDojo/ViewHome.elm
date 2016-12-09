@@ -39,7 +39,7 @@ viewDojo dojo =
             --TODO : use a proper icon instead of avatars
             [ src <| avatar dojo.label, class "rd-team-avatar" ]
             []
-        , text <| (toString dojo.dojoType)
+        , text <| String.toLower <| toString dojo.dojoType
         , button
             [ class "rd-team-name", onClick (SelectDojo dojo) ]
             [ text dojo.label ]
