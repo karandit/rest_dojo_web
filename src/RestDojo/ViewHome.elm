@@ -1,6 +1,6 @@
 module RestDojo.ViewHome exposing (view)
 
-import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, section, canvas)
+import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, h3, section, canvas)
 import Html.Attributes exposing (class, src, id, href)
 import Html.Events exposing (onClick)
 import RestDojo.Types exposing (..)
@@ -12,9 +12,8 @@ import RestDojo.Util exposing (..)
 
 view : List Dojo -> List (Html Msg)
 view dojos =
-    [ section [] [ viewDojos "Running Dojos" Running dojos ]
-    , div [] []
-    , section [] [ viewDojos "Past Dojos" Past dojos ]
+    [ viewDojos "Running Dojos" Running dojos
+    , viewDojos "Past Dojos" Past dojos
     ]
 
 
@@ -29,18 +28,14 @@ viewDojos label state dojos =
                 |> List.filter (\dojo -> dojo.state == state)
                 |> List.map viewDojo
     in
-        article [] <| h2Dojos :: divDojos
+        div [ class "rd-dojos" ] <|
+            h2Dojos
+                :: divDojos
 
 
 viewDojo : Dojo -> Html Msg
 viewDojo dojo =
-    div [ class "rd-team" ]
-        [ img
-            --TODO : use a proper icon instead of avatars
-            [ src <| avatar dojo.label, class "rd-team-avatar" ]
-            []
-        , text <| String.toLower <| toString dojo.dojoType
-        , button
-            [ class "rd-team-name", onClick (SelectDojo dojo) ]
-            [ text dojo.label ]
+    div [ class "rd-dojo", onClick (SelectDojo dojo) ]
+        [ h3 [] [ text dojo.label ]
+        , div [ class "rd-dojo-descr" ] [ text <| toString dojo.dojoType ]
         ]
