@@ -1,4 +1,4 @@
-use strict";
+"use strict";
 
 var app = Elm.RestDojo.Main.fullscreen({baseUrl: '/rest_dojo_web/api/billboard.json'});
 
