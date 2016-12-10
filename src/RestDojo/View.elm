@@ -15,16 +15,18 @@ import RestDojo.Minesweeper.MinesweeperView as ViewMinesweeper
 
 view : Model -> Html Msg
 view model =
-    div [] <|
-        (viewHeader model)
-            ++ (viewContent model)
+    div []
+        [ viewHeader model
+        , div [] <| viewContent model
+        ]
 
 
-viewHeader : Model -> List (Html Msg)
+viewHeader : Model -> Html Msg
 viewHeader model =
-    [ viewBreadcrumbs model
-    , viewLogin model
-    ]
+    header []
+        [ viewBreadcrumbs model
+        , viewLogin model
+        ]
 
 
 viewBreadcrumbs : Model -> Html Msg
@@ -55,9 +57,7 @@ viewBreadcrumbs model =
                     in
                         [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| getGameLabel game ]
     in
-        header []
-            [ h1 [] breadcrumbs
-            ]
+        h1 [] breadcrumbs
 
 
 getGameLabel : Game -> String
@@ -74,10 +74,10 @@ viewLogin : Model -> Html Msg
 viewLogin model =
     case model.user of
         Just loggedUser ->
-            span [ class "rd__button" ] [ text loggedUser.name ]
+            span [ class "rd-login rd__button" ] [ text loggedUser.name ]
 
         Nothing ->
-            span [ class "rd__button", onClick LoginPushed ] [ text "Log in with Github" ]
+            span [ class "rd-login rd__button", onClick LoginPushed ] [ text "Log in with Github" ]
 
 
 viewContent : Model -> List (Html Msg)

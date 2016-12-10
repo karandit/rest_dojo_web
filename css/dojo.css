@@ -50,6 +50,18 @@ article {
 article:nth-of-type(2) {
   flex: 4;
 }
+
+header {
+  display: flex;
+  width: 100%;
+}
+
+.rd-login {
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 /* --- Home ----------------------------------------------------------------------------------------------------------*/
 .rd-dojos {
   margin-left: auto;
