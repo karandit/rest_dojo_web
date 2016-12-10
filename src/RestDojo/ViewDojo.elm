@@ -74,7 +74,7 @@ viewTeam dojo team =
         [ teamImg team
         , span [ class "rd-team-name" ] [ text team.name ]
         , span [ class "rd-team-descr" ] [ text team.descr ]
-        , span [ class "rd-team-action", onClick <| ShowTeamDialog dojo team ] [ text "Team" ]
+        , span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "Team" ]
         , span [ class <| "rd-team-points rd-team-background-" ++ toString team.id ] [ text <| toString team.points ]
         ]
 

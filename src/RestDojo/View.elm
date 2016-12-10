@@ -74,12 +74,10 @@ viewLogin : Model -> Html Msg
 viewLogin model =
     case model.user of
         Just loggedUser ->
-            div [] [ text loggedUser.name ]
+            span [ class "rd__button" ] [ text loggedUser.name ]
 
         Nothing ->
-            button
-                [ onClick LoginPushed ]
-                [ text "Log in with Github" ]
+            span [ class "rd__button", onClick LoginPushed ] [ text "Log in with Github" ]
 
 
 viewContent : Model -> List (Html Msg)
