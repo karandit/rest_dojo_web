@@ -37,7 +37,7 @@ function createChart(el, data) {
         labels: {
           padding: 60,
           fontColor: "#ffffff",
-          fontFamily: "Roboto Condensed",
+          fontFamily: "D",
           fontSize: 16,
           usePointStyle: true
         }
