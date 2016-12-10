@@ -1,4 +1,4 @@
-"use strict";
+use strict";
 
 var app = Elm.RestDojo.Main.fullscreen({baseUrl: '/rest_dojo_web/api/billboard.json'});
 
@@ -37,7 +37,7 @@ function createChart(el, data) {
         labels: {
           padding: 60,
           fontColor: "#ffffff",
-          fontFamily: "Roboto Condensed",
+          fontFamily: "D",
           fontSize: 16,
           usePointStyle: true
         }

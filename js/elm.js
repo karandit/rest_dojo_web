@@ -11839,49 +11839,40 @@ var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('rd-team'),
-			_1: {ctor: '[]'}
+			_0: _elm_lang$html$Html_Attributes$class('rd-dojo'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$RestDojo_Types$SelectDojo(dojo)),
+				_1: {ctor: '[]'}
+			}
 		},
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$img,
+				_elm_lang$html$Html$h3,
+				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_Util$avatar(dojo.label)),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('rd-team-avatar'),
-						_1: {ctor: '[]'}
-					}
-				},
-				{ctor: '[]'}),
+					_0: _elm_lang$html$Html$text(dojo.label),
+					_1: {ctor: '[]'}
+				}),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html$text(
-					_elm_lang$core$Basics$toString(dojo.dojoType)),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$button,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('rd-team-name'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(
-									_user$project$RestDojo_Types$SelectDojo(dojo)),
-								_1: {ctor: '[]'}
-							}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(dojo.label),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd-dojo-descr'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(dojo.dojoType)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
 			}
 		});
 };
@@ -11905,39 +11896,22 @@ var _user$project$RestDojo_ViewHome$viewDojos = F3(
 				_1: {ctor: '[]'}
 			});
 		return A2(
-			_elm_lang$html$Html$article,
-			{ctor: '[]'},
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-dojos'),
+				_1: {ctor: '[]'}
+			},
 			{ctor: '::', _0: h2Dojos, _1: divDojos});
 	});
 var _user$project$RestDojo_ViewHome$view = function (dojos) {
 	return {
 		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$section,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: A3(_user$project$RestDojo_ViewHome$viewDojos, 'Running Dojos', _user$project$RestDojo_Types$Running, dojos),
-				_1: {ctor: '[]'}
-			}),
+		_0: A3(_user$project$RestDojo_ViewHome$viewDojos, 'Running Dojos', _user$project$RestDojo_Types$Running, dojos),
 		_1: {
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$section,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: A3(_user$project$RestDojo_ViewHome$viewDojos, 'Past Dojos', _user$project$RestDojo_Types$Past, dojos),
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
+			_0: A3(_user$project$RestDojo_ViewHome$viewDojos, 'Past Dojos', _user$project$RestDojo_Types$Past, dojos),
+			_1: {ctor: '[]'}
 		}
 	};
 };
@@ -12153,7 +12127,7 @@ var _user$project$RestDojo_ViewDojo$viewTeam = F2(
 								_elm_lang$html$Html$span,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('rd-team-action'),
+									_0: _elm_lang$html$Html_Attributes$class('rd-team-action rd__button rd__button--small'),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$html$Html_Events$onClick(
@@ -12430,8 +12404,12 @@ var _user$project$RestDojo_View$viewLogin = function (model) {
 	var _p5 = model.user;
 	if (_p5.ctor === 'Just') {
 		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-login rd__button'),
+				_1: {ctor: '[]'}
+			},
 			{
 				ctor: '::',
 				_0: _elm_lang$html$Html$text(_p5._0.name),
@@ -12439,11 +12417,15 @@ var _user$project$RestDojo_View$viewLogin = function (model) {
 			});
 	} else {
 		return A2(
-			_elm_lang$html$Html$button,
+			_elm_lang$html$Html$span,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(_user$project$RestDojo_Types$LoginPushed),
-				_1: {ctor: '[]'}
+				_0: _elm_lang$html$Html_Attributes$class('rd-login rd__button'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$RestDojo_Types$LoginPushed),
+					_1: {ctor: '[]'}
+				}
 			},
 			{
 				ctor: '::',
@@ -12547,36 +12529,40 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 		}
 	}();
 	return A2(
+		_elm_lang$html$Html$h1,
+		{ctor: '[]'},
+		breadcrumbs);
+};
+var _user$project$RestDojo_View$viewHeader = function (model) {
+	return A2(
 		_elm_lang$html$Html$header,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
-				breadcrumbs),
-			_1: {ctor: '[]'}
+			_0: _user$project$RestDojo_View$viewBreadcrumbs(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$RestDojo_View$viewLogin(model),
+				_1: {ctor: '[]'}
+			}
 		});
-};
-var _user$project$RestDojo_View$viewHeader = function (model) {
-	return {
-		ctor: '::',
-		_0: _user$project$RestDojo_View$viewBreadcrumbs(model),
-		_1: {
-			ctor: '::',
-			_0: _user$project$RestDojo_View$viewLogin(model),
-			_1: {ctor: '[]'}
-		}
-	};
 };
 var _user$project$RestDojo_View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
-		A2(
-			_elm_lang$core$Basics_ops['++'],
-			_user$project$RestDojo_View$viewHeader(model),
-			_user$project$RestDojo_View$viewContent(model)));
+		{
+			ctor: '::',
+			_0: _user$project$RestDojo_View$viewHeader(model),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					_user$project$RestDojo_View$viewContent(model)),
+				_1: {ctor: '[]'}
+			}
+		});
 };
 
 var _user$project$RestDojo_Main$updateDojo = F3(

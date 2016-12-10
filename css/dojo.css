@@ -51,6 +51,46 @@ article:nth-of-type(2) {
   flex: 4;
 }
 
+header {
+  display: flex;
+  width: 100%;
+}
+
+.rd-login {
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* --- Home ----------------------------------------------------------------------------------------------------------*/
+.rd-dojos {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  max-width: calc(100% - 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.rd-dojo {
+  margin-top: 12px;
+  width: 100%;
+  height: 100px;
+  border-radius: 3px;
+  background: #262c37;
+  flex: 1;
+  padding: 10px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.rd-dojo-descr {
+  color: #757983;
+}
+
+/* --- Dojo ----------------------------------------------------------------------------------------------------------*/
 .rd-team {
   position: relative;
   margin: 4px;
@@ -122,13 +162,26 @@ article:nth-of-type(2) {
   position: absolute;
   left: 100px;
   top: 55px;
+}
 
-  padding: 0.2em;
-  border: #40C9A2 2px solid;
-  border-radius: .25em;
+.rd__button {
+  padding: 1em 2em;
+  color: #40C9A2;
+  border-radius: 30px;
+  border: 2px solid #40C9A2;
+  background: transparent;
   text-align: center;
-  color: #ffffff;
   cursor: pointer;
+}
+
+.rd__button:hover,
+.rd__button:focus {
+  color: #fff;
+	background-color: #40C9A2;
+}
+
+.rd__button--small {
+  padding: 0.2em 1.2em;
 }
 
 .rd-team-points {
@@ -250,7 +303,6 @@ article:nth-of-type(2) {
 }
 /*-------------------- Modal Dialog Action -------------------------------*/
 .rd-modal__action {
-	border: none;
 	font-weight: bold;
 	margin: auto 3em 2em 3em;
 	padding: 1em 2em;
