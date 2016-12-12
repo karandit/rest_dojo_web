@@ -1,9 +1,11 @@
 "use strict";
 
 var app = Elm.RestDojo.Main.fullscreen({baseUrl: '/rest_dojo_web/api/billboard.json'});
+var restdojo_chart = undefined;
 
 // ----------------------------------- Elm ports -----------------------------------------------------------------------
 app.ports.chart.subscribe(function(data) {
+  restdojo_chart = undefined;
   waitForElement('#chartPoints', attachChart, data);
 });
 
@@ -12,7 +14,6 @@ app.ports.auth0.subscribe(function(data) {
 });
 
 // ----------------------------------- ChartJs -------------------------------------------------------------------------
-var restdojo_chart = undefined;
 
 function attachChart(selector, data) {
   var element = document.querySelector(selector);
