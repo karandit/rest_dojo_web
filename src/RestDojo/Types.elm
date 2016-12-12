@@ -107,6 +107,7 @@ type Msg
     | LoadEvents Dojo (Result Http.Error (List Event))
     | LoadPointHistory (Result Http.Error PointHistory)
     | LoadGame Dojo (Result Http.Error Game)
+    | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
     | LoginPushed

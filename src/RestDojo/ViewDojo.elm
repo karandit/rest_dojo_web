@@ -129,7 +129,7 @@ viewEventGameWonBy dojo gameUrl team =
     in
         div [ class "rd-team" ]
             [ span [ class "rd-team-name" ]
-                [ button [ onClick <| SelectGame dojo gameUrl ] [ text "Game" ]
+                [ a [ href "#", onClick <| SelectGame dojo gameUrl ] [ text "Game" ]
                 , text label
                 ]
             , img avatarAttr []

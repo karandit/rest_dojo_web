@@ -38,10 +38,11 @@ parser =
         ]
 
 
+getRoute : Location -> Route
 getRoute location =
     let
         maybeRoute =
-            Url.parsePath parser location
+            Url.parseHash parser location
     in
         case maybeRoute of
             Just route ->
@@ -120,12 +121,15 @@ initGame dojo gameUrl =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "msg" msg of
+    case Debug.log "__msg" msg of
         LoadBillboard (Ok billboard) ->
             { model | billboard = billboard } ! [ initDojos billboard.dojosUrl ]
 
         LoadDojos (Ok loadedDojos) ->
             { model | dojos = loadedDojos } ! []
+
+        SelectHome ->
+            { model | route = HomeRoute } ! []
 
         SelectDojo dojo ->
             { model | route = DojoRoute dojo.id } ! [ initTeams dojo, loadPointHistory dojo ]
@@ -158,12 +162,12 @@ update msg model =
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
         UrlChange location ->
-            { model | route = getRoute location } ! []
+            model ! []
 
         _ ->
             let
                 _ =
-                    Debug.log "error" msg
+                    Debug.log "__error" msg
             in
                 model ! []
 

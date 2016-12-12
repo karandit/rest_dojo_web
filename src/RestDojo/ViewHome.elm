@@ -35,7 +35,7 @@ viewDojos label state dojos =
 
 viewDojo : Dojo -> Html Msg
 viewDojo dojo =
-    div [ class "rd-dojo", onClick (SelectDojo dojo) ]
-        [ h3 [] [ text dojo.label ]
+    div [ class "rd-dojo" ]
+        [ a [ href <| "#dojos/" ++ (toString dojo.id), onClick (SelectDojo dojo) ] [ h3 [] [ text dojo.label ] ]
         , div [ class "rd-dojo-descr" ] [ text <| toString dojo.dojoType ]
         ]

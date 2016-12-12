@@ -45,17 +45,30 @@ viewBreadcrumbs model =
                         dojoLabel =
                             model.dojos |> List.filter (\dojo -> dojo.id == dojoId) |> List.head |> Maybe.map .label |> Maybe.withDefault "Unknow dojo"
                     in
-                        [ text "Rest Dojo", text " \\ ", text dojoLabel ]
+                        [ a [ href "#", onClick SelectHome ] [ text "Rest Dojo" ]
+                        , text " / "
+                        , text dojoLabel
+                        ]
 
                 GameRoute dojoId game ->
                     let
-                        foundDojo =
+                        maybeFoundDojo =
                             model.dojos |> List.filter (\dojo -> dojo.id == dojoId) |> List.head
 
-                        dojoLabel =
-                            foundDojo |> Maybe.map .label |> Maybe.withDefault "Unknow dojo"
+                        dojoLink =
+                            case maybeFoundDojo of
+                                Just foundDojo ->
+                                    a [ href <| "#dojos/" ++ (toString foundDojo.id), onClick (SelectDojo foundDojo) ] [ text foundDojo.label ]
+
+                                Nothing ->
+                                    text "Unknow dojo"
                     in
-                        [ text "Rest Dojo", text " \\ ", text dojoLabel, text " \\ ", text <| getGameLabel game ]
+                        [ a [ href "#", onClick SelectHome ] [ text "Rest Dojo" ]
+                        , text " / "
+                        , dojoLink
+                        , text " / "
+                        , text <| getGameLabel game
+                        ]
     in
         h1 [] breadcrumbs
 
