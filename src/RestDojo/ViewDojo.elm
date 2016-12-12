@@ -13,8 +13,7 @@ import RestDojo.Util exposing (..)
 view : Dojo -> List (Html Msg)
 view dojo =
     [ section []
-        [ viewTeams dojo dojo.teams
-          --TODO dejo.teams is redundant
+        [ viewTeams dojo
         , viewPoints dojo.teams
         , viewEvents dojo
         ]
@@ -56,14 +55,14 @@ teamImg team =
         img avatarAttr []
 
 
-viewTeams : Dojo -> List Team -> Html Msg
-viewTeams dojo teams =
+viewTeams : Dojo -> Html Msg
+viewTeams dojo =
     let
         h2Teams =
             h2 [] [ text "Teams" ]
 
         divTeams =
-            List.map (viewTeam dojo) <| List.reverse <| List.sortBy .points teams
+            List.map (viewTeam dojo) <| List.reverse <| List.sortBy .points dojo.teams
     in
         article [] <| h2Teams :: divTeams
 
