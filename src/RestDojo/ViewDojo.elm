@@ -71,13 +71,45 @@ viewTeams dojo loggedUser =
                 Nothing ->
                     Nothing
 
-        h2Teams =
-            h2 [] [ text "Teams" ]
-
         divTeams =
             List.map (viewTeam dojo userAndTeam) <| List.reverse <| List.sortBy .points dojo.teams
+
+        headAndTeams =
+            [ h2 [] [ text "Teams" ] ] ++ divTeams
+
+        divs =
+            if needsAddNewTeam dojo userAndTeam then
+                headAndTeams ++ [ div [ class "rd__button" ] [ text "Add new team" ] ]
+            else
+                headAndTeams
     in
-        article [] <| h2Teams :: divTeams
+        article [] divs
+
+
+needsAddNewTeam : Dojo -> Maybe ( User, Maybe Team ) -> Bool
+needsAddNewTeam dojo userAndTeam =
+    if List.length dojo.teams > 5 then
+        False
+    else
+        case dojo.state of
+            Upcoming ->
+                False
+
+            Past ->
+                False
+
+            Running ->
+                case userAndTeam of
+                    Just ( user, maybeUserTeam ) ->
+                        case maybeUserTeam of
+                            Just userTeam ->
+                                False
+
+                            Nothing ->
+                                True
+
+                    Nothing ->
+                        False
 
 
 viewTeam : Dojo -> Maybe ( User, Maybe Team ) -> Team -> Html Msg
