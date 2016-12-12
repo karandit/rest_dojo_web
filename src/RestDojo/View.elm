@@ -109,7 +109,7 @@ viewContent model =
             in
                 case foundDojo of
                     Just dojo ->
-                        ViewDojo.view dojo
+                        ViewDojo.view dojo model.user
 
                     Nothing ->
                         viewNotFound

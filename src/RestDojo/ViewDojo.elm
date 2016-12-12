@@ -10,10 +10,10 @@ import RestDojo.Util exposing (..)
 -- VIEW ----------------------------------------------------------------------------------------------------------------
 
 
-view : Dojo -> List (Html Msg)
-view dojo =
+view : Dojo -> Maybe User -> List (Html Msg)
+view dojo loggedUser =
     [ section []
-        [ viewTeams dojo
+        [ viewTeams dojo loggedUser
         , viewPoints dojo.teams
         , viewEvents dojo
         ]
@@ -55,27 +55,44 @@ teamImg team =
         img avatarAttr []
 
 
-viewTeams : Dojo -> Html Msg
-viewTeams dojo =
+viewTeams : Dojo -> Maybe User -> Html Msg
+viewTeams dojo loggedUser =
     let
         h2Teams =
             h2 [] [ text "Teams" ]
 
         divTeams =
-            List.map (viewTeam dojo) <| List.reverse <| List.sortBy .points dojo.teams
+            List.map (viewTeam dojo loggedUser) <| List.reverse <| List.sortBy .points dojo.teams
     in
         article [] <| h2Teams :: divTeams
 
 
-viewTeam : Dojo -> Team -> Html Msg
-viewTeam dojo team =
-    div [ class "rd-team" ]
-        [ teamImg team
-        , span [ class "rd-team-name" ] [ text team.name ]
-        , span [ class "rd-team-descr" ] [ text team.descr ]
-        , span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "Team" ]
-        , span [ class <| "rd-team-points rd-team-background-" ++ toString team.id ] [ text <| toString team.points ]
-        ]
+viewTeam : Dojo -> Maybe User -> Team -> Html Msg
+viewTeam dojo loggedUser team =
+    let
+        action =
+            case dojo.state of
+                Upcoming ->
+                    span [] []
+
+                Past ->
+                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "View Team" ]
+
+                Running ->
+                    case loggedUser of
+                        Just user ->
+                            span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "Join Team" ]
+
+                        Nothing ->
+                            span [] []
+    in
+        div [ class "rd-team" ]
+            [ teamImg team
+            , span [ class "rd-team-name" ] [ text team.name ]
+            , span [ class "rd-team-descr" ] [ text team.descr ]
+            , span [ class <| "rd-team-points rd-team-background-" ++ toString team.id ] [ text <| toString team.points ]
+            , action
+            ]
 
 
 viewPoints : List Team -> Html Msg
