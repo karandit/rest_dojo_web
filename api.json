@@ -123,7 +123,7 @@
         "name": "Alabama",
         "descr" : "ver first",
         "points": 201,
-        "captain": "zsozsogit"
+        "captain": "karandit"
       },
       { "id": 2,
         "dojoId": 11,
@@ -137,28 +137,28 @@
         "name": "Florida",
         "descr" : "ver 0.3",
         "points": 109,
-        "captain": "zsozsogit"
+        "captain": "zeldan"
       },
       { "id": 4,
         "dojoId": 11,
         "name": "Nebraska",
         "descr" : "blabla",
         "points": 156,
-        "captain": "zsozsogit"
+        "captain": "bali182"
       },
       { "id": 5,
         "dojoId": 11,
         "name": "Oklahoma",
         "descr" : "ver 0.6",
         "points": 210,
-        "captain": "zsozsogit"
+        "captain": "schjan79"
       },
       { "id": 6,
         "dojoId": 11,
         "name": "Utah",
         "descr" : "ver 0.1.99",
         "points": 315,
-        "captain": "zsozsogit"
+        "captain": "bublag"
       }
     ],
   "points": [{

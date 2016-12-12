@@ -3,6 +3,7 @@ module RestDojo.ViewDojo exposing (view)
 import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, section, canvas, input, label)
 import Html.Attributes exposing (class, src, id, href, attribute, for)
 import Html.Events exposing (onClick)
+import List.Extra
 import RestDojo.Types exposing (..)
 import RestDojo.Util exposing (..)
 
@@ -58,17 +59,29 @@ teamImg team =
 viewTeams : Dojo -> Maybe User -> Html Msg
 viewTeams dojo loggedUser =
     let
+        userAndTeam =
+            case loggedUser of
+                Just user ->
+                    let
+                        userTeam =
+                            List.Extra.find (\team -> team.captain == user.nickname) dojo.teams
+                    in
+                        Just ( user, userTeam )
+
+                Nothing ->
+                    Nothing
+
         h2Teams =
             h2 [] [ text "Teams" ]
 
         divTeams =
-            List.map (viewTeam dojo loggedUser) <| List.reverse <| List.sortBy .points dojo.teams
+            List.map (viewTeam dojo userAndTeam) <| List.reverse <| List.sortBy .points dojo.teams
     in
         article [] <| h2Teams :: divTeams
 
 
-viewTeam : Dojo -> Maybe User -> Team -> Html Msg
-viewTeam dojo loggedUser team =
+viewTeam : Dojo -> Maybe ( User, Maybe Team ) -> Team -> Html Msg
+viewTeam dojo userAndTeam team =
     let
         action =
             case dojo.state of
@@ -79,9 +92,17 @@ viewTeam dojo loggedUser team =
                     span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "View Team" ]
 
                 Running ->
-                    case loggedUser of
-                        Just user ->
-                            span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "Join Team" ]
+                    case userAndTeam of
+                        Just ( user, maybeUserTeam ) ->
+                            case maybeUserTeam of
+                                Just userTeam ->
+                                    if team.id == userTeam.id then
+                                        span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "My Team" ]
+                                    else
+                                        span [] []
+
+                                Nothing ->
+                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "Join Team" ]
 
                         Nothing ->
                             span [] []
