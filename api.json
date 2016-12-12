@@ -36,111 +36,129 @@
         "dojoId": 8,
         "name": "Alpha",
         "descr" : "ver 0.1",
-        "points": 145
+        "points": 145,
+        "captain": "karandit"
       },
       { "id": 2,
         "dojoId": 8,
         "name": "Bravo",
         "descr" : "ver 0.100",
-        "points": 68
+        "points": 68,
+        "captain": "bublag"
       },
       { "id": 3,
         "dojoId": 8,
         "name": "Charlie",
         "descr" : "ver 0.3",
-        "points": 362
+        "points": 362,
+        "captain": "bali182"
       },
       { "id": 4,
         "dojoId": 8,
         "name": "Delta",
         "descr" : "blabla",
-        "points": 68
+        "points": 68,
+        "captain": "zeldan"
       },
       { "id": 5,
         "dojoId": 8,
         "name": "Echo",
         "descr" : "ver 0.6",
-        "points": 21
+        "points": 21,
+        "captain": "schjan79"
       },
       { "id": 6,
         "dojoId": 8,
         "name": "Foxtrot",
         "descr" : "ver 0.1.99",
-        "points": 247
+        "points": 247,
+        "captain": "zsozsogit"
       },
 
       { "id": 1,
         "dojoId": 9,
         "name": "Washington",
         "descr" : "ver first",
-        "points": 45
+        "points": 45,
+        "captain": "zsozsogit"
       },
       { "id": 2,
         "dojoId": 9,
         "name": "Jefferson",
         "descr" : "ver 0.100",
-        "points": 24
+        "points": 24,
+        "captain": "zsozsogit"
       },
       { "id": 3,
         "dojoId": 9,
         "name": "Lincoln",
         "descr" : "ver 0.3",
-        "points": 11
+        "points": 11,
+        "captain": "zsozsogit"
       },
       { "id": 4,
         "dojoId": 9,
         "name": "Grant",
         "descr" : "blabla",
-        "points": 101
+        "points": 101,
+        "captain": "zsozsogit"
       },
       { "id": 5,
         "dojoId": 9,
         "name": "Roosevelt",
         "descr" : "ver 0.6",
-        "points": 37
+        "points": 37,
+        "captain": "zsozsogit"
       },
       { "id": 6,
         "dojoId": 9,
         "name": "Kennedy",
         "descr" : "ver 0.1.99",
-        "points": 57
+        "points": 57,
+        "captain": "zsozsogit"
       },
 
       { "id": 1,
         "dojoId": 11,
         "name": "Alabama",
         "descr" : "ver first",
-        "points": 201
+        "points": 201,
+        "captain": "zsozsogit"
       },
       { "id": 2,
         "dojoId": 11,
         "name": "Connecticut",
         "descr" : "ver 0.100",
-        "points": 310
+        "points": 310,
+        "captain": "zsozsogit"
       },
       { "id": 3,
         "dojoId": 11,
         "name": "Florida",
         "descr" : "ver 0.3",
-        "points": 109
+        "points": 109,
+        "captain": "zsozsogit"
       },
       { "id": 4,
         "dojoId": 11,
         "name": "Nebraska",
         "descr" : "blabla",
-        "points": 156
+        "points": 156,
+        "captain": "zsozsogit"
       },
       { "id": 5,
         "dojoId": 11,
         "name": "Oklahoma",
         "descr" : "ver 0.6",
-        "points": 210
+        "points": 210,
+        "captain": "zsozsogit"
       },
       { "id": 6,
         "dojoId": 11,
         "name": "Utah",
         "descr" : "ver 0.1.99",
-        "points": 315
+        "points": 315,
+        "captain": "zsozsogit"
       }
     ],
   "points": [{

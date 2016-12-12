@@ -58,6 +58,7 @@ type alias Team =
     , name : String
     , descr : String
     , points : Int
+    , captain : String
     }
 
 

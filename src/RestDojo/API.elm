@@ -121,11 +121,12 @@ pointHistoryDecoder =
 teamsDecoder : Decoder (List Team)
 teamsDecoder =
     Json.list <|
-        Json.map4 Team
+        Json.map5 Team
             (Json.field "id" Json.int)
             (Json.field "name" Json.string)
             (Json.field "descr" Json.string)
             (Json.field "points" Json.int)
+            (Json.field "captain" Json.string)
 
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)
