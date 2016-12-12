@@ -90,13 +90,13 @@ loadBillboard url =
     Http.send LoadBillboard (API.getBillboard url)
 
 
-initDojos : String -> Cmd Msg
-initDojos url =
+loadDojos : String -> Cmd Msg
+loadDojos url =
     Http.send LoadDojos (API.getDojos url)
 
 
-initTeams : Dojo -> Cmd Msg
-initTeams dojo =
+loadTeams : Dojo -> Cmd Msg
+loadTeams dojo =
     Http.send (LoadTeams dojo) (API.getTeams dojo.teamsUrl)
 
 
@@ -105,13 +105,13 @@ loadPointHistory dojo =
     Http.send LoadPointHistory (API.getPointHistory dojo.pointHistoryUrl)
 
 
-initEvents : Dojo -> List Team -> Cmd Msg
-initEvents dojo teams =
+loadEvents : Dojo -> List Team -> Cmd Msg
+loadEvents dojo teams =
     Http.send (LoadEvents dojo) (API.getEvents dojo.eventsUrl teams)
 
 
-initGame : Dojo -> GameUrl -> Cmd Msg
-initGame dojo gameUrl =
+loadGame : Dojo -> GameUrl -> Cmd Msg
+loadGame dojo gameUrl =
     Http.send (LoadGame dojo) (API.getGame gameUrl dojo)
 
 
@@ -123,7 +123,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "__msg" msg of
         LoadBillboard (Ok billboard) ->
-            { model | billboard = billboard } ! [ initDojos billboard.dojosUrl ]
+            { model | billboard = billboard } ! [ loadDojos billboard.dojosUrl ]
 
         LoadDojos (Ok loadedDojos) ->
             { model | dojos = loadedDojos } ! []
@@ -132,10 +132,10 @@ update msg model =
             { model | route = HomeRoute } ! []
 
         SelectDojo dojo ->
-            { model | route = DojoRoute dojo.id } ! [ initTeams dojo, loadPointHistory dojo ]
+            { model | route = DojoRoute dojo.id } ! [ loadTeams dojo, loadPointHistory dojo ]
 
         SelectGame dojo gameUrl ->
-            model ! [ initGame dojo gameUrl ]
+            model ! [ loadGame dojo gameUrl ]
 
         LoadPointHistory (Ok pointHistory) ->
             model ! [ chart <| mapToChartInput pointHistory ]
@@ -144,7 +144,7 @@ update msg model =
             { model | route = GameRoute dojo.id game } ! []
 
         LoadTeams oldDojo (Ok loadedTeams) ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ initEvents oldDojo loadedTeams ]
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ loadEvents oldDojo loadedTeams ]
 
         LoginPushed ->
             model ! [ auth0 "test" ]
