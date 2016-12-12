@@ -128,15 +128,6 @@ update msg model =
         LoadDojos (Ok loadedDojos) ->
             { model | dojos = loadedDojos } ! []
 
-        SelectHome ->
-            { model | route = HomeRoute } ! []
-
-        SelectDojo dojo ->
-            { model | route = DojoRoute dojo.id } ! [ loadTeams dojo, loadPointHistory dojo ]
-
-        SelectGame dojo gameUrl ->
-            model ! [ loadGame dojo gameUrl ]
-
         LoadPointHistory (Ok pointHistory) ->
             model ! [ chart <| mapToChartInput pointHistory ]
 
@@ -145,6 +136,18 @@ update msg model =
 
         LoadTeams oldDojo (Ok loadedTeams) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ loadEvents oldDojo loadedTeams ]
+
+        LoadEvents oldDojo (Ok loadedEvents) ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
+
+        SelectHome ->
+            { model | route = HomeRoute } ! []
+
+        SelectDojo dojo ->
+            { model | route = DojoRoute dojo.id } ! [ loadTeams dojo, loadPointHistory dojo ]
+
+        SelectGame dojo gameUrl ->
+            model ! [ loadGame dojo gameUrl ]
 
         LoginPushed ->
             model ! [ auth0 "test" ]
@@ -157,9 +160,6 @@ update msg model =
 
         CloseTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Nothing }) model.dojos } ! []
-
-        LoadEvents oldDojo (Ok loadedEvents) ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
         UrlChange location ->
             model ! []
