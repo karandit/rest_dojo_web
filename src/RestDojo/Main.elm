@@ -82,11 +82,11 @@ initModel flags location =
     , dojos = []
     , user = Nothing
     }
-        ! [ initBillboard flags.baseUrl ]
+        ! [ loadBillboard flags.baseUrl ]
 
 
-initBillboard : String -> Cmd Msg
-initBillboard url =
+loadBillboard : String -> Cmd Msg
+loadBillboard url =
     Http.send LoadBillboard (API.getBillboard url)
 
 
