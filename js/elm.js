@@ -11436,6 +11436,7 @@ var _user$project$RestDojo_Types$SelectGame = F2(
 var _user$project$RestDojo_Types$SelectDojo = function (a) {
 	return {ctor: 'SelectDojo', _0: a};
 };
+var _user$project$RestDojo_Types$SelectHome = {ctor: 'SelectHome'};
 var _user$project$RestDojo_Types$LoadGame = F2(
 	function (a, b) {
 		return {ctor: 'LoadGame', _0: a, _1: b};
@@ -11840,21 +11841,36 @@ var _user$project$RestDojo_ViewHome$viewDojo = function (dojo) {
 		{
 			ctor: '::',
 			_0: _elm_lang$html$Html_Attributes$class('rd-dojo'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(
-					_user$project$RestDojo_Types$SelectDojo(dojo)),
-				_1: {ctor: '[]'}
-			}
+			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$h3,
-				{ctor: '[]'},
+				_elm_lang$html$Html$a,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(dojo.label),
+					_0: _elm_lang$html$Html_Attributes$href(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'#dojos/',
+							_elm_lang$core$Basics$toString(dojo.id))),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onClick(
+							_user$project$RestDojo_Types$SelectDojo(dojo)),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$h3,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(dojo.label),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -11971,12 +11987,16 @@ var _user$project$RestDojo_ViewDojo$viewEventGameWonBy = F3(
 					{
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$button,
+							_elm_lang$html$Html$a,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(
-									A2(_user$project$RestDojo_Types$SelectGame, dojo, gameUrl)),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html_Attributes$href('#'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										A2(_user$project$RestDojo_Types$SelectGame, dojo, gameUrl)),
+									_1: {ctor: '[]'}
+								}
 							},
 							{
 								ctor: '::',
@@ -12476,10 +12496,25 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 								model.dojos))));
 				return {
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Rest Dojo'),
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href('#'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(_user$project$RestDojo_Types$SelectHome),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Rest Dojo'),
+							_1: {ctor: '[]'}
+						}),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(' \\ '),
+						_0: _elm_lang$html$Html$text(' / '),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$html$Html$text(dojoLabel),
@@ -12488,34 +12523,69 @@ var _user$project$RestDojo_View$viewBreadcrumbs = function (model) {
 					}
 				};
 			default:
-				var foundDojo = _elm_lang$core$List$head(
+				var maybeFoundDojo = _elm_lang$core$List$head(
 					A2(
 						_elm_lang$core$List$filter,
 						function (dojo) {
 							return _elm_lang$core$Native_Utils.eq(dojo.id, _p7._0);
 						},
 						model.dojos));
-				var dojoLabel = A2(
-					_elm_lang$core$Maybe$withDefault,
-					'Unknow dojo',
-					A2(
-						_elm_lang$core$Maybe$map,
-						function (_) {
-							return _.label;
-						},
-						foundDojo));
+				var dojoLink = function () {
+					var _p8 = maybeFoundDojo;
+					if (_p8.ctor === 'Just') {
+						var _p9 = _p8._0;
+						return A2(
+							_elm_lang$html$Html$a,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$href(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'#dojos/',
+										_elm_lang$core$Basics$toString(_p9.id))),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_user$project$RestDojo_Types$SelectDojo(_p9)),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(_p9.label),
+								_1: {ctor: '[]'}
+							});
+					} else {
+						return _elm_lang$html$Html$text('Unknow dojo');
+					}
+				}();
 				return {
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Rest Dojo'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(' \\ '),
-						_1: {
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text(dojoLabel),
+							_0: _elm_lang$html$Html_Attributes$href('#'),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$html$Html$text(' \\ '),
+								_0: _elm_lang$html$Html_Events$onClick(_user$project$RestDojo_Types$SelectHome),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Rest Dojo'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(' / '),
+						_1: {
+							ctor: '::',
+							_0: dojoLink,
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(' / '),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html$text(
@@ -12685,7 +12755,7 @@ var _user$project$RestDojo_Main$parser = _evancz$url_parser$UrlParser$oneOf(
 		}
 	});
 var _user$project$RestDojo_Main$getRoute = function (location) {
-	var maybeRoute = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$RestDojo_Main$parser, location);
+	var maybeRoute = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$RestDojo_Main$parser, location);
 	var _p3 = maybeRoute;
 	if (_p3.ctor === 'Just') {
 		return _p3._0;
@@ -12721,8 +12791,8 @@ var _user$project$RestDojo_Main$auth0 = _elm_lang$core$Native_Platform.outgoingP
 	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
-		var _p4 = A2(_elm_lang$core$Debug$log, 'msg', msg);
-		_v2_13:
+		var _p4 = A2(_elm_lang$core$Debug$log, '__msg', msg);
+		_v2_14:
 		do {
 			switch (_p4.ctor) {
 				case 'LoadBillboard':
@@ -12739,7 +12809,7 @@ var _user$project$RestDojo_Main$update = F2(
 								_1: {ctor: '[]'}
 							});
 					} else {
-						break _v2_13;
+						break _v2_14;
 					}
 				case 'LoadDojos':
 					if (_p4._0.ctor === 'Ok') {
@@ -12750,8 +12820,15 @@ var _user$project$RestDojo_Main$update = F2(
 								{dojos: _p4._0._0}),
 							{ctor: '[]'});
 					} else {
-						break _v2_13;
+						break _v2_14;
 					}
+				case 'SelectHome':
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{route: _user$project$RestDojo_Types$HomeRoute}),
+						{ctor: '[]'});
 				case 'SelectDojo':
 					var _p6 = _p4._0;
 					return A2(
@@ -12791,7 +12868,7 @@ var _user$project$RestDojo_Main$update = F2(
 								_1: {ctor: '[]'}
 							});
 					} else {
-						break _v2_13;
+						break _v2_14;
 					}
 				case 'LoadGame':
 					if (_p4._1.ctor === 'Ok') {
@@ -12804,7 +12881,7 @@ var _user$project$RestDojo_Main$update = F2(
 								}),
 							{ctor: '[]'});
 					} else {
-						break _v2_13;
+						break _v2_14;
 					}
 				case 'LoadTeams':
 					if (_p4._1.ctor === 'Ok') {
@@ -12831,7 +12908,7 @@ var _user$project$RestDojo_Main$update = F2(
 								_1: {ctor: '[]'}
 							});
 					} else {
-						break _v2_13;
+						break _v2_14;
 					}
 				case 'LoginPushed':
 					return A2(
@@ -12906,20 +12983,16 @@ var _user$project$RestDojo_Main$update = F2(
 								}),
 							{ctor: '[]'});
 					} else {
-						break _v2_13;
+						break _v2_14;
 					}
 				default:
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						_elm_lang$core$Native_Utils.update(
-							model,
-							{
-								route: _user$project$RestDojo_Main$getRoute(_p4._0)
-							}),
+						model,
 						{ctor: '[]'});
 			}
 		} while(false);
-		var _p9 = A2(_elm_lang$core$Debug$log, 'error', msg);
+		var _p9 = A2(_elm_lang$core$Debug$log, '__error', msg);
 		return A2(
 			_elm_lang$core$Platform_Cmd_ops['!'],
 			model,
