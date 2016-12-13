@@ -30,8 +30,16 @@ h1 {
 }
 
 h2 {
-  border-bottom: 2px solid #383e4c;
   font-weight: 300;
+}
+
+h2:after {
+    display: block;
+    background: #40C9A2;
+    content: '';
+    height: 2px;
+    width: 80px;
+    margin: 16px 0;
 }
 
 section {
