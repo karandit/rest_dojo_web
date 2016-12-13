@@ -39,7 +39,7 @@ viewShowTeamDialog : Dojo -> Team -> Html Msg
 viewShowTeamDialog dojo team =
     div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
         [ div [ class "rd-modal__dialog" ]
-            [ div [ class <| "rd-modal__header rd-team-background-" ++ (toString team.id) ]
+            [ div [ class <| "rd-modal__header rd-team-background-" ++ teamNumber team ]
                 [ div [] [ teamImg team ]
                 , div [ class "rd-modal__header-title" ] [ text team.name ]
                 ]
@@ -70,11 +70,26 @@ viewCreateTeamDialog dojo teamName =
         ]
 
 
+teamNumber : Team -> String
+teamNumber team =
+    let
+        mod6 =
+            team.id % 6
+
+        m1to6 =
+            if mod6 == 0 then
+                6
+            else
+                mod6
+    in
+        toString m1to6
+
+
 teamImg team =
     let
         avatarAttr =
             [ src <| avatar team.name
-            , class <| "rd-team-avatar rd-team-" ++ toString team.id
+            , class <| "rd-team-avatar rd-team-" ++ teamNumber team
             ]
     in
         img avatarAttr []
@@ -167,7 +182,7 @@ viewTeam dojo userAndTeam team =
             [ teamImg team
             , span [ class "rd-team-name" ] [ text team.name ]
             , span [ class "rd-team-descr" ] [ text team.descr ]
-            , span [ class <| "rd-team-points rd-team-background-" ++ toString team.id ] [ text <| toString team.points ]
+            , span [ class <| "rd-team-points rd-team-background-" ++ teamNumber team ] [ text <| toString team.points ]
             , action
             ]
 
@@ -214,7 +229,7 @@ viewEventGameWonBy dojo gameUrl team =
             case team of
                 Just winnerTeam ->
                     [ src <| avatar winnerTeam.name
-                    , class <| "rd-team-avatar rd-team-" ++ toString winnerTeam.id
+                    , class <| "rd-team-avatar rd-team-" ++ teamNumber winnerTeam
                     ]
 
                 Nothing ->
