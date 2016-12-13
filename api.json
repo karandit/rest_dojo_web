@@ -29,6 +29,15 @@
       "teamsUrl": "http://localhost:3000/dojos/11/teams",
       "eventsUrl": "http://localhost:3000/dojos/11/events",
       "pointHistoryUrl": "http://localhost:3000/points/11"
+    },
+    {
+      "id": 12,
+      "label": "2016-12-13 Luca",
+      "state": "running",
+      "dojoType": "cluedo",
+      "teamsUrl": "http://localhost:3000/dojos/12/teams",
+      "eventsUrl": "http://localhost:3000/dojos/12/events",
+      "pointHistoryUrl": "http://localhost:3000/points/12"
     }
   ],
   "teams":  [
