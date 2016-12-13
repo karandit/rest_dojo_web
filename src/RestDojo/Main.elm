@@ -154,7 +154,7 @@ update msg model =
             model ! (createTeam dojo teamName model.user)
 
         CreatedTeam oldDojo (Ok newTeam) ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ] }) model.dojos } ! []
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ], dialog = Nothing }) model.dojos } ! []
 
         SelectHome ->
             { model | route = HomeRoute } ! []
