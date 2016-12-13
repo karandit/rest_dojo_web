@@ -1,8 +1,8 @@
 module RestDojo.ViewDojo exposing (view)
 
 import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, section, canvas, input, label)
-import Html.Attributes exposing (class, src, id, href, attribute, for)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (class, src, id, href, attribute, for, type_)
+import Html.Events exposing (onClick, onInput)
 import List.Extra
 import RestDojo.Types exposing (..)
 import RestDojo.Util exposing (..)
@@ -25,15 +25,18 @@ view dojo loggedUser =
 viewDialog : Dojo -> List (Html Msg)
 viewDialog dojo =
     case dojo.dialog of
-        Just team ->
-            [ viewDialogTeam dojo team ]
+        Just (EditTeamDialog team) ->
+            [ viewShowTeamDialog dojo team ]
+
+        Just (CreateTeamDialog teamName) ->
+            [ viewCreateTeamDialog dojo teamName ]
 
         Nothing ->
             []
 
 
-viewDialogTeam : Dojo -> Team -> Html Msg
-viewDialogTeam dojo team =
+viewShowTeamDialog : Dojo -> Team -> Html Msg
+viewShowTeamDialog dojo team =
     div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
         [ div [ class "rd-modal__dialog" ]
             [ div [ class <| "rd-modal__header rd-team-background-" ++ (toString team.id) ]
@@ -41,6 +44,27 @@ viewDialogTeam dojo team =
                 , div [ class "rd-modal__header-title" ] [ text team.name ]
                 ]
             , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
+            , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
+            ]
+        ]
+
+
+viewCreateTeamDialog : Dojo -> String -> Html Msg
+viewCreateTeamDialog dojo teamName =
+    div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
+        [ div [ class "rd-modal__dialog" ]
+            [ div [ class <| "rd-modal__header rd-default-background" ]
+                [ div [ class "rd-modal__header-title" ] [ text "New team" ]
+                ]
+            , div [ class "input input--hoshi" ]
+                [ input [ class "input__field input__field--hoshi", id "input-team-name", onInput (EditTeamNameInDialog dojo), type_ "text" ]
+                    []
+                , label [ class "input__label input__label--hoshi input__label--hoshi-color-2", for "input-team-name" ]
+                    [ span [ class "input__label-content input__label-content--hoshi" ]
+                        [ text "Team name" ]
+                    ]
+                ]
+            , button [ class "rd-modal__action", onClick (CreateTeam dojo teamName) ] [ text "Create" ]
             , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]
@@ -79,7 +103,7 @@ viewTeams dojo loggedUser =
 
         divs =
             if needsAddNewTeam dojo userAndTeam then
-                headAndTeams ++ [ div [ class "rd__button" ] [ text "Add new team" ] ]
+                headAndTeams ++ [ div [ class "rd__button", onClick <| ShowCreateTeamDialog dojo ] [ text "New team" ] ]
             else
                 headAndTeams
     in
@@ -121,7 +145,7 @@ viewTeam dojo userAndTeam team =
                     span [] []
 
                 Past ->
-                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "View Team" ]
+                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "View Team" ]
 
                 Running ->
                     case userAndTeam of
@@ -129,12 +153,12 @@ viewTeam dojo userAndTeam team =
                             case maybeUserTeam of
                                 Just userTeam ->
                                     if team.id == userTeam.id then
-                                        span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "My Team" ]
+                                        span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "My Team" ]
                                     else
                                         span [] []
 
                                 Nothing ->
-                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowTeamDialog dojo team ] [ text "Join Team" ]
+                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "Join Team" ]
 
                         Nothing ->
                             span [] []

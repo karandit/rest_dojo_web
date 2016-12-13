@@ -1,7 +1,8 @@
-module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getPointHistory, getGame)
+module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getPointHistory, getGame, postNewTeam)
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
+import Json.Encode as JsonEnc exposing (..)
 import Http exposing (Request)
 import RestDojo.Types exposing (..)
 import RestDojo.Cluedo.CluedoTypes exposing (..)
@@ -24,6 +25,20 @@ getDojos url =
 getTeams : String -> Request (List Team)
 getTeams url =
     Http.get url teamsDecoder
+
+
+postNewTeam : String -> String -> User -> Request Team
+postNewTeam url teamName user =
+    let
+        teamJson =
+            JsonEnc.object
+                [ ( "name", JsonEnc.string teamName )
+                , ( "descr", JsonEnc.string "ver 0.100" )
+                , ( "points", JsonEnc.int 0 )
+                , ( "captain", JsonEnc.string user.nickname )
+                ]
+    in
+        Http.post url (Http.jsonBody teamJson) teamDecoder
 
 
 getPointHistory : String -> Request PointHistory
@@ -118,15 +133,19 @@ pointHistoryDecoder =
         )
 
 
+teamDecoder : Decoder Team
+teamDecoder =
+    Json.map5 Team
+        (Json.field "id" Json.int)
+        (Json.field "name" Json.string)
+        (Json.field "descr" Json.string)
+        (Json.field "points" Json.int)
+        (Json.field "captain" Json.string)
+
+
 teamsDecoder : Decoder (List Team)
 teamsDecoder =
-    Json.list <|
-        Json.map5 Team
-            (Json.field "id" Json.int)
-            (Json.field "name" Json.string)
-            (Json.field "descr" Json.string)
-            (Json.field "points" Json.int)
-            (Json.field "captain" Json.string)
+    Json.list teamDecoder
 
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)

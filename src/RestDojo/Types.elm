@@ -35,10 +35,15 @@ type DojoType
     | MinesweeperDojo
 
 
+type DojoDialog
+    = EditTeamDialog Team
+    | CreateTeamDialog String
+
+
 type alias Dojo =
     { teams : List Team
     , events : List Event
-    , dialog : Maybe Team
+    , dialog : Maybe DojoDialog
     , id : DojoId
     , label : String
     , state : DojoState
@@ -108,10 +113,14 @@ type Msg
     | LoadEvents Dojo (Result Http.Error (List Event))
     | LoadPointHistory (Result Http.Error PointHistory)
     | LoadGame Dojo (Result Http.Error Game)
+    | CreateTeam Dojo String
+    | CreatedTeam Dojo (Result Http.Error Team)
     | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
     | LoginPushed
     | LoggedIn User
-    | ShowTeamDialog Dojo Team
+    | ShowEditTeamDialog Dojo Team
+    | ShowCreateTeamDialog Dojo
+    | EditTeamNameInDialog Dojo String
     | CloseTeamDialog Dojo

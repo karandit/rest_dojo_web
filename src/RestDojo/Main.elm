@@ -115,6 +115,16 @@ loadGame dojo gameUrl =
     Http.send (LoadGame dojo) (API.getGame gameUrl dojo)
 
 
+createTeam : Dojo -> String -> Maybe User -> List (Cmd Msg)
+createTeam dojo teamName loggedUser =
+    case loggedUser of
+        Just user ->
+            [ Http.send (CreatedTeam dojo) (API.postNewTeam dojo.teamsUrl teamName user) ]
+
+        Nothing ->
+            []
+
+
 
 -- UPDATE --------------------------------------------------------------------------------------------------------------
 
@@ -140,6 +150,12 @@ update msg model =
         LoadEvents oldDojo (Ok loadedEvents) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
 
+        CreateTeam dojo teamName ->
+            model ! (createTeam dojo teamName model.user)
+
+        CreatedTeam oldDojo (Ok newTeam) ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ] }) model.dojos } ! []
+
         SelectHome ->
             { model | route = HomeRoute } ! []
 
@@ -155,8 +171,14 @@ update msg model =
         LoggedIn loggeduser ->
             { model | user = Just loggeduser } ! []
 
-        ShowTeamDialog oldDojo team ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just team }) model.dojos } ! []
+        ShowEditTeamDialog oldDojo team ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (EditTeamDialog team) }) model.dojos } ! []
+
+        ShowCreateTeamDialog oldDojo ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (CreateTeamDialog "") }) model.dojos } ! []
+
+        EditTeamNameInDialog oldDojo teamName ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (CreateTeamDialog teamName) }) model.dojos } ! []
 
         CloseTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Nothing }) model.dojos } ! []
