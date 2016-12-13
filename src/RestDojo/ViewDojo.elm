@@ -28,6 +28,9 @@ viewDialog dojo =
         Just (EditTeamDialog team) ->
             [ viewShowTeamDialog dojo team ]
 
+        Just (JoinTeamDialog team) ->
+            [ viewJoinTeamDialog dojo team ]
+
         Just (CreateTeamDialog teamName) ->
             [ viewCreateTeamDialog dojo teamName ]
 
@@ -49,6 +52,20 @@ viewShowTeamDialog dojo team =
         ]
 
 
+viewJoinTeamDialog : Dojo -> Team -> Html Msg
+viewJoinTeamDialog dojo team =
+    div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
+        [ div [ class "rd-modal__dialog" ]
+            [ div [ class <| "rd-modal__header rd-team-background-" ++ teamNumber team ]
+                [ div [] [ teamImg team ]
+                , div [ class "rd-modal__header-title" ] [ text team.name ]
+                ]
+            , button [ class "rd-modal__action", onClick (JoinTeam team) ] [ text "Join team" ]
+            , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
+            ]
+        ]
+
+
 viewCreateTeamDialog : Dojo -> String -> Html Msg
 viewCreateTeamDialog dojo teamName =
     div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
@@ -64,7 +81,7 @@ viewCreateTeamDialog dojo teamName =
                         [ text "Team name" ]
                     ]
                 ]
-            , button [ class "rd-modal__action", onClick (CreateTeam dojo teamName) ] [ text "Create" ]
+            , button [ class "rd-modal__action", onClick (CreateTeam dojo teamName) ] [ text "Create new team" ]
             , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]
@@ -173,7 +190,7 @@ viewTeam dojo userAndTeam team =
                                         span [] []
 
                                 Nothing ->
-                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "Join Team" ]
+                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowJoinTeamDialog dojo team ] [ text "Join Team" ]
 
                         Nothing ->
                             span [] []

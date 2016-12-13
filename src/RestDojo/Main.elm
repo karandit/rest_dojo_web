@@ -125,6 +125,16 @@ createTeam dojo teamName loggedUser =
             []
 
 
+joinTeam : Team -> Maybe User -> List (Cmd Msg)
+joinTeam team loggedUser =
+    -- case loggedUser of
+    -- Just user ->
+    --     [ Http.send (JoinedTeam team) (API.postJoinTeam team.joinUrl user) ]
+    --
+    -- Nothing ->
+    []
+
+
 
 -- UPDATE --------------------------------------------------------------------------------------------------------------
 
@@ -156,6 +166,9 @@ update msg model =
         CreatedTeam oldDojo (Ok newTeam) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ], dialog = Nothing }) model.dojos } ! []
 
+        JoinTeam team ->
+            model ! []
+
         SelectHome ->
             { model | route = HomeRoute } ! []
 
@@ -173,6 +186,9 @@ update msg model =
 
         ShowEditTeamDialog oldDojo team ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (EditTeamDialog team) }) model.dojos } ! []
+
+        ShowJoinTeamDialog oldDojo team ->
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (JoinTeamDialog team) }) model.dojos } ! []
 
         ShowCreateTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (CreateTeamDialog "") }) model.dojos } ! []

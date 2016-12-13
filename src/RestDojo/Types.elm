@@ -38,6 +38,7 @@ type DojoType
 type DojoDialog
     = EditTeamDialog Team
     | CreateTeamDialog String
+    | JoinTeamDialog Team
 
 
 type alias Dojo =
@@ -115,6 +116,8 @@ type Msg
     | LoadGame Dojo (Result Http.Error Game)
     | CreateTeam Dojo String
     | CreatedTeam Dojo (Result Http.Error Team)
+    | JoinTeam Team
+    | JoinedTeam Team (Result Http.Error String)
     | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
@@ -122,5 +125,6 @@ type Msg
     | LoggedIn User
     | ShowEditTeamDialog Dojo Team
     | ShowCreateTeamDialog Dojo
+    | ShowJoinTeamDialog Dojo Team
     | EditTeamNameInDialog Dojo String
     | CloseTeamDialog Dojo
