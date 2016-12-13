@@ -40,302 +40,575 @@
       "pointHistoryUrl": "http://localhost:3000/points/12"
     }
   ],
-  "teams":  [
-      { "id": 1,
-        "dojoId": 8,
-        "name": "Alpha",
-        "descr" : "ver 0.1",
-        "points": 145,
-        "captain": "karandit"
-      },
-      { "id": 2,
-        "dojoId": 8,
-        "name": "Bravo",
-        "descr" : "ver 0.100",
-        "points": 68,
-        "captain": "bublag"
-      },
-      { "id": 3,
-        "dojoId": 8,
-        "name": "Charlie",
-        "descr" : "ver 0.3",
-        "points": 362,
-        "captain": "bali182"
-      },
-      { "id": 4,
-        "dojoId": 8,
-        "name": "Delta",
-        "descr" : "blabla",
-        "points": 68,
-        "captain": "zeldan"
-      },
-      { "id": 5,
-        "dojoId": 8,
-        "name": "Echo",
-        "descr" : "ver 0.6",
-        "points": 21,
-        "captain": "schjan79"
-      },
-      { "id": 6,
-        "dojoId": 8,
-        "name": "Foxtrot",
-        "descr" : "ver 0.1.99",
-        "points": 247,
-        "captain": "zsozsogit"
-      },
-
-      { "id": 1,
-        "dojoId": 9,
-        "name": "Washington",
-        "descr" : "ver first",
-        "points": 45,
-        "captain": "zsozsogit"
-      },
-      { "id": 2,
-        "dojoId": 9,
-        "name": "Jefferson",
-        "descr" : "ver 0.100",
-        "points": 24,
-        "captain": "zsozsogit"
-      },
-      { "id": 3,
-        "dojoId": 9,
-        "name": "Lincoln",
-        "descr" : "ver 0.3",
-        "points": 11,
-        "captain": "zsozsogit"
-      },
-      { "id": 4,
-        "dojoId": 9,
-        "name": "Grant",
-        "descr" : "blabla",
-        "points": 101,
-        "captain": "zsozsogit"
-      },
-      { "id": 5,
-        "dojoId": 9,
-        "name": "Roosevelt",
-        "descr" : "ver 0.6",
-        "points": 37,
-        "captain": "zsozsogit"
-      },
-      { "id": 6,
-        "dojoId": 9,
-        "name": "Kennedy",
-        "descr" : "ver 0.1.99",
-        "points": 57,
-        "captain": "zsozsogit"
-      },
-
-      { "id": 1,
-        "dojoId": 11,
-        "name": "Alabama",
-        "descr" : "ver first",
-        "points": 201,
-        "captain": "karandit"
-      },
-      { "id": 2,
-        "dojoId": 11,
-        "name": "Connecticut",
-        "descr" : "ver 0.100",
-        "points": 310,
-        "captain": "zsozsogit"
-      },
-      { "id": 3,
-        "dojoId": 11,
-        "name": "Florida",
-        "descr" : "ver 0.3",
-        "points": 109,
-        "captain": "zeldan"
-      },
-      { "id": 4,
-        "dojoId": 11,
-        "name": "Nebraska",
-        "descr" : "blabla",
-        "points": 156,
-        "captain": "bali182"
-      },
-      { "id": 5,
-        "dojoId": 11,
-        "name": "Oklahoma",
-        "descr" : "ver 0.6",
-        "points": 210,
-        "captain": "schjan79"
-      },
-      { "id": 6,
-        "dojoId": 11,
-        "name": "Utah",
-        "descr" : "ver 0.1.99",
-        "points": 315,
-        "captain": "bublag"
-      }
-    ],
-  "points": [{
-      "id" : 8,
-      "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
-      "teams": [ {
-          "teamName" : "Alpha",
-          "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+  "teams": [
+    {
+      "id": 1,
+      "dojoId": 8,
+      "name": "Alpha",
+      "descr": "ver 0.1",
+      "points": 145,
+      "captain": "karandit"
+    },
+    {
+      "id": 2,
+      "dojoId": 8,
+      "name": "Bravo",
+      "descr": "ver 0.100",
+      "points": 68,
+      "captain": "bublag"
+    },
+    {
+      "id": 3,
+      "dojoId": 8,
+      "name": "Charlie",
+      "descr": "ver 0.3",
+      "points": 362,
+      "captain": "bali182"
+    },
+    {
+      "id": 4,
+      "dojoId": 8,
+      "name": "Delta",
+      "descr": "blabla",
+      "points": 68,
+      "captain": "zeldan"
+    },
+    {
+      "id": 5,
+      "dojoId": 8,
+      "name": "Echo",
+      "descr": "ver 0.6",
+      "points": 21,
+      "captain": "schjan79"
+    },
+    {
+      "id": 6,
+      "dojoId": 8,
+      "name": "Foxtrot",
+      "descr": "ver 0.1.99",
+      "points": 247,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 1,
+      "dojoId": 9,
+      "name": "Washington",
+      "descr": "ver first",
+      "points": 45,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 2,
+      "dojoId": 9,
+      "name": "Jefferson",
+      "descr": "ver 0.100",
+      "points": 24,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 3,
+      "dojoId": 9,
+      "name": "Lincoln",
+      "descr": "ver 0.3",
+      "points": 11,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 4,
+      "dojoId": 9,
+      "name": "Grant",
+      "descr": "blabla",
+      "points": 101,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 5,
+      "dojoId": 9,
+      "name": "Roosevelt",
+      "descr": "ver 0.6",
+      "points": 37,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 6,
+      "dojoId": 9,
+      "name": "Kennedy",
+      "descr": "ver 0.1.99",
+      "points": 57,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 1,
+      "dojoId": 11,
+      "name": "Alabama",
+      "descr": "ver first",
+      "points": 201,
+      "captain": "karandit"
+    },
+    {
+      "id": 2,
+      "dojoId": 11,
+      "name": "Connecticut",
+      "descr": "ver 0.100",
+      "points": 310,
+      "captain": "zsozsogit"
+    },
+    {
+      "id": 3,
+      "dojoId": 11,
+      "name": "Florida",
+      "descr": "ver 0.3",
+      "points": 109,
+      "captain": "zeldan"
+    },
+    {
+      "id": 4,
+      "dojoId": 11,
+      "name": "Nebraska",
+      "descr": "blabla",
+      "points": 156,
+      "captain": "bali182"
+    },
+    {
+      "id": 5,
+      "dojoId": 11,
+      "name": "Oklahoma",
+      "descr": "ver 0.6",
+      "points": 210,
+      "captain": "schjan79"
+    },
+    {
+      "id": 6,
+      "dojoId": 11,
+      "name": "Utah",
+      "descr": "ver 0.1.99",
+      "points": 315,
+      "captain": "bublag"
+    }
+  ],
+  "points": [
+    {
+      "id": 8,
+      "games": [
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+        "S"
+      ],
+      "teams": [
+        {
+          "teamName": "Alpha",
+          "data": [
+            0,
+            5,
+            7,
+            14,
+            14,
+            14,
+            14
+          ]
         },
         {
-          "teamName" : "Bravo",
-          "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+          "teamName": "Bravo",
+          "data": [
+            0,
+            5,
+            5,
+            12,
+            13,
+            20,
+            21
+          ]
         },
         {
-          "teamName" : "Charlie",
-          "data" : [ 0, 3, 3, 3, 3, 4, 21 ]
+          "teamName": "Charlie",
+          "data": [
+            0,
+            3,
+            3,
+            3,
+            3,
+            4,
+            21
+          ]
         },
         {
-          "teamName" : "Delta",
-          "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+          "teamName": "Delta",
+          "data": [
+            0,
+            7,
+            8,
+            8,
+            9,
+            10,
+            10
+          ]
         },
         {
-          "teamName" : "Echo",
-          "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+          "teamName": "Echo",
+          "data": [
+            0,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ]
         },
         {
-          "teamName" : "Foxtrot",
-          "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+          "teamName": "Foxtrot",
+          "data": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
         }
       ]
     },
     {
       "id": 9,
-      "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
-      "teams": [ {
-          "teamName" : "Washington",
-          "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+      "games": [
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+        "S"
+      ],
+      "teams": [
+        {
+          "teamName": "Washington",
+          "data": [
+            0,
+            5,
+            7,
+            14,
+            14,
+            14,
+            14
+          ]
         },
         {
-          "teamName" : "Jefferson",
-          "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+          "teamName": "Jefferson",
+          "data": [
+            0,
+            5,
+            5,
+            12,
+            13,
+            20,
+            21
+          ]
         },
         {
-          "teamName" : "Lincoln",
-          "data" : [ 0, 1, 3, 3, 3, 4, 21 ]
+          "teamName": "Lincoln",
+          "data": [
+            0,
+            1,
+            3,
+            3,
+            3,
+            4,
+            21
+          ]
         },
         {
-          "teamName" : "Grant",
-          "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+          "teamName": "Grant",
+          "data": [
+            0,
+            7,
+            8,
+            8,
+            9,
+            10,
+            10
+          ]
         },
         {
-          "teamName" : "Roosevelt",
-          "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+          "teamName": "Roosevelt",
+          "data": [
+            0,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ]
         },
         {
-          "teamName" : "Kennedy",
-          "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+          "teamName": "Kennedy",
+          "data": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
         }
       ]
     },
     {
       "id": 11,
-      "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
-      "teams": [ {
-          "teamName" : "Alabama",
-          "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+      "games": [
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+        "S"
+      ],
+      "teams": [
+        {
+          "teamName": "Alabama",
+          "data": [
+            0,
+            5,
+            7,
+            14,
+            14,
+            14,
+            14
+          ]
         },
         {
-          "teamName" : "Connecticut",
-          "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+          "teamName": "Connecticut",
+          "data": [
+            0,
+            5,
+            5,
+            12,
+            13,
+            20,
+            21
+          ]
         },
         {
-          "teamName" : "Florida",
-          "data" : [ 0, 2, 3, 3, 3, 4, 21 ]
+          "teamName": "Florida",
+          "data": [
+            0,
+            2,
+            3,
+            3,
+            3,
+            4,
+            21
+          ]
         },
         {
-          "teamName" : "Nebraska",
-          "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+          "teamName": "Nebraska",
+          "data": [
+            0,
+            7,
+            8,
+            8,
+            9,
+            10,
+            10
+          ]
         },
         {
-          "teamName" : "Oklahoma",
-          "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+          "teamName": "Oklahoma",
+          "data": [
+            0,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ]
         },
         {
-          "teamName" : "Utah",
-          "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+          "teamName": "Utah",
+          "data": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
         }
       ]
     }
   ],
   "events": [
-    {"gameWonBy": 1, "dojoId": 8, "gameUrl": "http://localhost:3000/games/801"},
-    {"gameWonBy": 1, "dojoId": 9, "gameUrl": "http://localhost:3000/games/901"}
+    {
+      "gameWonBy": 1,
+      "dojoId": 8,
+      "gameUrl": "http://localhost:3000/games/801"
+    },
+    {
+      "gameWonBy": 1,
+      "dojoId": 9,
+      "gameUrl": "http://localhost:3000/games/901"
+    }
   ],
   "games": [
     {
       "id": 801,
       "secret": {
         "weapon": "Revolver",
-        "location" : "Kitchen",
-        "person" : "ColMustard"
+        "location": "Kitchen",
+        "person": "ColMustard"
       },
       "bots": [
         {
-        "teamName": "Alpha",
-        "weapons": ["Candlestick", "IcePick"],
-        "locations" : ["Billiards"],
-        "persons" : []
-      },
-      {
-        "teamName": "Bravo",
-        "weapons": ["Poison"],
-        "locations" : ["Conservatory", "Library"],
-        "persons" : []
-      },
-      {
-        "teamName": "Charlie",
-        "weapons": [],
-        "locations" : ["Lounge"],
-        "persons" : ["MrsWhite", "MsPeacock"]
-      },
-      {
-        "teamName": "Delta",
-        "weapons": ["Poker"],
-        "locations" : ["Stairs"],
-        "persons" : ["MsScarlett"]
-      },
-      {
-        "teamName": "Echo",
-        "weapons": [],
-        "locations" : ["Studio", "BedRoom"],
-        "persons" : ["ProfPlum"]
-      },
-      {
-        "teamName": "Foxtrot",
-        "weapons": ["Shears"],
-        "locations" : ["TrophyHall"],
-        "persons" : ["RevGreen"]
-      }
-    ],
-    "rounds": [
-      {
-        "asked": {"by": "Alpha", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
-        "answered": [
-          {"by": "Bravo", "answer": null},
-          {"by": "Charlie", "answer": null},
-          {"by": "Delta", "answer": "Poker"}
-        ]
-      },
-      {
-        "asked": {"by": "Bravo", "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
-        "answered": [
-          {"by": "Charlie", "answer": null},
-          {"by": "Delta", "answer": null},
-          {"by": "Echo", "answer": null},
-          {"by": "Foxtrot", "answer": null},
-          {"by": "Alpha", "answer": "Studio"}
-        ]
-      },
-      {
-        "accused": {"by": "Charlie", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
-        "answer": true
-      }
-    ]
-  },
-  {
-    "id": 901,
-    "board": "let's play"
-  }
+          "teamName": "Alpha",
+          "weapons": [
+            "Candlestick",
+            "IcePick"
+          ],
+          "locations": [
+            "Billiards"
+          ],
+          "persons": []
+        },
+        {
+          "teamName": "Bravo",
+          "weapons": [
+            "Poison"
+          ],
+          "locations": [
+            "Conservatory",
+            "Library"
+          ],
+          "persons": []
+        },
+        {
+          "teamName": "Charlie",
+          "weapons": [],
+          "locations": [
+            "Lounge"
+          ],
+          "persons": [
+            "MrsWhite",
+            "MsPeacock"
+          ]
+        },
+        {
+          "teamName": "Delta",
+          "weapons": [
+            "Poker"
+          ],
+          "locations": [
+            "Stairs"
+          ],
+          "persons": [
+            "MsScarlett"
+          ]
+        },
+        {
+          "teamName": "Echo",
+          "weapons": [],
+          "locations": [
+            "Studio",
+            "BedRoom"
+          ],
+          "persons": [
+            "ProfPlum"
+          ]
+        },
+        {
+          "teamName": "Foxtrot",
+          "weapons": [
+            "Shears"
+          ],
+          "locations": [
+            "TrophyHall"
+          ],
+          "persons": [
+            "RevGreen"
+          ]
+        }
+      ],
+      "rounds": [
+        {
+          "asked": {
+            "by": "Alpha",
+            "question": {
+              "weapon": "Poker",
+              "location": "Studio",
+              "person": "RevGreen"
+            }
+          },
+          "answered": [
+            {
+              "by": "Bravo",
+              "answer": null
+            },
+            {
+              "by": "Charlie",
+              "answer": null
+            },
+            {
+              "by": "Delta",
+              "answer": "Poker"
+            }
+          ]
+        },
+        {
+          "asked": {
+            "by": "Bravo",
+            "question": {
+              "weapon": "Poison",
+              "location": "Studio",
+              "person": "ProfPlum"
+            }
+          },
+          "answered": [
+            {
+              "by": "Charlie",
+              "answer": null
+            },
+            {
+              "by": "Delta",
+              "answer": null
+            },
+            {
+              "by": "Echo",
+              "answer": null
+            },
+            {
+              "by": "Foxtrot",
+              "answer": null
+            },
+            {
+              "by": "Alpha",
+              "answer": "Studio"
+            }
+          ]
+        },
+        {
+          "accused": {
+            "by": "Charlie",
+            "question": {
+              "weapon": "Poker",
+              "location": "Studio",
+              "person": "RevGreen"
+            }
+          },
+          "answer": true
+        }
+      ]
+    },
+    {
+      "id": 901,
+      "board": "let's play"
+    }
   ]
 }
