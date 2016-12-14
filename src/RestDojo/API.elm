@@ -133,6 +133,26 @@ pointHistoryDecoder =
         )
 
 
+teamMemberStatusDecoder : Json.Decoder TeamMemberStatus
+teamMemberStatusDecoder =
+    let
+        decodeToType string =
+            case string of
+                "captain" ->
+                    Json.succeed Captain
+
+                "crew" ->
+                    Json.succeed Crew
+
+                "entrant" ->
+                    Json.succeed Entrant
+
+                _ ->
+                    Json.fail <| "Not valid pattern for decoder to TeamMemberStatus. Pattern: " ++ (toString string)
+    in
+        Json.string |> Json.andThen decodeToType
+
+
 teamDecoder : Decoder Team
 teamDecoder =
     Json.map5 Team
@@ -140,7 +160,13 @@ teamDecoder =
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
-        (Json.field "captain" Json.string)
+        (Json.field "members" <|
+            Json.list
+                (Json.map2 TeamMember
+                    (Json.field "name" Json.string)
+                    (Json.field "status" <| teamMemberStatusDecoder)
+                )
+        )
 
 
 teamsDecoder : Decoder (List Team)

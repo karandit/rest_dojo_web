@@ -115,12 +115,17 @@ teamImg team =
 viewTeams : Dojo -> Maybe User -> Html Msg
 viewTeams dojo loggedUser =
     let
+        isMyTeam user team =
+            List.Extra.find (\teamMember -> teamMember.name == user.nickname) team.members
+                |> Maybe.map (\_ -> True)
+                |> Maybe.withDefault False
+
         userAndTeam =
             case loggedUser of
                 Just user ->
                     let
                         userTeam =
-                            List.Extra.find (\team -> team.captain == user.nickname) dojo.teams
+                            List.Extra.find (isMyTeam user) dojo.teams
                     in
                         Just ( user, userTeam )
 

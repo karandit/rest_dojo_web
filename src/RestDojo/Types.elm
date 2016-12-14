@@ -59,12 +59,24 @@ type alias TeamId =
     Int
 
 
+type TeamMemberStatus
+    = Captain
+    | Crew
+    | Entrant
+
+
+type alias TeamMember =
+    { name : String
+    , status : TeamMemberStatus
+    }
+
+
 type alias Team =
     { id : TeamId
     , name : String
     , descr : String
     , points : Int
-    , captain : String
+    , members : List TeamMember
     }
 
 

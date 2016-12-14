@@ -47,7 +47,20 @@
       "name": "Alpha",
       "descr": "ver 0.1",
       "points": 145,
-      "captain": "karandit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "karandit"
+        },
+        {
+          "status": "crew",
+          "name": "bublag"
+        },
+        {
+          "status": "entrant",
+          "name": "bali182"
+        }
+      ]
     },
     {
       "id": 2,
@@ -55,7 +68,12 @@
       "name": "Bravo",
       "descr": "ver 0.100",
       "points": 68,
-      "captain": "bublag"
+      "members": [
+        {
+          "status": "captain",
+          "name": "bublag"
+        }
+      ]
     },
     {
       "id": 3,
@@ -63,7 +81,12 @@
       "name": "Charlie",
       "descr": "ver 0.3",
       "points": 362,
-      "captain": "bali182"
+      "members": [
+        {
+          "status": "captain",
+          "name": "bali182"
+        }
+      ]
     },
     {
       "id": 4,
@@ -71,7 +94,12 @@
       "name": "Delta",
       "descr": "blabla",
       "points": 68,
-      "captain": "zeldan"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zeldan"
+        }
+      ]
     },
     {
       "id": 5,
@@ -79,7 +107,12 @@
       "name": "Echo",
       "descr": "ver 0.6",
       "points": 21,
-      "captain": "schjan79"
+      "members": [
+        {
+          "status": "captain",
+          "name": "schjan79"
+        }
+      ]
     },
     {
       "id": 6,
@@ -87,7 +120,12 @@
       "name": "Foxtrot",
       "descr": "ver 0.1.99",
       "points": 247,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 1,
@@ -95,7 +133,12 @@
       "name": "Washington",
       "descr": "ver first",
       "points": 45,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 2,
@@ -103,7 +146,12 @@
       "name": "Jefferson",
       "descr": "ver 0.100",
       "points": 24,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 3,
@@ -111,7 +159,12 @@
       "name": "Lincoln",
       "descr": "ver 0.3",
       "points": 11,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 4,
@@ -119,7 +172,12 @@
       "name": "Grant",
       "descr": "blabla",
       "points": 101,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 5,
@@ -127,7 +185,12 @@
       "name": "Roosevelt",
       "descr": "ver 0.6",
       "points": 37,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 6,
@@ -135,7 +198,12 @@
       "name": "Kennedy",
       "descr": "ver 0.1.99",
       "points": 57,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 1,
@@ -143,7 +211,12 @@
       "name": "Alabama",
       "descr": "ver first",
       "points": 201,
-      "captain": "karandit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "karandit"
+        }
+      ]
     },
     {
       "id": 2,
@@ -151,7 +224,12 @@
       "name": "Connecticut",
       "descr": "ver 0.100",
       "points": 310,
-      "captain": "zsozsogit"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zsozsogit"
+        }
+      ]
     },
     {
       "id": 3,
@@ -159,7 +237,12 @@
       "name": "Florida",
       "descr": "ver 0.3",
       "points": 109,
-      "captain": "zeldan"
+      "members": [
+        {
+          "status": "captain",
+          "name": "zeldan"
+        }
+      ]
     },
     {
       "id": 4,
@@ -167,7 +250,12 @@
       "name": "Nebraska",
       "descr": "blabla",
       "points": 156,
-      "captain": "bali182"
+      "members": [
+        {
+          "status": "captain",
+          "name": "bali182"
+        }
+      ]
     },
     {
       "id": 5,
@@ -175,7 +263,12 @@
       "name": "Oklahoma",
       "descr": "ver 0.6",
       "points": 210,
-      "captain": "schjan79"
+      "members": [
+        {
+          "status": "captain",
+          "name": "schjan79"
+        }
+      ]
     },
     {
       "id": 6,
@@ -183,7 +276,12 @@
       "name": "Utah",
       "descr": "ver 0.1.99",
       "points": 315,
-      "captain": "bublag"
+      "members": [
+        {
+          "status": "captain",
+          "name": "bublag"
+        }
+      ]
     }
   ],
   "points": [
