@@ -129,7 +129,7 @@
       "id": 15,
       "teamId": 13,
       "status": "captain",
-      "name": "karandit"
+      "name": "zsozsogit"
     },
     {
       "id": 16,
@@ -252,42 +252,48 @@
       "dojoId": 11,
       "name": "Alabama",
       "descr": "ver first",
-      "points": 201
+      "points": 201,
+      "joinUrl": "http://localhost:3000/members"
     },
     {
       "id": 14,
       "dojoId": 11,
       "name": "Connecticut",
       "descr": "ver 0.100",
-      "points": 310
+      "points": 310,
+      "joinUrl": "http://localhost:3000/members"
     },
     {
       "id": 15,
       "dojoId": 11,
       "name": "Florida",
       "descr": "ver 0.3",
-      "points": 109
+      "points": 109,
+      "joinUrl": "http://localhost:3000/members"
     },
     {
       "id": 16,
       "dojoId": 11,
       "name": "Nebraska",
       "descr": "blabla",
-      "points": 156
+      "points": 156,
+      "joinUrl": "http://localhost:3000/members"
     },
     {
       "id": 17,
       "dojoId": 11,
       "name": "Oklahoma",
       "descr": "ver 0.6",
-      "points": 210
+      "points": 210,
+      "joinUrl": "http://localhost:3000/members"
     },
     {
       "id": 18,
       "dojoId": 11,
       "name": "Utah",
       "descr": "ver 0.1.99",
-      "points": 315
+      "points": 315,
+      "joinUrl": "http://localhost:3000/members"
     }
   ],
   "points": [
