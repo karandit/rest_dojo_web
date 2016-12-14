@@ -116,9 +116,12 @@ viewTeams : Dojo -> Maybe User -> Html Msg
 viewTeams dojo loggedUser =
     let
         isMyTeam user team =
-            List.Extra.find (\teamMember -> teamMember.name == user.nickname) team.members
-                |> Maybe.map (\_ -> True)
-                |> Maybe.withDefault False
+            if (team.captain == user.nickname) then
+                True
+            else
+                List.Extra.find (\teamMember -> teamMember.name == user.nickname) team.members
+                    |> Maybe.map (\_ -> True)
+                    |> Maybe.withDefault False
 
         userAndTeam =
             case loggedUser of

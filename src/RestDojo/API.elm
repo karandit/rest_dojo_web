@@ -187,11 +187,12 @@ teamMemberDecoder =
 
 teamDecoder : Decoder Team
 teamDecoder =
-    Json.map6 Team
+    Json.map7 Team
         (Json.field "id" Json.int)
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
+        (Json.field "captain" Json.string)
         (Json.field "members" <| Json.list teamMemberDecoder)
         (Json.field "joinUrl" Json.string)
 
