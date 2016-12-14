@@ -49,6 +49,10 @@ postNewTeam url teamName user =
         Http.post url (Http.jsonBody teamJson) teamDecoder
 
 
+
+-- TODO here the Team is redundant as we don't need the team.Id if it is encoded in the url
+
+
 postJoinTeam : String -> Team -> User -> Request TeamMember
 postJoinTeam url team user =
     let

@@ -60,7 +60,7 @@ viewJoinTeamDialog dojo team =
                 [ div [] [ teamImg team ]
                 , div [ class "rd-modal__header-title" ] [ text team.name ]
                 ]
-            , button [ class "rd-modal__action", onClick (JoinTeam team) ] [ text "Join team" ]
+            , button [ class "rd-modal__action", onClick (JoinTeam dojo team) ] [ text "Join team" ]
             , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]

@@ -125,11 +125,11 @@ createTeam dojo teamName loggedUser =
             []
 
 
-joinTeam : Team -> Maybe User -> List (Cmd Msg)
-joinTeam team loggedUser =
+joinTeam : Dojo -> Team -> Maybe User -> List (Cmd Msg)
+joinTeam dojo team loggedUser =
     case loggedUser of
         Just user ->
-            [ Http.send (JoinedTeam team) (API.postJoinTeam team.joinUrl team user) ]
+            [ Http.send (JoinedTeam dojo team) (API.postJoinTeam team.joinUrl team user) ]
 
         Nothing ->
             []
@@ -166,8 +166,15 @@ update msg model =
         CreatedTeam oldDojo (Ok newTeam) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ], dialog = Nothing }) model.dojos } ! []
 
-        JoinTeam team ->
-            model ! (joinTeam team model.user)
+        JoinTeam dojo team ->
+            model ! (joinTeam dojo team model.user)
+
+        JoinedTeam oldDojo oldTeam (Ok newTeamMember) ->
+            let
+                addTeamMember dojo =
+                    updateTeam oldTeam.id (\team -> { team | members = team.members ++ [ newTeamMember ] }) dojo.teams
+            in
+                { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = addTeamMember dojo, dialog = Nothing }) model.dojos } ! []
 
         SelectHome ->
             { model | route = HomeRoute } ! []
@@ -210,12 +217,23 @@ update msg model =
                 model ! []
 
 
+updateDojo : Int -> (Dojo -> Dojo) -> List Dojo -> List Dojo
 updateDojo dojoId updater dojos =
+    updateXXX (\dojo -> dojo.id == dojoId) updater dojos
+
+
+updateTeam : Int -> (Team -> Team) -> List Team -> List Team
+updateTeam teamId updater teams =
+    updateXXX (\team -> team.id == teamId) updater teams
+
+
+updateXXX : (a -> Bool) -> (a -> a) -> List a -> List a
+updateXXX pred updater inp =
     List.map
-        (\dojo ->
-            if dojo.id == dojoId then
-                updater dojo
+        (\x ->
+            if pred x then
+                updater x
             else
-                dojo
+                x
         )
-        dojos
+        inp

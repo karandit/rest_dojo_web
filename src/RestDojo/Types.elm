@@ -129,8 +129,8 @@ type Msg
     | LoadGame Dojo (Result Http.Error Game)
     | CreateTeam Dojo String
     | CreatedTeam Dojo (Result Http.Error Team)
-    | JoinTeam Team
-    | JoinedTeam Team (Result Http.Error TeamMember)
+    | JoinTeam Dojo Team
+    | JoinedTeam Dojo Team (Result Http.Error TeamMember)
     | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
