@@ -1,4 +1,14 @@
-module RestDojo.API exposing (getTeams, getEvents, getBillboard, getDojos, getPointHistory, getGame, postNewTeam)
+module RestDojo.API
+    exposing
+        ( getTeams
+        , getEvents
+        , getBillboard
+        , getDojos
+        , getPointHistory
+        , getGame
+        , postNewTeam
+        , postJoinTeam
+        )
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
@@ -37,6 +47,19 @@ postNewTeam url teamName user =
                 ]
     in
         Http.post url (Http.jsonBody teamJson) teamDecoder
+
+
+postJoinTeam : String -> Team -> User -> Request TeamMember
+postJoinTeam url team user =
+    let
+        json =
+            JsonEnc.object
+                [ ( "teamId", JsonEnc.int team.id )
+                , ( "status", JsonEnc.string "entrant" )
+                , ( "name", JsonEnc.string user.nickname )
+                ]
+    in
+        Http.post url (Http.jsonBody json) teamMemberDecoder
 
 
 getPointHistory : String -> Request PointHistory
@@ -151,20 +174,22 @@ teamMemberStatusDecoder =
         Json.string |> Json.andThen decodeToType
 
 
+teamMemberDecoder : Json.Decoder TeamMember
+teamMemberDecoder =
+    Json.map2 TeamMember
+        (Json.field "name" Json.string)
+        (Json.field "status" teamMemberStatusDecoder)
+
+
 teamDecoder : Decoder Team
 teamDecoder =
-    Json.map5 Team
+    Json.map6 Team
         (Json.field "id" Json.int)
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
-        (Json.field "members" <|
-            Json.list
-                (Json.map2 TeamMember
-                    (Json.field "name" Json.string)
-                    (Json.field "status" <| teamMemberStatusDecoder)
-                )
-        )
+        (Json.field "members" <| Json.list teamMemberDecoder)
+        (Json.field "joinUrl" Json.string)
 
 
 teamsDecoder : Decoder (List Team)

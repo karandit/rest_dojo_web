@@ -77,6 +77,7 @@ type alias Team =
     , descr : String
     , points : Int
     , members : List TeamMember
+    , joinUrl : String
     }
 
 
@@ -129,7 +130,7 @@ type Msg
     | CreateTeam Dojo String
     | CreatedTeam Dojo (Result Http.Error Team)
     | JoinTeam Team
-    | JoinedTeam Team (Result Http.Error String)
+    | JoinedTeam Team (Result Http.Error TeamMember)
     | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl

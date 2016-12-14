@@ -127,12 +127,12 @@ createTeam dojo teamName loggedUser =
 
 joinTeam : Team -> Maybe User -> List (Cmd Msg)
 joinTeam team loggedUser =
-    -- case loggedUser of
-    -- Just user ->
-    --     [ Http.send (JoinedTeam team) (API.postJoinTeam team.joinUrl user) ]
-    --
-    -- Nothing ->
-    []
+    case loggedUser of
+        Just user ->
+            [ Http.send (JoinedTeam team) (API.postJoinTeam team.joinUrl team user) ]
+
+        Nothing ->
+            []
 
 
 
@@ -167,7 +167,7 @@ update msg model =
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ], dialog = Nothing }) model.dojos } ! []
 
         JoinTeam team ->
-            model ! []
+            model ! (joinTeam team model.user)
 
         SelectHome ->
             { model | route = HomeRoute } ! []
