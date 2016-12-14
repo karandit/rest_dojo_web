@@ -60,8 +60,7 @@ type alias TeamId =
 
 
 type TeamMemberStatus
-    = Captain
-    | Crew
+    = Crew
     | Entrant
 
 

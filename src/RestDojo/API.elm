@@ -163,9 +163,6 @@ teamMemberStatusDecoder =
     let
         decodeToType string =
             case string of
-                "captain" ->
-                    Json.succeed Captain
-
                 "crew" ->
                     Json.succeed Crew
 
