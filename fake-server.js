@@ -12,7 +12,7 @@ server.use(function (req, res, next) {
 
     const urlParts = req.url.split('/').filter(s => s.length != 0);
 
-    if (urlParts.length === 3 && urlParts[0] === 'dojos' && urlParts[2] === 'teams') {
+    if (urlParts[0] === 'dojos' && urlParts[2] === 'teams') {
       console.log('xxx Create new team ');
       req.body = {
         "name": req.body.teamName,
