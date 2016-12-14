@@ -66,8 +66,14 @@ header {
 
 .rd-login {
   margin-left: auto;
+  margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.rd-avatar {
+  width: 40px;
+  height: 40px;
 }
 
 /* --- Home ----------------------------------------------------------------------------------------------------------*/
