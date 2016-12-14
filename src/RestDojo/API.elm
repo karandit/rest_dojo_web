@@ -190,7 +190,12 @@ teamDecoder =
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
         (Json.field "captain" Json.string)
-        (Json.field "members" <| Json.list teamMemberDecoder)
+        (Json.map
+            (Maybe.withDefault [])
+            (Json.maybe
+                (Json.field "members" <| Json.list teamMemberDecoder)
+            )
+        )
         (Json.field "joinUrl" Json.string)
 
 
