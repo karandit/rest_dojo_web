@@ -128,7 +128,7 @@
       ]
     },
     {
-      "id": 1,
+      "id": 7,
       "dojoId": 9,
       "name": "Washington",
       "descr": "ver first",
@@ -141,7 +141,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": 8,
       "dojoId": 9,
       "name": "Jefferson",
       "descr": "ver 0.100",
@@ -154,7 +154,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": 9,
       "dojoId": 9,
       "name": "Lincoln",
       "descr": "ver 0.3",
@@ -167,7 +167,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 10,
       "dojoId": 9,
       "name": "Grant",
       "descr": "blabla",
@@ -180,7 +180,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 11,
       "dojoId": 9,
       "name": "Roosevelt",
       "descr": "ver 0.6",
@@ -193,7 +193,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 12,
       "dojoId": 9,
       "name": "Kennedy",
       "descr": "ver 0.1.99",
@@ -206,7 +206,7 @@
       ]
     },
     {
-      "id": 1,
+      "id": 13,
       "dojoId": 11,
       "name": "Alabama",
       "descr": "ver first",
@@ -219,7 +219,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": 14,
       "dojoId": 11,
       "name": "Connecticut",
       "descr": "ver 0.100",
@@ -232,7 +232,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": 15,
       "dojoId": 11,
       "name": "Florida",
       "descr": "ver 0.3",
@@ -245,7 +245,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 16,
       "dojoId": 11,
       "name": "Nebraska",
       "descr": "blabla",
@@ -258,7 +258,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 17,
       "dojoId": 11,
       "name": "Oklahoma",
       "descr": "ver 0.6",
@@ -271,7 +271,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 18,
       "dojoId": 11,
       "name": "Utah",
       "descr": "ver 0.1.99",
