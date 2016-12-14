@@ -8,7 +8,7 @@
       "label": "2016-05-01 Air",
       "state": "past",
       "dojoType": "cluedo",
-      "teamsUrl": "http://localhost:3000/dojos/8/teams",
+      "teamsUrl": "http://localhost:3000/dojos/8/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/8/events",
       "pointHistoryUrl": "http://localhost:3000/points/8"
     },
@@ -17,7 +17,7 @@
       "label": "2016-05-02 US Presidents",
       "state": "past",
       "dojoType": "minesweeper",
-      "teamsUrl": "http://localhost:3000/dojos/9/teams",
+      "teamsUrl": "http://localhost:3000/dojos/9/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/9/events",
       "pointHistoryUrl": "http://localhost:3000/points/9"
     },
@@ -26,7 +26,7 @@
       "label": "2016-10-29 US States",
       "state": "running",
       "dojoType": "cluedo",
-      "teamsUrl": "http://localhost:3000/dojos/11/teams",
+      "teamsUrl": "http://localhost:3000/dojos/11/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/11/events",
       "pointHistoryUrl": "http://localhost:3000/points/11"
     },
@@ -35,9 +35,111 @@
       "label": "2016-12-13 Luca",
       "state": "running",
       "dojoType": "cluedo",
-      "teamsUrl": "http://localhost:3000/dojos/12/teams",
+      "teamsUrl": "http://localhost:3000/dojos/12/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/12/events",
       "pointHistoryUrl": "http://localhost:3000/points/12"
+    }
+  ],
+  "members": [
+    {
+      "teamId" : 1,
+      "status": "captain",
+      "name": "karandit"
+    },
+    {
+      "teamId" : 1,
+      "status": "crew",
+      "name": "bublag"
+    },
+    {
+      "teamId" : 1,
+      "status": "entrant",
+      "name": "bali182"
+    },
+    {
+      "teamId" : 2,
+      "status": "captain",
+      "name": "bublag"
+    },
+    {
+      "teamId" : 3,
+      "status": "captain",
+      "name": "bali182"
+    },
+    {
+      "teamId" : 4,
+      "status": "captain",
+      "name": "zeldan"
+    },
+    {
+      "teamId" : 5,
+      "status": "captain",
+      "name": "schjan79"
+    },
+    {
+      "teamId" : 6,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 7,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 8,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 9,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 10,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 11,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 12,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 13,
+      "status": "captain",
+      "name": "karandit"
+    },
+    {
+      "teamId" : 14,
+      "status": "captain",
+      "name": "zsozsogit"
+    },
+    {
+      "teamId" : 15,
+      "status": "captain",
+      "name": "zeldan"
+    },
+    {
+      "teamId" : 16,
+      "status": "captain",
+      "name": "bali182"
+    },
+    {
+      "teamId" : 17,
+      "status": "captain",
+      "name": "schjan79"
+    },
+    {
+      "teamId" : 18,
+      "status": "captain",
+      "name": "bublag"
     }
   ],
   "teams": [
@@ -46,242 +148,126 @@
       "dojoId": 8,
       "name": "Alpha",
       "descr": "ver 0.1",
-      "points": 145,
-      "members": [
-        {
-          "status": "captain",
-          "name": "karandit"
-        },
-        {
-          "status": "crew",
-          "name": "bublag"
-        },
-        {
-          "status": "entrant",
-          "name": "bali182"
-        }
-      ]
+      "points": 145
     },
     {
       "id": 2,
       "dojoId": 8,
       "name": "Bravo",
       "descr": "ver 0.100",
-      "points": 68,
-      "members": [
-        {
-          "status": "captain",
-          "name": "bublag"
-        }
-      ]
+      "points": 68
     },
     {
       "id": 3,
       "dojoId": 8,
       "name": "Charlie",
       "descr": "ver 0.3",
-      "points": 362,
-      "members": [
-        {
-          "status": "captain",
-          "name": "bali182"
-        }
-      ]
+      "points": 362
     },
     {
       "id": 4,
       "dojoId": 8,
       "name": "Delta",
       "descr": "blabla",
-      "points": 68,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zeldan"
-        }
-      ]
+      "points": 68
     },
     {
       "id": 5,
       "dojoId": 8,
       "name": "Echo",
       "descr": "ver 0.6",
-      "points": 21,
-      "members": [
-        {
-          "status": "captain",
-          "name": "schjan79"
-        }
-      ]
+      "points": 21
     },
     {
       "id": 6,
       "dojoId": 8,
       "name": "Foxtrot",
       "descr": "ver 0.1.99",
-      "points": 247,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 247
     },
     {
       "id": 7,
       "dojoId": 9,
       "name": "Washington",
       "descr": "ver first",
-      "points": 45,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 45
     },
     {
       "id": 8,
       "dojoId": 9,
       "name": "Jefferson",
       "descr": "ver 0.100",
-      "points": 24,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 24
     },
     {
       "id": 9,
       "dojoId": 9,
       "name": "Lincoln",
       "descr": "ver 0.3",
-      "points": 11,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 11
     },
     {
       "id": 10,
       "dojoId": 9,
       "name": "Grant",
       "descr": "blabla",
-      "points": 101,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 101
     },
     {
       "id": 11,
       "dojoId": 9,
       "name": "Roosevelt",
       "descr": "ver 0.6",
-      "points": 37,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 37
     },
     {
       "id": 12,
       "dojoId": 9,
       "name": "Kennedy",
       "descr": "ver 0.1.99",
-      "points": 57,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 57
     },
     {
       "id": 13,
       "dojoId": 11,
       "name": "Alabama",
       "descr": "ver first",
-      "points": 201,
-      "members": [
-        {
-          "status": "captain",
-          "name": "karandit"
-        }
-      ]
+      "points": 201
     },
     {
       "id": 14,
       "dojoId": 11,
       "name": "Connecticut",
       "descr": "ver 0.100",
-      "points": 310,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zsozsogit"
-        }
-      ]
+      "points": 310
     },
     {
       "id": 15,
       "dojoId": 11,
       "name": "Florida",
       "descr": "ver 0.3",
-      "points": 109,
-      "members": [
-        {
-          "status": "captain",
-          "name": "zeldan"
-        }
-      ]
+      "points": 109
     },
     {
       "id": 16,
       "dojoId": 11,
       "name": "Nebraska",
       "descr": "blabla",
-      "points": 156,
-      "members": [
-        {
-          "status": "captain",
-          "name": "bali182"
-        }
-      ]
+      "points": 156
     },
     {
       "id": 17,
       "dojoId": 11,
       "name": "Oklahoma",
       "descr": "ver 0.6",
-      "points": 210,
-      "members": [
-        {
-          "status": "captain",
-          "name": "schjan79"
-        }
-      ]
+      "points": 210
     },
     {
       "id": 18,
       "dojoId": 11,
       "name": "Utah",
       "descr": "ver 0.1.99",
-      "points": 315,
-      "members": [
-        {
-          "status": "captain",
-          "name": "bublag"
-        }
-      ]
+      "points": 315
     }
   ],
   "points": [
