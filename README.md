@@ -6,8 +6,8 @@
 
 ## Start the mock REST api
 
-    npm install -g json-server
-    json-server api.json
+    npm install
+    node fake-server.js
 
 ## Start the dev server
 
