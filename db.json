@@ -42,102 +42,102 @@
   ],
   "members": [
     {
-      "teamId" : 1,
+      "teamId": 1,
       "status": "captain",
       "name": "karandit"
     },
     {
-      "teamId" : 1,
+      "teamId": 1,
       "status": "crew",
       "name": "bublag"
     },
     {
-      "teamId" : 1,
+      "teamId": 1,
       "status": "entrant",
       "name": "bali182"
     },
     {
-      "teamId" : 2,
+      "teamId": 2,
       "status": "captain",
       "name": "bublag"
     },
     {
-      "teamId" : 3,
+      "teamId": 3,
       "status": "captain",
       "name": "bali182"
     },
     {
-      "teamId" : 4,
+      "teamId": 4,
       "status": "captain",
       "name": "zeldan"
     },
     {
-      "teamId" : 5,
+      "teamId": 5,
       "status": "captain",
       "name": "schjan79"
     },
     {
-      "teamId" : 6,
+      "teamId": 6,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 7,
+      "teamId": 7,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 8,
+      "teamId": 8,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 9,
+      "teamId": 9,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 10,
+      "teamId": 10,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 11,
+      "teamId": 11,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 12,
+      "teamId": 12,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 13,
+      "teamId": 13,
       "status": "captain",
       "name": "karandit"
     },
     {
-      "teamId" : 14,
+      "teamId": 14,
       "status": "captain",
       "name": "zsozsogit"
     },
     {
-      "teamId" : 15,
+      "teamId": 15,
       "status": "captain",
       "name": "zeldan"
     },
     {
-      "teamId" : 16,
+      "teamId": 16,
       "status": "captain",
       "name": "bali182"
     },
     {
-      "teamId" : 17,
+      "teamId": 17,
       "status": "captain",
       "name": "schjan79"
     },
     {
-      "teamId" : 18,
+      "teamId": 18,
       "status": "captain",
       "name": "bublag"
     }
