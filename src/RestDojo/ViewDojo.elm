@@ -136,7 +136,7 @@ viewTeams : Dojo -> Maybe User -> Html Msg
 viewTeams dojo loggedUser =
     let
         isMyTeam user team =
-            if (team.captain == user.name) then
+            if (team.captain.name == user.name) then
                 True
             else
                 List.Extra.find (\teamMember -> teamMember.name == user.name) team.members

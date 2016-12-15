@@ -16,7 +16,12 @@ server.use(function (req, res, next) {
       console.log('xxx Create new team ');
       req.body = {
         "name": req.body.teamName,
-        "captain":  req.body.captainName,
+        "captain":  {
+          "name": req.body.captainName,
+          "fullname": req.body.captainFullname,
+          "picture": req.body.captainPicture,
+          "status": "crew"
+        },
         "descr": "ver 0.100",
         "points": 0,
         "joinUrl": "http://localhost:3000/members"

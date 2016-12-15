@@ -77,7 +77,7 @@ type alias Team =
     , name : String
     , descr : String
     , points : Int
-    , captain : String
+    , captain : TeamMember
     , members : List TeamMember
     , joinUrl : String
     }

@@ -44,6 +44,8 @@ postNewTeam url teamName user =
             JsonEnc.object
                 [ ( "teamName", JsonEnc.string teamName )
                 , ( "captainName", JsonEnc.string user.name )
+                , ( "captainFullname", JsonEnc.string user.fullname )
+                , ( "captainPicture", JsonEnc.string user.picture )
                 ]
     in
         Http.post url (Http.jsonBody teamJson) teamDecoder
@@ -193,7 +195,7 @@ teamDecoder =
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
-        (Json.field "captain" Json.string)
+        (Json.field "captain" teamMemberDecoder)
         (Json.map
             (Maybe.withDefault [])
             (Json.maybe
