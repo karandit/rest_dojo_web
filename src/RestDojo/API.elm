@@ -8,12 +8,13 @@ module RestDojo.API
         , getGame
         , postNewTeam
         , postJoinTeam
+        , patchAccepTeamMember
         )
 
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
 import Json.Encode as JsonEnc exposing (..)
-import Http exposing (Request)
+import Http exposing (Request, Body)
 import RestDojo.Types exposing (..)
 import RestDojo.Cluedo.CluedoTypes exposing (..)
 import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
@@ -58,7 +59,7 @@ postNewTeam url teamName user =
 postJoinTeam : String -> Team -> User -> Request TeamMember
 postJoinTeam url team user =
     let
-        json =
+        body =
             JsonEnc.object
                 [ ( "teamId", JsonEnc.int team.id )
                 , ( "status", JsonEnc.string "entrant" )
@@ -67,7 +68,16 @@ postJoinTeam url team user =
                 , ( "picture", JsonEnc.string user.picture )
                 ]
     in
-        Http.post url (Http.jsonBody json) teamMemberDecoder
+        Http.post url (Http.jsonBody body) teamMemberDecoder
+
+
+patchAccepTeamMember : String -> Request TeamMember
+patchAccepTeamMember url =
+    let
+        body =
+            JsonEnc.object [ ( "status", JsonEnc.string "crew" ) ]
+    in
+        patch url (Http.jsonBody body) teamMemberDecoder
 
 
 getPointHistory : String -> Request PointHistory
@@ -87,6 +97,23 @@ getEvents url teams =
 getGame : String -> Dojo -> Request Game
 getGame url dojo =
     Http.get url <| gameDecoder dojo
+
+
+
+-- HTTP helpers --------------------------------------------------------------------------------------------------------
+
+
+patch : String -> Body -> Decoder a -> Request a
+patch url body decoder =
+    Http.request
+        { method = "PATCH"
+        , headers = []
+        , url = url
+        , body = body
+        , expect = Http.expectJson decoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
 
 
 

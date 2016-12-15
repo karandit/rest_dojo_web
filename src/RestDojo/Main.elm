@@ -135,6 +135,11 @@ joinTeam dojo team loggedUser =
             []
 
 
+accepTeamMember : Dojo -> Team -> TeamMember -> List (Cmd Msg)
+accepTeamMember dojo team teamMember =
+    [ Http.send (JoinedTeamAsCrew dojo team) (API.patchAccepTeamMember teamMember.selfUrl) ]
+
+
 
 -- UPDATE --------------------------------------------------------------------------------------------------------------
 
@@ -175,6 +180,19 @@ update msg model =
                     updateTeam oldTeam.id (\team -> { team | members = team.members ++ [ newTeamMember ] }) dojo.teams
             in
                 { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = addTeamMember dojo, dialog = Nothing }) model.dojos } ! []
+
+        AcceptJoinTeam dojo team teamMember ->
+            model ! (accepTeamMember dojo team teamMember)
+
+        JoinedTeamAsCrew oldDojo oldTeam (Ok newTeamMember) ->
+            let
+                updateTeamMember_ team =
+                    updateTeamMember newTeamMember.name (\_ -> newTeamMember) team.members
+
+                updateTeam_ dojo =
+                    updateTeam oldTeam.id (\team -> { team | members = updateTeamMember_ team }) dojo.teams
+            in
+                { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = updateTeam_ dojo }) model.dojos } ! []
 
         SelectHome ->
             { model | route = HomeRoute } ! []
@@ -225,6 +243,11 @@ updateDojo dojoId updater dojos =
 updateTeam : Int -> (Team -> Team) -> List Team -> List Team
 updateTeam teamId updater teams =
     updateXXX (\team -> team.id == teamId) updater teams
+
+
+updateTeamMember : String -> (TeamMember -> TeamMember) -> List TeamMember -> List TeamMember
+updateTeamMember teamMemberName updater teamMembers =
+    updateXXX (\teamMember -> teamMember.name == teamMemberName) updater teamMembers
 
 
 updateXXX : (a -> Bool) -> (a -> a) -> List a -> List a

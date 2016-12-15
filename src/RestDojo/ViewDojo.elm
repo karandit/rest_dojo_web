@@ -46,15 +46,15 @@ viewShowTeamDialog dojo team =
                 [ div [] [ teamImg team ]
                 , div [ class "rd-modal__header-title" ] [ text team.name ]
                 ]
-            , div [] <| List.map viewTeamMember <| team.captain :: team.members
+            , div [] <| List.map (viewTeamMember dojo team) <| team.captain :: team.members
             , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]
 
 
-viewTeamMember : TeamMember -> Html Msg
-viewTeamMember teamMember =
+viewTeamMember : Dojo -> Team -> TeamMember -> Html Msg
+viewTeamMember dojo team teamMember =
     let
         imgAndName =
             [ img [ class "rd-avatar", src teamMember.picture ] []
@@ -62,7 +62,7 @@ viewTeamMember teamMember =
             ]
 
         yesAndNo =
-            [ span [ class "rd__button rd__button--small" ] [ text "Yes" ]
+            [ span [ class "rd__button rd__button--small", onClick (AcceptJoinTeam dojo team teamMember) ] [ text "Yes" ]
             , span [] [ text " " ]
             , span [ class "rd__button rd__button--small" ] [ text " No " ]
             ]
