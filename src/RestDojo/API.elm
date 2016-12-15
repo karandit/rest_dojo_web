@@ -181,11 +181,17 @@ teamMemberStatusDecoder =
 
 teamMemberDecoder : Json.Decoder TeamMember
 teamMemberDecoder =
-    Json.map4 TeamMember
+    Json.map5 TeamMember
         (Json.field "name" Json.string)
         (Json.field "fullname" Json.string)
         (Json.field "picture" Json.string)
         (Json.field "status" teamMemberStatusDecoder)
+        (Json.map
+            (Maybe.withDefault "")
+            (Json.maybe
+                (Json.field "selfUrl" Json.string)
+            )
+        )
 
 
 teamDecoder : Decoder Team

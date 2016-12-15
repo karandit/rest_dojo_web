@@ -69,6 +69,7 @@ type alias TeamMember =
     , fullname : String
     , picture : String
     , status : TeamMemberStatus
+    , selfUrl : String
     }
 
 
