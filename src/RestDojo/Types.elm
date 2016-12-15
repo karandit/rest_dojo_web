@@ -7,9 +7,9 @@ import Navigation
 
 
 type alias User =
-    { name : String
+    { fullname : String
     , picture : String
-    , nickname : String
+    , name : String
     }
 
 

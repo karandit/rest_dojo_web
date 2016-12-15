@@ -98,7 +98,7 @@ lock.on("authenticated", function(authResult) {
       // Handle error
       return;
     }
-    app.ports.authentications.send({ name : profile.name, picture : profile.picture, nickname : profile.nickname});
+    app.ports.authentications.send({ fullname : profile.name, picture : profile.picture, name : profile.nickname});
 
 
     // localStorage.setItem('idToken', authResult.idToken);

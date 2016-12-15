@@ -40,9 +40,9 @@ viewDialog dojo =
 
 testUsers : List User
 testUsers =
-    [ { nickname = "bali182", name = "Balázs Édes", picture = "https://avatars.githubusercontent.com/u/3879181?v=3" }
-    , { nickname = "zeldan", name = "Dániel Zelei", picture = "https://avatars.githubusercontent.com/u/8355979?v=3" }
-    , { nickname = "szokebarnabas", name = "Barnabás Szőke", picture = "https://avatars.githubusercontent.com/u/5434245?v=3" }
+    [ { name = "bali182", fullname = "Balázs Édes", picture = "https://avatars.githubusercontent.com/u/3879181?v=3" }
+    , { name = "zeldan", fullname = "Dániel Zelei", picture = "https://avatars.githubusercontent.com/u/8355979?v=3" }
+    , { name = "szokebarnabas", fullname = "Barnabás Szőke", picture = "https://avatars.githubusercontent.com/u/5434245?v=3" }
     ]
 
 
@@ -65,7 +65,7 @@ viewTeamMember : User -> Html Msg
 viewTeamMember teamMember =
     div []
         [ img [ class "rd-avatar", src teamMember.picture ] []
-        , span [] [ text teamMember.name ]
+        , span [] [ text teamMember.fullname ]
         , span [ class "rd__button rd__button--small" ] [ text "Yes" ]
         , span [] [ text " " ]
         , span [ class "rd__button rd__button--small" ] [ text " No " ]
@@ -136,10 +136,10 @@ viewTeams : Dojo -> Maybe User -> Html Msg
 viewTeams dojo loggedUser =
     let
         isMyTeam user team =
-            if (team.captain == user.nickname) then
+            if (team.captain == user.name) then
                 True
             else
-                List.Extra.find (\teamMember -> teamMember.name == user.nickname) team.members
+                List.Extra.find (\teamMember -> teamMember.name == user.name) team.members
                     |> Maybe.map (\_ -> True)
                     |> Maybe.withDefault False
 

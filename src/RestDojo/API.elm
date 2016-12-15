@@ -43,7 +43,7 @@ postNewTeam url teamName user =
         teamJson =
             JsonEnc.object
                 [ ( "teamName", JsonEnc.string teamName )
-                , ( "captainName", JsonEnc.string user.nickname )
+                , ( "captainName", JsonEnc.string user.name )
                 ]
     in
         Http.post url (Http.jsonBody teamJson) teamDecoder
@@ -60,7 +60,7 @@ postJoinTeam url team user =
             JsonEnc.object
                 [ ( "teamId", JsonEnc.int team.id )
                 , ( "status", JsonEnc.string "entrant" )
-                , ( "name", JsonEnc.string user.nickname )
+                , ( "name", JsonEnc.string user.name )
                 ]
     in
         Http.post url (Http.jsonBody json) teamMemberDecoder
