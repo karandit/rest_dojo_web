@@ -55,13 +55,25 @@ viewShowTeamDialog dojo team =
 
 viewTeamMember : TeamMember -> Html Msg
 viewTeamMember teamMember =
-    div []
-        [ img [ class "rd-avatar", src teamMember.picture ] []
-        , span [] [ text teamMember.fullname ]
-        , span [ class "rd__button rd__button--small" ] [ text "Yes" ]
-        , span [] [ text " " ]
-        , span [ class "rd__button rd__button--small" ] [ text " No " ]
-        ]
+    let
+        imgAndName =
+            [ img [ class "rd-avatar", src teamMember.picture ] []
+            , span [] [ text teamMember.fullname ]
+            ]
+
+        yesAndNo =
+            [ span [ class "rd__button rd__button--small" ] [ text "Yes" ]
+            , span [] [ text " " ]
+            , span [ class "rd__button rd__button--small" ] [ text " No " ]
+            ]
+
+        divs =
+            if teamMember.status == Crew then
+                imgAndName
+            else
+                imgAndName ++ yesAndNo
+    in
+        div [] divs
 
 
 viewJoinTeamDialog : Dojo -> Team -> Html Msg
