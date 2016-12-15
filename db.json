@@ -40,8 +40,7 @@
       "pointHistoryUrl": "http://localhost:3000/points/12"
     }
   ],
-  "members": [
-  ],
+  "members": [],
   "teams": [
     {
       "id": 1,
@@ -49,7 +48,12 @@
       "name": "Alpha",
       "descr": "ver 0.1",
       "points": 145,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -58,7 +62,12 @@
       "name": "Bravo",
       "descr": "ver 0.100",
       "points": 68,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -67,7 +76,12 @@
       "name": "Charlie",
       "descr": "ver 0.3",
       "points": 362,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -76,7 +90,12 @@
       "name": "Delta",
       "descr": "blabla",
       "points": 68,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -85,7 +104,12 @@
       "name": "Echo",
       "descr": "ver 0.6",
       "points": 21,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -94,7 +118,12 @@
       "name": "Foxtrot",
       "descr": "ver 0.1.99",
       "points": 247,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -103,7 +132,12 @@
       "name": "Washington",
       "descr": "ver first",
       "points": 45,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -112,7 +146,12 @@
       "name": "Jefferson",
       "descr": "ver 0.100",
       "points": 24,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -121,7 +160,12 @@
       "name": "Lincoln",
       "descr": "ver 0.3",
       "points": 11,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -130,7 +174,12 @@
       "name": "Grant",
       "descr": "blabla",
       "points": 101,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -139,7 +188,12 @@
       "name": "Roosevelt",
       "descr": "ver 0.6",
       "points": 37,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -148,7 +202,12 @@
       "name": "Kennedy",
       "descr": "ver 0.1.99",
       "points": 57,
-      "captain": "zsozsogit",
+      "captain": {
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -157,7 +216,12 @@
       "name": "Alabama",
       "descr": "ver first",
       "points": 201,
-      "captain": "zsozsogit",
+      "captain": {
+        "name" : "bali182",
+        "fullname" : "Balázs Édes",
+        "picture" : "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -166,7 +230,12 @@
       "name": "Connecticut",
       "descr": "ver 0.100",
       "points": 310,
-      "captain": "bublag",
+      "captain": {
+        "name" : "bali182",
+        "fullname" : "Balázs Édes",
+        "picture" : "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -175,7 +244,12 @@
       "name": "Florida",
       "descr": "ver 0.3",
       "points": 109,
-      "captain": "zeldan",
+      "captain": {
+        "name" : "bublag",
+        "fullname" : "Gábor Bubla",
+        "picture" : "https://avatars.githubusercontent.com/u/6839377?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -184,7 +258,12 @@
       "name": "Nebraska",
       "descr": "blabla",
       "points": 156,
-      "captain": "schjan79",
+      "captain": {
+        "name" : "szokebarnabas",
+        "fullname" : "Barnabás Szőke",
+        "picture" : "https://avatars.githubusercontent.com/u/5434245?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -193,7 +272,12 @@
       "name": "Oklahoma",
       "descr": "ver 0.6",
       "points": 210,
-      "captain": "bali182",
+      "captain": {
+        "name" : "bali182",
+        "fullname" : "Balázs Édes",
+        "picture" : "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     },
     {
@@ -202,7 +286,12 @@
       "name": "Utah",
       "descr": "ver 0.1.99",
       "points": 315,
-      "captain": "bali182",
+      "captain": {
+        "name" : "zeldan",
+        "fullname" : "Dániel Zelei",
+        "picture" : "https://avatars.githubusercontent.com/u/8355979?v=3",
+        "status": "crew"
+      },
       "joinUrl": "http://localhost:3000/members"
     }
   ],
