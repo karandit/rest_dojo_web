@@ -136,17 +136,29 @@ teamImg team =
         img avatarAttr []
 
 
+isMyTeam : User -> Team -> Bool
+isMyTeam user team =
+    if (team.captain.name == user.name) then
+        True
+    else
+        List.Extra.find (\teamMember -> teamMember.name == user.name) team.members
+            |> Maybe.map (\_ -> True)
+            |> Maybe.withDefault False
+
+
+myTeamStatus : User -> Team -> TeamMemberStatus
+myTeamStatus user team =
+    if (team.captain.name == user.name) then
+        Crew
+    else
+        List.Extra.find (\teamMember -> teamMember.name == user.name) team.members
+            |> Maybe.map .status
+            |> Maybe.withDefault Entrant
+
+
 viewTeams : Dojo -> Maybe User -> Html Msg
 viewTeams dojo loggedUser =
     let
-        isMyTeam user team =
-            if (team.captain.name == user.name) then
-                True
-            else
-                List.Extra.find (\teamMember -> teamMember.name == user.name) team.members
-                    |> Maybe.map (\_ -> True)
-                    |> Maybe.withDefault False
-
         userAndTeam =
             case loggedUser of
                 Just user ->
@@ -179,53 +191,54 @@ needsAddNewTeam dojo userAndTeam =
     if List.length dojo.teams > 5 then
         False
     else
-        case dojo.state of
-            Upcoming ->
+        case ( dojo.state, userAndTeam ) of
+            ( Upcoming, _ ) ->
                 False
 
-            Past ->
+            ( Past, _ ) ->
                 False
 
-            Running ->
-                case userAndTeam of
-                    Just ( user, maybeUserTeam ) ->
-                        case maybeUserTeam of
-                            Just userTeam ->
-                                False
+            ( Running, Nothing ) ->
+                False
 
-                            Nothing ->
-                                True
+            ( Running, Just ( _, Nothing ) ) ->
+                True
 
-                    Nothing ->
-                        False
+            ( Running, Just ( _, Just _ ) ) ->
+                False
 
 
 viewTeam : Dojo -> Maybe ( User, Maybe Team ) -> Team -> Html Msg
 viewTeam dojo userAndTeam team =
     let
         action =
-            case dojo.state of
-                Upcoming ->
+            case ( dojo.state, userAndTeam ) of
+                ( Upcoming, _ ) ->
                     span [] []
 
-                Past ->
+                ( Past, _ ) ->
                     span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "View Team" ]
 
-                Running ->
-                    case userAndTeam of
-                        Just ( user, maybeUserTeam ) ->
-                            case maybeUserTeam of
-                                Just userTeam ->
-                                    if team.id == userTeam.id then
-                                        span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "My Team" ]
-                                    else
-                                        span [] []
+                ( Running, Nothing ) ->
+                    span [] []
 
-                                Nothing ->
-                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowJoinTeamDialog dojo team ] [ text "Join Team" ]
+                ( Running, Just ( _, Nothing ) ) ->
+                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowJoinTeamDialog dojo team ] [ text "Join Team" ]
 
-                        Nothing ->
-                            span [] []
+                ( Running, Just ( user, Just userTeam ) ) ->
+                    if team.id == userTeam.id then
+                        let
+                            membership =
+                                myTeamStatus user userTeam
+                        in
+                            case membership of
+                                Crew ->
+                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "My Team" ]
+
+                                Entrant ->
+                                    span [ class "rd-team-action" ] [ text "Join request pending..." ]
+                    else
+                        span [] []
     in
         div [ class "rd-team" ]
             [ teamImg team
