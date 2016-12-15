@@ -129,7 +129,7 @@ joinTeam : Dojo -> Team -> Maybe User -> List (Cmd Msg)
 joinTeam dojo team loggedUser =
     case loggedUser of
         Just user ->
-            [ Http.send (JoinedTeam dojo team) (API.postJoinTeam team.joinUrl team user) ]
+            [ Http.send (JoinedTeamAsEntrant dojo team) (API.postJoinTeam team.joinUrl team user) ]
 
         Nothing ->
             []
@@ -169,7 +169,7 @@ update msg model =
         JoinTeam dojo team ->
             model ! (joinTeam dojo team model.user)
 
-        JoinedTeam oldDojo oldTeam (Ok newTeamMember) ->
+        JoinedTeamAsEntrant oldDojo oldTeam (Ok newTeamMember) ->
             let
                 addTeamMember dojo =
                     updateTeam oldTeam.id (\team -> { team | members = team.members ++ [ newTeamMember ] }) dojo.teams

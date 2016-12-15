@@ -132,7 +132,11 @@ type Msg
     | CreateTeam Dojo String
     | CreatedTeam Dojo (Result Http.Error Team)
     | JoinTeam Dojo Team
-    | JoinedTeam Dojo Team (Result Http.Error TeamMember)
+    | JoinedTeamAsEntrant Dojo Team (Result Http.Error TeamMember)
+    | AcceptJoinTeam Dojo Team
+    | DenyJoinTeam Dojo Team
+      -- | JoinedTeamAsCrew Dojo Team (Result Http.Error TeamMember)
+      -- | LeftTeam Dojo Team (Result Http.Error TeamMember)
     | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
