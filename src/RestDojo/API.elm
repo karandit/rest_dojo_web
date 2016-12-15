@@ -61,6 +61,8 @@ postJoinTeam url team user =
                 [ ( "teamId", JsonEnc.int team.id )
                 , ( "status", JsonEnc.string "entrant" )
                 , ( "name", JsonEnc.string user.name )
+                , ( "fullname", JsonEnc.string user.fullname )
+                , ( "picture", JsonEnc.string user.picture )
                 ]
     in
         Http.post url (Http.jsonBody json) teamMemberDecoder
@@ -177,8 +179,10 @@ teamMemberStatusDecoder =
 
 teamMemberDecoder : Json.Decoder TeamMember
 teamMemberDecoder =
-    Json.map2 TeamMember
+    Json.map4 TeamMember
         (Json.field "name" Json.string)
+        (Json.field "fullname" Json.string)
+        (Json.field "picture" Json.string)
         (Json.field "status" teamMemberStatusDecoder)
 
 

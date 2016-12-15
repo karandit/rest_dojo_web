@@ -66,6 +66,8 @@ type TeamMemberStatus
 
 type alias TeamMember =
     { name : String
+    , fullname : String
+    , picture : String
     , status : TeamMemberStatus
     }
 
