@@ -38,14 +38,6 @@ viewDialog dojo =
             []
 
 
-testUsers : List User
-testUsers =
-    [ { name = "bali182", fullname = "Balázs Édes", picture = "https://avatars.githubusercontent.com/u/3879181?v=3" }
-    , { name = "zeldan", fullname = "Dániel Zelei", picture = "https://avatars.githubusercontent.com/u/8355979?v=3" }
-    , { name = "szokebarnabas", fullname = "Barnabás Szőke", picture = "https://avatars.githubusercontent.com/u/5434245?v=3" }
-    ]
-
-
 viewShowTeamDialog : Dojo -> Team -> Html Msg
 viewShowTeamDialog dojo team =
     div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
@@ -54,14 +46,14 @@ viewShowTeamDialog dojo team =
                 [ div [] [ teamImg team ]
                 , div [ class "rd-modal__header-title" ] [ text team.name ]
                 ]
-            , div [] <| List.map viewTeamMember testUsers
+            , div [] <| List.map viewTeamMember <| team.captain :: team.members
             , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
         ]
 
 
-viewTeamMember : User -> Html Msg
+viewTeamMember : TeamMember -> Html Msg
 viewTeamMember teamMember =
     div []
         [ img [ class "rd-avatar", src teamMember.picture ] []

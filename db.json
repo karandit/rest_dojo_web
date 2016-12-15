@@ -217,9 +217,9 @@
       "descr": "ver first",
       "points": 201,
       "captain": {
-        "name" : "bali182",
-        "fullname" : "Balázs Édes",
-        "picture" : "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "name": "bali182",
+        "fullname": "Balázs Édes",
+        "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
         "status": "crew"
       },
       "joinUrl": "http://localhost:3000/members"
@@ -231,9 +231,9 @@
       "descr": "ver 0.100",
       "points": 310,
       "captain": {
-        "name" : "bali182",
-        "fullname" : "Balázs Édes",
-        "picture" : "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "name": "bali182",
+        "fullname": "Balázs Édes",
+        "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
         "status": "crew"
       },
       "joinUrl": "http://localhost:3000/members"
@@ -245,9 +245,9 @@
       "descr": "ver 0.3",
       "points": 109,
       "captain": {
-        "name" : "bublag",
-        "fullname" : "Gábor Bubla",
-        "picture" : "https://avatars.githubusercontent.com/u/6839377?v=3",
+        "name": "bublag",
+        "fullname": "Gábor Bubla",
+        "picture": "https://avatars.githubusercontent.com/u/6839377?v=3",
         "status": "crew"
       },
       "joinUrl": "http://localhost:3000/members"
@@ -259,9 +259,9 @@
       "descr": "blabla",
       "points": 156,
       "captain": {
-        "name" : "szokebarnabas",
-        "fullname" : "Barnabás Szőke",
-        "picture" : "https://avatars.githubusercontent.com/u/5434245?v=3",
+        "name": "szokebarnabas",
+        "fullname": "Barnabás Szőke",
+        "picture": "https://avatars.githubusercontent.com/u/5434245?v=3",
         "status": "crew"
       },
       "joinUrl": "http://localhost:3000/members"
@@ -273,9 +273,9 @@
       "descr": "ver 0.6",
       "points": 210,
       "captain": {
-        "name" : "bali182",
-        "fullname" : "Balázs Édes",
-        "picture" : "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "name": "bali182",
+        "fullname": "Balázs Édes",
+        "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
         "status": "crew"
       },
       "joinUrl": "http://localhost:3000/members"
@@ -287,9 +287,9 @@
       "descr": "ver 0.1.99",
       "points": 315,
       "captain": {
-        "name" : "zeldan",
-        "fullname" : "Dániel Zelei",
-        "picture" : "https://avatars.githubusercontent.com/u/8355979?v=3",
+        "name": "zeldan",
+        "fullname": "Dániel Zelei",
+        "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
         "status": "crew"
       },
       "joinUrl": "http://localhost:3000/members"
