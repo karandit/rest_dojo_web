@@ -176,6 +176,10 @@ header {
   color: #757983;
 }
 
+.rd_warning {
+  color: #40C9A2;
+}
+
 .rd-team-action {
   position: absolute;
   left: 100px;

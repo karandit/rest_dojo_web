@@ -19,11 +19,11 @@ view dojo loggedUser =
         , viewEvents dojo
         ]
     ]
-        ++ (viewDialog dojo)
+        ++ (viewDialog dojo loggedUser)
 
 
-viewDialog : Dojo -> List (Html Msg)
-viewDialog dojo =
+viewDialog : Dojo -> Maybe User -> List (Html Msg)
+viewDialog dojo loggedUser =
     let
         findTeam teamId =
             List.Extra.find (\team -> team.id == teamId)
@@ -32,7 +32,7 @@ viewDialog dojo =
             Just (EditTeamDialog teamId) ->
                 case findTeam teamId dojo.teams of
                     Just team ->
-                        [ viewShowTeamDialog dojo team ]
+                        [ viewShowTeamDialog loggedUser dojo team ]
 
                     Nothing ->
                         []
@@ -52,23 +52,32 @@ viewDialog dojo =
                 []
 
 
-viewShowTeamDialog : Dojo -> Team -> Html Msg
-viewShowTeamDialog dojo team =
-    div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
-        [ div [ class "rd-modal__dialog" ]
-            [ div [ class <| "rd-modal__header rd-team-background-" ++ teamNumber team ]
-                [ div [] [ teamImg team ]
-                , div [ class "rd-modal__header-title" ] [ text team.name ]
+viewShowTeamDialog : Maybe User -> Dojo -> Team -> Html Msg
+viewShowTeamDialog loggedUser dojo team =
+    let
+        iAmCaptain =
+            case loggedUser of
+                Nothing ->
+                    False
+
+                Just user ->
+                    user.name == team.captain.name
+    in
+        div [ class "rd-modal rd-nodal--visible", attribute "role" "alert" ]
+            [ div [ class "rd-modal__dialog" ]
+                [ div [ class <| "rd-modal__header rd-team-background-" ++ teamNumber team ]
+                    [ div [] [ teamImg team ]
+                    , div [ class "rd-modal__header-title" ] [ text team.name ]
+                    ]
+                , div [] <| List.map (viewTeamMember iAmCaptain dojo team) <| team.captain :: team.members
+                , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
+                , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
                 ]
-            , div [] <| List.map (viewTeamMember dojo team) <| team.captain :: team.members
-            , button [ class "rd-modal__action", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
-            , a [ class "cd-popup-close img-replace", onClick (CloseTeamDialog dojo) ] [ text "Close" ]
             ]
-        ]
 
 
-viewTeamMember : Dojo -> Team -> TeamMember -> Html Msg
-viewTeamMember dojo team teamMember =
+viewTeamMember : Bool -> Dojo -> Team -> TeamMember -> Html Msg
+viewTeamMember iAmCaptain dojo team teamMember =
     let
         imgAndName =
             [ img [ class "rd-avatar", src teamMember.picture ] []
@@ -82,10 +91,15 @@ viewTeamMember dojo team teamMember =
             ]
 
         divs =
-            if teamMember.status == Crew then
-                imgAndName
-            else
-                imgAndName ++ yesAndNo
+            case ( teamMember.status, iAmCaptain ) of
+                ( Crew, _ ) ->
+                    imgAndName
+
+                ( Entrant, True ) ->
+                    imgAndName ++ yesAndNo
+
+                ( Entrant, False ) ->
+                    imgAndName ++ [ span [ class "rd_warning" ] [ text "Join request pending..." ] ]
     in
         div [] divs
 
