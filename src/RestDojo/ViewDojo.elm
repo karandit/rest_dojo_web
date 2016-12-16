@@ -261,7 +261,25 @@ viewTeam dojo userAndTeam team =
                         in
                             case membership of
                                 Crew ->
-                                    span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] [ text "My Team" ]
+                                    let
+                                        entrantsCount =
+                                            List.length <| List.filter (\mb -> mb.status == Entrant) team.members
+
+                                        btn =
+                                            text "My Team"
+
+                                        badge =
+                                            span [ class "rd-badge-cont" ]
+                                                [ span [ class "rd-badge" ] [ text <| toString entrantsCount ]
+                                                ]
+
+                                        nodes =
+                                            if entrantsCount == 0 then
+                                                [ btn ]
+                                            else
+                                                [ btn, badge ]
+                                    in
+                                        span [ class "rd-team-action rd__button rd__button--small", onClick <| ShowEditTeamDialog dojo team ] nodes
 
                                 Entrant ->
                                     span [ class "rd-team-action" ] [ text "Join request pending..." ]
