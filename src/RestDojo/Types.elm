@@ -36,9 +36,9 @@ type DojoType
 
 
 type DojoDialog
-    = EditTeamDialog Team
+    = EditTeamDialog TeamId
     | CreateTeamDialog String
-    | JoinTeamDialog Team
+    | JoinTeamDialog TeamId
 
 
 type alias Dojo =

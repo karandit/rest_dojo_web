@@ -210,10 +210,10 @@ update msg model =
             { model | user = Just loggeduser } ! []
 
         ShowEditTeamDialog oldDojo team ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (EditTeamDialog team) }) model.dojos } ! []
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (EditTeamDialog team.id) }) model.dojos } ! []
 
         ShowJoinTeamDialog oldDojo team ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (JoinTeamDialog team) }) model.dojos } ! []
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (JoinTeamDialog team.id) }) model.dojos } ! []
 
         ShowCreateTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (CreateTeamDialog "") }) model.dojos } ! []

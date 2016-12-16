@@ -24,18 +24,32 @@ view dojo loggedUser =
 
 viewDialog : Dojo -> List (Html Msg)
 viewDialog dojo =
-    case dojo.dialog of
-        Just (EditTeamDialog team) ->
-            [ viewShowTeamDialog dojo team ]
+    let
+        findTeam teamId =
+            List.Extra.find (\team -> team.id == teamId)
+    in
+        case dojo.dialog of
+            Just (EditTeamDialog teamId) ->
+                case findTeam teamId dojo.teams of
+                    Just team ->
+                        [ viewShowTeamDialog dojo team ]
 
-        Just (JoinTeamDialog team) ->
-            [ viewJoinTeamDialog dojo team ]
+                    Nothing ->
+                        []
 
-        Just (CreateTeamDialog teamName) ->
-            [ viewCreateTeamDialog dojo teamName ]
+            Just (JoinTeamDialog teamId) ->
+                case findTeam teamId dojo.teams of
+                    Just team ->
+                        [ viewJoinTeamDialog dojo team ]
 
-        Nothing ->
-            []
+                    Nothing ->
+                        []
+
+            Just (CreateTeamDialog teamName) ->
+                [ viewCreateTeamDialog dojo teamName ]
+
+            Nothing ->
+                []
 
 
 viewShowTeamDialog : Dojo -> Team -> Html Msg
