@@ -135,9 +135,14 @@ joinTeam dojo team loggedUser =
             []
 
 
-accepTeamMember : Dojo -> Team -> TeamMember -> List (Cmd Msg)
-accepTeamMember dojo team teamMember =
+acceptTeamMember : Dojo -> Team -> TeamMember -> List (Cmd Msg)
+acceptTeamMember dojo team teamMember =
     [ Http.send (JoinedTeamAsCrew dojo team) (API.patchAccepTeamMember teamMember.selfUrl) ]
+
+
+denyTeamMember : Dojo -> Team -> TeamMember -> List (Cmd Msg)
+denyTeamMember dojo team teamMember =
+    [ Http.send (LeftTeam dojo team teamMember) (API.deleteDenyTeamMember teamMember.selfUrl) ]
 
 
 
@@ -182,17 +187,30 @@ update msg model =
                 { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = addTeamMember dojo, dialog = Nothing }) model.dojos } ! []
 
         AcceptJoinTeam dojo team teamMember ->
-            model ! (accepTeamMember dojo team teamMember)
+            model ! (acceptTeamMember dojo team teamMember)
+
+        DenyJoinTeam dojo team teamMember ->
+            model ! (denyTeamMember dojo team teamMember)
 
         JoinedTeamAsCrew oldDojo oldTeam (Ok newTeamMember) ->
             let
-                updateTeamMember_ team =
-                    updateTeamMember newTeamMember.name (\_ -> newTeamMember) team.members
+                updateTeamMember_ =
+                    updateTeamMember newTeamMember.name (\_ -> newTeamMember)
 
-                updateTeam_ dojo =
-                    updateTeam oldTeam.id (\team -> { team | members = updateTeamMember_ team }) dojo.teams
+                updateTeam_ =
+                    updateTeam oldTeam.id (\team -> { team | members = updateTeamMember_ team.members })
             in
-                { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = updateTeam_ dojo }) model.dojos } ! []
+                { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = updateTeam_ dojo.teams }) model.dojos } ! []
+
+        LeftTeam oldDojo oldTeam deletedTeamMember (Ok ()) ->
+            let
+                removeTeamMember =
+                    List.filter (\teamMember -> teamMember.name /= deletedTeamMember.name)
+
+                updateTeam_ =
+                    updateTeam oldTeam.id (\team -> { team | members = removeTeamMember team.members })
+            in
+                { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = updateTeam_ dojo.teams }) model.dojos } ! []
 
         SelectHome ->
             { model | route = HomeRoute } ! []

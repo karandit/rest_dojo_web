@@ -78,7 +78,7 @@ viewTeamMember dojo team teamMember =
         yesAndNo =
             [ span [ class "rd__button rd__button--small", onClick (AcceptJoinTeam dojo team teamMember) ] [ text "Yes" ]
             , span [] [ text " " ]
-            , span [ class "rd__button rd__button--small" ] [ text " No " ]
+            , span [ class "rd__button rd__button--small", onClick (DenyJoinTeam dojo team teamMember) ] [ text " No " ]
             ]
 
         divs =

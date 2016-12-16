@@ -135,9 +135,9 @@ type Msg
     | JoinTeam Dojo Team
     | JoinedTeamAsEntrant Dojo Team (Result Http.Error TeamMember)
     | AcceptJoinTeam Dojo Team TeamMember
-      -- | DenyJoinTeam Dojo Team
     | JoinedTeamAsCrew Dojo Team (Result Http.Error TeamMember)
-      -- | LeftTeam Dojo Team (Result Http.Error TeamMember)
+    | DenyJoinTeam Dojo Team TeamMember
+    | LeftTeam Dojo Team TeamMember (Result Http.Error ())
     | SelectHome
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl

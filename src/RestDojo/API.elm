@@ -9,6 +9,7 @@ module RestDojo.API
         , postNewTeam
         , postJoinTeam
         , patchAccepTeamMember
+        , deleteDenyTeamMember
         )
 
 import Dict exposing (Dict)
@@ -80,6 +81,11 @@ patchAccepTeamMember url =
         patch url (Http.jsonBody body) teamMemberDecoder
 
 
+deleteDenyTeamMember : String -> Request ()
+deleteDenyTeamMember url =
+    delete url Http.emptyBody
+
+
 getPointHistory : String -> Request PointHistory
 getPointHistory url =
     Http.get url pointHistoryDecoder
@@ -111,6 +117,19 @@ patch url body decoder =
         , url = url
         , body = body
         , expect = Http.expectJson decoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+
+
+delete : String -> Body -> Request ()
+delete url body =
+    Http.request
+        { method = "DELETE"
+        , headers = []
+        , url = url
+        , body = body
+        , expect = Http.expectStringResponse (\_ -> Ok ())
         , timeout = Nothing
         , withCredentials = False
         }
