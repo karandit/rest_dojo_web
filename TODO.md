@@ -4,7 +4,7 @@
 
   * ~~Add notifications support~~
   * Log out
-  * Log in automatically from session
+  * ~~Log in automatically from localstorage~~
   * Support Bitbucket
 
  - Dojo

@@ -17,6 +17,7 @@ import UrlParser as Url exposing ((</>), s, int, top)
 
 type alias Flags =
     { baseUrl : String
+    , user : Maybe User
     }
 
 
@@ -80,7 +81,7 @@ initModel flags location =
     { billboard = Billboard ""
     , route = HomeRoute
     , dojos = []
-    , user = Nothing
+    , user = flags.user
     , alerts = []
     , nextAlertId = 0
     }
