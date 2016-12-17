@@ -80,28 +80,33 @@ viewTeamMember : Bool -> Dojo -> Team -> TeamMember -> Html Msg
 viewTeamMember iAmCaptain dojo team teamMember =
     let
         imgAndName =
-            [ img [ class "rd-avatar", src teamMember.picture ] []
-            , span [] [ text teamMember.fullname ]
-            ]
+            span [ class "rd-teammember-profile" ]
+                [ img [ class "rd-avatar", src teamMember.picture ] []
+                , span [ class "rd-teammember-name" ] [ text teamMember.fullname ]
+                ]
 
         yesAndNo =
-            [ span [ class "rd__button rd__button--small", onClick (AcceptJoinTeam dojo team teamMember) ] [ text "Yes" ]
-            , span [] [ text " " ]
-            , span [ class "rd__button rd__button--small", onClick (DenyJoinTeam dojo team teamMember) ] [ text " No " ]
-            ]
+            span []
+                [ span [ class "rd__button rd__button--small", onClick (AcceptJoinTeam dojo team teamMember) ] [ text "Yes" ]
+                , span [] [ text " " ]
+                , span [ class "rd__button rd__button--small", onClick (DenyJoinTeam dojo team teamMember) ] [ text " No " ]
+                ]
+
+        pending =
+            span [ class "rd_warning" ] [ text "Join request pending..." ]
 
         divs =
             case ( teamMember.status, iAmCaptain ) of
                 ( Crew, _ ) ->
-                    imgAndName
+                    [ imgAndName ]
 
                 ( Entrant, True ) ->
-                    imgAndName ++ yesAndNo
+                    [ imgAndName, yesAndNo ]
 
                 ( Entrant, False ) ->
-                    imgAndName ++ [ span [ class "rd_warning" ] [ text "Join request pending..." ] ]
+                    [ imgAndName, pending ]
     in
-        div [] divs
+        div [ class "rd-teammember" ] divs
 
 
 viewJoinTeamDialog : Dojo -> Team -> Html Msg

@@ -9,7 +9,7 @@
 
  - Dojo
 
-  * Display the team members with padding, margin in the dialog
+  * ~~Display the team members with padding, margin in the dialog~~
   * Fix in the 'New team' dialog the 'Team name' input field
 
 - Cluedo

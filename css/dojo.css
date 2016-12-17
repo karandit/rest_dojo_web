@@ -242,6 +242,24 @@ header {
   border-style: solid;
 }
 
+/*------------- Team dialog-------------------------------------------------------------------------------------------*/
+.rd-teammember {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.rd-teammember-name {
+  margin-left: 10px;
+}
+
+.rd-teammember-profile {
+  display: flex;
+  align-items: center;
+}
 
 /*------------- Modal ------------------------------------------------------------------------------------------------*/
 .img-replace {
