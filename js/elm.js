@@ -11352,7 +11352,11 @@ var _user$project$RestDojo_Minesweeper_MinesweeperTypes$minesweeperGameDecoder =
 
 var _user$project$RestDojo_Types$User = F3(
 	function (a, b, c) {
-		return {name: a, picture: b, nickname: c};
+		return {fullname: a, picture: b, name: c};
+	});
+var _user$project$RestDojo_Types$Alert = F2(
+	function (a, b) {
+		return {id: a, message: b};
 	});
 var _user$project$RestDojo_Types$Dojo = function (a) {
 	return function (b) {
@@ -11375,9 +11379,13 @@ var _user$project$RestDojo_Types$Dojo = function (a) {
 		};
 	};
 };
-var _user$project$RestDojo_Types$Team = F4(
-	function (a, b, c, d) {
-		return {id: a, name: b, descr: c, points: d};
+var _user$project$RestDojo_Types$TeamMember = F5(
+	function (a, b, c, d, e) {
+		return {name: a, fullname: b, picture: c, status: d, selfUrl: e};
+	});
+var _user$project$RestDojo_Types$Team = F7(
+	function (a, b, c, d, e, f, g) {
+		return {id: a, name: b, descr: c, points: d, captain: e, members: f, joinUrl: g};
 	});
 var _user$project$RestDojo_Types$TeamPoints = F2(
 	function (a, b) {
@@ -11390,9 +11398,9 @@ var _user$project$RestDojo_Types$PointHistory = F2(
 var _user$project$RestDojo_Types$Billboard = function (a) {
 	return {dojosUrl: a};
 };
-var _user$project$RestDojo_Types$Model = F4(
-	function (a, b, c, d) {
-		return {billboard: a, route: b, dojos: c, user: d};
+var _user$project$RestDojo_Types$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {billboard: a, route: b, dojos: c, user: d, alerts: e, nextAlertId: f};
 	});
 var _user$project$RestDojo_Types$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$RestDojo_Types$GameRoute = F2(
@@ -11408,6 +11416,17 @@ var _user$project$RestDojo_Types$Running = {ctor: 'Running'};
 var _user$project$RestDojo_Types$Past = {ctor: 'Past'};
 var _user$project$RestDojo_Types$MinesweeperDojo = {ctor: 'MinesweeperDojo'};
 var _user$project$RestDojo_Types$CluedoDojo = {ctor: 'CluedoDojo'};
+var _user$project$RestDojo_Types$JoinTeamDialog = function (a) {
+	return {ctor: 'JoinTeamDialog', _0: a};
+};
+var _user$project$RestDojo_Types$CreateTeamDialog = function (a) {
+	return {ctor: 'CreateTeamDialog', _0: a};
+};
+var _user$project$RestDojo_Types$EditTeamDialog = function (a) {
+	return {ctor: 'EditTeamDialog', _0: a};
+};
+var _user$project$RestDojo_Types$Entrant = {ctor: 'Entrant'};
+var _user$project$RestDojo_Types$Crew = {ctor: 'Crew'};
 var _user$project$RestDojo_Types$GameWonBy = F2(
 	function (a, b) {
 		return {ctor: 'GameWonBy', _0: a, _1: b};
@@ -11418,12 +11437,26 @@ var _user$project$RestDojo_Types$Minesweeper = function (a) {
 var _user$project$RestDojo_Types$Cluedo = function (a) {
 	return {ctor: 'Cluedo', _0: a};
 };
+var _user$project$RestDojo_Types$CloseAlert = function (a) {
+	return {ctor: 'CloseAlert', _0: a};
+};
 var _user$project$RestDojo_Types$CloseTeamDialog = function (a) {
 	return {ctor: 'CloseTeamDialog', _0: a};
 };
-var _user$project$RestDojo_Types$ShowTeamDialog = F2(
+var _user$project$RestDojo_Types$EditTeamNameInDialog = F2(
 	function (a, b) {
-		return {ctor: 'ShowTeamDialog', _0: a, _1: b};
+		return {ctor: 'EditTeamNameInDialog', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$ShowJoinTeamDialog = F2(
+	function (a, b) {
+		return {ctor: 'ShowJoinTeamDialog', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$ShowCreateTeamDialog = function (a) {
+	return {ctor: 'ShowCreateTeamDialog', _0: a};
+};
+var _user$project$RestDojo_Types$ShowEditTeamDialog = F2(
+	function (a, b) {
+		return {ctor: 'ShowEditTeamDialog', _0: a, _1: b};
 	});
 var _user$project$RestDojo_Types$LoggedIn = function (a) {
 	return {ctor: 'LoggedIn', _0: a};
@@ -11437,6 +11470,38 @@ var _user$project$RestDojo_Types$SelectDojo = function (a) {
 	return {ctor: 'SelectDojo', _0: a};
 };
 var _user$project$RestDojo_Types$SelectHome = {ctor: 'SelectHome'};
+var _user$project$RestDojo_Types$LeftTeam = F4(
+	function (a, b, c, d) {
+		return {ctor: 'LeftTeam', _0: a, _1: b, _2: c, _3: d};
+	});
+var _user$project$RestDojo_Types$DenyJoinTeam = F3(
+	function (a, b, c) {
+		return {ctor: 'DenyJoinTeam', _0: a, _1: b, _2: c};
+	});
+var _user$project$RestDojo_Types$JoinedTeamAsCrew = F3(
+	function (a, b, c) {
+		return {ctor: 'JoinedTeamAsCrew', _0: a, _1: b, _2: c};
+	});
+var _user$project$RestDojo_Types$AcceptJoinTeam = F3(
+	function (a, b, c) {
+		return {ctor: 'AcceptJoinTeam', _0: a, _1: b, _2: c};
+	});
+var _user$project$RestDojo_Types$JoinedTeamAsEntrant = F3(
+	function (a, b, c) {
+		return {ctor: 'JoinedTeamAsEntrant', _0: a, _1: b, _2: c};
+	});
+var _user$project$RestDojo_Types$JoinTeam = F2(
+	function (a, b) {
+		return {ctor: 'JoinTeam', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$CreatedTeam = F2(
+	function (a, b) {
+		return {ctor: 'CreatedTeam', _0: a, _1: b};
+	});
+var _user$project$RestDojo_Types$CreateTeam = F2(
+	function (a, b) {
+		return {ctor: 'CreateTeam', _0: a, _1: b};
+	});
 var _user$project$RestDojo_Types$LoadGame = F2(
 	function (a, b) {
 		return {ctor: 'LoadGame', _0: a, _1: b};
@@ -11490,14 +11555,55 @@ var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 				A2(_elm_lang$core$Json_Decode$field, 'gameUrl', _elm_lang$core$Json_Decode$string),
 				A2(_elm_lang$core$Json_Decode$field, 'gameWonBy', _elm_lang$core$Json_Decode$int))));
 };
-var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(
-	A5(
-		_elm_lang$core$Json_Decode$map4,
-		_user$project$RestDojo_Types$Team,
-		A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
-		A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode$field, 'descr', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode$field, 'points', _elm_lang$core$Json_Decode$int)));
+var _user$project$RestDojo_API$teamMemberStatusDecoder = function () {
+	var decodeToType = function (string) {
+		var _p3 = string;
+		switch (_p3) {
+			case 'crew':
+				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$Crew);
+			case 'entrant':
+				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$Entrant);
+			default:
+				return _elm_lang$core$Json_Decode$fail(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Not valid pattern for decoder to TeamMemberStatus. Pattern: ',
+						_elm_lang$core$Basics$toString(string)));
+		}
+	};
+	return A2(_elm_lang$core$Json_Decode$andThen, decodeToType, _elm_lang$core$Json_Decode$string);
+}();
+var _user$project$RestDojo_API$teamMemberDecoder = A6(
+	_elm_lang$core$Json_Decode$map5,
+	_user$project$RestDojo_Types$TeamMember,
+	A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'status', _user$project$RestDojo_API$teamMemberStatusDecoder),
+	A2(
+		_elm_lang$core$Json_Decode$map,
+		_elm_lang$core$Maybe$withDefault(''),
+		_elm_lang$core$Json_Decode$maybe(
+			A2(_elm_lang$core$Json_Decode$field, 'selfUrl', _elm_lang$core$Json_Decode$string))));
+var _user$project$RestDojo_API$teamDecoder = A8(
+	_elm_lang$core$Json_Decode$map7,
+	_user$project$RestDojo_Types$Team,
+	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
+	A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'descr', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'points', _elm_lang$core$Json_Decode$int),
+	A2(_elm_lang$core$Json_Decode$field, 'captain', _user$project$RestDojo_API$teamMemberDecoder),
+	A2(
+		_elm_lang$core$Json_Decode$map,
+		_elm_lang$core$Maybe$withDefault(
+			{ctor: '[]'}),
+		_elm_lang$core$Json_Decode$maybe(
+			A2(
+				_elm_lang$core$Json_Decode$field,
+				'members',
+				_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamMemberDecoder)))),
+	A2(_elm_lang$core$Json_Decode$field, 'joinUrl', _elm_lang$core$Json_Decode$string));
+var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
 var _user$project$RestDojo_API$pointHistoryDecoder = A3(
 	_elm_lang$core$Json_Decode$map2,
 	_user$project$RestDojo_Types$PointHistory,
@@ -11519,8 +11625,8 @@ var _user$project$RestDojo_API$pointHistoryDecoder = A3(
 					_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int))))));
 var _user$project$RestDojo_API$dojoTypeDecoder = function () {
 	var decodeToType = function (string) {
-		var _p3 = string;
-		switch (_p3) {
+		var _p4 = string;
+		switch (_p4) {
 			case 'cluedo':
 				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$CluedoDojo);
 			case 'minesweeper':
@@ -11537,8 +11643,8 @@ var _user$project$RestDojo_API$dojoTypeDecoder = function () {
 }();
 var _user$project$RestDojo_API$dojoStateDecoder = function () {
 	var decodeToType = function (string) {
-		var _p4 = string;
-		switch (_p4) {
+		var _p5 = string;
+		switch (_p5) {
 			case 'running':
 				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$Running);
 			case 'past':
@@ -11574,6 +11680,36 @@ var _user$project$RestDojo_API$billboardDecoder = A2(
 	_elm_lang$core$Json_Decode$map,
 	_user$project$RestDojo_Types$Billboard,
 	A2(_elm_lang$core$Json_Decode$field, 'dojos', _elm_lang$core$Json_Decode$string));
+var _user$project$RestDojo_API$delete = F2(
+	function (url, body) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'DELETE',
+				headers: {ctor: '[]'},
+				url: url,
+				body: body,
+				expect: _elm_lang$http$Http$expectStringResponse(
+					function (_p6) {
+						return _elm_lang$core$Result$Ok(
+							{ctor: '_Tuple0'});
+					}),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _user$project$RestDojo_API$patch = F3(
+	function (url, body, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'PATCH',
+				headers: {ctor: '[]'},
+				url: url,
+				body: body,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
 var _user$project$RestDojo_API$getGame = F2(
 	function (url, dojo) {
 		return A2(
@@ -11598,6 +11734,118 @@ var _user$project$RestDojo_API$getEvents = F2(
 var _user$project$RestDojo_API$getPointHistory = function (url) {
 	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$pointHistoryDecoder);
 };
+var _user$project$RestDojo_API$deleteDenyTeamMember = function (url) {
+	return A2(_user$project$RestDojo_API$delete, url, _elm_lang$http$Http$emptyBody);
+};
+var _user$project$RestDojo_API$patchAccepTeamMember = function (url) {
+	var body = _elm_lang$core$Json_Encode$object(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'status',
+				_1: _elm_lang$core$Json_Encode$string('crew')
+			},
+			_1: {ctor: '[]'}
+		});
+	return A3(
+		_user$project$RestDojo_API$patch,
+		url,
+		_elm_lang$http$Http$jsonBody(body),
+		_user$project$RestDojo_API$teamMemberDecoder);
+};
+var _user$project$RestDojo_API$postJoinTeam = F3(
+	function (url, team, user) {
+		var body = _elm_lang$core$Json_Encode$object(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'teamId',
+					_1: _elm_lang$core$Json_Encode$int(team.id)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'status',
+						_1: _elm_lang$core$Json_Encode$string('entrant')
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'name',
+							_1: _elm_lang$core$Json_Encode$string(user.name)
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'fullname',
+								_1: _elm_lang$core$Json_Encode$string(user.fullname)
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'picture',
+									_1: _elm_lang$core$Json_Encode$string(user.picture)
+								},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			});
+		return A3(
+			_elm_lang$http$Http$post,
+			url,
+			_elm_lang$http$Http$jsonBody(body),
+			_user$project$RestDojo_API$teamMemberDecoder);
+	});
+var _user$project$RestDojo_API$postNewTeam = F3(
+	function (url, teamName, user) {
+		var teamJson = _elm_lang$core$Json_Encode$object(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'teamName',
+					_1: _elm_lang$core$Json_Encode$string(teamName)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'captainName',
+						_1: _elm_lang$core$Json_Encode$string(user.name)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'captainFullname',
+							_1: _elm_lang$core$Json_Encode$string(user.fullname)
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'captainPicture',
+								_1: _elm_lang$core$Json_Encode$string(user.picture)
+							},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			});
+		return A3(
+			_elm_lang$http$Http$post,
+			url,
+			_elm_lang$http$Http$jsonBody(teamJson),
+			_user$project$RestDojo_API$teamDecoder);
+	});
 var _user$project$RestDojo_API$getTeams = function (url) {
 	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$teamsDecoder);
 };
@@ -11932,116 +12180,6 @@ var _user$project$RestDojo_ViewHome$view = function (dojos) {
 	};
 };
 
-var _user$project$RestDojo_ViewDojo$viewEventGameWonBy = F3(
-	function (dojo, gameUrl, team) {
-		var avatarAttr = function () {
-			var _p0 = team;
-			if (_p0.ctor === 'Just') {
-				var _p1 = _p0._0;
-				return {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$src(
-						_user$project$RestDojo_Util$avatar(_p1.name)),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class(
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'rd-team-avatar rd-team-',
-								_elm_lang$core$Basics$toString(_p1.id))),
-						_1: {ctor: '[]'}
-					}
-				};
-			} else {
-				return {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('rd-team-avatar'),
-					_1: {ctor: '[]'}
-				};
-			}
-		}();
-		var label = function () {
-			var _p2 = team;
-			if (_p2.ctor === 'Just') {
-				return A2(_elm_lang$core$Basics_ops['++'], ' won by ', _p2._0.name);
-			} else {
-				return ' remained unsolved';
-			}
-		}();
-		return A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('rd-team'),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$span,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('rd-team-name'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$a,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$href('#'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(
-										A2(_user$project$RestDojo_Types$SelectGame, dojo, gameUrl)),
-									_1: {ctor: '[]'}
-								}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Game'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(label),
-							_1: {ctor: '[]'}
-						}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$img,
-						avatarAttr,
-						{ctor: '[]'}),
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _user$project$RestDojo_ViewDojo$viewEvent = F2(
-	function (dojo, event) {
-		var _p3 = event;
-		return A3(_user$project$RestDojo_ViewDojo$viewEventGameWonBy, dojo, _p3._0, _p3._1);
-	});
-var _user$project$RestDojo_ViewDojo$viewEvents = function (dojo) {
-	var divEvents = A2(
-		_elm_lang$core$List$map,
-		_user$project$RestDojo_ViewDojo$viewEvent(dojo),
-		dojo.events);
-	var h2Events = A2(
-		_elm_lang$html$Html$h2,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('Events'),
-			_1: {ctor: '[]'}
-		});
-	return A2(
-		_elm_lang$html$Html$article,
-		{ctor: '[]'},
-		{ctor: '::', _0: h2Events, _1: divEvents});
-};
 var _user$project$RestDojo_ViewDojo$viewPoints = function (teams) {
 	return A2(
 		_elm_lang$html$Html$article,
@@ -12081,6 +12219,71 @@ var _user$project$RestDojo_ViewDojo$viewPoints = function (teams) {
 			}
 		});
 };
+var _user$project$RestDojo_ViewDojo$needsAddNewTeam = F2(
+	function (dojo, userAndTeam) {
+		if (_elm_lang$core$Native_Utils.cmp(
+			_elm_lang$core$List$length(dojo.teams),
+			5) > 0) {
+			return false;
+		} else {
+			var _p0 = {ctor: '_Tuple2', _0: dojo.state, _1: userAndTeam};
+			switch (_p0._0.ctor) {
+				case 'Upcoming':
+					return false;
+				case 'Past':
+					return false;
+				default:
+					if (_p0._1.ctor === 'Nothing') {
+						return false;
+					} else {
+						if (_p0._1._0._1.ctor === 'Nothing') {
+							return true;
+						} else {
+							return false;
+						}
+					}
+			}
+		}
+	});
+var _user$project$RestDojo_ViewDojo$myTeamStatus = F2(
+	function (user, team) {
+		return _elm_lang$core$Native_Utils.eq(team.captain.name, user.name) ? _user$project$RestDojo_Types$Crew : A2(
+			_elm_lang$core$Maybe$withDefault,
+			_user$project$RestDojo_Types$Entrant,
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_) {
+					return _.status;
+				},
+				A2(
+					_elm_community$list_extra$List_Extra$find,
+					function (teamMember) {
+						return _elm_lang$core$Native_Utils.eq(teamMember.name, user.name);
+					},
+					team.members)));
+	});
+var _user$project$RestDojo_ViewDojo$isMyTeam = F2(
+	function (user, team) {
+		return _elm_lang$core$Native_Utils.eq(team.captain.name, user.name) ? true : A2(
+			_elm_lang$core$Maybe$withDefault,
+			false,
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p1) {
+					return true;
+				},
+				A2(
+					_elm_community$list_extra$List_Extra$find,
+					function (teamMember) {
+						return _elm_lang$core$Native_Utils.eq(teamMember.name, user.name);
+					},
+					team.members)));
+	});
+var _user$project$RestDojo_ViewDojo$teamNumber = function (team) {
+	var mod6 = A2(_elm_lang$core$Basics_ops['%'], team.id, 6);
+	var m1to6 = _elm_lang$core$Native_Utils.eq(mod6, 0) ? 6 : mod6;
+	return _elm_lang$core$Basics$toString(m1to6);
+};
 var _user$project$RestDojo_ViewDojo$teamImg = function (team) {
 	var avatarAttr = {
 		ctor: '::',
@@ -12092,7 +12295,7 @@ var _user$project$RestDojo_ViewDojo$teamImg = function (team) {
 				A2(
 					_elm_lang$core$Basics_ops['++'],
 					'rd-team-avatar rd-team-',
-					_elm_lang$core$Basics$toString(team.id))),
+					_user$project$RestDojo_ViewDojo$teamNumber(team))),
 			_1: {ctor: '[]'}
 		}
 	};
@@ -12101,8 +12304,147 @@ var _user$project$RestDojo_ViewDojo$teamImg = function (team) {
 		avatarAttr,
 		{ctor: '[]'});
 };
-var _user$project$RestDojo_ViewDojo$viewTeam = F2(
-	function (dojo, team) {
+var _user$project$RestDojo_ViewDojo$viewTeam = F3(
+	function (dojo, userAndTeam, team) {
+		var action = function () {
+			var _p2 = {ctor: '_Tuple2', _0: dojo.state, _1: userAndTeam};
+			switch (_p2._0.ctor) {
+				case 'Upcoming':
+					return A2(
+						_elm_lang$html$Html$span,
+						{ctor: '[]'},
+						{ctor: '[]'});
+				case 'Past':
+					return A2(
+						_elm_lang$html$Html$span,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('rd-team-action rd__button rd__button--small'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									A2(_user$project$RestDojo_Types$ShowEditTeamDialog, dojo, team)),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('View Team'),
+							_1: {ctor: '[]'}
+						});
+				default:
+					if (_p2._1.ctor === 'Nothing') {
+						return A2(
+							_elm_lang$html$Html$span,
+							{ctor: '[]'},
+							{ctor: '[]'});
+					} else {
+						if (_p2._1._0._1.ctor === 'Nothing') {
+							return A2(
+								_elm_lang$html$Html$span,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('rd-team-action rd__button rd__button--small'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(
+											A2(_user$project$RestDojo_Types$ShowJoinTeamDialog, dojo, team)),
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Join Team'),
+									_1: {ctor: '[]'}
+								});
+						} else {
+							var _p4 = _p2._1._0._1._0;
+							if (_elm_lang$core$Native_Utils.eq(team.id, _p4.id)) {
+								var membership = A2(_user$project$RestDojo_ViewDojo$myTeamStatus, _p2._1._0._0, _p4);
+								var _p3 = membership;
+								if (_p3.ctor === 'Crew') {
+									var btn = _elm_lang$html$Html$text('My Team');
+									var entrantsCount = _elm_lang$core$List$length(
+										A2(
+											_elm_lang$core$List$filter,
+											function (mb) {
+												return _elm_lang$core$Native_Utils.eq(mb.status, _user$project$RestDojo_Types$Entrant);
+											},
+											team.members));
+									var badge = A2(
+										_elm_lang$html$Html$span,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('rd-badge-cont'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$span,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('rd-badge'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text(
+														_elm_lang$core$Basics$toString(entrantsCount)),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										});
+									var nodes = _elm_lang$core$Native_Utils.eq(entrantsCount, 0) ? {
+										ctor: '::',
+										_0: btn,
+										_1: {ctor: '[]'}
+									} : {
+										ctor: '::',
+										_0: btn,
+										_1: {
+											ctor: '::',
+											_0: badge,
+											_1: {ctor: '[]'}
+										}
+									};
+									return A2(
+										_elm_lang$html$Html$span,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('rd-team-action rd__button rd__button--small'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(
+													A2(_user$project$RestDojo_Types$ShowEditTeamDialog, dojo, team)),
+												_1: {ctor: '[]'}
+											}
+										},
+										nodes);
+								} else {
+									return A2(
+										_elm_lang$html$Html$span,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('rd-team-action'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Join request pending...'),
+											_1: {ctor: '[]'}
+										});
+								}
+							} else {
+								return A2(
+									_elm_lang$html$Html$span,
+									{ctor: '[]'},
+									{ctor: '[]'});
+							}
+						}
+					}
+			}
+		}();
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -12147,38 +12489,22 @@ var _user$project$RestDojo_ViewDojo$viewTeam = F2(
 								_elm_lang$html$Html$span,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('rd-team-action rd__button rd__button--small'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onClick(
-											A2(_user$project$RestDojo_Types$ShowTeamDialog, dojo, team)),
-										_1: {ctor: '[]'}
-									}
+									_0: _elm_lang$html$Html_Attributes$class(
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'rd-team-points rd-team-background-',
+											_user$project$RestDojo_ViewDojo$teamNumber(team))),
+									_1: {ctor: '[]'}
 								},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Team'),
+									_0: _elm_lang$html$Html$text(
+										_elm_lang$core$Basics$toString(team.points)),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
 								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$span,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class(
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												'rd-team-points rd-team-background-',
-												_elm_lang$core$Basics$toString(team.id))),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(
-											_elm_lang$core$Basics$toString(team.points)),
-										_1: {ctor: '[]'}
-									}),
+								_0: action,
 								_1: {ctor: '[]'}
 							}
 						}
@@ -12187,31 +12513,350 @@ var _user$project$RestDojo_ViewDojo$viewTeam = F2(
 			});
 	});
 var _user$project$RestDojo_ViewDojo$viewTeams = F2(
-	function (dojo, teams) {
+	function (dojo, loggedUser) {
+		var userAndTeam = function () {
+			var _p5 = loggedUser;
+			if (_p5.ctor === 'Just') {
+				var _p6 = _p5._0;
+				var userTeam = A2(
+					_elm_community$list_extra$List_Extra$find,
+					_user$project$RestDojo_ViewDojo$isMyTeam(_p6),
+					dojo.teams);
+				return _elm_lang$core$Maybe$Just(
+					{ctor: '_Tuple2', _0: _p6, _1: userTeam});
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		}();
 		var divTeams = A2(
 			_elm_lang$core$List$map,
-			_user$project$RestDojo_ViewDojo$viewTeam(dojo),
+			A2(_user$project$RestDojo_ViewDojo$viewTeam, dojo, userAndTeam),
 			_elm_lang$core$List$reverse(
 				A2(
 					_elm_lang$core$List$sortBy,
 					function (_) {
 						return _.points;
 					},
-					teams)));
-		var h2Teams = A2(
-			_elm_lang$html$Html$h2,
-			{ctor: '[]'},
+					dojo.teams)));
+		var headAndTeams = A2(
+			_elm_lang$core$Basics_ops['++'],
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html$text('Teams'),
+				_0: A2(
+					_elm_lang$html$Html$h2,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Teams'),
+						_1: {ctor: '[]'}
+					}),
 				_1: {ctor: '[]'}
-			});
+			},
+			divTeams);
+		var divs = A2(_user$project$RestDojo_ViewDojo$needsAddNewTeam, dojo, userAndTeam) ? A2(
+			_elm_lang$core$Basics_ops['++'],
+			headAndTeams,
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd__button'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_user$project$RestDojo_Types$ShowCreateTeamDialog(dojo)),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('New team'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}) : headAndTeams;
 		return A2(
 			_elm_lang$html$Html$article,
 			{ctor: '[]'},
-			{ctor: '::', _0: h2Teams, _1: divTeams});
+			divs);
 	});
-var _user$project$RestDojo_ViewDojo$viewDialogTeam = F2(
+var _user$project$RestDojo_ViewDojo$viewEventGameWonBy = F3(
+	function (dojo, gameUrl, team) {
+		var avatarAttr = function () {
+			var _p7 = team;
+			if (_p7.ctor === 'Just') {
+				var _p8 = _p7._0;
+				return {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$src(
+						_user$project$RestDojo_Util$avatar(_p8.name)),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'rd-team-avatar rd-team-',
+								_user$project$RestDojo_ViewDojo$teamNumber(_p8))),
+						_1: {ctor: '[]'}
+					}
+				};
+			} else {
+				return {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('rd-team-avatar'),
+					_1: {ctor: '[]'}
+				};
+			}
+		}();
+		var label = function () {
+			var _p9 = team;
+			if (_p9.ctor === 'Just') {
+				return A2(_elm_lang$core$Basics_ops['++'], ' won by ', _p9._0.name);
+			} else {
+				return ' remained unsolved';
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-team'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd-team-name'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$a,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$href(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'#dojos/',
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											_elm_lang$core$Basics$toString(dojo.id),
+											'/games/999'))),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										A2(_user$project$RestDojo_Types$SelectGame, dojo, gameUrl)),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Game'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(label),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$img,
+						avatarAttr,
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$RestDojo_ViewDojo$viewEvent = F2(
+	function (dojo, event) {
+		var _p10 = event;
+		return A3(_user$project$RestDojo_ViewDojo$viewEventGameWonBy, dojo, _p10._0, _p10._1);
+	});
+var _user$project$RestDojo_ViewDojo$viewEvents = function (dojo) {
+	var divEvents = A2(
+		_elm_lang$core$List$map,
+		_user$project$RestDojo_ViewDojo$viewEvent(dojo),
+		dojo.events);
+	var h2Events = A2(
+		_elm_lang$html$Html$h2,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Events'),
+			_1: {ctor: '[]'}
+		});
+	return A2(
+		_elm_lang$html$Html$article,
+		{ctor: '[]'},
+		{ctor: '::', _0: h2Events, _1: divEvents});
+};
+var _user$project$RestDojo_ViewDojo$viewCreateTeamDialog = F2(
+	function (dojo, teamName) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-modal rd-nodal--visible'),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'alert'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd-modal__dialog'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('rd-modal__header rd-default-background'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('rd-modal__header-title'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('New team'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('input input--hoshi'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$input,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('input__field input__field--hoshi'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$id('input-team-name'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Events$onInput(
+														_user$project$RestDojo_Types$EditTeamNameInDialog(dojo)),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$type_('text'),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										},
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$label,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('input__label input__label--hoshi input__label--hoshi-color-2'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$for('input-team-name'),
+													_1: {ctor: '[]'}
+												}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$span,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('input__label-content input__label-content--hoshi'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Team name'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('rd-modal__action'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onClick(
+												A2(_user$project$RestDojo_Types$CreateTeam, dojo, teamName)),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Create new team'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$a,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('cd-popup-close img-replace'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(
+													_user$project$RestDojo_Types$CloseTeamDialog(dojo)),
+												_1: {ctor: '[]'}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Close'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$RestDojo_ViewDojo$viewJoinTeamDialog = F2(
 	function (dojo, team) {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -12243,7 +12888,7 @@ var _user$project$RestDojo_ViewDojo$viewDialogTeam = F2(
 									A2(
 										_elm_lang$core$Basics_ops['++'],
 										'rd-modal__header rd-team-background-',
-										_elm_lang$core$Basics$toString(team.id))),
+										_user$project$RestDojo_ViewDojo$teamNumber(team))),
 								_1: {ctor: '[]'}
 							},
 							{
@@ -12283,13 +12928,13 @@ var _user$project$RestDojo_ViewDojo$viewDialogTeam = F2(
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$html$Html_Events$onClick(
-											_user$project$RestDojo_Types$CloseTeamDialog(dojo)),
+											A2(_user$project$RestDojo_Types$JoinTeam, dojo, team)),
 										_1: {ctor: '[]'}
 									}
 								},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('Close'),
+									_0: _elm_lang$html$Html$text('Join team'),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
@@ -12318,43 +12963,317 @@ var _user$project$RestDojo_ViewDojo$viewDialogTeam = F2(
 				_1: {ctor: '[]'}
 			});
 	});
-var _user$project$RestDojo_ViewDojo$viewDialog = function (dojo) {
-	var _p4 = dojo.dialog;
-	if (_p4.ctor === 'Just') {
-		return {
-			ctor: '::',
-			_0: A2(_user$project$RestDojo_ViewDojo$viewDialogTeam, dojo, _p4._0),
-			_1: {ctor: '[]'}
-		};
-	} else {
-		return {ctor: '[]'};
-	}
-};
-var _user$project$RestDojo_ViewDojo$view = function (dojo) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		{
+var _user$project$RestDojo_ViewDojo$viewTeamMember = F4(
+	function (iAmCaptain, dojo, team, teamMember) {
+		var yesAndNo = {
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$section,
-				{ctor: '[]'},
+				_elm_lang$html$Html$span,
 				{
 					ctor: '::',
-					_0: A2(_user$project$RestDojo_ViewDojo$viewTeams, dojo, dojo.teams),
+					_0: _elm_lang$html$Html_Attributes$class('rd__button rd__button--small'),
 					_1: {
 						ctor: '::',
-						_0: _user$project$RestDojo_ViewDojo$viewPoints(dojo.teams),
+						_0: _elm_lang$html$Html_Events$onClick(
+							A3(_user$project$RestDojo_Types$AcceptJoinTeam, dojo, team, teamMember)),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Yes'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(' '),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$span,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('rd__button rd__button--small'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									A3(_user$project$RestDojo_Types$DenyJoinTeam, dojo, team, teamMember)),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(' No '),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		};
+		var imgAndName = {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$img,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('rd-avatar'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$src(teamMember.picture),
+						_1: {ctor: '[]'}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(teamMember.fullname),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		};
+		var divs = function () {
+			var _p11 = {ctor: '_Tuple2', _0: teamMember.status, _1: iAmCaptain};
+			if (_p11._0.ctor === 'Crew') {
+				return imgAndName;
+			} else {
+				if (_p11._1 === true) {
+					return A2(_elm_lang$core$Basics_ops['++'], imgAndName, yesAndNo);
+				} else {
+					return A2(
+						_elm_lang$core$Basics_ops['++'],
+						imgAndName,
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$span,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('rd_warning'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Join request pending...'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						});
+				}
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			divs);
+	});
+var _user$project$RestDojo_ViewDojo$viewShowTeamDialog = F3(
+	function (loggedUser, dojo, team) {
+		var iAmCaptain = function () {
+			var _p12 = loggedUser;
+			if (_p12.ctor === 'Nothing') {
+				return false;
+			} else {
+				return _elm_lang$core$Native_Utils.eq(_p12._0.name, team.captain.name);
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-modal rd-nodal--visible'),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'alert'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd-modal__dialog'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'rd-modal__header rd-team-background-',
+										_user$project$RestDojo_ViewDojo$teamNumber(team))),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _user$project$RestDojo_ViewDojo$teamImg(team),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('rd-modal__header-title'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(team.name),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							}),
 						_1: {
 							ctor: '::',
-							_0: _user$project$RestDojo_ViewDojo$viewEvents(dojo),
-							_1: {ctor: '[]'}
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{ctor: '[]'},
+								A2(
+									_elm_lang$core$List$map,
+									A3(_user$project$RestDojo_ViewDojo$viewTeamMember, iAmCaptain, dojo, team),
+									{ctor: '::', _0: team.captain, _1: team.members})),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('rd-modal__action'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onClick(
+												_user$project$RestDojo_Types$CloseTeamDialog(dojo)),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Close'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$a,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('cd-popup-close img-replace'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(
+													_user$project$RestDojo_Types$CloseTeamDialog(dojo)),
+												_1: {ctor: '[]'}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Close'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							}
 						}
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$RestDojo_ViewDojo$viewDialog = F2(
+	function (dojo, loggedUser) {
+		var findTeam = function (teamId) {
+			return _elm_community$list_extra$List_Extra$find(
+				function (team) {
+					return _elm_lang$core$Native_Utils.eq(team.id, teamId);
+				});
+		};
+		var _p13 = dojo.dialog;
+		if (_p13.ctor === 'Just') {
+			switch (_p13._0.ctor) {
+				case 'EditTeamDialog':
+					var _p14 = A2(findTeam, _p13._0._0, dojo.teams);
+					if (_p14.ctor === 'Just') {
+						return {
+							ctor: '::',
+							_0: A3(_user$project$RestDojo_ViewDojo$viewShowTeamDialog, loggedUser, dojo, _p14._0),
+							_1: {ctor: '[]'}
+						};
+					} else {
+						return {ctor: '[]'};
 					}
-				}),
-			_1: {ctor: '[]'}
-		},
-		_user$project$RestDojo_ViewDojo$viewDialog(dojo));
-};
+				case 'JoinTeamDialog':
+					var _p15 = A2(findTeam, _p13._0._0, dojo.teams);
+					if (_p15.ctor === 'Just') {
+						return {
+							ctor: '::',
+							_0: A2(_user$project$RestDojo_ViewDojo$viewJoinTeamDialog, dojo, _p15._0),
+							_1: {ctor: '[]'}
+						};
+					} else {
+						return {ctor: '[]'};
+					}
+				default:
+					return {
+						ctor: '::',
+						_0: A2(_user$project$RestDojo_ViewDojo$viewCreateTeamDialog, dojo, _p13._0._0),
+						_1: {ctor: '[]'}
+					};
+			}
+		} else {
+			return {ctor: '[]'};
+		}
+	});
+var _user$project$RestDojo_ViewDojo$view = F2(
+	function (dojo, loggedUser) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$section,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(_user$project$RestDojo_ViewDojo$viewTeams, dojo, loggedUser),
+						_1: {
+							ctor: '::',
+							_0: _user$project$RestDojo_ViewDojo$viewPoints(dojo.teams),
+							_1: {
+								ctor: '::',
+								_0: _user$project$RestDojo_ViewDojo$viewEvents(dojo),
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			A2(_user$project$RestDojo_ViewDojo$viewDialog, dojo, loggedUser));
+	});
 
 var _user$project$RestDojo_Minesweeper_MinesweeperView$view = F2(
 	function (dojo, game) {
@@ -12365,6 +13284,64 @@ var _user$project$RestDojo_Minesweeper_MinesweeperView$view = F2(
 		};
 	});
 
+var _user$project$RestDojo_View$viewAlert = function (alert) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('ns-box ns-growl ns-effect-jelly ns-type-warning ns-show'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('ns-box-inner'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(alert.message),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('ns-close'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_user$project$RestDojo_Types$CloseAlert(alert.id)),
+							_1: {ctor: '[]'}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$RestDojo_View$viewAlerts = function (alerts) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('ns-box-cont'),
+			_1: {ctor: '[]'}
+		},
+		A2(_elm_lang$core$List$map, _user$project$RestDojo_View$viewAlert, alerts));
+};
 var _user$project$RestDojo_View$viewNotFound = {
 	ctor: '::',
 	_0: A2(
@@ -12394,7 +13371,7 @@ var _user$project$RestDojo_View$viewContent = function (model) {
 					model.dojos));
 			var _p1 = foundDojo;
 			if (_p1.ctor === 'Just') {
-				return _user$project$RestDojo_ViewDojo$view(_p1._0);
+				return A2(_user$project$RestDojo_ViewDojo$view, _p1._0, model.user);
 			} else {
 				return _user$project$RestDojo_View$viewNotFound;
 			}
@@ -12424,17 +13401,17 @@ var _user$project$RestDojo_View$viewLogin = function (model) {
 	var _p5 = model.user;
 	if (_p5.ctor === 'Just') {
 		return A2(
-			_elm_lang$html$Html$span,
+			_elm_lang$html$Html$img,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('rd-login rd__button'),
-				_1: {ctor: '[]'}
+				_0: _elm_lang$html$Html_Attributes$class('rd-login rd-avatar'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$src(_p5._0.picture),
+					_1: {ctor: '[]'}
+				}
 			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(_p5._0.name),
-				_1: {ctor: '[]'}
-			});
+			{ctor: '[]'});
 	} else {
 		return A2(
 			_elm_lang$html$Html$span,
@@ -12630,28 +13607,136 @@ var _user$project$RestDojo_View$view = function (model) {
 					_elm_lang$html$Html$div,
 					{ctor: '[]'},
 					_user$project$RestDojo_View$viewContent(model)),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: _user$project$RestDojo_View$viewAlerts(model.alerts),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };
 
-var _user$project$RestDojo_Main$updateDojo = F3(
-	function (dojoId, updater, dojos) {
+var _user$project$RestDojo_Main$updateXXX = F3(
+	function (pred, updater, inp) {
 		return A2(
 			_elm_lang$core$List$map,
-			function (dojo) {
-				return _elm_lang$core$Native_Utils.eq(dojo.id, dojoId) ? updater(dojo) : dojo;
+			function (x) {
+				return pred(x) ? updater(x) : x;
 			},
+			inp);
+	});
+var _user$project$RestDojo_Main$updateTeamMember = F3(
+	function (teamMemberName, updater, teamMembers) {
+		return A3(
+			_user$project$RestDojo_Main$updateXXX,
+			function (teamMember) {
+				return _elm_lang$core$Native_Utils.eq(teamMember.name, teamMemberName);
+			},
+			updater,
+			teamMembers);
+	});
+var _user$project$RestDojo_Main$updateTeam = F3(
+	function (teamId, updater, teams) {
+		return A3(
+			_user$project$RestDojo_Main$updateXXX,
+			function (team) {
+				return _elm_lang$core$Native_Utils.eq(team.id, teamId);
+			},
+			updater,
+			teams);
+	});
+var _user$project$RestDojo_Main$updateDojo = F3(
+	function (dojoId, updater, dojos) {
+		return A3(
+			_user$project$RestDojo_Main$updateXXX,
+			function (dojo) {
+				return _elm_lang$core$Native_Utils.eq(dojo.id, dojoId);
+			},
+			updater,
 			dojos);
 	});
-var _user$project$RestDojo_Main$initGame = F2(
+var _user$project$RestDojo_Main$addAlert = F3(
+	function (model, err, message) {
+		var _p0 = A2(
+			_elm_lang$core$Debug$log,
+			A2(_elm_lang$core$Basics_ops['++'], 'Error: ', message),
+			_elm_lang$core$Basics$toString(err));
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				alerts: {
+					ctor: '::',
+					_0: A2(
+						_user$project$RestDojo_Types$Alert,
+						model.nextAlertId,
+						A2(_elm_lang$core$Basics_ops['++'], 'Ouups! ', message)),
+					_1: model.alerts
+				},
+				nextAlertId: model.nextAlertId + 1
+			});
+	});
+var _user$project$RestDojo_Main$denyTeamMember = F3(
+	function (dojo, team, teamMember) {
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$http$Http$send,
+				A3(_user$project$RestDojo_Types$LeftTeam, dojo, team, teamMember),
+				_user$project$RestDojo_API$deleteDenyTeamMember(teamMember.selfUrl)),
+			_1: {ctor: '[]'}
+		};
+	});
+var _user$project$RestDojo_Main$acceptTeamMember = F3(
+	function (dojo, team, teamMember) {
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$http$Http$send,
+				A2(_user$project$RestDojo_Types$JoinedTeamAsCrew, dojo, team),
+				_user$project$RestDojo_API$patchAccepTeamMember(teamMember.selfUrl)),
+			_1: {ctor: '[]'}
+		};
+	});
+var _user$project$RestDojo_Main$joinTeam = F3(
+	function (dojo, team, loggedUser) {
+		var _p1 = loggedUser;
+		if (_p1.ctor === 'Just') {
+			return {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$http$Http$send,
+					A2(_user$project$RestDojo_Types$JoinedTeamAsEntrant, dojo, team),
+					A3(_user$project$RestDojo_API$postJoinTeam, team.joinUrl, team, _p1._0)),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	});
+var _user$project$RestDojo_Main$createTeam = F3(
+	function (dojo, teamName, loggedUser) {
+		var _p2 = loggedUser;
+		if (_p2.ctor === 'Just') {
+			return {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$http$Http$send,
+					_user$project$RestDojo_Types$CreatedTeam(dojo),
+					A3(_user$project$RestDojo_API$postNewTeam, dojo.teamsUrl, teamName, _p2._0)),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	});
+var _user$project$RestDojo_Main$loadGame = F2(
 	function (dojo, gameUrl) {
 		return A2(
 			_elm_lang$http$Http$send,
 			_user$project$RestDojo_Types$LoadGame(dojo),
 			A2(_user$project$RestDojo_API$getGame, gameUrl, dojo));
 	});
-var _user$project$RestDojo_Main$initEvents = F2(
+var _user$project$RestDojo_Main$loadEvents = F2(
 	function (dojo, teams) {
 		return A2(
 			_elm_lang$http$Http$send,
@@ -12664,19 +13749,19 @@ var _user$project$RestDojo_Main$loadPointHistory = function (dojo) {
 		_user$project$RestDojo_Types$LoadPointHistory,
 		_user$project$RestDojo_API$getPointHistory(dojo.pointHistoryUrl));
 };
-var _user$project$RestDojo_Main$initTeams = function (dojo) {
+var _user$project$RestDojo_Main$loadTeams = function (dojo) {
 	return A2(
 		_elm_lang$http$Http$send,
 		_user$project$RestDojo_Types$LoadTeams(dojo),
 		_user$project$RestDojo_API$getTeams(dojo.teamsUrl));
 };
-var _user$project$RestDojo_Main$initDojos = function (url) {
+var _user$project$RestDojo_Main$loadDojos = function (url) {
 	return A2(
 		_elm_lang$http$Http$send,
 		_user$project$RestDojo_Types$LoadDojos,
 		_user$project$RestDojo_API$getDojos(url));
 };
-var _user$project$RestDojo_Main$initBillboard = function (url) {
+var _user$project$RestDojo_Main$loadBillboard = function (url) {
 	return A2(
 		_elm_lang$http$Http$send,
 		_user$project$RestDojo_Types$LoadBillboard,
@@ -12690,11 +13775,13 @@ var _user$project$RestDojo_Main$initModel = F2(
 				billboard: _user$project$RestDojo_Types$Billboard(''),
 				route: _user$project$RestDojo_Types$HomeRoute,
 				dojos: {ctor: '[]'},
-				user: _elm_lang$core$Maybe$Nothing
+				user: _elm_lang$core$Maybe$Nothing,
+				alerts: {ctor: '[]'},
+				nextAlertId: 0
 			},
 			{
 				ctor: '::',
-				_0: _user$project$RestDojo_Main$initBillboard(flags.baseUrl),
+				_0: _user$project$RestDojo_Main$loadBillboard(flags.baseUrl),
 				_1: {ctor: '[]'}
 			});
 	});
@@ -12703,10 +13790,10 @@ var _user$project$RestDojo_Main$mapToChartInput = function (pointHistory) {
 		labels: pointHistory.games,
 		datasets: A2(
 			_elm_lang$core$List$map,
-			function (_p0) {
-				var _p1 = _p0;
-				var _p2 = _p1._1;
-				return {label: _p2.teamName, data: _p2.data, borderColor: _p1._0};
+			function (_p3) {
+				var _p4 = _p3;
+				var _p5 = _p4._1;
+				return {label: _p5.teamName, data: _p5.data, borderColor: _p4._0};
 			},
 			A2(
 				_elm_community$list_extra$List_Extra$zip,
@@ -12756,9 +13843,9 @@ var _user$project$RestDojo_Main$parser = _evancz$url_parser$UrlParser$oneOf(
 	});
 var _user$project$RestDojo_Main$getRoute = function (location) {
 	var maybeRoute = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$RestDojo_Main$parser, location);
-	var _p3 = maybeRoute;
-	if (_p3.ctor === 'Just') {
-		return _p3._0;
+	var _p6 = maybeRoute;
+	if (_p6.ctor === 'Just') {
+		return _p6._0;
 	} else {
 		return _user$project$RestDojo_Types$NotFoundRoute;
 	}
@@ -12791,144 +13878,78 @@ var _user$project$RestDojo_Main$auth0 = _elm_lang$core$Native_Platform.outgoingP
 	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
-		var _p4 = A2(_elm_lang$core$Debug$log, '__msg', msg);
-		_v2_14:
-		do {
-			switch (_p4.ctor) {
-				case 'LoadBillboard':
-					if (_p4._0.ctor === 'Ok') {
-						var _p5 = _p4._0._0;
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{billboard: _p5}),
-							{
-								ctor: '::',
-								_0: _user$project$RestDojo_Main$initDojos(_p5.dojosUrl),
-								_1: {ctor: '[]'}
-							});
-					} else {
-						break _v2_14;
-					}
-				case 'LoadDojos':
-					if (_p4._0.ctor === 'Ok') {
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{dojos: _p4._0._0}),
-							{ctor: '[]'});
-					} else {
-						break _v2_14;
-					}
-				case 'SelectHome':
+		var _p7 = msg;
+		switch (_p7.ctor) {
+			case 'LoadBillboard':
+				if (_p7._0.ctor === 'Ok') {
+					var _p8 = _p7._0._0;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{route: _user$project$RestDojo_Types$HomeRoute}),
-						{ctor: '[]'});
-				case 'SelectDojo':
-					var _p6 = _p4._0;
-					return A2(
-						_elm_lang$core$Platform_Cmd_ops['!'],
-						_elm_lang$core$Native_Utils.update(
-							model,
-							{
-								route: _user$project$RestDojo_Types$DojoRoute(_p6.id)
-							}),
+							{billboard: _p8}),
 						{
 							ctor: '::',
-							_0: _user$project$RestDojo_Main$initTeams(_p6),
-							_1: {
-								ctor: '::',
-								_0: _user$project$RestDojo_Main$loadPointHistory(_p6),
-								_1: {ctor: '[]'}
-							}
+							_0: _user$project$RestDojo_Main$loadDojos(_p8.dojosUrl),
+							_1: {ctor: '[]'}
 						});
-				case 'SelectGame':
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._0._0, 'Couldn\'t load billboard'),
+						{ctor: '[]'});
+				}
+			case 'LoadDojos':
+				if (_p7._0.ctor === 'Ok') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{dojos: _p7._0._0}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._0._0, 'Couldn\'t load dojos'),
+						{ctor: '[]'});
+				}
+			case 'LoadPointHistory':
+				if (_p7._0.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						model,
 						{
 							ctor: '::',
-							_0: A2(_user$project$RestDojo_Main$initGame, _p4._0, _p4._1),
+							_0: _user$project$RestDojo_Main$chart(
+								_user$project$RestDojo_Main$mapToChartInput(_p7._0._0)),
 							_1: {ctor: '[]'}
 						});
-				case 'LoadPointHistory':
-					if (_p4._0.ctor === 'Ok') {
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							model,
-							{
-								ctor: '::',
-								_0: _user$project$RestDojo_Main$chart(
-									_user$project$RestDojo_Main$mapToChartInput(_p4._0._0)),
-								_1: {ctor: '[]'}
-							});
-					} else {
-						break _v2_14;
-					}
-				case 'LoadGame':
-					if (_p4._1.ctor === 'Ok') {
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{
-									route: A2(_user$project$RestDojo_Types$GameRoute, _p4._0.id, _p4._1._0)
-								}),
-							{ctor: '[]'});
-					} else {
-						break _v2_14;
-					}
-				case 'LoadTeams':
-					if (_p4._1.ctor === 'Ok') {
-						var _p8 = _p4._0;
-						var _p7 = _p4._1._0;
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{
-									dojos: A3(
-										_user$project$RestDojo_Main$updateDojo,
-										_p8.id,
-										function (dojo) {
-											return _elm_lang$core$Native_Utils.update(
-												dojo,
-												{teams: _p7});
-										},
-										model.dojos)
-								}),
-							{
-								ctor: '::',
-								_0: A2(_user$project$RestDojo_Main$initEvents, _p8, _p7),
-								_1: {ctor: '[]'}
-							});
-					} else {
-						break _v2_14;
-					}
-				case 'LoginPushed':
+				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						model,
-						{
-							ctor: '::',
-							_0: _user$project$RestDojo_Main$auth0('test'),
-							_1: {ctor: '[]'}
-						});
-				case 'LoggedIn':
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._0._0, 'Couldn\'t load points'),
+						{ctor: '[]'});
+				}
+			case 'LoadGame':
+				if (_p7._1.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								user: _elm_lang$core$Maybe$Just(_p4._0)
+								route: A2(_user$project$RestDojo_Types$GameRoute, _p7._0.id, _p7._1._0)
 							}),
 						{ctor: '[]'});
-				case 'ShowTeamDialog':
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t load game'),
+						{ctor: '[]'});
+				}
+			case 'LoadTeams':
+				if (_p7._1.ctor === 'Ok') {
+					var _p10 = _p7._0;
+					var _p9 = _p7._1._0;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -12936,18 +13957,115 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p4._0.id,
+									_p10.id,
+									function (dojo) {
+										return _elm_lang$core$Native_Utils.update(
+											dojo,
+											{teams: _p9});
+									},
+									model.dojos)
+							}),
+						{
+							ctor: '::',
+							_0: A2(_user$project$RestDojo_Main$loadEvents, _p10, _p9),
+							_1: {ctor: '[]'}
+						});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t load teams'),
+						{ctor: '[]'});
+				}
+			case 'LoadEvents':
+				if (_p7._1.ctor === 'Ok') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								dojos: A3(
+									_user$project$RestDojo_Main$updateDojo,
+									_p7._0.id,
+									function (dojo) {
+										return _elm_lang$core$Native_Utils.update(
+											dojo,
+											{events: _p7._1._0});
+									},
+									model.dojos)
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t load events'),
+						{ctor: '[]'});
+				}
+			case 'CreateTeam':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					A3(_user$project$RestDojo_Main$createTeam, _p7._0, _p7._1, model.user));
+			case 'CreatedTeam':
+				if (_p7._1.ctor === 'Ok') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								dojos: A3(
+									_user$project$RestDojo_Main$updateDojo,
+									_p7._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
 											{
-												dialog: _elm_lang$core$Maybe$Just(_p4._1)
+												teams: A2(
+													_elm_lang$core$Basics_ops['++'],
+													dojo.teams,
+													{
+														ctor: '::',
+														_0: _p7._1._0,
+														_1: {ctor: '[]'}
+													}),
+												dialog: _elm_lang$core$Maybe$Nothing
 											});
 									},
 									model.dojos)
 							}),
 						{ctor: '[]'});
-				case 'CloseTeamDialog':
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t create team'),
+						{ctor: '[]'});
+				}
+			case 'JoinTeam':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					A3(_user$project$RestDojo_Main$joinTeam, _p7._0, _p7._1, model.user));
+			case 'JoinedTeamAsEntrant':
+				if (_p7._2.ctor === 'Ok') {
+					var addTeamMember = function (dojo) {
+						return A3(
+							_user$project$RestDojo_Main$updateTeam,
+							_p7._1.id,
+							function (team) {
+								return _elm_lang$core$Native_Utils.update(
+									team,
+									{
+										members: A2(
+											_elm_lang$core$Basics_ops['++'],
+											team.members,
+											{
+												ctor: '::',
+												_0: _p7._2._0,
+												_1: {ctor: '[]'}
+											})
+									});
+							},
+							dojo.teams);
+					};
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -12955,68 +14073,306 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p4._0.id,
+									_p7._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
-											{dialog: _elm_lang$core$Maybe$Nothing});
+											{
+												teams: addTeamMember(dojo),
+												dialog: _elm_lang$core$Maybe$Nothing
+											});
 									},
 									model.dojos)
 							}),
 						{ctor: '[]'});
-				case 'LoadEvents':
-					if (_p4._1.ctor === 'Ok') {
-						return A2(
-							_elm_lang$core$Platform_Cmd_ops['!'],
-							_elm_lang$core$Native_Utils.update(
-								model,
-								{
-									dojos: A3(
-										_user$project$RestDojo_Main$updateDojo,
-										_p4._0.id,
-										function (dojo) {
-											return _elm_lang$core$Native_Utils.update(
-												dojo,
-												{events: _p4._1._0});
-										},
-										model.dojos)
-								}),
-							{ctor: '[]'});
-					} else {
-						break _v2_14;
-					}
-				default:
+				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						model,
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._2._0, 'Couldn\'t add player to team as entrant'),
 						{ctor: '[]'});
-			}
-		} while(false);
-		var _p9 = A2(_elm_lang$core$Debug$log, '__error', msg);
-		return A2(
-			_elm_lang$core$Platform_Cmd_ops['!'],
-			model,
-			{ctor: '[]'});
+				}
+			case 'AcceptJoinTeam':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					A3(_user$project$RestDojo_Main$acceptTeamMember, _p7._0, _p7._1, _p7._2));
+			case 'DenyJoinTeam':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					A3(_user$project$RestDojo_Main$denyTeamMember, _p7._0, _p7._1, _p7._2));
+			case 'JoinedTeamAsCrew':
+				if (_p7._2.ctor === 'Ok') {
+					var _p12 = _p7._2._0;
+					var updateTeamMember_ = A2(
+						_user$project$RestDojo_Main$updateTeamMember,
+						_p12.name,
+						function (_p11) {
+							return _p12;
+						});
+					var updateTeam_ = A2(
+						_user$project$RestDojo_Main$updateTeam,
+						_p7._1.id,
+						function (team) {
+							return _elm_lang$core$Native_Utils.update(
+								team,
+								{
+									members: updateTeamMember_(team.members)
+								});
+						});
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								dojos: A3(
+									_user$project$RestDojo_Main$updateDojo,
+									_p7._0.id,
+									function (dojo) {
+										return _elm_lang$core$Native_Utils.update(
+											dojo,
+											{
+												teams: updateTeam_(dojo.teams)
+											});
+									},
+									model.dojos)
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._2._0, 'Couldn\'t add player to team'),
+						{ctor: '[]'});
+				}
+			case 'LeftTeam':
+				if (_p7._3.ctor === 'Ok') {
+					var removeTeamMember = _elm_lang$core$List$filter(
+						function (teamMember) {
+							return !_elm_lang$core$Native_Utils.eq(teamMember.name, _p7._2.name);
+						});
+					var updateTeam_ = A2(
+						_user$project$RestDojo_Main$updateTeam,
+						_p7._1.id,
+						function (team) {
+							return _elm_lang$core$Native_Utils.update(
+								team,
+								{
+									members: removeTeamMember(team.members)
+								});
+						});
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								dojos: A3(
+									_user$project$RestDojo_Main$updateDojo,
+									_p7._0.id,
+									function (dojo) {
+										return _elm_lang$core$Native_Utils.update(
+											dojo,
+											{
+												teams: updateTeam_(dojo.teams)
+											});
+									},
+									model.dojos)
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A3(_user$project$RestDojo_Main$addAlert, model, _p7._3._0, 'Couldn\'t remove player from team as entrant'),
+						{ctor: '[]'});
+				}
+			case 'SelectHome':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{route: _user$project$RestDojo_Types$HomeRoute}),
+					{ctor: '[]'});
+			case 'SelectDojo':
+				var _p13 = _p7._0;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							route: _user$project$RestDojo_Types$DojoRoute(_p13.id)
+						}),
+					{
+						ctor: '::',
+						_0: _user$project$RestDojo_Main$loadTeams(_p13),
+						_1: {
+							ctor: '::',
+							_0: _user$project$RestDojo_Main$loadPointHistory(_p13),
+							_1: {ctor: '[]'}
+						}
+					});
+			case 'SelectGame':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: A2(_user$project$RestDojo_Main$loadGame, _p7._0, _p7._1),
+						_1: {ctor: '[]'}
+					});
+			case 'LoginPushed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: _user$project$RestDojo_Main$auth0('test'),
+						_1: {ctor: '[]'}
+					});
+			case 'LoggedIn':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							user: _elm_lang$core$Maybe$Just(_p7._0)
+						}),
+					{ctor: '[]'});
+			case 'ShowEditTeamDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p7._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{
+											dialog: _elm_lang$core$Maybe$Just(
+												_user$project$RestDojo_Types$EditTeamDialog(_p7._1.id))
+										});
+								},
+								model.dojos)
+						}),
+					{ctor: '[]'});
+			case 'ShowJoinTeamDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p7._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{
+											dialog: _elm_lang$core$Maybe$Just(
+												_user$project$RestDojo_Types$JoinTeamDialog(_p7._1.id))
+										});
+								},
+								model.dojos)
+						}),
+					{ctor: '[]'});
+			case 'ShowCreateTeamDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p7._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{
+											dialog: _elm_lang$core$Maybe$Just(
+												_user$project$RestDojo_Types$CreateTeamDialog(''))
+										});
+								},
+								model.dojos)
+						}),
+					{ctor: '[]'});
+			case 'EditTeamNameInDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p7._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{
+											dialog: _elm_lang$core$Maybe$Just(
+												_user$project$RestDojo_Types$CreateTeamDialog(_p7._1))
+										});
+								},
+								model.dojos)
+						}),
+					{ctor: '[]'});
+			case 'CloseTeamDialog':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							dojos: A3(
+								_user$project$RestDojo_Main$updateDojo,
+								_p7._0.id,
+								function (dojo) {
+									return _elm_lang$core$Native_Utils.update(
+										dojo,
+										{dialog: _elm_lang$core$Maybe$Nothing});
+								},
+								model.dojos)
+						}),
+					{ctor: '[]'});
+			case 'CloseAlert':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							alerts: A2(
+								_elm_lang$core$List$filter,
+								function (alert) {
+									return !_elm_lang$core$Native_Utils.eq(alert.id, _p7._0);
+								},
+								model.alerts)
+						}),
+					{ctor: '[]'});
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'});
+		}
 	});
 var _user$project$RestDojo_Main$authentications = _elm_lang$core$Native_Platform.incomingPort(
 	'authentications',
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
-		function (name) {
+		function (fullname) {
 			return A2(
 				_elm_lang$core$Json_Decode$andThen,
 				function (picture) {
 					return A2(
 						_elm_lang$core$Json_Decode$andThen,
-						function (nickname) {
+						function (name) {
 							return _elm_lang$core$Json_Decode$succeed(
-								{name: name, picture: picture, nickname: nickname});
+								{fullname: fullname, picture: picture, name: name});
 						},
-						A2(_elm_lang$core$Json_Decode$field, 'nickname', _elm_lang$core$Json_Decode$string));
+						A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
 				},
 				A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
 		},
-		A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string)));
+		A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string)));
 var _user$project$RestDojo_Main$main = A2(
 	_elm_lang$navigation$Navigation$programWithFlags,
 	_user$project$RestDojo_Types$UrlChange,
@@ -13024,7 +14380,7 @@ var _user$project$RestDojo_Main$main = A2(
 		init: _user$project$RestDojo_Main$initModel,
 		update: _user$project$RestDojo_Main$update,
 		view: _user$project$RestDojo_View$view,
-		subscriptions: function (_p10) {
+		subscriptions: function (_p14) {
 			return _user$project$RestDojo_Main$authentications(_user$project$RestDojo_Types$LoggedIn);
 		}
 	})(

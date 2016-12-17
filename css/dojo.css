@@ -30,8 +30,16 @@ h1 {
 }
 
 h2 {
-  border-bottom: 2px solid #383e4c;
   font-weight: 300;
+}
+
+h2:after {
+    display: block;
+    background: #40C9A2;
+    content: '';
+    height: 2px;
+    width: 80px;
+    margin: 16px 0;
 }
 
 section {
@@ -56,10 +64,35 @@ header {
   width: 100%;
 }
 
+/* --- General -------------------------------------------------------------------------------------------------------*/
+.rd-badge-cont {
+  position: relative;
+}
+
+.rd-badge {
+  position: absolute;
+  top: -15px;
+  right: -20px;
+  width: 18px;
+  height: 18px;
+  color: #fff;
+  text-align: center;
+  background-color: #f83600;
+  border-radius: 50%;
+}
+
+/* --- Header --------------------------------------------------------------------------------------------------------*/
 .rd-login {
   margin-left: auto;
+  margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.rd-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
 }
 
 /* --- Home ----------------------------------------------------------------------------------------------------------*/
@@ -120,6 +153,10 @@ header {
   border-color: #1784c7;
 }
 
+.rd-default-background {
+  background-color: #40C9A2;
+}
+
 .rd-team-background-1 {
   background-color: #7e5ae2;
 }
@@ -157,10 +194,15 @@ header {
   color: #757983;
 }
 
+.rd_warning {
+  color: #40C9A2;
+}
+
 .rd-team-action {
   position: absolute;
   left: 100px;
   top: 55px;
+  color: #40C9A2;
 }
 
 .rd__button {
@@ -201,7 +243,7 @@ header {
 }
 
 
-/*------------- Modal -----------------------------------*/
+/*------------- Modal ------------------------------------------------------------------------------------------------*/
 .img-replace {
   display: inline-block;
   overflow: hidden;
@@ -233,13 +275,12 @@ header {
   transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
-/*--------------------Modal Dialog -------------------------------*/
+/*--------------------Modal Dialog -----------------------------------------------------------------------------------*/
 .rd-modal__dialog {
   position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	text-align: center;
 
   flex: 0 1 330px;
 	max-width: 400px;
@@ -300,7 +341,7 @@ header {
     margin: 8em auto;
   }
 }
-/*-------------------- Modal Dialog Action -------------------------------*/
+/*-------------------- Modal Dialog Action ---------------------------------------------------------------------------*/
 .rd-modal__action {
 	font-weight: bold;
 	margin: auto 3em 2em 3em;
@@ -322,8 +363,9 @@ header {
 	background-color: #40C9A2;
 }
 
-/*--------------------  Modal Dialog Header -------------------------------*/
+/*--------------------  Modal Dialog Header --------------------------------------------------------------------------*/
 .rd-modal__header {
+  text-align: center;
 	border-radius: 10px 10px 0 0;
 	padding: 4em 0 4em;
 	position: relative;
@@ -335,7 +377,7 @@ header {
   font-size: 1.5em;
 }
 
-/* ------------------ Input fields ---------------------------------*/
+/* ------------------ Input fields -----------------------------------------------------------------------------------*/
 .input {
 	position: relative;
 	z-index: 1;
@@ -389,7 +431,7 @@ header {
 	width: 100%;
 }
 
-/* ------------------ Input fields, Hoshi ---------------------------------*/
+/* ------------------ Input fields, Hoshi ----------------------------------------------------------------------------*/
 .input--hoshi {
 	overflow: hidden;
 }
