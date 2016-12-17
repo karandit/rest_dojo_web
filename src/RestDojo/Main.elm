@@ -27,7 +27,7 @@ main =
         { init = initModel
         , update = update
         , view = view
-        , subscriptions = \_ -> authentications LoggedIn
+        , subscriptions = \_ -> authentications AuthenticatedAs
         }
 
 
@@ -56,10 +56,13 @@ getRoute location =
 port chart : ChartInput -> Cmd msg
 
 
-port auth0 : String -> Cmd msg
+port login : () -> Cmd msg
 
 
-port authentications : (User -> msg) -> Sub msg
+port logout : () -> Cmd msg
+
+
+port authentications : (Maybe User -> msg) -> Sub msg
 
 
 mapToChartInput : PointHistory -> ChartInput
@@ -255,10 +258,13 @@ update msg model =
             model ! [ loadGame dojo gameUrl ]
 
         LoginPushed ->
-            model ! [ auth0 "test" ]
+            model ! [ login () ]
 
-        LoggedIn loggeduser ->
-            { model | user = Just loggeduser } ! []
+        LogoutPushed ->
+            model ! [ logout () ]
+
+        AuthenticatedAs newUser ->
+            { model | user = newUser } ! []
 
         ShowEditTeamDialog oldDojo team ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Just (EditTeamDialog team.id) }) model.dojos } ! []

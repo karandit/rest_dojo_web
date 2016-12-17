@@ -23,8 +23,14 @@ app.ports.chart.subscribe(function(data) {
   waitForElement('#chartPoints', attachChart, data);
 });
 
-app.ports.auth0.subscribe(function(data) {
+app.ports.login.subscribe(function() {
   lock.show();
+});
+
+app.ports.logout.subscribe(function() {
+  localStorage.removeItem('idToken');
+  localStorage.removeItem('userProfile');
+  app.ports.authentications.send(null);
 });
 
 // ----------------------------------- ChartJs -------------------------------------------------------------------------

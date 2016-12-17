@@ -3,7 +3,7 @@
  - General
 
   * ~~Add notifications support~~
-  * Log out
+  * ~~Log out~~
   * ~~Log in automatically from localstorage~~
   * Support Bitbucket
 

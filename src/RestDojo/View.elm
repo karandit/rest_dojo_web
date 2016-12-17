@@ -88,7 +88,7 @@ viewLogin : Model -> Html Msg
 viewLogin model =
     case model.user of
         Just loggedUser ->
-            img [ class "rd-login rd-avatar", src loggedUser.picture ] []
+            img [ class "rd-login rd-avatar", onClick LogoutPushed, src loggedUser.picture ] []
 
         Nothing ->
             span [ class "rd-login rd__button", onClick LoginPushed ] [ text "Log in with Github" ]

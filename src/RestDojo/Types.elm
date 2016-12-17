@@ -154,7 +154,8 @@ type Msg
     | SelectDojo Dojo
     | SelectGame Dojo GameUrl
     | LoginPushed
-    | LoggedIn User
+    | LogoutPushed
+    | AuthenticatedAs (Maybe User)
     | ShowEditTeamDialog Dojo Team
     | ShowCreateTeamDialog Dojo
     | ShowJoinTeamDialog Dojo Team
