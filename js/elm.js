@@ -11458,9 +11458,10 @@ var _user$project$RestDojo_Types$ShowEditTeamDialog = F2(
 	function (a, b) {
 		return {ctor: 'ShowEditTeamDialog', _0: a, _1: b};
 	});
-var _user$project$RestDojo_Types$LoggedIn = function (a) {
-	return {ctor: 'LoggedIn', _0: a};
+var _user$project$RestDojo_Types$AuthenticatedAs = function (a) {
+	return {ctor: 'AuthenticatedAs', _0: a};
 };
+var _user$project$RestDojo_Types$LogoutPushed = {ctor: 'LogoutPushed'};
 var _user$project$RestDojo_Types$LoginPushed = {ctor: 'LoginPushed'};
 var _user$project$RestDojo_Types$SelectGame = F2(
 	function (a, b) {
@@ -12965,118 +12966,150 @@ var _user$project$RestDojo_ViewDojo$viewJoinTeamDialog = F2(
 	});
 var _user$project$RestDojo_ViewDojo$viewTeamMember = F4(
 	function (iAmCaptain, dojo, team, teamMember) {
-		var yesAndNo = {
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$span,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('rd__button rd__button--small'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(
-							A3(_user$project$RestDojo_Types$AcceptJoinTeam, dojo, team, teamMember)),
-						_1: {ctor: '[]'}
-					}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Yes'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
+		var pending = A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd_warning'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Join request pending...'),
+				_1: {ctor: '[]'}
+			});
+		var yesAndNo = A2(
+			_elm_lang$html$Html$span,
+			{ctor: '[]'},
+			{
 				ctor: '::',
 				_0: A2(
 					_elm_lang$html$Html$span,
-					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(' '),
+						_0: _elm_lang$html$Html_Attributes$class('rd__button rd__button--small'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								A3(_user$project$RestDojo_Types$AcceptJoinTeam, dojo, team, teamMember)),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Yes'),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$span,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('rd__button rd__button--small'),
-							_1: {
+							_0: _elm_lang$html$Html$text(' '),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$span,
+							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(
-									A3(_user$project$RestDojo_Types$DenyJoinTeam, dojo, team, teamMember)),
+								_0: _elm_lang$html$Html_Attributes$class('rd__button rd__button--small'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										A3(_user$project$RestDojo_Types$DenyJoinTeam, dojo, team, teamMember)),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(' No '),
 								_1: {ctor: '[]'}
-							}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+		var imgAndName = A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-teammember-profile'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$img,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd-avatar'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$src(teamMember.picture),
+							_1: {ctor: '[]'}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$span,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('rd-teammember-name'),
+							_1: {ctor: '[]'}
 						},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text(' No '),
+							_0: _elm_lang$html$Html$text(teamMember.fullname),
 							_1: {ctor: '[]'}
 						}),
 					_1: {ctor: '[]'}
 				}
-			}
-		};
-		var imgAndName = {
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$img,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('rd-avatar'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$src(teamMember.picture),
-						_1: {ctor: '[]'}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$span,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(teamMember.fullname),
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
-		};
+			});
 		var divs = function () {
 			var _p11 = {ctor: '_Tuple2', _0: teamMember.status, _1: iAmCaptain};
 			if (_p11._0.ctor === 'Crew') {
-				return imgAndName;
+				return {
+					ctor: '::',
+					_0: imgAndName,
+					_1: {ctor: '[]'}
+				};
 			} else {
 				if (_p11._1 === true) {
-					return A2(_elm_lang$core$Basics_ops['++'], imgAndName, yesAndNo);
-				} else {
-					return A2(
-						_elm_lang$core$Basics_ops['++'],
-						imgAndName,
-						{
+					return {
+						ctor: '::',
+						_0: imgAndName,
+						_1: {
 							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$span,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('rd_warning'),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Join request pending...'),
-									_1: {ctor: '[]'}
-								}),
+							_0: yesAndNo,
 							_1: {ctor: '[]'}
-						});
+						}
+					};
+				} else {
+					return {
+						ctor: '::',
+						_0: imgAndName,
+						_1: {
+							ctor: '::',
+							_0: pending,
+							_1: {ctor: '[]'}
+						}
+					};
 				}
 			}
 		}();
 		return A2(
 			_elm_lang$html$Html$div,
-			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-teammember'),
+				_1: {ctor: '[]'}
+			},
 			divs);
 	});
 var _user$project$RestDojo_ViewDojo$viewShowTeamDialog = F3(
@@ -13407,8 +13440,12 @@ var _user$project$RestDojo_View$viewLogin = function (model) {
 				_0: _elm_lang$html$Html_Attributes$class('rd-login rd-avatar'),
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$src(_p5._0.picture),
-					_1: {ctor: '[]'}
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$RestDojo_Types$LogoutPushed),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$src(_p5._0.picture),
+						_1: {ctor: '[]'}
+					}
 				}
 			},
 			{ctor: '[]'});
@@ -13775,7 +13812,7 @@ var _user$project$RestDojo_Main$initModel = F2(
 				billboard: _user$project$RestDojo_Types$Billboard(''),
 				route: _user$project$RestDojo_Types$HomeRoute,
 				dojos: {ctor: '[]'},
-				user: _elm_lang$core$Maybe$Nothing,
+				user: flags.user,
 				alerts: {ctor: '[]'},
 				nextAlertId: 0
 			},
@@ -13871,10 +13908,15 @@ var _user$project$RestDojo_Main$chart = _elm_lang$core$Native_Platform.outgoingP
 				})
 		};
 	});
-var _user$project$RestDojo_Main$auth0 = _elm_lang$core$Native_Platform.outgoingPort(
-	'auth0',
+var _user$project$RestDojo_Main$login = _elm_lang$core$Native_Platform.outgoingPort(
+	'login',
 	function (v) {
-		return v;
+		return null;
+	});
+var _user$project$RestDojo_Main$logout = _elm_lang$core$Native_Platform.outgoingPort(
+	'logout',
+	function (v) {
+		return null;
 	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
@@ -14224,17 +14266,26 @@ var _user$project$RestDojo_Main$update = F2(
 					model,
 					{
 						ctor: '::',
-						_0: _user$project$RestDojo_Main$auth0('test'),
+						_0: _user$project$RestDojo_Main$login(
+							{ctor: '_Tuple0'}),
 						_1: {ctor: '[]'}
 					});
-			case 'LoggedIn':
+			case 'LogoutPushed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: _user$project$RestDojo_Main$logout(
+							{ctor: '_Tuple0'}),
+						_1: {ctor: '[]'}
+					});
+			case 'AuthenticatedAs':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{
-							user: _elm_lang$core$Maybe$Just(_p7._0)
-						}),
+						{user: _p7._0}),
 					{ctor: '[]'});
 			case 'ShowEditTeamDialog':
 				return A2(
@@ -14356,23 +14407,35 @@ var _user$project$RestDojo_Main$update = F2(
 	});
 var _user$project$RestDojo_Main$authentications = _elm_lang$core$Native_Platform.incomingPort(
 	'authentications',
-	A2(
-		_elm_lang$core$Json_Decode$andThen,
-		function (fullname) {
-			return A2(
-				_elm_lang$core$Json_Decode$andThen,
-				function (picture) {
-					return A2(
+	_elm_lang$core$Json_Decode$oneOf(
+		{
+			ctor: '::',
+			_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$core$Json_Decode$map,
+					_elm_lang$core$Maybe$Just,
+					A2(
 						_elm_lang$core$Json_Decode$andThen,
-						function (name) {
-							return _elm_lang$core$Json_Decode$succeed(
-								{fullname: fullname, picture: picture, name: name});
+						function (fullname) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								function (picture) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (name) {
+											return _elm_lang$core$Json_Decode$succeed(
+												{fullname: fullname, picture: picture, name: name});
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
+								},
+								A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
 						},
-						A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
-				},
-				A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
-		},
-		A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string)));
+						A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string))),
+				_1: {ctor: '[]'}
+			}
+		}));
 var _user$project$RestDojo_Main$main = A2(
 	_elm_lang$navigation$Navigation$programWithFlags,
 	_user$project$RestDojo_Types$UrlChange,
@@ -14381,19 +14444,56 @@ var _user$project$RestDojo_Main$main = A2(
 		update: _user$project$RestDojo_Main$update,
 		view: _user$project$RestDojo_View$view,
 		subscriptions: function (_p14) {
-			return _user$project$RestDojo_Main$authentications(_user$project$RestDojo_Types$LoggedIn);
+			return _user$project$RestDojo_Main$authentications(_user$project$RestDojo_Types$AuthenticatedAs);
 		}
 	})(
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
 		function (baseUrl) {
-			return _elm_lang$core$Json_Decode$succeed(
-				{baseUrl: baseUrl});
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (user) {
+					return _elm_lang$core$Json_Decode$succeed(
+						{baseUrl: baseUrl, user: user});
+				},
+				A2(
+					_elm_lang$core$Json_Decode$field,
+					'user',
+					_elm_lang$core$Json_Decode$oneOf(
+						{
+							ctor: '::',
+							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$core$Json_Decode$map,
+									_elm_lang$core$Maybe$Just,
+									A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (fullname) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (name) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														function (picture) {
+															return _elm_lang$core$Json_Decode$succeed(
+																{fullname: fullname, name: name, picture: picture});
+														},
+														A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string))),
+								_1: {ctor: '[]'}
+							}
+						})));
 		},
 		A2(_elm_lang$core$Json_Decode$field, 'baseUrl', _elm_lang$core$Json_Decode$string)));
-var _user$project$RestDojo_Main$Flags = function (a) {
-	return {baseUrl: a};
-};
+var _user$project$RestDojo_Main$Flags = F2(
+	function (a, b) {
+		return {baseUrl: a, user: b};
+	});
 
 var Elm = {};
 Elm['RestDojo'] = Elm['RestDojo'] || {};

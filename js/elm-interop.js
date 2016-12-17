@@ -1,6 +1,20 @@
 "use strict";
 
-var app = Elm.RestDojo.Main.fullscreen({baseUrl: '/rest_dojo_web/api/billboard.json'});
+var user = null;
+
+var idToken = localStorage.getItem('idToken');
+if (null != idToken) {
+  var storedUserProfile = JSON.parse(localStorage.getItem('userProfile'));
+  if (storedUserProfile.name && storedUserProfile.fullname && storedUserProfile.picture) {
+    user = {
+      name : storedUserProfile.name,
+      fullname : storedUserProfile.fullname,
+      picture : storedUserProfile.picture
+    };
+  }
+}
+
+var app = Elm.RestDojo.Main.fullscreen({baseUrl: '/rest_dojo_web/api/billboard.json', user: user});
 var restdojo_chart = undefined;
 
 // ----------------------------------- Elm ports -----------------------------------------------------------------------
@@ -9,8 +23,14 @@ app.ports.chart.subscribe(function(data) {
   waitForElement('#chartPoints', attachChart, data);
 });
 
-app.ports.auth0.subscribe(function(data) {
+app.ports.login.subscribe(function() {
   lock.show();
+});
+
+app.ports.logout.subscribe(function() {
+  localStorage.removeItem('idToken');
+  localStorage.removeItem('userProfile');
+  app.ports.authentications.send(null);
 });
 
 // ----------------------------------- ChartJs -------------------------------------------------------------------------
@@ -97,10 +117,15 @@ lock.on("authenticated", function(authResult) {
       // Handle error
       return;
     }
-    app.ports.authentications.send({ fullname : profile.name, picture : profile.picture, name : profile.nickname});
 
-
-    // localStorage.setItem('idToken', authResult.idToken);
-    // localStorage.setItem('profile', JSON.stringify(profile));
+    const userProfile = {
+        // idProvider : profile.identities[0].provider,
+        name : profile.nickname,
+        fullname : profile.name,
+        picture : profile.picture
+    };
+    localStorage.setItem('idToken', authResult.idToken);
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    app.ports.authentications.send(userProfile);
   });
 });
