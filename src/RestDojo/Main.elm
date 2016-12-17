@@ -294,7 +294,7 @@ addAlert model err message =
         _ =
             Debug.log ("Error: " ++ message) <| toString err
     in
-        { model | alerts = (Alert model.nextAlertId ("Ouups! " ++ message)) :: model.alerts, nextAlertId = model.nextAlertId + 1 }
+        { model | alerts = model.alerts ++ [ Alert model.nextAlertId ("Ouups! " ++ message) ], nextAlertId = model.nextAlertId + 1 }
 
 
 updateDojo : Int -> (Dojo -> Dojo) -> List Dojo -> List Dojo
