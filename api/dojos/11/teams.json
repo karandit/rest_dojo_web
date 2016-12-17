@@ -51,6 +51,14 @@
         "fullname": "Dániel Zelei",
         "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
         "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/2"
+      },
+      {
+        "id": 3,
+        "status": "crew",
+        "name": "karandit",
+        "fullname": "Kárándi Tamás",
+        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+        "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/3"
       }
     ],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
