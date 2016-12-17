@@ -40,7 +40,26 @@
       "pointHistoryUrl": "http://localhost:3000/points/12"
     }
   ],
-  "members": [],
+  "members": [
+    {
+      "id": 1,
+      "teamId": 15,
+      "status": "entrant",
+      "name": "bali182",
+      "fullname": "Balázs Édes",
+      "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
+      "selfUrl": "http://localhost:3000/members/1"
+    },
+    {
+      "id": 2,
+      "teamId": 15,
+      "status": "entrant",
+      "name": "zeldan",
+      "fullname": "Dániel Zelei",
+      "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
+      "selfUrl": "http://localhost:3000/members/2"
+    }
+  ],
   "teams": [
     {
       "id": 1,
