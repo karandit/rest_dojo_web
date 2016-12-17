@@ -14,7 +14,6 @@ app.ports.auth0.subscribe(function(data) {
 });
 
 // ----------------------------------- ChartJs -------------------------------------------------------------------------
-
 function attachChart(selector, data) {
   var element = document.querySelector(selector);
   if (!element) {

@@ -20,6 +20,16 @@ type Route
     | NotFoundRoute
 
 
+type alias AlertId =
+    Int
+
+
+type alias Alert =
+    { id : AlertId
+    , message : String
+    }
+
+
 type alias DojoId =
     Int
 
@@ -114,6 +124,8 @@ type alias Model =
     , route : Route
     , dojos : List Dojo
     , user : Maybe User
+    , alerts : List Alert
+    , nextAlertId : Int
     }
 
 
@@ -148,3 +160,4 @@ type Msg
     | ShowJoinTeamDialog Dojo Team
     | EditTeamNameInDialog Dojo String
     | CloseTeamDialog Dojo
+    | CloseAlert AlertId

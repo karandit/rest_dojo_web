@@ -81,6 +81,8 @@ initModel flags location =
     , route = HomeRoute
     , dojos = []
     , user = Nothing
+    , alerts = []
+    , nextAlertId = 0
     }
         ! [ loadBillboard flags.baseUrl ]
 
@@ -151,30 +153,51 @@ denyTeamMember dojo team teamMember =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "__msg" msg of
+    case msg of
         LoadBillboard (Ok billboard) ->
             { model | billboard = billboard } ! [ loadDojos billboard.dojosUrl ]
+
+        LoadBillboard (Err err) ->
+            addAlert model err "Couldn't load billboard" ! []
 
         LoadDojos (Ok loadedDojos) ->
             { model | dojos = loadedDojos } ! []
 
+        LoadDojos (Err err) ->
+            addAlert model err "Couldn't load dojos" ! []
+
         LoadPointHistory (Ok pointHistory) ->
             model ! [ chart <| mapToChartInput pointHistory ]
+
+        LoadPointHistory (Err err) ->
+            addAlert model err "Couldn't load points" ! []
 
         LoadGame dojo (Ok game) ->
             { model | route = GameRoute dojo.id game } ! []
 
+        LoadGame _ (Err err) ->
+            addAlert model err "Couldn't load game" ! []
+
         LoadTeams oldDojo (Ok loadedTeams) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ loadEvents oldDojo loadedTeams ]
 
+        LoadTeams _ (Err err) ->
+            addAlert model err "Couldn't load teams" ! []
+
         LoadEvents oldDojo (Ok loadedEvents) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | events = loadedEvents }) model.dojos } ! []
+
+        LoadEvents _ (Err err) ->
+            addAlert model err "Couldn't load events" ! []
 
         CreateTeam dojo teamName ->
             model ! (createTeam dojo teamName model.user)
 
         CreatedTeam oldDojo (Ok newTeam) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ], dialog = Nothing }) model.dojos } ! []
+
+        CreatedTeam _ (Err err) ->
+            addAlert model err "Couldn't create team" ! []
 
         JoinTeam dojo team ->
             model ! (joinTeam dojo team model.user)
@@ -185,6 +208,9 @@ update msg model =
                     updateTeam oldTeam.id (\team -> { team | members = team.members ++ [ newTeamMember ] }) dojo.teams
             in
                 { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = addTeamMember dojo, dialog = Nothing }) model.dojos } ! []
+
+        JoinedTeamAsEntrant _ _ (Err err) ->
+            addAlert model err "Couldn't add player to team as entrant" ! []
 
         AcceptJoinTeam dojo team teamMember ->
             model ! (acceptTeamMember dojo team teamMember)
@@ -202,6 +228,9 @@ update msg model =
             in
                 { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = updateTeam_ dojo.teams }) model.dojos } ! []
 
+        JoinedTeamAsCrew _ _ (Err err) ->
+            addAlert model err "Couldn't add player to team" ! []
+
         LeftTeam oldDojo oldTeam deletedTeamMember (Ok ()) ->
             let
                 removeTeamMember =
@@ -211,6 +240,9 @@ update msg model =
                     updateTeam oldTeam.id (\team -> { team | members = removeTeamMember team.members })
             in
                 { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = updateTeam_ dojo.teams }) model.dojos } ! []
+
+        LeftTeam _ _ _ (Err err) ->
+            addAlert model err "Couldn't remove player from team as entrant" ! []
 
         SelectHome ->
             { model | route = HomeRoute } ! []
@@ -242,15 +274,20 @@ update msg model =
         CloseTeamDialog oldDojo ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | dialog = Nothing }) model.dojos } ! []
 
+        CloseAlert alertId ->
+            { model | alerts = List.filter (\alert -> alert.id /= alertId) model.alerts } ! []
+
         UrlChange location ->
             model ! []
 
-        _ ->
-            let
-                _ =
-                    Debug.log "__error" msg
-            in
-                model ! []
+
+addAlert : Model -> Http.Error -> String -> Model
+addAlert model err message =
+    let
+        _ =
+            Debug.log ("Error: " ++ message) <| toString err
+    in
+        { model | alerts = (Alert model.nextAlertId ("Ouups! " ++ message)) :: model.alerts, nextAlertId = model.nextAlertId + 1 }
 
 
 updateDojo : Int -> (Dojo -> Dojo) -> List Dojo -> List Dojo

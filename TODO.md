@@ -2,7 +2,7 @@
 
  - General
 
-  * Add notifications support
+  * ~~Add notifications support~~
   * Log out
   * Log in automatically from session
   * Support Bitbucket

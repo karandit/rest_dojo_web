@@ -1,6 +1,6 @@
 module RestDojo.View exposing (view)
 
-import Html exposing (Html, text, a, button, div, span, img, article, header, hr, h1, h2, section, canvas)
+import Html exposing (Html, text, a, button, div, span, p, strong, img, article, header, hr, h1, h2, section, canvas)
 import Html.Attributes exposing (class, src, id, href)
 import Html.Events exposing (onClick)
 import RestDojo.Types exposing (..)
@@ -18,6 +18,7 @@ view model =
     div []
         [ viewHeader model
         , div [] <| viewContent model
+        , viewAlerts model.alerts
         ]
 
 
@@ -135,3 +136,19 @@ viewContent model =
 viewNotFound : List (Html Msg)
 viewNotFound =
     [ div [] [ text "Not Found" ] ]
+
+
+viewAlerts : List Alert -> Html Msg
+viewAlerts alerts =
+    div [ class "ns-box-cont" ] <|
+        List.map viewAlert alerts
+
+
+viewAlert : Alert -> Html Msg
+viewAlert alert =
+    div [ class "ns-box ns-growl ns-effect-jelly ns-type-warning ns-show" ]
+        [ div [ class "ns-box-inner" ]
+            [ p [] [ text alert.message ]
+            ]
+        , span [ class "ns-close", onClick <| CloseAlert alert.id ] []
+        ]
