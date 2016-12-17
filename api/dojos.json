@@ -25,5 +25,14 @@
     "teamsUrl": "/rest_dojo_web/api/dojos/11/teams.json",
     "eventsUrl": "/rest_dojo_web/api/dojos/11/events.json",
     "pointHistoryUrl": "/rest_dojo_web/api/dojos/11/points.json"
+  },
+  {
+    "id": 12,
+    "label": "2016-12-13 Luca",
+    "state": "running",
+    "dojoType": "cluedo",
+    "teamsUrl": "/rest_dojo_web/api/dojos/12/teams.json",
+    "eventsUrl": "/rest_dojo_web/api/dojos/12/events.json",
+    "pointHistoryUrl": "/rest_dojo_web/api/dojos/12/points.json"
   }
 ]
