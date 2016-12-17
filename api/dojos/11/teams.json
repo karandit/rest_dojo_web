@@ -9,6 +9,7 @@
       "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
       "status": "crew"
     },
+    "members": [],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
   },
   { "id": 2,
@@ -21,6 +22,7 @@
       "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
       "status": "crew"
     },
+    "members": [],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
   },
   { "id": 3,
@@ -33,6 +35,24 @@
       "picture": "https://avatars.githubusercontent.com/u/6839377?v=3",
       "status": "crew"
     },
+    "members": [
+      {
+        "id": 1,
+        "status": "entrant",
+        "name": "bali182",
+        "fullname": "Balázs Édes",
+        "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/1"
+      },
+      {
+        "id": 2,
+        "status": "entrant",
+        "name": "zeldan",
+        "fullname": "Dániel Zelei",
+        "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
+        "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/2"
+      }
+    ],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
   },
   { "id": 4,
@@ -45,6 +65,7 @@
       "picture": "https://avatars.githubusercontent.com/u/5434245?v=3",
       "status": "crew"
     },
+    "members": [],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
   },
   { "id": 5,
@@ -57,6 +78,7 @@
       "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
       "status": "crew"
     },
+    "members": [],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
   },
   { "id": 6,
@@ -69,6 +91,7 @@
       "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
       "status": "crew"
     },
+    "members": [],
     "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
   }
 ]
