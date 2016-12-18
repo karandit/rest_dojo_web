@@ -5,11 +5,12 @@ var user = null;
 var idToken = localStorage.getItem('idToken');
 if (null != idToken) {
   var storedUserProfile = JSON.parse(localStorage.getItem('userProfile'));
-  if (storedUserProfile.name && storedUserProfile.fullname && storedUserProfile.picture) {
+  if (storedUserProfile.name && storedUserProfile.fullname && storedUserProfile.picture && storedUserProfile.idProvider) {
     user = {
       name : storedUserProfile.name,
       fullname : storedUserProfile.fullname,
-      picture : storedUserProfile.picture
+      picture : storedUserProfile.picture,
+      idProvider : storedUserProfile.idProvider
     };
   }
 }
@@ -101,7 +102,7 @@ var lock = new Auth0Lock(
   'XOYewkKtWXKkfUCik80F1866hoSJaIgF',
   'karandit.auth0.com',
   {
-    allowedConnections: ['github'],
+    allowedConnections: ['github', 'bitbucket'],
     auth: {
       redirect: false,
       responseType: 'token'
@@ -119,7 +120,7 @@ lock.on("authenticated", function(authResult) {
     }
 
     const userProfile = {
-        // idProvider : profile.identities[0].provider,
+        idProvider : profile.identities[0].provider,
         name : profile.nickname,
         fullname : profile.name,
         picture : profile.picture

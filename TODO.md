@@ -15,3 +15,15 @@
 - Cluedo
 
   * Display the rounds on the right side
+
+
+## Backend alternatives
+
+https://github.com/relatedcode/ParseAlternatives
+
+- https://www.back4app.com/pricing
+- https://www.backand.com/pricing/
+- https://backendless.com/pricing/
+- https://www.cloudboost.io/pricing
+- https://cosmicjs.com/pricing
+- https://www.kinvey.com/pricing/

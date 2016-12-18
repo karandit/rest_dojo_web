@@ -91,7 +91,7 @@ viewLogin model =
             img [ class "rd-login rd-avatar", onClick LogoutPushed, src loggedUser.picture ] []
 
         Nothing ->
-            span [ class "rd-login rd__button", onClick LoginPushed ] [ text "Log in with Github" ]
+            span [ class "rd-login rd__button", onClick LoginPushed ] [ text "Log in" ]
 
 
 viewContent : Model -> List (Html Msg)

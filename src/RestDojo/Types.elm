@@ -10,6 +10,7 @@ type alias User =
     { fullname : String
     , picture : String
     , name : String
+    , idProvider : String
     }
 
 
