@@ -261,6 +261,49 @@ header {
   align-items: center;
 }
 
+/*------------- Cluedo  ----------------------------------------------------------------------------------------------*/
+.rd-cluedo {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.rd-cluedo-panel {
+  padding: 10px;
+  margin: 1px;
+  background: #262c37;
+  flex: 1;
+}
+
+.rd-cluedo-rounds {
+  flex: 2.4;
+}
+
+.rd-cluedo-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: end;
+}
+
+.rd-cluedo-round {
+  padding: 10px;
+  border-bottom: 1px solid #383e4c;
+}
+
+.rd-cluedo-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rd-cluedo-item-label {
+  background-color: #000;
+  padding: 3px 10px 3px 10px;
+  border-radius: 8px;
+}
+
 /*------------- Modal ------------------------------------------------------------------------------------------------*/
 .img-replace {
   display: inline-block;

@@ -11350,9 +11350,9 @@ var _user$project$RestDojo_Minesweeper_MinesweeperTypes$minesweeperGameDecoder =
 	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
 	A2(_elm_lang$core$Json_Decode$field, 'board', _elm_lang$core$Json_Decode$string));
 
-var _user$project$RestDojo_Types$User = F3(
-	function (a, b, c) {
-		return {fullname: a, picture: b, name: c};
+var _user$project$RestDojo_Types$User = F4(
+	function (a, b, c, d) {
+		return {fullname: a, picture: b, name: c, idProvider: d};
 	});
 var _user$project$RestDojo_Types$Alert = F2(
 	function (a, b) {
@@ -11876,52 +11876,134 @@ var _user$project$RestDojo_Util$avatar = function (name) {
 var _user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize = F3(
 	function (w, h, cardName) {
 		return A2(
-			_elm_lang$html$Html$img,
+			_elm_lang$html$Html$span,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$src(
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'img/cards/',
-						A2(_elm_lang$core$Basics_ops['++'], cardName, '.png'))),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$width(w),
-					_1: {
+				_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-item'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$img,
+					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$height(h),
+						_0: _elm_lang$html$Html_Attributes$src(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'img/cards/',
+								A2(_elm_lang$core$Basics_ops['++'], cardName, '.png'))),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$title(cardName),
-							_1: {ctor: '[]'}
+							_0: _elm_lang$html$Html_Attributes$width(w),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$height(h),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$title(cardName),
+									_1: {ctor: '[]'}
+								}
+							}
 						}
-					}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$strong,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-item-label'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(cardName),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
 				}
-			},
-			{ctor: '[]'});
+			});
 	});
 var _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall = A2(_user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize, 80, 100);
 var _user$project$RestDojo_Cluedo_CluedoView$viewCard = A2(_user$project$RestDojo_Cluedo_CluedoView$viewCardWithSize, 144, 180);
-var _user$project$RestDojo_Cluedo_CluedoView$teamImgByName = function (teamName) {
-	var avatarAttr = {
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$src(
-			_user$project$RestDojo_Util$avatar(teamName)),
-		_1: {
+var _user$project$RestDojo_Cluedo_CluedoView$teamImgByName = F2(
+	function (teamName, secondLabel) {
+		var secondStrong = A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '[]'},
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (lbl) {
+					return {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$strong,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-item-label'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									_elm_lang$core$String$toLower(
+										_elm_lang$core$Basics$toString(lbl))),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					};
+				},
+				secondLabel));
+		var avatarAttr = {
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('rd-team-avatar'),
+			_0: _elm_lang$html$Html_Attributes$src(
+				_user$project$RestDojo_Util$avatar(teamName)),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$title(teamName),
-				_1: {ctor: '[]'}
+				_0: _elm_lang$html$Html_Attributes$class('rd-team-avatar'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$title(teamName),
+					_1: {ctor: '[]'}
+				}
 			}
-		}
-	};
-	return A2(
-		_elm_lang$html$Html$img,
-		avatarAttr,
-		{ctor: '[]'});
-};
+		};
+		return A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-item'),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$img,
+						avatarAttr,
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$strong,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-item-label'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(teamName),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				},
+				secondStrong));
+	});
 var _user$project$RestDojo_Cluedo_CluedoView$viewBot = function (bot) {
 	var allBotCards = A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -11933,10 +12015,14 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewBot = function (bot) {
 	var cardImgs = A2(_elm_lang$core$List$map, _user$project$RestDojo_Cluedo_CluedoView$viewCardSmall, allBotCards);
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _user$project$RestDojo_Cluedo_CluedoView$teamImgByName(bot.teamName),
+			_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-cards'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(_user$project$RestDojo_Cluedo_CluedoView$teamImgByName, bot.teamName, _elm_lang$core$Maybe$Nothing),
 			_1: cardImgs
 		});
 };
@@ -11966,6 +12052,19 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize = F2(
 			});
 	});
 var _user$project$RestDojo_Cluedo_CluedoView$viewQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize(_user$project$RestDojo_Cluedo_CluedoView$viewCardSmall);
+var _user$project$RestDojo_Cluedo_CluedoView$viewSecret = function (question) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-cards'),
+			_1: {ctor: '[]'}
+		},
+		A2(_user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize, _user$project$RestDojo_Cluedo_CluedoView$viewCard, question));
+};
+var _user$project$RestDojo_Cluedo_CluedoView$Answered = {ctor: 'Answered'};
+var _user$project$RestDojo_Cluedo_CluedoView$Accused = {ctor: 'Accused'};
+var _user$project$RestDojo_Cluedo_CluedoView$Asked = {ctor: 'Asked'};
 var _user$project$RestDojo_Cluedo_CluedoView$viewRound = function (_p0) {
 	var _p1 = _p0;
 	var _p5 = _p1._1;
@@ -11974,7 +12073,10 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewRound = function (_p0) {
 			_elm_lang$core$Basics_ops['++'],
 			{
 				ctor: '::',
-				_0: _user$project$RestDojo_Cluedo_CluedoView$teamImgByName(answered.by),
+				_0: A2(
+					_user$project$RestDojo_Cluedo_CluedoView$teamImgByName,
+					answered.by,
+					_elm_lang$core$Maybe$Just(_user$project$RestDojo_Cluedo_CluedoView$Answered)),
 				_1: {ctor: '[]'}
 			},
 			{
@@ -11991,41 +12093,59 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewRound = function (_p0) {
 		} else {
 			return {
 				ctor: '::',
-				_0: _elm_lang$html$Html$text(
-					_elm_lang$core$Basics$toString(_p2._0.answer)),
+				_0: A2(
+					_elm_lang$html$Html$strong,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-item-label'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(_p2._0.answer)),
+						_1: {ctor: '[]'}
+					}),
 				_1: {ctor: '[]'}
 			};
 		}
 	}();
-	var asked = function () {
+	var secLabel = function () {
 		var _p3 = _p5;
 		if (_p3.ctor === 'Interrogate') {
-			return _p3._0.asked;
+			return _user$project$RestDojo_Cluedo_CluedoView$Asked;
 		} else {
-			return _p3._0.asked;
+			return _user$project$RestDojo_Cluedo_CluedoView$Accused;
 		}
 	}();
-	var askedBy = _user$project$RestDojo_Cluedo_CluedoView$teamImgByName(asked.by);
-	var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(asked.question);
-	var roundType = function () {
+	var asked = function () {
 		var _p4 = _p5;
 		if (_p4.ctor === 'Interrogate') {
-			return 'Asked #';
+			return _p4._0.asked;
 		} else {
-			return 'Accused #';
+			return _p4._0.asked;
 		}
 	}();
+	var askedBy = A2(
+		_user$project$RestDojo_Cluedo_CluedoView$teamImgByName,
+		asked.by,
+		_elm_lang$core$Maybe$Just(secLabel));
+	var askedQuestion = _user$project$RestDojo_Cluedo_CluedoView$viewQuestion(asked.question);
 	var roundLabel = _elm_lang$html$Html$text(
 		A2(
 			F2(
 				function (x, y) {
 					return A2(_elm_lang$core$Basics_ops['++'], x, y);
 				}),
-			roundType,
+			'#',
 			_elm_lang$core$Basics$toString(_p1._0 + 1)));
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-round rd-cluedo-cards'),
+			_1: {ctor: '[]'}
+		},
 		A2(
 			_elm_lang$core$Basics_ops['++'],
 			{
@@ -12054,33 +12174,86 @@ var _user$project$RestDojo_Cluedo_CluedoView$viewRounds = function (rounds) {
 					}),
 				rounds)));
 };
-var _user$project$RestDojo_Cluedo_CluedoView$viewSecret = function (question) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		A2(_user$project$RestDojo_Cluedo_CluedoView$viewQuestionWithSize, _user$project$RestDojo_Cluedo_CluedoView$viewCard, question));
-};
 var _user$project$RestDojo_Cluedo_CluedoView$view = F2(
 	function (dojo, game) {
 		return {
 			ctor: '::',
-			_0: _user$project$RestDojo_Cluedo_CluedoView$viewSecret(game.secret),
-			_1: {
-				ctor: '::',
-				_0: _user$project$RestDojo_Cluedo_CluedoView$viewBots(game.bots),
-				_1: {
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('rd-cluedo'),
+					_1: {ctor: '[]'}
+				},
+				{
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$hr,
-						{ctor: '[]'},
-						{ctor: '[]'}),
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-panel'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$h2,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Secret'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: _user$project$RestDojo_Cluedo_CluedoView$viewSecret(game.secret),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$h2,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Cards in hands'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: _user$project$RestDojo_Cluedo_CluedoView$viewBots(game.bots),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}),
 					_1: {
 						ctor: '::',
-						_0: _user$project$RestDojo_Cluedo_CluedoView$viewRounds(game.rounds),
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('rd-cluedo-panel rd-cluedo-rounds'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h2,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Rounds'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: _user$project$RestDojo_Cluedo_CluedoView$viewRounds(game.rounds),
+									_1: {ctor: '[]'}
+								}
+							}),
 						_1: {ctor: '[]'}
 					}
-				}
-			}
+				}),
+			_1: {ctor: '[]'}
 		};
 	});
 
@@ -13463,7 +13636,7 @@ var _user$project$RestDojo_View$viewLogin = function (model) {
 			},
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html$text('Log in with Github'),
+				_0: _elm_lang$html$Html$text('Log in'),
 				_1: {ctor: '[]'}
 			});
 	}
@@ -13701,14 +13874,17 @@ var _user$project$RestDojo_Main$addAlert = F3(
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{
-				alerts: {
-					ctor: '::',
-					_0: A2(
-						_user$project$RestDojo_Types$Alert,
-						model.nextAlertId,
-						A2(_elm_lang$core$Basics_ops['++'], 'Ouups! ', message)),
-					_1: model.alerts
-				},
+				alerts: A2(
+					_elm_lang$core$Basics_ops['++'],
+					model.alerts,
+					{
+						ctor: '::',
+						_0: A2(
+							_user$project$RestDojo_Types$Alert,
+							model.nextAlertId,
+							A2(_elm_lang$core$Basics_ops['++'], 'Ouups! ', message)),
+						_1: {ctor: '[]'}
+					}),
 				nextAlertId: model.nextAlertId + 1
 			});
 	});
@@ -14425,8 +14601,13 @@ var _user$project$RestDojo_Main$authentications = _elm_lang$core$Native_Platform
 									return A2(
 										_elm_lang$core$Json_Decode$andThen,
 										function (name) {
-											return _elm_lang$core$Json_Decode$succeed(
-												{fullname: fullname, picture: picture, name: name});
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (idProvider) {
+													return _elm_lang$core$Json_Decode$succeed(
+														{fullname: fullname, picture: picture, name: name, idProvider: idProvider});
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'idProvider', _elm_lang$core$Json_Decode$string));
 										},
 										A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
 								},
@@ -14473,16 +14654,21 @@ var _user$project$RestDojo_Main$main = A2(
 										function (fullname) {
 											return A2(
 												_elm_lang$core$Json_Decode$andThen,
-												function (name) {
+												function (idProvider) {
 													return A2(
 														_elm_lang$core$Json_Decode$andThen,
-														function (picture) {
-															return _elm_lang$core$Json_Decode$succeed(
-																{fullname: fullname, name: name, picture: picture});
+														function (name) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																function (picture) {
+																	return _elm_lang$core$Json_Decode$succeed(
+																		{fullname: fullname, idProvider: idProvider, name: name, picture: picture});
+																},
+																A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
 														},
-														A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
+														A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
 												},
-												A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
+												A2(_elm_lang$core$Json_Decode$field, 'idProvider', _elm_lang$core$Json_Decode$string));
 										},
 										A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string))),
 								_1: {ctor: '[]'}
