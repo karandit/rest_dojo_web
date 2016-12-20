@@ -55,7 +55,7 @@
     ]
   },
   {
-    "accused": {"by": "Charlie", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
+    "accused": {"by": "Charlie", "question": {"weapon": "Revolver", "location" : "Kitchen", "person" : "ColMustard"}},
     "answer": true
   }
 ]
