@@ -1,6 +1,6 @@
 module RestDojo.Cluedo.CluedoView exposing (view)
 
-import Html exposing (Html, text, div, span, article, hr, img)
+import Html exposing (Html, text, div, span, article, h2, hr, img, strong)
 import Html.Attributes exposing (class, title, src, width, height)
 import RestDojo.Cluedo.CluedoTypes exposing (..)
 import RestDojo.Types exposing (..)
@@ -9,16 +9,24 @@ import RestDojo.Util exposing (..)
 
 view : Dojo -> CluedoGame -> List (Html Msg)
 view dojo game =
-    [ viewSecret game.secret
-    , viewBots game.bots
-    , hr [] []
-    , viewRounds game.rounds
+    [ div [ class "rd-cluedo" ]
+        [ div [ class "rd-cluedo-panel" ]
+            [ h2 [] [ text "Secret" ]
+            , viewSecret game.secret
+            , h2 [] [ text "Cards in hands" ]
+            , viewBots game.bots
+            ]
+        , div [ class "rd-cluedo-panel rd-cluedo-rounds" ]
+            [ h2 [] [ text "Rounds" ]
+            , viewRounds game.rounds
+            ]
+        ]
     ]
 
 
 viewSecret : Question -> Html Msg
 viewSecret question =
-    div [] <| viewQuestionWithSize viewCard question
+    div [ class "rd-cluedo-cards" ] <| viewQuestionWithSize viewCard question
 
 
 viewQuestion : Question -> List (Html Msg)
@@ -45,18 +53,31 @@ viewBot bot =
         cardImgs =
             List.map viewCardSmall allBotCards
     in
-        div [] <| (teamImgByName bot.teamName) :: cardImgs
+        div [ class "rd-cluedo-cards" ] <| (teamImgByName bot.teamName Nothing) :: cardImgs
 
 
-teamImgByName teamName =
+type SecondLabel
+    = Asked
+    | Accused
+    | Answered
+
+
+teamImgByName : String -> Maybe SecondLabel -> Html Msg
+teamImgByName teamName secondLabel =
     let
         avatarAttr =
-            [ src <| avatar teamName
-            , class "rd-team-avatar"
-            , title teamName
-            ]
+            [ src <| avatar teamName, class "rd-team-avatar", title teamName ]
+
+        secondStrong =
+            secondLabel
+                |> Maybe.map (\lbl -> [ strong [ class "rd-cluedo-item-label" ] [ text <| String.toLower <| toString lbl ] ])
+                |> Maybe.withDefault []
     in
-        img avatarAttr []
+        span [ class "rd-cluedo-item" ] <|
+            [ img avatarAttr []
+            , strong [ class "rd-cluedo-item-label" ] [ text teamName ]
+            ]
+                ++ secondStrong
 
 
 viewRounds : List Round -> Html Msg
@@ -67,16 +88,8 @@ viewRounds rounds =
 viewRound : ( Int, Round ) -> Html Msg
 viewRound ( idx, round ) =
     let
-        roundType =
-            case round of
-                Interrogate _ ->
-                    "Asked #"
-
-                Accuse _ ->
-                    "Accused #"
-
         roundLabel =
-            text <| (++) roundType <| toString <| idx + 1
+            text <| (++) "#" <| toString <| idx + 1
 
         asked =
             case round of
@@ -86,14 +99,22 @@ viewRound ( idx, round ) =
                 Accuse accusation ->
                     accusation.asked
 
+        secLabel =
+            case round of
+                Interrogate _ ->
+                    Asked
+
+                Accuse _ ->
+                    Accused
+
         askedBy =
-            teamImgByName asked.by
+            teamImgByName asked.by <| Just secLabel
 
         askedQuestion =
             viewQuestion asked.question
 
         answeredBy answered =
-            [ teamImgByName answered.by ] ++ [ viewCardSmall <| Maybe.withDefault "None" answered.answer ]
+            [ teamImgByName answered.by <| Just Answered ] ++ [ viewCardSmall <| Maybe.withDefault "None" answered.answer ]
 
         answers =
             case round of
@@ -101,9 +122,9 @@ viewRound ( idx, round ) =
                     List.concatMap answeredBy interrogation.answered
 
                 Accuse accusation ->
-                    [ text <| toString accusation.answer ]
+                    [ strong [ class "rd-cluedo-item-label" ] [ text <| toString accusation.answer ] ]
     in
-        div [] <| [ roundLabel, askedBy ] ++ askedQuestion ++ answers
+        div [ class "rd-cluedo-round rd-cluedo-cards" ] <| [ roundLabel, askedBy ] ++ askedQuestion ++ answers
 
 
 viewCard : String -> Html Msg
@@ -118,4 +139,7 @@ viewCardSmall =
 
 viewCardWithSize : Int -> Int -> String -> Html Msg
 viewCardWithSize w h cardName =
-    img [ src <| "img/cards/" ++ cardName ++ ".png", width w, height h, title cardName ] []
+    span [ class "rd-cluedo-item" ]
+        [ img [ src <| "img/cards/" ++ cardName ++ ".png", width w, height h, title cardName ] []
+        , strong [ class "rd-cluedo-item-label" ] [ text cardName ]
+        ]

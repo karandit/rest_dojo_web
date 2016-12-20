@@ -730,9 +730,9 @@
           "accused": {
             "by": "Charlie",
             "question": {
-              "weapon": "Poker",
-              "location": "Studio",
-              "person": "RevGreen"
+              "weapon": "Revolver",
+              "location": "Kitchen",
+              "person": "ColMustard"
             }
           },
           "answer": true

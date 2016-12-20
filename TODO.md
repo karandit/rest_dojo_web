@@ -14,7 +14,9 @@
 
 - Cluedo
 
-  * Display the rounds on the right side
+  * ~~Display the rounds on the right side~~
+  * Display in a nicer way the round number
+  * The team labels and card labels are not aligned at the bottom for some reason
 
 
 ## Backend alternatives
