@@ -302,7 +302,7 @@ updateDojo dojoId updater dojos =
     updateXXX (\dojo -> dojo.id == dojoId) updater dojos
 
 
-updateTeam : Int -> (Team -> Team) -> List Team -> List Team
+updateTeam : TeamId -> (Team -> Team) -> List Team -> List Team
 updateTeam teamId updater teams =
     updateXXX (\team -> team.id == teamId) updater teams
 

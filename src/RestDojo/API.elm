@@ -62,7 +62,8 @@ postJoinTeam url team user =
     let
         body =
             JsonEnc.object
-                [ ( "teamId", JsonEnc.int team.id )
+                [ ( "teamId", JsonEnc.string team.id )
+                  --TODO: after changing id from int to string we can't use teamId, weneed real url
                 , ( "status", JsonEnc.string "entrant" )
                 , ( "name", JsonEnc.string user.name )
                 , ( "fullname", JsonEnc.string user.fullname )
@@ -243,7 +244,7 @@ teamMemberDecoder =
 teamDecoder : Decoder Team
 teamDecoder =
     Json.map7 Team
-        (Json.field "id" Json.int)
+        (Json.field "objectId" Json.string)
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
@@ -268,7 +269,7 @@ eventsDecoder teamsByTeamId =
         Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId)) <|
             Json.map2 (,)
                 (Json.field "gameUrl" Json.string)
-                (Json.field "gameWonBy" Json.int)
+                (Json.field "gameWonBy" Json.string)
 
 
 gameDecoder : Dojo -> Decoder Game

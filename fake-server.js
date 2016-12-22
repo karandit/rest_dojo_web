@@ -37,6 +37,7 @@ router.render = (req, res) => {
     if (urlParts[0] === 'teams') {
       var teams = res.locals.data;
       teams.forEach(team => {
+        team.objectId = team.id.toString();
         if (team.members) {
           team.members.forEach(teamMember => {
             teamMember.selfUrl = "http://localhost:3000/members/" + teamMember.id;

@@ -67,7 +67,7 @@ type alias Dojo =
 
 
 type alias TeamId =
-    Int
+    String
 
 
 type TeamMemberStatus

@@ -148,8 +148,10 @@ teamNumber : Team -> String
 teamNumber team =
     let
         mod6 =
-            team.id % 6
+            1
 
+        -- TODO: due chnaging from int to strng we can't divide the id, something else is needed
+        -- team.id % 6
         m1to6 =
             if mod6 == 0 then
                 6
