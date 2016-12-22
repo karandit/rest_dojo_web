@@ -581,12 +581,12 @@
   ],
   "events": [
     {
-      "gameWonBy": 1,
+      "gameWonBy": "1",
       "dojoId": 8,
       "gameUrl": "http://localhost:3000/games/801"
     },
     {
-      "gameWonBy": 1,
+      "gameWonBy": "1",
       "dojoId": 9,
       "gameUrl": "http://localhost:3000/games/901"
     }

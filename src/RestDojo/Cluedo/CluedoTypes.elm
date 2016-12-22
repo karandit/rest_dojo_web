@@ -87,7 +87,7 @@ type alias Accusation =
 
 
 type alias GameId =
-    Int
+    String
 
 
 type alias CluedoGame =
@@ -216,7 +216,7 @@ askedDecoder =
 cluedoGameDecoder : Decoder CluedoGame
 cluedoGameDecoder =
     Json.map4 CluedoGame
-        (Json.field "id" Json.int)
+        (Json.field "objectId" Json.string)
         (Json.field "secret" questionDecoder)
         (Json.field "bots" <|
             Json.list
