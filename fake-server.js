@@ -47,7 +47,21 @@ router.render = (req, res) => {
       res.jsonp(teams)
       handled = true;
     }
-  }
+
+    if (urlParts[0] === 'dojos') {
+      var dojos = res.locals.data;
+      dojos.forEach(dojo => {
+        dojo.objectId = dojo.id.toString();
+      });
+
+      res.jsonp(dojos)
+      handled = true;
+    }
+
+
+
+
+  } //if (req.method === 'GET')
 
   if (!handled) {
     res.jsonp(res.locals.data)

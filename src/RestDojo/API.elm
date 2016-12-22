@@ -149,7 +149,7 @@ dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
     Json.list <|
         Json.map7 (Dojo [] [] Nothing)
-            (Json.field "id" Json.int)
+            (Json.field "objectId" Json.string)
             (Json.field "label" Json.string)
             (Json.field "state" dojoStateDecoder)
             (Json.field "dojoType" dojoTypeDecoder)

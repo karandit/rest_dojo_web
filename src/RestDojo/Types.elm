@@ -32,7 +32,7 @@ type alias Alert =
 
 
 type alias DojoId =
-    Int
+    String
 
 
 type DojoState

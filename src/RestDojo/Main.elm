@@ -9,7 +9,7 @@ import RestDojo.API as API exposing (..)
 import RestDojo.View exposing (..)
 import RestDojo.Chartjs exposing (..)
 import List.Extra
-import UrlParser as Url exposing ((</>), s, int, top)
+import UrlParser as Url exposing ((</>), s, string, top)
 
 
 -- MAIN ----------------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ parser : Url.Parser (Route -> a) a
 parser =
     Url.oneOf
         [ Url.map HomeRoute top
-        , Url.map DojoRoute (s "dojos" </> int)
+        , Url.map DojoRoute (s "dojos" </> string)
         ]
 
 
@@ -297,7 +297,7 @@ addAlert model err message =
         { model | alerts = model.alerts ++ [ Alert model.nextAlertId ("Ouups! " ++ message) ], nextAlertId = model.nextAlertId + 1 }
 
 
-updateDojo : Int -> (Dojo -> Dojo) -> List Dojo -> List Dojo
+updateDojo : DojoId -> (Dojo -> Dojo) -> List Dojo -> List Dojo
 updateDojo dojoId updater dojos =
     updateXXX (\dojo -> dojo.id == dojoId) updater dojos
 
