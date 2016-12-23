@@ -274,7 +274,8 @@ teamDecoder =
 
 teamsDecoder : Decoder (List Team)
 teamsDecoder =
-    Json.list teamDecoder
+    Json.field "data" <|
+        Json.list teamDecoder
 
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)

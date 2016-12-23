@@ -45,7 +45,11 @@ router.render = (req, res) => {
         }
       });
 
-      res.jsonp(teams)
+      var wrapper = {
+        data: teams
+      }
+
+      res.jsonp(wrapper)
       handled = true;
     }
 
