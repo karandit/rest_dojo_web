@@ -26,12 +26,12 @@ import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
 
 getBillboard : String -> Request Billboard
 getBillboard url =
-    Http.get url billboardDecoder
+    get url billboardDecoder
 
 
 getDojos : String -> Request (List Dojo)
 getDojos url =
-    Http.get url dojosDecoder
+    get url dojosDecoder
 
 
 getTeams : String -> Request (List Team)
@@ -110,6 +110,19 @@ getGame url dojo =
 -- HTTP helpers --------------------------------------------------------------------------------------------------------
 
 
+get : String -> Decoder a -> Request a
+get url decoder =
+    Http.request
+        { method = "GET"
+        , headers = []
+        , url = url
+        , body = Http.emptyBody
+        , expect = Http.expectJson decoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+
+
 patch : String -> Body -> Decoder a -> Request a
 patch url body decoder =
     Http.request
@@ -148,15 +161,16 @@ billboardDecoder =
 
 dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
-    Json.list <|
-        Json.map7 (Dojo [] [] Nothing)
-            (Json.field "objectId" Json.string)
-            (Json.field "label" Json.string)
-            (Json.field "state" dojoStateDecoder)
-            (Json.field "dojoType" dojoTypeDecoder)
-            (Json.field "teamsUrl" Json.string)
-            (Json.field "eventsUrl" Json.string)
-            (Json.field "pointHistoryUrl" Json.string)
+    Json.field "data" <|
+        Json.list <|
+            Json.map7 (Dojo [] [] Nothing)
+                (Json.field "objectId" Json.string)
+                (Json.field "label" Json.string)
+                (Json.field "state" dojoStateDecoder)
+                (Json.field "dojoType" dojoTypeDecoder)
+                (Json.field "teamsUrl" Json.string)
+                (Json.field "eventsUrl" Json.string)
+                (Json.field "pointHistoryUrl" Json.string)
 
 
 dojoStateDecoder : Json.Decoder DojoState

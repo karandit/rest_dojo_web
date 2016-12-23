@@ -54,8 +54,11 @@ router.render = (req, res) => {
       dojos.forEach(dojo => {
         dojo.objectId = dojo.id.toString();
       });
+      var wrapper = {
+        data: dojos
+      }
 
-      res.jsonp(dojos)
+      res.jsonp(wrapper)
       handled = true;
     }
 
