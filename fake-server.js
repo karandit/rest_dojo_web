@@ -66,6 +66,17 @@ router.render = (req, res) => {
       handled = true;
     }
 
+    if (urlParts[0] === 'events') {
+      var events = res.locals.data;
+
+      var wrapper = {
+        data: events
+      }
+
+      res.jsonp(wrapper)
+      handled = true;
+    }
+
     if (urlParts[0] === 'games') {
       var game = res.locals.data;
       game.objectId = game.id.toString();

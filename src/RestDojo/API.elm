@@ -280,11 +280,12 @@ teamsDecoder =
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)
 eventsDecoder teamsByTeamId =
-    Json.list <|
-        Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId)) <|
-            Json.map2 (,)
-                (Json.field "gameUrl" Json.string)
-                (Json.field "gameWonBy" Json.string)
+    Json.field "data" <|
+        Json.list <|
+            Json.map (\( gameUrl, teamId ) -> GameWonBy gameUrl (Dict.get teamId teamsByTeamId)) <|
+                Json.map2 (,)
+                    (Json.field "gameUrl" Json.string)
+                    (Json.field "gameWonBy" Json.string)
 
 
 gameDecoder : Dojo -> Decoder Game
