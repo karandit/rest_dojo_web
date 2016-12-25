@@ -7,7 +7,7 @@ import Json.Decode as Json exposing (..)
 
 
 type alias MinesweeperGame =
-    { id : Int
+    { id : String
     , board : String
     }
 
@@ -19,5 +19,5 @@ type alias MinesweeperGame =
 minesweeperGameDecoder : Decoder MinesweeperGame
 minesweeperGameDecoder =
     Json.map2 MinesweeperGame
-        (Json.field "id" Json.int)
-        (Json.field "board" Json.string)
+        (Json.field "objectId" Json.string)
+        (Json.field "content" (Json.field "board" Json.string))

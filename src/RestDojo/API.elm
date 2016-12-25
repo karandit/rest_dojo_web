@@ -36,7 +36,7 @@ getDojos url =
 
 getTeams : String -> Request (List Team)
 getTeams url =
-    Http.get url teamsDecoder
+    get url teamsDecoder
 
 
 postNewTeam : String -> String -> User -> Request Team
@@ -89,7 +89,7 @@ deleteDenyTeamMember url =
 
 getPointHistory : String -> Request PointHistory
 getPointHistory url =
-    Http.get url pointHistoryDecoder
+    get url pointHistoryDecoder
 
 
 getEvents : String -> List Team -> Request (List Event)
@@ -98,12 +98,12 @@ getEvents url teams =
         teamsByTeamId =
             Dict.fromList <| List.map (\team -> ( team.id, team )) teams
     in
-        Http.get url (eventsDecoder teamsByTeamId)
+        get url (eventsDecoder teamsByTeamId)
 
 
 getGame : String -> Dojo -> Request Game
 getGame url dojo =
-    Http.get url <| gameDecoder dojo
+    get url <| gameDecoder dojo
 
 
 

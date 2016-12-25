@@ -215,40 +215,45 @@ askedDecoder =
 
 cluedoGameDecoder : Decoder CluedoGame
 cluedoGameDecoder =
-    Json.map4 CluedoGame
-        (Json.field "objectId" Json.string)
-        (Json.field "secret" questionDecoder)
-        (Json.field "bots" <|
-            Json.list
-                (Json.map4
-                    Bot
-                    (Json.field "teamName" Json.string)
-                    (Json.field "persons" <| Json.list personDecoder)
-                    (Json.field "weapons" <| Json.list weaponDecoder)
-                    (Json.field "locations" <| Json.list locationDecoder)
-                )
-        )
-        (Json.field "rounds" <|
-            Json.list
-                (Json.oneOf
-                    [ (Json.map Interrogate
-                        (Json.map2 Interrogation
-                            (Json.field "asked" askedDecoder)
-                            (Json.field "answered" <|
-                                Json.list
-                                    (Json.map2 Answered
-                                        (Json.field "by" Json.string)
-                                        (Json.field "answer" <| Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
-                                    )
+    Json.map (\( objId, ( secret, bots, rounds ) ) -> CluedoGame objId secret bots rounds) <|
+        Json.map2 (,)
+            (Json.field "objectId" Json.string)
+            (Json.field "content"
+                (Json.map3 (,,)
+                    (Json.field "secret" questionDecoder)
+                    (Json.field "bots" <|
+                        Json.list
+                            (Json.map4
+                                Bot
+                                (Json.field "teamName" Json.string)
+                                (Json.field "persons" <| Json.list personDecoder)
+                                (Json.field "weapons" <| Json.list weaponDecoder)
+                                (Json.field "locations" <| Json.list locationDecoder)
                             )
-                        )
-                      )
-                    , (Json.map Accuse
-                        (Json.map2 Accusation
-                            (Json.field "accused" askedDecoder)
-                            (Json.field "answer" Json.bool)
-                        )
-                      )
-                    ]
+                    )
+                    (Json.field "rounds" <|
+                        Json.list
+                            (Json.oneOf
+                                [ (Json.map Interrogate
+                                    (Json.map2 Interrogation
+                                        (Json.field "asked" askedDecoder)
+                                        (Json.field "answered" <|
+                                            Json.list
+                                                (Json.map2 Answered
+                                                    (Json.field "by" Json.string)
+                                                    (Json.field "answer" <| Json.oneOf [ Json.null Nothing, Json.map Just Json.string ])
+                                                )
+                                        )
+                                    )
+                                  )
+                                , (Json.map Accuse
+                                    (Json.map2 Accusation
+                                        (Json.field "accused" askedDecoder)
+                                        (Json.field "answer" Json.bool)
+                                    )
+                                  )
+                                ]
+                            )
+                    )
                 )
-        )
+            )
