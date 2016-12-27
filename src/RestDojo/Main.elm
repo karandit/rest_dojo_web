@@ -17,6 +17,7 @@ import UrlParser as Url exposing ((</>), s, string, top)
 
 type alias Flags =
     { baseUrl : String
+    , headers : List HeaderFlag
     , user : Maybe User
     }
 
@@ -81,74 +82,75 @@ mapToChartInput pointHistory =
 
 initModel : Flags -> Location -> ( Model, Cmd Msg )
 initModel flags location =
-    { billboard = Billboard ""
+    { headers = flags.headers
+    , billboard = Billboard ""
     , route = HomeRoute
     , dojos = []
     , user = flags.user
     , alerts = []
     , nextAlertId = 0
     }
-        ! [ loadBillboard flags.baseUrl ]
+        ! [ loadBillboard flags.headers flags.baseUrl ]
 
 
-loadBillboard : String -> Cmd Msg
-loadBillboard url =
-    Http.send LoadBillboard (API.getBillboard url)
+loadBillboard : List HeaderFlag -> String -> Cmd Msg
+loadBillboard headers url =
+    Http.send LoadBillboard (API.getBillboard headers url)
 
 
-loadDojos : String -> Cmd Msg
-loadDojos url =
-    Http.send LoadDojos (API.getDojos url)
+loadDojos : List HeaderFlag -> String -> Cmd Msg
+loadDojos headers url =
+    Http.send LoadDojos (API.getDojos headers url)
 
 
-loadTeams : Dojo -> Cmd Msg
-loadTeams dojo =
-    Http.send (LoadTeams dojo) (API.getTeams dojo.teamsUrl)
+loadTeams : List HeaderFlag -> Dojo -> Cmd Msg
+loadTeams headers dojo =
+    Http.send (LoadTeams dojo) (API.getTeams headers dojo.teamsUrl)
 
 
-loadPointHistory : Dojo -> Cmd Msg
-loadPointHistory dojo =
-    Http.send LoadPointHistory (API.getPointHistory dojo.pointHistoryUrl)
+loadPointHistory : List HeaderFlag -> Dojo -> Cmd Msg
+loadPointHistory headers dojo =
+    Http.send LoadPointHistory (API.getPointHistory headers dojo.pointHistoryUrl)
 
 
-loadEvents : Dojo -> List Team -> Cmd Msg
-loadEvents dojo teams =
-    Http.send (LoadEvents dojo) (API.getEvents dojo.eventsUrl teams)
+loadEvents : List HeaderFlag -> Dojo -> List Team -> Cmd Msg
+loadEvents headers dojo teams =
+    Http.send (LoadEvents dojo) (API.getEvents headers dojo.eventsUrl teams)
 
 
-loadGame : Dojo -> GameUrl -> Cmd Msg
-loadGame dojo gameUrl =
-    Http.send (LoadGame dojo) (API.getGame gameUrl dojo)
+loadGame : List HeaderFlag -> Dojo -> GameUrl -> Cmd Msg
+loadGame headers dojo gameUrl =
+    Http.send (LoadGame dojo) (API.getGame headers gameUrl dojo)
 
 
-createTeam : Dojo -> String -> Maybe User -> List (Cmd Msg)
-createTeam dojo teamName loggedUser =
+createTeam : List HeaderFlag -> Dojo -> String -> Maybe User -> List (Cmd Msg)
+createTeam headers dojo teamName loggedUser =
     case loggedUser of
         Just user ->
-            [ Http.send (CreatedTeam dojo) (API.postNewTeam dojo.teamsUrl teamName user) ]
+            [ Http.send (CreatedTeam dojo) (API.postNewTeam headers dojo.teamsUrl teamName user) ]
 
         Nothing ->
             []
 
 
-joinTeam : Dojo -> Team -> Maybe User -> List (Cmd Msg)
-joinTeam dojo team loggedUser =
+joinTeam : List HeaderFlag -> Dojo -> Team -> Maybe User -> List (Cmd Msg)
+joinTeam headers dojo team loggedUser =
     case loggedUser of
         Just user ->
-            [ Http.send (JoinedTeamAsEntrant dojo team) (API.postJoinTeam team.joinUrl team user) ]
+            [ Http.send (JoinedTeamAsEntrant dojo team) (API.postJoinTeam headers team.joinUrl team user) ]
 
         Nothing ->
             []
 
 
-acceptTeamMember : Dojo -> Team -> TeamMember -> List (Cmd Msg)
-acceptTeamMember dojo team teamMember =
-    [ Http.send (JoinedTeamAsCrew dojo team) (API.patchAccepTeamMember teamMember.selfUrl) ]
+acceptTeamMember : List HeaderFlag -> Dojo -> Team -> TeamMember -> List (Cmd Msg)
+acceptTeamMember headers dojo team teamMember =
+    [ Http.send (JoinedTeamAsCrew dojo team) (API.patchAccepTeamMember headers teamMember.selfUrl) ]
 
 
-denyTeamMember : Dojo -> Team -> TeamMember -> List (Cmd Msg)
-denyTeamMember dojo team teamMember =
-    [ Http.send (LeftTeam dojo team teamMember) (API.deleteDenyTeamMember teamMember.selfUrl) ]
+denyTeamMember : List HeaderFlag -> Dojo -> Team -> TeamMember -> List (Cmd Msg)
+denyTeamMember headers dojo team teamMember =
+    [ Http.send (LeftTeam dojo team teamMember) (API.deleteDenyTeamMember headers teamMember.selfUrl) ]
 
 
 
@@ -159,7 +161,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         LoadBillboard (Ok billboard) ->
-            { model | billboard = billboard } ! [ loadDojos billboard.dojosUrl ]
+            { model | billboard = billboard } ! [ loadDojos model.headers billboard.dojosUrl ]
 
         LoadBillboard (Err err) ->
             addAlert model err "Couldn't load billboard" ! []
@@ -183,7 +185,7 @@ update msg model =
             addAlert model err "Couldn't load game" ! []
 
         LoadTeams oldDojo (Ok loadedTeams) ->
-            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ loadEvents oldDojo loadedTeams ]
+            { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = loadedTeams }) model.dojos } ! [ loadEvents model.headers oldDojo loadedTeams ]
 
         LoadTeams _ (Err err) ->
             addAlert model err "Couldn't load teams" ! []
@@ -195,7 +197,7 @@ update msg model =
             addAlert model err "Couldn't load events" ! []
 
         CreateTeam dojo teamName ->
-            model ! (createTeam dojo teamName model.user)
+            model ! (createTeam model.headers dojo teamName model.user)
 
         CreatedTeam oldDojo (Ok newTeam) ->
             { model | dojos = updateDojo oldDojo.id (\dojo -> { dojo | teams = dojo.teams ++ [ newTeam ], dialog = Nothing }) model.dojos } ! []
@@ -204,7 +206,7 @@ update msg model =
             addAlert model err "Couldn't create team" ! []
 
         JoinTeam dojo team ->
-            model ! (joinTeam dojo team model.user)
+            model ! (joinTeam model.headers dojo team model.user)
 
         JoinedTeamAsEntrant oldDojo oldTeam (Ok newTeamMember) ->
             let
@@ -217,10 +219,10 @@ update msg model =
             addAlert model err "Couldn't add player to team as entrant" ! []
 
         AcceptJoinTeam dojo team teamMember ->
-            model ! (acceptTeamMember dojo team teamMember)
+            model ! (acceptTeamMember model.headers dojo team teamMember)
 
         DenyJoinTeam dojo team teamMember ->
-            model ! (denyTeamMember dojo team teamMember)
+            model ! (denyTeamMember model.headers dojo team teamMember)
 
         JoinedTeamAsCrew oldDojo oldTeam (Ok newTeamMember) ->
             let
@@ -252,10 +254,10 @@ update msg model =
             { model | route = HomeRoute } ! []
 
         SelectDojo dojo ->
-            { model | route = DojoRoute dojo.id } ! [ loadTeams dojo, loadPointHistory dojo ]
+            { model | route = DojoRoute dojo.id } ! [ loadTeams model.headers dojo, loadPointHistory model.headers dojo ]
 
         SelectGame dojo gameUrl ->
-            model ! [ loadGame dojo gameUrl ]
+            model ! [ loadGame model.headers dojo gameUrl ]
 
         LoginPushed ->
             model ! [ login () ]

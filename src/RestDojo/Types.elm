@@ -6,6 +6,12 @@ import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
 import Navigation
 
 
+type alias HeaderFlag =
+    { key : String
+    , value : String
+    }
+
+
 type alias User =
     { fullname : String
     , picture : String
@@ -121,7 +127,8 @@ type alias Billboard =
 
 
 type alias Model =
-    { billboard : Billboard
+    { headers : List HeaderFlag
+    , billboard : Billboard
     , route : Route
     , dojos : List Dojo
     , user : Maybe User

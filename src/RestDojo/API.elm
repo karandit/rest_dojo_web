@@ -24,23 +24,23 @@ import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
 -- API end-points ------------------------------------------------------------------------------------------------------
 
 
-getBillboard : String -> Request Billboard
-getBillboard url =
-    get url billboardDecoder
+getBillboard : List HeaderFlag -> String -> Request Billboard
+getBillboard headers url =
+    get headers url billboardDecoder
 
 
-getDojos : String -> Request (List Dojo)
-getDojos url =
-    get url dojosDecoder
+getDojos : List HeaderFlag -> String -> Request (List Dojo)
+getDojos headers url =
+    get headers url dojosDecoder
 
 
-getTeams : String -> Request (List Team)
-getTeams url =
-    get url teamsDecoder
+getTeams : List HeaderFlag -> String -> Request (List Team)
+getTeams headers url =
+    get headers url teamsDecoder
 
 
-postNewTeam : String -> String -> User -> Request Team
-postNewTeam url teamName user =
+postNewTeam : List HeaderFlag -> String -> String -> User -> Request Team
+postNewTeam headers url teamName user =
     let
         teamJson =
             JsonEnc.object
@@ -50,15 +50,15 @@ postNewTeam url teamName user =
                 , ( "captainPicture", JsonEnc.string user.picture )
                 ]
     in
-        Http.post url (Http.jsonBody teamJson) teamDecoder
+        post headers url (Http.jsonBody teamJson) teamDecoder
 
 
 
 -- TODO here the Team is redundant as we don't need the team.Id if it is encoded in the url
 
 
-postJoinTeam : String -> Team -> User -> Request TeamMember
-postJoinTeam url team user =
+postJoinTeam : List HeaderFlag -> String -> Team -> User -> Request TeamMember
+postJoinTeam headers url team user =
     let
         body =
             JsonEnc.object
@@ -73,48 +73,48 @@ postJoinTeam url team user =
         Http.post url (Http.jsonBody body) teamMemberDecoder
 
 
-patchAccepTeamMember : String -> Request TeamMember
-patchAccepTeamMember url =
+patchAccepTeamMember : List HeaderFlag -> String -> Request TeamMember
+patchAccepTeamMember headers url =
     let
         body =
             JsonEnc.object [ ( "status", JsonEnc.string "crew" ) ]
     in
-        patch url (Http.jsonBody body) teamMemberDecoder
+        patch headers url (Http.jsonBody body) teamMemberDecoder
 
 
-deleteDenyTeamMember : String -> Request ()
-deleteDenyTeamMember url =
-    delete url Http.emptyBody
+deleteDenyTeamMember : List HeaderFlag -> String -> Request ()
+deleteDenyTeamMember headers url =
+    delete headers url Http.emptyBody
 
 
-getPointHistory : String -> Request PointHistory
-getPointHistory url =
-    get url pointHistoryDecoder
+getPointHistory : List HeaderFlag -> String -> Request PointHistory
+getPointHistory headers url =
+    get headers url pointHistoryDecoder
 
 
-getEvents : String -> List Team -> Request (List Event)
-getEvents url teams =
+getEvents : List HeaderFlag -> String -> List Team -> Request (List Event)
+getEvents headers url teams =
     let
         teamsByTeamId =
             Dict.fromList <| List.map (\team -> ( team.id, team )) teams
     in
-        get url (eventsDecoder teamsByTeamId)
+        get headers url (eventsDecoder teamsByTeamId)
 
 
-getGame : String -> Dojo -> Request Game
-getGame url dojo =
-    get url <| gameDecoder dojo
+getGame : List HeaderFlag -> String -> Dojo -> Request Game
+getGame headers url dojo =
+    get headers url <| gameDecoder dojo
 
 
 
 -- HTTP helpers --------------------------------------------------------------------------------------------------------
 
 
-get : String -> Decoder a -> Request a
-get url decoder =
+get : List HeaderFlag -> String -> Decoder a -> Request a
+get headers url decoder =
     Http.request
         { method = "GET"
-        , headers = []
+        , headers = List.map (\h -> Http.header h.key h.value) headers
         , url = url
         , body = Http.emptyBody
         , expect = Http.expectJson decoder
@@ -123,11 +123,11 @@ get url decoder =
         }
 
 
-patch : String -> Body -> Decoder a -> Request a
-patch url body decoder =
+post : List HeaderFlag -> String -> Body -> Decoder a -> Request a
+post headers url body decoder =
     Http.request
-        { method = "PATCH"
-        , headers = []
+        { method = "POST"
+        , headers = List.map (\h -> Http.header h.key h.value) headers
         , url = url
         , body = body
         , expect = Http.expectJson decoder
@@ -136,11 +136,24 @@ patch url body decoder =
         }
 
 
-delete : String -> Body -> Request ()
-delete url body =
+patch : List HeaderFlag -> String -> Body -> Decoder a -> Request a
+patch headers url body decoder =
+    Http.request
+        { method = "PATCH"
+        , headers = List.map (\h -> Http.header h.key h.value) headers
+        , url = url
+        , body = body
+        , expect = Http.expectJson decoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+
+
+delete : List HeaderFlag -> String -> Body -> Request ()
+delete headers url body =
     Http.request
         { method = "DELETE"
-        , headers = []
+        , headers = List.map (\h -> Http.header h.key h.value) headers
         , url = url
         , body = body
         , expect = Http.expectStringResponse (\_ -> Ok ())
