@@ -11712,7 +11712,7 @@ var _user$project$RestDojo_API$dojosDecoder = A2(
 var _user$project$RestDojo_API$billboardDecoder = A2(
 	_elm_lang$core$Json_Decode$map,
 	_user$project$RestDojo_Types$Billboard,
-	A2(_elm_lang$core$Json_Decode$field, 'dojos', _elm_lang$core$Json_Decode$string));
+	A2(_elm_lang$core$Json_Decode$field, 'dojosUrl', _elm_lang$core$Json_Decode$string));
 var _user$project$RestDojo_API$delete = F3(
 	function (headers, url, body) {
 		return _elm_lang$http$Http$request(
