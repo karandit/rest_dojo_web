@@ -68,11 +68,18 @@ router.render = (req, res) => {
 
     if (urlParts[0] === 'events') {
       var events = res.locals.data;
-
       var wrapper = {
         data: events
       }
+      res.jsonp(wrapper)
+      handled = true;
+    }
 
+    if (urlParts[0] === 'points') {
+      var points = res.locals.data;
+      var wrapper = {
+        data: points
+      }
       res.jsonp(wrapper)
       handled = true;
     }

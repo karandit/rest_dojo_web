@@ -225,16 +225,17 @@ dojoTypeDecoder =
 
 gamePointsDecoder : Decoder (List GamePoint)
 gamePointsDecoder =
-    Json.list <|
-        Json.map2 GamePoint
-            (Json.field "labelX" Json.string)
-            (Json.field "teamPoints" <|
-                Json.list
-                    (Json.map2 TeamPoint
-                        (Json.field "teamName" Json.string)
-                        (Json.field "point" Json.int)
-                    )
-            )
+    Json.field "data" <|
+        Json.list <|
+            Json.map2 GamePoint
+                (Json.field "labelX" Json.string)
+                (Json.field "teamPoints" <|
+                    Json.list
+                        (Json.map2 TeamPoint
+                            (Json.field "teamName" Json.string)
+                            (Json.field "point" Json.int)
+                        )
+                )
 
 
 teamMemberStatusDecoder : Json.Decoder TeamMemberStatus
