@@ -1,105 +1,107 @@
-[
-  { "id": 1,
-    "name": "Alabama",
-    "descr" : "ver first",
-    "points": 201,
-    "captain": {
-      "name": "bali182",
-      "fullname": "Balázs Édes",
-      "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
-      "status": "crew"
-    },
-    "members": [],
-    "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
-  },
-  { "id": 2,
-    "name": "Connecticut",
-    "descr" : "ver 0.100",
-    "points": 310,
-    "captain": {
-      "name": "bali182",
-      "fullname": "Balázs Édes",
-      "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
-      "status": "crew"
-    },
-    "members": [],
-    "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
-  },
-  { "id": 3,
-    "name": "Florida",
-    "descr" : "ver 0.3",
-    "points": 109,
-    "captain": {
-      "name": "bublag",
-      "fullname": "Gábor Bubla",
-      "picture": "https://avatars.githubusercontent.com/u/6839377?v=3",
-      "status": "crew"
-    },
-    "members": [
-      {
-        "id": 1,
-        "status": "entrant",
+{
+  "data": [
+    { "id": 1,
+      "name": "Alabama",
+      "descr" : "ver first",
+      "points": 201,
+      "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
         "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
-        "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/1"
+        "status": "crew"
       },
-      {
-        "id": 2,
-        "status": "entrant",
+      "members": [],
+      "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
+    },
+    { "id": 2,
+      "name": "Connecticut",
+      "descr" : "ver 0.100",
+      "points": 310,
+      "captain": {
+        "name": "bali182",
+        "fullname": "Balázs Édes",
+        "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "status": "crew"
+      },
+      "members": [],
+      "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
+    },
+    { "id": 3,
+      "name": "Florida",
+      "descr" : "ver 0.3",
+      "points": 109,
+      "captain": {
+        "name": "bublag",
+        "fullname": "Gábor Bubla",
+        "picture": "https://avatars.githubusercontent.com/u/6839377?v=3",
+        "status": "crew"
+      },
+      "members": [
+        {
+          "id": 1,
+          "status": "entrant",
+          "name": "bali182",
+          "fullname": "Balázs Édes",
+          "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
+          "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/1"
+        },
+        {
+          "id": 2,
+          "status": "entrant",
+          "name": "zeldan",
+          "fullname": "Dániel Zelei",
+          "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
+          "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/2"
+        },
+        {
+          "id": 3,
+          "status": "crew",
+          "name": "karandit",
+          "fullname": "Kárándi Tamás",
+          "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
+          "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/3"
+        }
+      ],
+      "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
+    },
+    { "id": 4,
+      "name": "Nebraska",
+      "descr" : "blabla",
+      "points": 156,
+      "captain": {
+        "name": "szokebarnabas",
+        "fullname": "Barnabás Szőke",
+        "picture": "https://avatars.githubusercontent.com/u/5434245?v=3",
+        "status": "crew"
+      },
+      "members": [],
+      "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
+    },
+    { "id": 5,
+      "name": "Oklahoma",
+      "descr" : "ver 0.6",
+      "points": 210,
+      "captain": {
+        "name": "bali182",
+        "fullname": "Balázs Édes",
+        "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
+        "status": "crew"
+      },
+      "members": [],
+      "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
+    },
+    { "id": 6,
+      "name": "Utah",
+      "descr" : "ver 0.1.99",
+      "points": 315,
+      "captain": {
         "name": "zeldan",
         "fullname": "Dániel Zelei",
         "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
-        "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/2"
+        "status": "crew"
       },
-      {
-        "id": 3,
-        "status": "crew",
-        "name": "karandit",
-        "fullname": "Kárándi Tamás",
-        "picture": "https://avatars.githubusercontent.com/u/3188758?v=3",
-        "selfUrl": "/rest_dojo_web/api/dojos/11/teams/3/members/3"
-      }
-    ],
-    "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
-  },
-  { "id": 4,
-    "name": "Nebraska",
-    "descr" : "blabla",
-    "points": 156,
-    "captain": {
-      "name": "szokebarnabas",
-      "fullname": "Barnabás Szőke",
-      "picture": "https://avatars.githubusercontent.com/u/5434245?v=3",
-      "status": "crew"
-    },
-    "members": [],
-    "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
-  },
-  { "id": 5,
-    "name": "Oklahoma",
-    "descr" : "ver 0.6",
-    "points": 210,
-    "captain": {
-      "name": "bali182",
-      "fullname": "Balázs Édes",
-      "picture": "https://avatars.githubusercontent.com/u/3879181?v=3",
-      "status": "crew"
-    },
-    "members": [],
-    "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
-  },
-  { "id": 6,
-    "name": "Utah",
-    "descr" : "ver 0.1.99",
-    "points": 315,
-    "captain": {
-      "name": "zeldan",
-      "fullname": "Dániel Zelei",
-      "picture": "https://avatars.githubusercontent.com/u/8355979?v=3",
-      "status": "crew"
-    },
-    "members": [],
-    "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
-  }
-]
+      "members": [],
+      "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
+    }
+  ]
+}

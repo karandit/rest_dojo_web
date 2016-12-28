@@ -1,28 +1,40 @@
 {
-    "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
-    "teams": [ {
-        "teamName" : "Alpha",
-        "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
-      },
-      {
-        "teamName" : "Bravo",
-        "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
-      },
-      {
-        "teamName" : "Charlie",
-        "data" : [ 0, 3, 3, 3, 3, 4, 21 ]
-      },
-      {
-        "teamName" : "Delta",
-        "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
-      },
-      {
-        "teamName" : "Echo",
-        "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
-      },
-      {
-        "teamName" : "Foxtrot",
-        "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
-      }
-    ]
-  }
+  "data": [
+    {
+      "labelX": "09:14",
+      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
+    },
+    {
+      "labelX": "09:15",
+      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
+    },
+    {
+      "labelX": "09:16",
+      "teamPoints": [{"teamName" : "Bravo", "point" : 1}]
+    },
+    {
+      "labelX": "09:17",
+      "teamPoints": [{"teamName" : "Delta", "point" : 1}]
+    },
+    {
+      "labelX": "09:18",
+      "teamPoints": [{"teamName" : "Charlie", "point" : 1}]
+    },
+    {
+      "labelX": "09:19",
+      "teamPoints": [{"teamName" : "Delta", "point" : 1}]
+    },
+    {
+      "labelX": "09:20",
+      "teamPoints": [{"teamName" : "Foxtrot", "point" : 1}]
+    },
+    {
+      "labelX": "09:21",
+      "teamPoints": [{"teamName" : "Echo", "point" : 1}]
+    },
+    {
+      "labelX": "09:22",
+      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
+    }
+  ]
+}

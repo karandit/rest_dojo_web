@@ -1,62 +1,65 @@
 {
-  "id": 101,
-  "secret": {
-    "weapon": "Revolver",
-    "location" : "Kitchen",
-    "person" : "ColMustard"
-  },
-  "bots": [{
-    "teamName": "Alpha",
-    "weapons": ["Candlestick", "IcePick"],
-    "locations" : ["Billiards"],
-    "persons" : []
-  }, {
-    "teamName": "Bravo",
-    "weapons": ["Poison"],
-    "locations" : ["Conservatory", "Library"],
-    "persons" : []
-  }, {
-    "teamName": "Charlie",
-    "weapons": [],
-    "locations" : ["Lounge"],
-    "persons" : ["MrsWhite", "MsPeacock"]
-  }, {
-    "teamName": "Delta",
-    "weapons": ["Poker"],
-    "locations" : ["Stairs"],
-    "persons" : ["MsScarlett"]
-  }, {
-    "teamName": "Echo",
-    "weapons": [],
-    "locations" : ["Studio", "BedRoom"],
-    "persons" : ["ProfPlum"]
-  }, {
-    "teamName": "Foxtrot",
-    "weapons": ["Shears"],
-    "locations" : ["TrophyHall"],
-    "persons" : ["RevGreen"]
-  }],
-  "rounds": [{
-    "asked": {"by": "Alpha", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
-    "answered": [
-      {"by": "Bravo", "answer": null},
-      {"by": "Charlie", "answer": null},
-      {"by": "Delta", "answer": "Poker"}
-    ]
-  },
+  "content":
   {
-    "asked": {"by": "Bravo", "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
-    "answered": [
-      {"by": "Charlie", "answer": null},
-      {"by": "Delta", "answer": null},
-      {"by": "Echo", "answer": null},
-      {"by": "Foxtrot", "answer": null},
-      {"by": "Alpha", "answer": "Studio"}
-    ]
-  },
-  {
-    "accused": {"by": "Charlie", "question": {"weapon": "Revolver", "location" : "Kitchen", "person" : "ColMustard"}},
-    "answer": true
+    "id": 101,
+    "secret": {
+      "weapon": "Revolver",
+      "location" : "Kitchen",
+      "person" : "ColMustard"
+    },
+    "bots": [{
+      "teamName": "Alpha",
+      "weapons": ["Candlestick", "IcePick"],
+      "locations" : ["Billiards"],
+      "persons" : []
+    }, {
+      "teamName": "Bravo",
+      "weapons": ["Poison"],
+      "locations" : ["Conservatory", "Library"],
+      "persons" : []
+    }, {
+      "teamName": "Charlie",
+      "weapons": [],
+      "locations" : ["Lounge"],
+      "persons" : ["MrsWhite", "MsPeacock"]
+    }, {
+      "teamName": "Delta",
+      "weapons": ["Poker"],
+      "locations" : ["Stairs"],
+      "persons" : ["MsScarlett"]
+    }, {
+      "teamName": "Echo",
+      "weapons": [],
+      "locations" : ["Studio", "BedRoom"],
+      "persons" : ["ProfPlum"]
+    }, {
+      "teamName": "Foxtrot",
+      "weapons": ["Shears"],
+      "locations" : ["TrophyHall"],
+      "persons" : ["RevGreen"]
+    }],
+    "rounds": [{
+      "asked": {"by": "Alpha", "question": {"weapon": "Poker", "location" : "Studio","person" : "RevGreen"}},
+      "answered": [
+        {"by": "Bravo", "answer": null},
+        {"by": "Charlie", "answer": null},
+        {"by": "Delta", "answer": "Poker"}
+      ]
+    },
+    {
+      "asked": {"by": "Bravo", "question": {"weapon": "Poison", "location" : "Studio","person" : "ProfPlum"}},
+      "answered": [
+        {"by": "Charlie", "answer": null},
+        {"by": "Delta", "answer": null},
+        {"by": "Echo", "answer": null},
+        {"by": "Foxtrot", "answer": null},
+        {"by": "Alpha", "answer": "Studio"}
+      ]
+    },
+    {
+      "accused": {"by": "Charlie", "question": {"weapon": "Revolver", "location" : "Kitchen", "person" : "ColMustard"}},
+      "answer": true
+    }
+  ]
   }
-]
 }

@@ -11266,79 +11266,97 @@ var _user$project$RestDojo_Cluedo_CluedoTypes$Accuse = function (a) {
 var _user$project$RestDojo_Cluedo_CluedoTypes$Interrogate = function (a) {
 	return {ctor: 'Interrogate', _0: a};
 };
-var _user$project$RestDojo_Cluedo_CluedoTypes$cluedoGameDecoder = A5(
-	_elm_lang$core$Json_Decode$map4,
-	_user$project$RestDojo_Cluedo_CluedoTypes$CluedoGame,
-	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
-	A2(_elm_lang$core$Json_Decode$field, 'secret', _user$project$RestDojo_Cluedo_CluedoTypes$questionDecoder),
-	A2(
-		_elm_lang$core$Json_Decode$field,
-		'bots',
-		_elm_lang$core$Json_Decode$list(
-			A5(
-				_elm_lang$core$Json_Decode$map4,
-				_user$project$RestDojo_Cluedo_CluedoTypes$Bot,
-				A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
+var _user$project$RestDojo_Cluedo_CluedoTypes$cluedoGameDecoder = A2(
+	_elm_lang$core$Json_Decode$map,
+	function (_p3) {
+		var _p4 = _p3;
+		return A4(_user$project$RestDojo_Cluedo_CluedoTypes$CluedoGame, _p4._0, _p4._1._0, _p4._1._1, _p4._1._2);
+	},
+	A3(
+		_elm_lang$core$Json_Decode$map2,
+		F2(
+			function (v0, v1) {
+				return {ctor: '_Tuple2', _0: v0, _1: v1};
+			}),
+		A2(_elm_lang$core$Json_Decode$field, 'objectId', _elm_lang$core$Json_Decode$string),
+		A2(
+			_elm_lang$core$Json_Decode$field,
+			'content',
+			A4(
+				_elm_lang$core$Json_Decode$map3,
+				F3(
+					function (v0, v1, v2) {
+						return {ctor: '_Tuple3', _0: v0, _1: v1, _2: v2};
+					}),
+				A2(_elm_lang$core$Json_Decode$field, 'secret', _user$project$RestDojo_Cluedo_CluedoTypes$questionDecoder),
 				A2(
 					_elm_lang$core$Json_Decode$field,
-					'persons',
-					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$personDecoder)),
-				A2(
-					_elm_lang$core$Json_Decode$field,
-					'weapons',
-					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder)),
-				A2(
-					_elm_lang$core$Json_Decode$field,
-					'locations',
-					_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))))),
-	A2(
-		_elm_lang$core$Json_Decode$field,
-		'rounds',
-		_elm_lang$core$Json_Decode$list(
-			_elm_lang$core$Json_Decode$oneOf(
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$core$Json_Decode$map,
-						_user$project$RestDojo_Cluedo_CluedoTypes$Interrogate,
-						A3(
-							_elm_lang$core$Json_Decode$map2,
-							_user$project$RestDojo_Cluedo_CluedoTypes$Interrogation,
-							A2(_elm_lang$core$Json_Decode$field, 'asked', _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder),
+					'bots',
+					_elm_lang$core$Json_Decode$list(
+						A5(
+							_elm_lang$core$Json_Decode$map4,
+							_user$project$RestDojo_Cluedo_CluedoTypes$Bot,
+							A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
 							A2(
 								_elm_lang$core$Json_Decode$field,
-								'answered',
-								_elm_lang$core$Json_Decode$list(
+								'persons',
+								_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$personDecoder)),
+							A2(
+								_elm_lang$core$Json_Decode$field,
+								'weapons',
+								_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$weaponDecoder)),
+							A2(
+								_elm_lang$core$Json_Decode$field,
+								'locations',
+								_elm_lang$core$Json_Decode$list(_user$project$RestDojo_Cluedo_CluedoTypes$locationDecoder))))),
+				A2(
+					_elm_lang$core$Json_Decode$field,
+					'rounds',
+					_elm_lang$core$Json_Decode$list(
+						_elm_lang$core$Json_Decode$oneOf(
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$core$Json_Decode$map,
+									_user$project$RestDojo_Cluedo_CluedoTypes$Interrogate,
 									A3(
 										_elm_lang$core$Json_Decode$map2,
-										_user$project$RestDojo_Cluedo_CluedoTypes$Answered,
-										A2(_elm_lang$core$Json_Decode$field, 'by', _elm_lang$core$Json_Decode$string),
+										_user$project$RestDojo_Cluedo_CluedoTypes$Interrogation,
+										A2(_elm_lang$core$Json_Decode$field, 'asked', _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder),
 										A2(
 											_elm_lang$core$Json_Decode$field,
-											'answer',
-											_elm_lang$core$Json_Decode$oneOf(
-												{
-													ctor: '::',
-													_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
-													_1: {
-														ctor: '::',
-														_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
-														_1: {ctor: '[]'}
-													}
-												}))))))),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$core$Json_Decode$map,
-							_user$project$RestDojo_Cluedo_CluedoTypes$Accuse,
-							A3(
-								_elm_lang$core$Json_Decode$map2,
-								_user$project$RestDojo_Cluedo_CluedoTypes$Accusation,
-								A2(_elm_lang$core$Json_Decode$field, 'accused', _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder),
-								A2(_elm_lang$core$Json_Decode$field, 'answer', _elm_lang$core$Json_Decode$bool))),
-						_1: {ctor: '[]'}
-					}
-				}))));
+											'answered',
+											_elm_lang$core$Json_Decode$list(
+												A3(
+													_elm_lang$core$Json_Decode$map2,
+													_user$project$RestDojo_Cluedo_CluedoTypes$Answered,
+													A2(_elm_lang$core$Json_Decode$field, 'by', _elm_lang$core$Json_Decode$string),
+													A2(
+														_elm_lang$core$Json_Decode$field,
+														'answer',
+														_elm_lang$core$Json_Decode$oneOf(
+															{
+																ctor: '::',
+																_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																_1: {
+																	ctor: '::',
+																	_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																	_1: {ctor: '[]'}
+																}
+															}))))))),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$core$Json_Decode$map,
+										_user$project$RestDojo_Cluedo_CluedoTypes$Accuse,
+										A3(
+											_elm_lang$core$Json_Decode$map2,
+											_user$project$RestDojo_Cluedo_CluedoTypes$Accusation,
+											A2(_elm_lang$core$Json_Decode$field, 'accused', _user$project$RestDojo_Cluedo_CluedoTypes$askedDecoder),
+											A2(_elm_lang$core$Json_Decode$field, 'answer', _elm_lang$core$Json_Decode$bool))),
+									_1: {ctor: '[]'}
+								}
+							})))))));
 
 var _user$project$RestDojo_Minesweeper_MinesweeperTypes$MinesweeperGame = F2(
 	function (a, b) {
@@ -11347,9 +11365,16 @@ var _user$project$RestDojo_Minesweeper_MinesweeperTypes$MinesweeperGame = F2(
 var _user$project$RestDojo_Minesweeper_MinesweeperTypes$minesweeperGameDecoder = A3(
 	_elm_lang$core$Json_Decode$map2,
 	_user$project$RestDojo_Minesweeper_MinesweeperTypes$MinesweeperGame,
-	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
-	A2(_elm_lang$core$Json_Decode$field, 'board', _elm_lang$core$Json_Decode$string));
+	A2(_elm_lang$core$Json_Decode$field, 'objectId', _elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'content',
+		A2(_elm_lang$core$Json_Decode$field, 'board', _elm_lang$core$Json_Decode$string)));
 
+var _user$project$RestDojo_Types$HeaderFlag = F2(
+	function (a, b) {
+		return {key: a, value: b};
+	});
 var _user$project$RestDojo_Types$User = F4(
 	function (a, b, c, d) {
 		return {fullname: a, picture: b, name: c, idProvider: d};
@@ -11387,20 +11412,20 @@ var _user$project$RestDojo_Types$Team = F7(
 	function (a, b, c, d, e, f, g) {
 		return {id: a, name: b, descr: c, points: d, captain: e, members: f, joinUrl: g};
 	});
-var _user$project$RestDojo_Types$TeamPoints = F2(
+var _user$project$RestDojo_Types$TeamPoint = F2(
 	function (a, b) {
-		return {teamName: a, data: b};
+		return {teamName: a, point: b};
 	});
-var _user$project$RestDojo_Types$PointHistory = F2(
+var _user$project$RestDojo_Types$GamePoint = F2(
 	function (a, b) {
-		return {games: a, teams: b};
+		return {labelX: a, teamPoints: b};
 	});
 var _user$project$RestDojo_Types$Billboard = function (a) {
 	return {dojosUrl: a};
 };
-var _user$project$RestDojo_Types$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {billboard: a, route: b, dojos: c, user: d, alerts: e, nextAlertId: f};
+var _user$project$RestDojo_Types$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {headers: a, billboard: b, route: c, dojos: d, user: e, alerts: f, nextAlertId: g};
 	});
 var _user$project$RestDojo_Types$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$RestDojo_Types$GameRoute = F2(
@@ -11507,8 +11532,8 @@ var _user$project$RestDojo_Types$LoadGame = F2(
 	function (a, b) {
 		return {ctor: 'LoadGame', _0: a, _1: b};
 	});
-var _user$project$RestDojo_Types$LoadPointHistory = function (a) {
-	return {ctor: 'LoadPointHistory', _0: a};
+var _user$project$RestDojo_Types$LoadPoints = function (a) {
+	return {ctor: 'LoadPoints', _0: a};
 };
 var _user$project$RestDojo_Types$LoadEvents = F2(
 	function (a, b) {
@@ -11537,24 +11562,27 @@ var _user$project$RestDojo_API$gameDecoder = function (dojo) {
 	}
 };
 var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
-	return _elm_lang$core$Json_Decode$list(
-		A2(
-			_elm_lang$core$Json_Decode$map,
-			function (_p1) {
-				var _p2 = _p1;
-				return A2(
-					_user$project$RestDojo_Types$GameWonBy,
-					_p2._0,
-					A2(_elm_lang$core$Dict$get, _p2._1, teamsByTeamId));
-			},
-			A3(
-				_elm_lang$core$Json_Decode$map2,
-				F2(
-					function (v0, v1) {
-						return {ctor: '_Tuple2', _0: v0, _1: v1};
-					}),
-				A2(_elm_lang$core$Json_Decode$field, 'gameUrl', _elm_lang$core$Json_Decode$string),
-				A2(_elm_lang$core$Json_Decode$field, 'gameWonBy', _elm_lang$core$Json_Decode$int))));
+	return A2(
+		_elm_lang$core$Json_Decode$field,
+		'data',
+		_elm_lang$core$Json_Decode$list(
+			A2(
+				_elm_lang$core$Json_Decode$map,
+				function (_p1) {
+					var _p2 = _p1;
+					return A2(
+						_user$project$RestDojo_Types$GameWonBy,
+						_p2._0,
+						A2(_elm_lang$core$Dict$get, _p2._1, teamsByTeamId));
+				},
+				A3(
+					_elm_lang$core$Json_Decode$map2,
+					F2(
+						function (v0, v1) {
+							return {ctor: '_Tuple2', _0: v0, _1: v1};
+						}),
+					A2(_elm_lang$core$Json_Decode$field, 'gameUrl', _elm_lang$core$Json_Decode$string),
+					A2(_elm_lang$core$Json_Decode$field, 'gameWonBy', _elm_lang$core$Json_Decode$string)))));
 };
 var _user$project$RestDojo_API$teamMemberStatusDecoder = function () {
 	var decodeToType = function (string) {
@@ -11589,7 +11617,7 @@ var _user$project$RestDojo_API$teamMemberDecoder = A6(
 var _user$project$RestDojo_API$teamDecoder = A8(
 	_elm_lang$core$Json_Decode$map7,
 	_user$project$RestDojo_Types$Team,
-	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
+	A2(_elm_lang$core$Json_Decode$field, 'objectId', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode$field, 'descr', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode$field, 'points', _elm_lang$core$Json_Decode$int),
@@ -11604,26 +11632,27 @@ var _user$project$RestDojo_API$teamDecoder = A8(
 				'members',
 				_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamMemberDecoder)))),
 	A2(_elm_lang$core$Json_Decode$field, 'joinUrl', _elm_lang$core$Json_Decode$string));
-var _user$project$RestDojo_API$teamsDecoder = _elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder);
-var _user$project$RestDojo_API$pointHistoryDecoder = A3(
-	_elm_lang$core$Json_Decode$map2,
-	_user$project$RestDojo_Types$PointHistory,
-	A2(
-		_elm_lang$core$Json_Decode$field,
-		'games',
-		_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string)),
-	A2(
-		_elm_lang$core$Json_Decode$field,
-		'teams',
-		_elm_lang$core$Json_Decode$list(
-			A3(
-				_elm_lang$core$Json_Decode$map2,
-				_user$project$RestDojo_Types$TeamPoints,
-				A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
-				A2(
-					_elm_lang$core$Json_Decode$field,
-					'data',
-					_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int))))));
+var _user$project$RestDojo_API$teamsDecoder = A2(
+	_elm_lang$core$Json_Decode$field,
+	'data',
+	_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder));
+var _user$project$RestDojo_API$gamePointsDecoder = A2(
+	_elm_lang$core$Json_Decode$field,
+	'data',
+	_elm_lang$core$Json_Decode$list(
+		A3(
+			_elm_lang$core$Json_Decode$map2,
+			_user$project$RestDojo_Types$GamePoint,
+			A2(_elm_lang$core$Json_Decode$field, 'labelX', _elm_lang$core$Json_Decode$string),
+			A2(
+				_elm_lang$core$Json_Decode$field,
+				'teamPoints',
+				_elm_lang$core$Json_Decode$list(
+					A3(
+						_elm_lang$core$Json_Decode$map2,
+						_user$project$RestDojo_Types$TeamPoint,
+						A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
+						A2(_elm_lang$core$Json_Decode$field, 'point', _elm_lang$core$Json_Decode$int)))))));
 var _user$project$RestDojo_API$dojoTypeDecoder = function () {
 	var decodeToType = function (string) {
 		var _p4 = string;
@@ -11662,31 +11691,39 @@ var _user$project$RestDojo_API$dojoStateDecoder = function () {
 	};
 	return A2(_elm_lang$core$Json_Decode$andThen, decodeToType, _elm_lang$core$Json_Decode$string);
 }();
-var _user$project$RestDojo_API$dojosDecoder = _elm_lang$core$Json_Decode$list(
-	A8(
-		_elm_lang$core$Json_Decode$map7,
-		A3(
-			_user$project$RestDojo_Types$Dojo,
-			{ctor: '[]'},
-			{ctor: '[]'},
-			_elm_lang$core$Maybe$Nothing),
-		A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
-		A2(_elm_lang$core$Json_Decode$field, 'label', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode$field, 'state', _user$project$RestDojo_API$dojoStateDecoder),
-		A2(_elm_lang$core$Json_Decode$field, 'dojoType', _user$project$RestDojo_API$dojoTypeDecoder),
-		A2(_elm_lang$core$Json_Decode$field, 'teamsUrl', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode$field, 'eventsUrl', _elm_lang$core$Json_Decode$string),
-		A2(_elm_lang$core$Json_Decode$field, 'pointHistoryUrl', _elm_lang$core$Json_Decode$string)));
+var _user$project$RestDojo_API$dojosDecoder = A2(
+	_elm_lang$core$Json_Decode$field,
+	'data',
+	_elm_lang$core$Json_Decode$list(
+		A8(
+			_elm_lang$core$Json_Decode$map7,
+			A3(
+				_user$project$RestDojo_Types$Dojo,
+				{ctor: '[]'},
+				{ctor: '[]'},
+				_elm_lang$core$Maybe$Nothing),
+			A2(_elm_lang$core$Json_Decode$field, 'objectId', _elm_lang$core$Json_Decode$string),
+			A2(_elm_lang$core$Json_Decode$field, 'label', _elm_lang$core$Json_Decode$string),
+			A2(_elm_lang$core$Json_Decode$field, 'state', _user$project$RestDojo_API$dojoStateDecoder),
+			A2(_elm_lang$core$Json_Decode$field, 'dojoType', _user$project$RestDojo_API$dojoTypeDecoder),
+			A2(_elm_lang$core$Json_Decode$field, 'teamsUrl', _elm_lang$core$Json_Decode$string),
+			A2(_elm_lang$core$Json_Decode$field, 'eventsUrl', _elm_lang$core$Json_Decode$string),
+			A2(_elm_lang$core$Json_Decode$field, 'pointHistoryUrl', _elm_lang$core$Json_Decode$string))));
 var _user$project$RestDojo_API$billboardDecoder = A2(
 	_elm_lang$core$Json_Decode$map,
 	_user$project$RestDojo_Types$Billboard,
 	A2(_elm_lang$core$Json_Decode$field, 'dojos', _elm_lang$core$Json_Decode$string));
-var _user$project$RestDojo_API$delete = F2(
-	function (url, body) {
+var _user$project$RestDojo_API$delete = F3(
+	function (headers, url, body) {
 		return _elm_lang$http$Http$request(
 			{
 				method: 'DELETE',
-				headers: {ctor: '[]'},
+				headers: A2(
+					_elm_lang$core$List$map,
+					function (h) {
+						return A2(_elm_lang$http$Http$header, h.key, h.value);
+					},
+					headers),
 				url: url,
 				body: body,
 				expect: _elm_lang$http$Http$expectStringResponse(
@@ -11698,12 +11735,17 @@ var _user$project$RestDojo_API$delete = F2(
 				withCredentials: false
 			});
 	});
-var _user$project$RestDojo_API$patch = F3(
-	function (url, body, decoder) {
+var _user$project$RestDojo_API$patch = F4(
+	function (headers, url, body, decoder) {
 		return _elm_lang$http$Http$request(
 			{
 				method: 'PATCH',
-				headers: {ctor: '[]'},
+				headers: A2(
+					_elm_lang$core$List$map,
+					function (h) {
+						return A2(_elm_lang$http$Http$header, h.key, h.value);
+					},
+					headers),
 				url: url,
 				body: body,
 				expect: _elm_lang$http$Http$expectJson(decoder),
@@ -11711,15 +11753,52 @@ var _user$project$RestDojo_API$patch = F3(
 				withCredentials: false
 			});
 	});
-var _user$project$RestDojo_API$getGame = F2(
-	function (url, dojo) {
-		return A2(
-			_elm_lang$http$Http$get,
+var _user$project$RestDojo_API$post = F4(
+	function (headers, url, body, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'POST',
+				headers: A2(
+					_elm_lang$core$List$map,
+					function (h) {
+						return A2(_elm_lang$http$Http$header, h.key, h.value);
+					},
+					headers),
+				url: url,
+				body: body,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _user$project$RestDojo_API$get = F3(
+	function (headers, url, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'GET',
+				headers: A2(
+					_elm_lang$core$List$map,
+					function (h) {
+						return A2(_elm_lang$http$Http$header, h.key, h.value);
+					},
+					headers),
+				url: url,
+				body: _elm_lang$http$Http$emptyBody,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _user$project$RestDojo_API$getGame = F3(
+	function (headers, url, dojo) {
+		return A3(
+			_user$project$RestDojo_API$get,
+			headers,
 			url,
 			_user$project$RestDojo_API$gameDecoder(dojo));
 	});
-var _user$project$RestDojo_API$getEvents = F2(
-	function (url, teams) {
+var _user$project$RestDojo_API$getEvents = F3(
+	function (headers, url, teams) {
 		var teamsByTeamId = _elm_lang$core$Dict$fromList(
 			A2(
 				_elm_lang$core$List$map,
@@ -11727,43 +11806,48 @@ var _user$project$RestDojo_API$getEvents = F2(
 					return {ctor: '_Tuple2', _0: team.id, _1: team};
 				},
 				teams));
-		return A2(
-			_elm_lang$http$Http$get,
+		return A3(
+			_user$project$RestDojo_API$get,
+			headers,
 			url,
 			_user$project$RestDojo_API$eventsDecoder(teamsByTeamId));
 	});
-var _user$project$RestDojo_API$getPointHistory = function (url) {
-	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$pointHistoryDecoder);
-};
-var _user$project$RestDojo_API$deleteDenyTeamMember = function (url) {
-	return A2(_user$project$RestDojo_API$delete, url, _elm_lang$http$Http$emptyBody);
-};
-var _user$project$RestDojo_API$patchAccepTeamMember = function (url) {
-	var body = _elm_lang$core$Json_Encode$object(
-		{
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'status',
-				_1: _elm_lang$core$Json_Encode$string('crew')
-			},
-			_1: {ctor: '[]'}
-		});
-	return A3(
-		_user$project$RestDojo_API$patch,
-		url,
-		_elm_lang$http$Http$jsonBody(body),
-		_user$project$RestDojo_API$teamMemberDecoder);
-};
-var _user$project$RestDojo_API$postJoinTeam = F3(
-	function (url, team, user) {
+var _user$project$RestDojo_API$getPoints = F2(
+	function (headers, url) {
+		return A3(_user$project$RestDojo_API$get, headers, url, _user$project$RestDojo_API$gamePointsDecoder);
+	});
+var _user$project$RestDojo_API$deleteDenyTeamMember = F2(
+	function (headers, url) {
+		return A3(_user$project$RestDojo_API$delete, headers, url, _elm_lang$http$Http$emptyBody);
+	});
+var _user$project$RestDojo_API$patchAccepTeamMember = F2(
+	function (headers, url) {
+		var body = _elm_lang$core$Json_Encode$object(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'status',
+					_1: _elm_lang$core$Json_Encode$string('crew')
+				},
+				_1: {ctor: '[]'}
+			});
+		return A4(
+			_user$project$RestDojo_API$patch,
+			headers,
+			url,
+			_elm_lang$http$Http$jsonBody(body),
+			_user$project$RestDojo_API$teamMemberDecoder);
+	});
+var _user$project$RestDojo_API$postJoinTeam = F4(
+	function (headers, url, team, user) {
 		var body = _elm_lang$core$Json_Encode$object(
 			{
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
 					_0: 'teamId',
-					_1: _elm_lang$core$Json_Encode$int(team.id)
+					_1: _elm_lang$core$Json_Encode$string(team.id)
 				},
 				_1: {
 					ctor: '::',
@@ -11805,8 +11889,8 @@ var _user$project$RestDojo_API$postJoinTeam = F3(
 			_elm_lang$http$Http$jsonBody(body),
 			_user$project$RestDojo_API$teamMemberDecoder);
 	});
-var _user$project$RestDojo_API$postNewTeam = F3(
-	function (url, teamName, user) {
+var _user$project$RestDojo_API$postNewTeam = F4(
+	function (headers, url, teamName, user) {
 		var teamJson = _elm_lang$core$Json_Encode$object(
 			{
 				ctor: '::',
@@ -11841,21 +11925,25 @@ var _user$project$RestDojo_API$postNewTeam = F3(
 					}
 				}
 			});
-		return A3(
-			_elm_lang$http$Http$post,
+		return A4(
+			_user$project$RestDojo_API$post,
+			headers,
 			url,
 			_elm_lang$http$Http$jsonBody(teamJson),
 			_user$project$RestDojo_API$teamDecoder);
 	});
-var _user$project$RestDojo_API$getTeams = function (url) {
-	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$teamsDecoder);
-};
-var _user$project$RestDojo_API$getDojos = function (url) {
-	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$dojosDecoder);
-};
-var _user$project$RestDojo_API$getBillboard = function (url) {
-	return A2(_elm_lang$http$Http$get, url, _user$project$RestDojo_API$billboardDecoder);
-};
+var _user$project$RestDojo_API$getTeams = F2(
+	function (headers, url) {
+		return A3(_user$project$RestDojo_API$get, headers, url, _user$project$RestDojo_API$teamsDecoder);
+	});
+var _user$project$RestDojo_API$getDojos = F2(
+	function (headers, url) {
+		return A3(_user$project$RestDojo_API$get, headers, url, _user$project$RestDojo_API$dojosDecoder);
+	});
+var _user$project$RestDojo_API$getBillboard = F2(
+	function (headers, url) {
+		return A3(_user$project$RestDojo_API$get, headers, url, _user$project$RestDojo_API$billboardDecoder);
+	});
 
 var _user$project$RestDojo_Chartjs$ChartDataSet = F3(
 	function (a, b, c) {
@@ -11866,6 +11954,20 @@ var _user$project$RestDojo_Chartjs$ChartInput = F2(
 		return {labels: a, datasets: b};
 	});
 
+var _user$project$RestDojo_Util$fillList = F2(
+	function (len, defValue) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (_p0) {
+				return defValue;
+			},
+			_elm_lang$core$Native_Utils.eq(len, 0) ? {ctor: '[]'} : A2(
+				_elm_community$list_extra$List_Extra$iterate,
+				function (x) {
+					return (_elm_lang$core$Native_Utils.cmp(x + 1, len) < 0) ? _elm_lang$core$Maybe$Just(x + 1) : _elm_lang$core$Maybe$Nothing;
+				},
+				0));
+	});
 var _user$project$RestDojo_Util$avatar = function (name) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -12454,7 +12556,7 @@ var _user$project$RestDojo_ViewDojo$isMyTeam = F2(
 					team.members)));
 	});
 var _user$project$RestDojo_ViewDojo$teamNumber = function (team) {
-	var mod6 = A2(_elm_lang$core$Basics_ops['%'], team.id, 6);
+	var mod6 = 1;
 	var m1to6 = _elm_lang$core$Native_Utils.eq(mod6, 0) ? 6 : mod6;
 	return _elm_lang$core$Basics$toString(m1to6);
 };
@@ -13888,30 +13990,30 @@ var _user$project$RestDojo_Main$addAlert = F3(
 				nextAlertId: model.nextAlertId + 1
 			});
 	});
-var _user$project$RestDojo_Main$denyTeamMember = F3(
-	function (dojo, team, teamMember) {
+var _user$project$RestDojo_Main$denyTeamMember = F4(
+	function (headers, dojo, team, teamMember) {
 		return {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$http$Http$send,
 				A3(_user$project$RestDojo_Types$LeftTeam, dojo, team, teamMember),
-				_user$project$RestDojo_API$deleteDenyTeamMember(teamMember.selfUrl)),
+				A2(_user$project$RestDojo_API$deleteDenyTeamMember, headers, teamMember.selfUrl)),
 			_1: {ctor: '[]'}
 		};
 	});
-var _user$project$RestDojo_Main$acceptTeamMember = F3(
-	function (dojo, team, teamMember) {
+var _user$project$RestDojo_Main$acceptTeamMember = F4(
+	function (headers, dojo, team, teamMember) {
 		return {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$http$Http$send,
 				A2(_user$project$RestDojo_Types$JoinedTeamAsCrew, dojo, team),
-				_user$project$RestDojo_API$patchAccepTeamMember(teamMember.selfUrl)),
+				A2(_user$project$RestDojo_API$patchAccepTeamMember, headers, teamMember.selfUrl)),
 			_1: {ctor: '[]'}
 		};
 	});
-var _user$project$RestDojo_Main$joinTeam = F3(
-	function (dojo, team, loggedUser) {
+var _user$project$RestDojo_Main$joinTeam = F4(
+	function (headers, dojo, team, loggedUser) {
 		var _p1 = loggedUser;
 		if (_p1.ctor === 'Just') {
 			return {
@@ -13919,15 +14021,15 @@ var _user$project$RestDojo_Main$joinTeam = F3(
 				_0: A2(
 					_elm_lang$http$Http$send,
 					A2(_user$project$RestDojo_Types$JoinedTeamAsEntrant, dojo, team),
-					A3(_user$project$RestDojo_API$postJoinTeam, team.joinUrl, team, _p1._0)),
+					A4(_user$project$RestDojo_API$postJoinTeam, headers, team.joinUrl, team, _p1._0)),
 				_1: {ctor: '[]'}
 			};
 		} else {
 			return {ctor: '[]'};
 		}
 	});
-var _user$project$RestDojo_Main$createTeam = F3(
-	function (dojo, teamName, loggedUser) {
+var _user$project$RestDojo_Main$createTeam = F4(
+	function (headers, dojo, teamName, loggedUser) {
 		var _p2 = loggedUser;
 		if (_p2.ctor === 'Just') {
 			return {
@@ -13935,56 +14037,61 @@ var _user$project$RestDojo_Main$createTeam = F3(
 				_0: A2(
 					_elm_lang$http$Http$send,
 					_user$project$RestDojo_Types$CreatedTeam(dojo),
-					A3(_user$project$RestDojo_API$postNewTeam, dojo.teamsUrl, teamName, _p2._0)),
+					A4(_user$project$RestDojo_API$postNewTeam, headers, dojo.teamsUrl, teamName, _p2._0)),
 				_1: {ctor: '[]'}
 			};
 		} else {
 			return {ctor: '[]'};
 		}
 	});
-var _user$project$RestDojo_Main$loadGame = F2(
-	function (dojo, gameUrl) {
+var _user$project$RestDojo_Main$loadGame = F3(
+	function (headers, dojo, gameUrl) {
 		return A2(
 			_elm_lang$http$Http$send,
 			_user$project$RestDojo_Types$LoadGame(dojo),
-			A2(_user$project$RestDojo_API$getGame, gameUrl, dojo));
+			A3(_user$project$RestDojo_API$getGame, headers, gameUrl, dojo));
 	});
-var _user$project$RestDojo_Main$loadEvents = F2(
-	function (dojo, teams) {
+var _user$project$RestDojo_Main$loadEvents = F3(
+	function (headers, dojo, teams) {
 		return A2(
 			_elm_lang$http$Http$send,
 			_user$project$RestDojo_Types$LoadEvents(dojo),
-			A2(_user$project$RestDojo_API$getEvents, dojo.eventsUrl, teams));
+			A3(_user$project$RestDojo_API$getEvents, headers, dojo.eventsUrl, teams));
 	});
-var _user$project$RestDojo_Main$loadPointHistory = function (dojo) {
-	return A2(
-		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$LoadPointHistory,
-		_user$project$RestDojo_API$getPointHistory(dojo.pointHistoryUrl));
-};
-var _user$project$RestDojo_Main$loadTeams = function (dojo) {
-	return A2(
-		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$LoadTeams(dojo),
-		_user$project$RestDojo_API$getTeams(dojo.teamsUrl));
-};
-var _user$project$RestDojo_Main$loadDojos = function (url) {
-	return A2(
-		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$LoadDojos,
-		_user$project$RestDojo_API$getDojos(url));
-};
-var _user$project$RestDojo_Main$loadBillboard = function (url) {
-	return A2(
-		_elm_lang$http$Http$send,
-		_user$project$RestDojo_Types$LoadBillboard,
-		_user$project$RestDojo_API$getBillboard(url));
-};
+var _user$project$RestDojo_Main$loadPoints = F2(
+	function (headers, dojo) {
+		return A2(
+			_elm_lang$http$Http$send,
+			_user$project$RestDojo_Types$LoadPoints,
+			A2(_user$project$RestDojo_API$getPoints, headers, dojo.pointHistoryUrl));
+	});
+var _user$project$RestDojo_Main$loadTeams = F2(
+	function (headers, dojo) {
+		return A2(
+			_elm_lang$http$Http$send,
+			_user$project$RestDojo_Types$LoadTeams(dojo),
+			A2(_user$project$RestDojo_API$getTeams, headers, dojo.teamsUrl));
+	});
+var _user$project$RestDojo_Main$loadDojos = F2(
+	function (headers, url) {
+		return A2(
+			_elm_lang$http$Http$send,
+			_user$project$RestDojo_Types$LoadDojos,
+			A2(_user$project$RestDojo_API$getDojos, headers, url));
+	});
+var _user$project$RestDojo_Main$loadBillboard = F2(
+	function (headers, url) {
+		return A2(
+			_elm_lang$http$Http$send,
+			_user$project$RestDojo_Types$LoadBillboard,
+			A2(_user$project$RestDojo_API$getBillboard, headers, url));
+	});
 var _user$project$RestDojo_Main$initModel = F2(
 	function (flags, location) {
 		return A2(
 			_elm_lang$core$Platform_Cmd_ops['!'],
 			{
+				headers: flags.headers,
 				billboard: _user$project$RestDojo_Types$Billboard(''),
 				route: _user$project$RestDojo_Types$HomeRoute,
 				dojos: {ctor: '[]'},
@@ -13994,19 +14101,65 @@ var _user$project$RestDojo_Main$initModel = F2(
 			},
 			{
 				ctor: '::',
-				_0: _user$project$RestDojo_Main$loadBillboard(flags.baseUrl),
+				_0: A2(_user$project$RestDojo_Main$loadBillboard, flags.headers, flags.baseUrl),
 				_1: {ctor: '[]'}
 			});
 	});
-var _user$project$RestDojo_Main$mapToChartInput = function (pointHistory) {
+var _user$project$RestDojo_Main$pointsToChartInput = function (gamePoints) {
+	var addMissingTeam = F3(
+		function (dict, len, teamPoint) {
+			return A2(_elm_lang$core$Dict$member, teamPoint.teamName, dict) ? dict : A3(
+				_elm_lang$core$Dict$insert,
+				teamPoint.teamName,
+				A2(_user$project$RestDojo_Util$fillList, len, 0),
+				dict);
+		});
+	var addTeamPoint = F3(
+		function (dict, len, teamPoint) {
+			return A2(
+				_elm_lang$core$Dict$map,
+				F2(
+					function (teamName, points) {
+						var lastItem = function () {
+							var _p3 = _elm_lang$core$List$head(points);
+							if (_p3.ctor === 'Just') {
+								return _p3._0;
+							} else {
+								return 0;
+							}
+						}();
+						var delta = _elm_lang$core$Native_Utils.eq(teamName, teamPoint.teamName) ? teamPoint.point : 0;
+						return {ctor: '::', _0: delta + lastItem, _1: points};
+					}),
+				A3(addMissingTeam, dict, len, teamPoint));
+		});
+	var addTeamPoints = F3(
+		function (dict, len, teamPoints) {
+			return A3(
+				_elm_lang$core$List$foldl,
+				F2(
+					function (teamPoint, acc) {
+						return A3(addTeamPoint, acc, len, teamPoint);
+					}),
+				dict,
+				teamPoints);
+		});
 	return {
-		labels: pointHistory.games,
+		labels: A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.labelX;
+			},
+			gamePoints),
 		datasets: A2(
 			_elm_lang$core$List$map,
-			function (_p3) {
-				var _p4 = _p3;
-				var _p5 = _p4._1;
-				return {label: _p5.teamName, data: _p5.data, borderColor: _p4._0};
+			function (_p4) {
+				var _p5 = _p4;
+				return {
+					label: _p5._1._0,
+					data: _elm_lang$core$List$reverse(_p5._1._1),
+					borderColor: _p5._0
+				};
 			},
 			A2(
 				_elm_community$list_extra$List_Extra$zip,
@@ -14035,7 +14188,22 @@ var _user$project$RestDojo_Main$mapToChartInput = function (pointHistory) {
 						}
 					}
 				},
-				pointHistory.teams))
+				_elm_lang$core$Dict$toList(
+					_elm_lang$core$Tuple$first(
+						A3(
+							_elm_lang$core$List$foldl,
+							F2(
+								function (gamePoint, _p6) {
+									var _p7 = _p6;
+									var _p8 = _p7._1;
+									return {
+										ctor: '_Tuple2',
+										_0: A3(addTeamPoints, _p7._0, _p8, gamePoint.teamPoints),
+										_1: _p8 + 1
+									};
+								}),
+							{ctor: '_Tuple2', _0: _elm_lang$core$Dict$empty, _1: 0},
+							gamePoints)))))
 	};
 };
 var _user$project$RestDojo_Main$parser = _evancz$url_parser$UrlParser$oneOf(
@@ -14050,15 +14218,15 @@ var _user$project$RestDojo_Main$parser = _evancz$url_parser$UrlParser$oneOf(
 				A2(
 					_evancz$url_parser$UrlParser_ops['</>'],
 					_evancz$url_parser$UrlParser$s('dojos'),
-					_evancz$url_parser$UrlParser$int)),
+					_evancz$url_parser$UrlParser$string)),
 			_1: {ctor: '[]'}
 		}
 	});
 var _user$project$RestDojo_Main$getRoute = function (location) {
 	var maybeRoute = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$RestDojo_Main$parser, location);
-	var _p6 = maybeRoute;
-	if (_p6.ctor === 'Just') {
-		return _p6._0;
+	var _p9 = maybeRoute;
+	if (_p9.ctor === 'Just') {
+		return _p9._0;
 	} else {
 		return _user$project$RestDojo_Types$NotFoundRoute;
 	}
@@ -14096,78 +14264,78 @@ var _user$project$RestDojo_Main$logout = _elm_lang$core$Native_Platform.outgoing
 	});
 var _user$project$RestDojo_Main$update = F2(
 	function (msg, model) {
-		var _p7 = msg;
-		switch (_p7.ctor) {
+		var _p10 = msg;
+		switch (_p10.ctor) {
 			case 'LoadBillboard':
-				if (_p7._0.ctor === 'Ok') {
-					var _p8 = _p7._0._0;
+				if (_p10._0.ctor === 'Ok') {
+					var _p11 = _p10._0._0;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{billboard: _p8}),
+							{billboard: _p11}),
 						{
 							ctor: '::',
-							_0: _user$project$RestDojo_Main$loadDojos(_p8.dojosUrl),
+							_0: A2(_user$project$RestDojo_Main$loadDojos, model.headers, _p11.dojosUrl),
 							_1: {ctor: '[]'}
 						});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._0._0, 'Couldn\'t load billboard'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._0._0, 'Couldn\'t load billboard'),
 						{ctor: '[]'});
 				}
 			case 'LoadDojos':
-				if (_p7._0.ctor === 'Ok') {
+				if (_p10._0.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{dojos: _p7._0._0}),
+							{dojos: _p10._0._0}),
 						{ctor: '[]'});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._0._0, 'Couldn\'t load dojos'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._0._0, 'Couldn\'t load dojos'),
 						{ctor: '[]'});
 				}
-			case 'LoadPointHistory':
-				if (_p7._0.ctor === 'Ok') {
+			case 'LoadPoints':
+				if (_p10._0.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						model,
 						{
 							ctor: '::',
 							_0: _user$project$RestDojo_Main$chart(
-								_user$project$RestDojo_Main$mapToChartInput(_p7._0._0)),
+								_user$project$RestDojo_Main$pointsToChartInput(_p10._0._0)),
 							_1: {ctor: '[]'}
 						});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._0._0, 'Couldn\'t load points'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._0._0, 'Couldn\'t load points'),
 						{ctor: '[]'});
 				}
 			case 'LoadGame':
-				if (_p7._1.ctor === 'Ok') {
+				if (_p10._1.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								route: A2(_user$project$RestDojo_Types$GameRoute, _p7._0.id, _p7._1._0)
+								route: A2(_user$project$RestDojo_Types$GameRoute, _p10._0.id, _p10._1._0)
 							}),
 						{ctor: '[]'});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t load game'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._1._0, 'Couldn\'t load game'),
 						{ctor: '[]'});
 				}
 			case 'LoadTeams':
-				if (_p7._1.ctor === 'Ok') {
-					var _p10 = _p7._0;
-					var _p9 = _p7._1._0;
+				if (_p10._1.ctor === 'Ok') {
+					var _p13 = _p10._0;
+					var _p12 = _p10._1._0;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -14175,27 +14343,27 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p10.id,
+									_p13.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
-											{teams: _p9});
+											{teams: _p12});
 									},
 									model.dojos)
 							}),
 						{
 							ctor: '::',
-							_0: A2(_user$project$RestDojo_Main$loadEvents, _p10, _p9),
+							_0: A3(_user$project$RestDojo_Main$loadEvents, model.headers, _p13, _p12),
 							_1: {ctor: '[]'}
 						});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t load teams'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._1._0, 'Couldn\'t load teams'),
 						{ctor: '[]'});
 				}
 			case 'LoadEvents':
-				if (_p7._1.ctor === 'Ok') {
+				if (_p10._1.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -14203,11 +14371,11 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p7._0.id,
+									_p10._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
-											{events: _p7._1._0});
+											{events: _p10._1._0});
 									},
 									model.dojos)
 							}),
@@ -14215,16 +14383,16 @@ var _user$project$RestDojo_Main$update = F2(
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t load events'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._1._0, 'Couldn\'t load events'),
 						{ctor: '[]'});
 				}
 			case 'CreateTeam':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
-					A3(_user$project$RestDojo_Main$createTeam, _p7._0, _p7._1, model.user));
+					A4(_user$project$RestDojo_Main$createTeam, model.headers, _p10._0, _p10._1, model.user));
 			case 'CreatedTeam':
-				if (_p7._1.ctor === 'Ok') {
+				if (_p10._1.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -14232,7 +14400,7 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p7._0.id,
+									_p10._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
@@ -14242,7 +14410,7 @@ var _user$project$RestDojo_Main$update = F2(
 													dojo.teams,
 													{
 														ctor: '::',
-														_0: _p7._1._0,
+														_0: _p10._1._0,
 														_1: {ctor: '[]'}
 													}),
 												dialog: _elm_lang$core$Maybe$Nothing
@@ -14254,20 +14422,20 @@ var _user$project$RestDojo_Main$update = F2(
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._1._0, 'Couldn\'t create team'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._1._0, 'Couldn\'t create team'),
 						{ctor: '[]'});
 				}
 			case 'JoinTeam':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
-					A3(_user$project$RestDojo_Main$joinTeam, _p7._0, _p7._1, model.user));
+					A4(_user$project$RestDojo_Main$joinTeam, model.headers, _p10._0, _p10._1, model.user));
 			case 'JoinedTeamAsEntrant':
-				if (_p7._2.ctor === 'Ok') {
+				if (_p10._2.ctor === 'Ok') {
 					var addTeamMember = function (dojo) {
 						return A3(
 							_user$project$RestDojo_Main$updateTeam,
-							_p7._1.id,
+							_p10._1.id,
 							function (team) {
 								return _elm_lang$core$Native_Utils.update(
 									team,
@@ -14277,7 +14445,7 @@ var _user$project$RestDojo_Main$update = F2(
 											team.members,
 											{
 												ctor: '::',
-												_0: _p7._2._0,
+												_0: _p10._2._0,
 												_1: {ctor: '[]'}
 											})
 									});
@@ -14291,7 +14459,7 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p7._0.id,
+									_p10._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
@@ -14306,31 +14474,31 @@ var _user$project$RestDojo_Main$update = F2(
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._2._0, 'Couldn\'t add player to team as entrant'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._2._0, 'Couldn\'t add player to team as entrant'),
 						{ctor: '[]'});
 				}
 			case 'AcceptJoinTeam':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
-					A3(_user$project$RestDojo_Main$acceptTeamMember, _p7._0, _p7._1, _p7._2));
+					A4(_user$project$RestDojo_Main$acceptTeamMember, model.headers, _p10._0, _p10._1, _p10._2));
 			case 'DenyJoinTeam':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
-					A3(_user$project$RestDojo_Main$denyTeamMember, _p7._0, _p7._1, _p7._2));
+					A4(_user$project$RestDojo_Main$denyTeamMember, model.headers, _p10._0, _p10._1, _p10._2));
 			case 'JoinedTeamAsCrew':
-				if (_p7._2.ctor === 'Ok') {
-					var _p12 = _p7._2._0;
+				if (_p10._2.ctor === 'Ok') {
+					var _p15 = _p10._2._0;
 					var updateTeamMember_ = A2(
 						_user$project$RestDojo_Main$updateTeamMember,
-						_p12.name,
-						function (_p11) {
-							return _p12;
+						_p15.name,
+						function (_p14) {
+							return _p15;
 						});
 					var updateTeam_ = A2(
 						_user$project$RestDojo_Main$updateTeam,
-						_p7._1.id,
+						_p10._1.id,
 						function (team) {
 							return _elm_lang$core$Native_Utils.update(
 								team,
@@ -14345,7 +14513,7 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p7._0.id,
+									_p10._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
@@ -14359,18 +14527,18 @@ var _user$project$RestDojo_Main$update = F2(
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._2._0, 'Couldn\'t add player to team'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._2._0, 'Couldn\'t add player to team'),
 						{ctor: '[]'});
 				}
 			case 'LeftTeam':
-				if (_p7._3.ctor === 'Ok') {
+				if (_p10._3.ctor === 'Ok') {
 					var removeTeamMember = _elm_lang$core$List$filter(
 						function (teamMember) {
-							return !_elm_lang$core$Native_Utils.eq(teamMember.name, _p7._2.name);
+							return !_elm_lang$core$Native_Utils.eq(teamMember.name, _p10._2.name);
 						});
 					var updateTeam_ = A2(
 						_user$project$RestDojo_Main$updateTeam,
-						_p7._1.id,
+						_p10._1.id,
 						function (team) {
 							return _elm_lang$core$Native_Utils.update(
 								team,
@@ -14385,7 +14553,7 @@ var _user$project$RestDojo_Main$update = F2(
 							{
 								dojos: A3(
 									_user$project$RestDojo_Main$updateDojo,
-									_p7._0.id,
+									_p10._0.id,
 									function (dojo) {
 										return _elm_lang$core$Native_Utils.update(
 											dojo,
@@ -14399,7 +14567,7 @@ var _user$project$RestDojo_Main$update = F2(
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						A3(_user$project$RestDojo_Main$addAlert, model, _p7._3._0, 'Couldn\'t remove player from team as entrant'),
+						A3(_user$project$RestDojo_Main$addAlert, model, _p10._3._0, 'Couldn\'t remove player from team as entrant'),
 						{ctor: '[]'});
 				}
 			case 'SelectHome':
@@ -14410,20 +14578,20 @@ var _user$project$RestDojo_Main$update = F2(
 						{route: _user$project$RestDojo_Types$HomeRoute}),
 					{ctor: '[]'});
 			case 'SelectDojo':
-				var _p13 = _p7._0;
+				var _p16 = _p10._0;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							route: _user$project$RestDojo_Types$DojoRoute(_p13.id)
+							route: _user$project$RestDojo_Types$DojoRoute(_p16.id)
 						}),
 					{
 						ctor: '::',
-						_0: _user$project$RestDojo_Main$loadTeams(_p13),
+						_0: A2(_user$project$RestDojo_Main$loadTeams, model.headers, _p16),
 						_1: {
 							ctor: '::',
-							_0: _user$project$RestDojo_Main$loadPointHistory(_p13),
+							_0: A2(_user$project$RestDojo_Main$loadPoints, model.headers, _p16),
 							_1: {ctor: '[]'}
 						}
 					});
@@ -14433,7 +14601,7 @@ var _user$project$RestDojo_Main$update = F2(
 					model,
 					{
 						ctor: '::',
-						_0: A2(_user$project$RestDojo_Main$loadGame, _p7._0, _p7._1),
+						_0: A3(_user$project$RestDojo_Main$loadGame, model.headers, _p10._0, _p10._1),
 						_1: {ctor: '[]'}
 					});
 			case 'LoginPushed':
@@ -14461,7 +14629,7 @@ var _user$project$RestDojo_Main$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{user: _p7._0}),
+						{user: _p10._0}),
 					{ctor: '[]'});
 			case 'ShowEditTeamDialog':
 				return A2(
@@ -14471,13 +14639,13 @@ var _user$project$RestDojo_Main$update = F2(
 						{
 							dojos: A3(
 								_user$project$RestDojo_Main$updateDojo,
-								_p7._0.id,
+								_p10._0.id,
 								function (dojo) {
 									return _elm_lang$core$Native_Utils.update(
 										dojo,
 										{
 											dialog: _elm_lang$core$Maybe$Just(
-												_user$project$RestDojo_Types$EditTeamDialog(_p7._1.id))
+												_user$project$RestDojo_Types$EditTeamDialog(_p10._1.id))
 										});
 								},
 								model.dojos)
@@ -14491,13 +14659,13 @@ var _user$project$RestDojo_Main$update = F2(
 						{
 							dojos: A3(
 								_user$project$RestDojo_Main$updateDojo,
-								_p7._0.id,
+								_p10._0.id,
 								function (dojo) {
 									return _elm_lang$core$Native_Utils.update(
 										dojo,
 										{
 											dialog: _elm_lang$core$Maybe$Just(
-												_user$project$RestDojo_Types$JoinTeamDialog(_p7._1.id))
+												_user$project$RestDojo_Types$JoinTeamDialog(_p10._1.id))
 										});
 								},
 								model.dojos)
@@ -14511,7 +14679,7 @@ var _user$project$RestDojo_Main$update = F2(
 						{
 							dojos: A3(
 								_user$project$RestDojo_Main$updateDojo,
-								_p7._0.id,
+								_p10._0.id,
 								function (dojo) {
 									return _elm_lang$core$Native_Utils.update(
 										dojo,
@@ -14531,13 +14699,13 @@ var _user$project$RestDojo_Main$update = F2(
 						{
 							dojos: A3(
 								_user$project$RestDojo_Main$updateDojo,
-								_p7._0.id,
+								_p10._0.id,
 								function (dojo) {
 									return _elm_lang$core$Native_Utils.update(
 										dojo,
 										{
 											dialog: _elm_lang$core$Maybe$Just(
-												_user$project$RestDojo_Types$CreateTeamDialog(_p7._1))
+												_user$project$RestDojo_Types$CreateTeamDialog(_p10._1))
 										});
 								},
 								model.dojos)
@@ -14551,7 +14719,7 @@ var _user$project$RestDojo_Main$update = F2(
 						{
 							dojos: A3(
 								_user$project$RestDojo_Main$updateDojo,
-								_p7._0.id,
+								_p10._0.id,
 								function (dojo) {
 									return _elm_lang$core$Native_Utils.update(
 										dojo,
@@ -14569,7 +14737,7 @@ var _user$project$RestDojo_Main$update = F2(
 							alerts: A2(
 								_elm_lang$core$List$filter,
 								function (alert) {
-									return !_elm_lang$core$Native_Utils.eq(alert.id, _p7._0);
+									return !_elm_lang$core$Native_Utils.eq(alert.id, _p10._0);
 								},
 								model.alerts)
 						}),
@@ -14624,7 +14792,7 @@ var _user$project$RestDojo_Main$main = A2(
 		init: _user$project$RestDojo_Main$initModel,
 		update: _user$project$RestDojo_Main$update,
 		view: _user$project$RestDojo_View$view,
-		subscriptions: function (_p14) {
+		subscriptions: function (_p17) {
 			return _user$project$RestDojo_Main$authentications(_user$project$RestDojo_Types$AuthenticatedAs);
 		}
 	})(
@@ -14633,52 +14801,72 @@ var _user$project$RestDojo_Main$main = A2(
 		function (baseUrl) {
 			return A2(
 				_elm_lang$core$Json_Decode$andThen,
-				function (user) {
-					return _elm_lang$core$Json_Decode$succeed(
-						{baseUrl: baseUrl, user: user});
+				function (headers) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						function (user) {
+							return _elm_lang$core$Json_Decode$succeed(
+								{baseUrl: baseUrl, headers: headers, user: user});
+						},
+						A2(
+							_elm_lang$core$Json_Decode$field,
+							'user',
+							_elm_lang$core$Json_Decode$oneOf(
+								{
+									ctor: '::',
+									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$core$Json_Decode$map,
+											_elm_lang$core$Maybe$Just,
+											A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (fullname) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														function (idProvider) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																function (name) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		function (picture) {
+																			return _elm_lang$core$Json_Decode$succeed(
+																				{fullname: fullname, idProvider: idProvider, name: name, picture: picture});
+																		},
+																		A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
+																},
+																A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
+														},
+														A2(_elm_lang$core$Json_Decode$field, 'idProvider', _elm_lang$core$Json_Decode$string));
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string))),
+										_1: {ctor: '[]'}
+									}
+								})));
 				},
 				A2(
 					_elm_lang$core$Json_Decode$field,
-					'user',
-					_elm_lang$core$Json_Decode$oneOf(
-						{
-							ctor: '::',
-							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$core$Json_Decode$map,
-									_elm_lang$core$Maybe$Just,
-									A2(
-										_elm_lang$core$Json_Decode$andThen,
-										function (fullname) {
-											return A2(
-												_elm_lang$core$Json_Decode$andThen,
-												function (idProvider) {
-													return A2(
-														_elm_lang$core$Json_Decode$andThen,
-														function (name) {
-															return A2(
-																_elm_lang$core$Json_Decode$andThen,
-																function (picture) {
-																	return _elm_lang$core$Json_Decode$succeed(
-																		{fullname: fullname, idProvider: idProvider, name: name, picture: picture});
-																},
-																A2(_elm_lang$core$Json_Decode$field, 'picture', _elm_lang$core$Json_Decode$string));
-														},
-														A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
-												},
-												A2(_elm_lang$core$Json_Decode$field, 'idProvider', _elm_lang$core$Json_Decode$string));
-										},
-										A2(_elm_lang$core$Json_Decode$field, 'fullname', _elm_lang$core$Json_Decode$string))),
-								_1: {ctor: '[]'}
-							}
-						})));
+					'headers',
+					_elm_lang$core$Json_Decode$list(
+						A2(
+							_elm_lang$core$Json_Decode$andThen,
+							function (key) {
+								return A2(
+									_elm_lang$core$Json_Decode$andThen,
+									function (value) {
+										return _elm_lang$core$Json_Decode$succeed(
+											{key: key, value: value});
+									},
+									A2(_elm_lang$core$Json_Decode$field, 'value', _elm_lang$core$Json_Decode$string));
+							},
+							A2(_elm_lang$core$Json_Decode$field, 'key', _elm_lang$core$Json_Decode$string)))));
 		},
 		A2(_elm_lang$core$Json_Decode$field, 'baseUrl', _elm_lang$core$Json_Decode$string)));
-var _user$project$RestDojo_Main$Flags = F2(
-	function (a, b) {
-		return {baseUrl: a, user: b};
+var _user$project$RestDojo_Main$Flags = F3(
+	function (a, b, c) {
+		return {baseUrl: a, headers: b, user: c};
 	});
 
 var Elm = {};

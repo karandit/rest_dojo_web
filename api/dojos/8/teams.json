@@ -1,4 +1,5 @@
-[
+{
+  "data": [
     { "id": 1,
       "name": "Alpha",
       "descr" : "ver 0.1",
@@ -77,4 +78,5 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/8/teams.json"
     }
-]
+  ]
+}

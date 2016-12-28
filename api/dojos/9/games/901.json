@@ -1,4 +1,7 @@
 {
-  "id": 901,
-  "board": "let's play"
+  "content":
+  {
+    "id": 901,
+    "board": "let's play"
+  }
 }

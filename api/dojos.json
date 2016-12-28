@@ -1,38 +1,40 @@
-[
-  {
-    "id": 8,
-    "label": "2016-05-01 Air",
-    "state": "past",
-    "dojoType": "cluedo",
-    "teamsUrl": "/rest_dojo_web/api/dojos/8/teams.json",
-    "eventsUrl": "/rest_dojo_web/api/dojos/8/events.json",
-    "pointHistoryUrl": "/rest_dojo_web/api/dojos/8/points.json"
-  },
-  {
-    "id": 9,
-    "label": "2016-05-02 US Presidents",
-    "state": "past",
-    "dojoType": "minesweeper",
-    "teamsUrl": "/rest_dojo_web/api/dojos/9/teams.json",
-    "eventsUrl": "/rest_dojo_web/api/dojos/9/events.json",
-    "pointHistoryUrl": "/rest_dojo_web/api/dojos/9/points.json"
-  },
-  {
-    "id": 11,
-    "label": "2016-10-29 US States",
-    "state": "running",
-    "dojoType": "cluedo",
-    "teamsUrl": "/rest_dojo_web/api/dojos/11/teams.json",
-    "eventsUrl": "/rest_dojo_web/api/dojos/11/events.json",
-    "pointHistoryUrl": "/rest_dojo_web/api/dojos/11/points.json"
-  },
-  {
-    "id": 12,
-    "label": "2016-12-13 Luca",
-    "state": "running",
-    "dojoType": "cluedo",
-    "teamsUrl": "/rest_dojo_web/api/dojos/12/teams.json",
-    "eventsUrl": "/rest_dojo_web/api/dojos/12/events.json",
-    "pointHistoryUrl": "/rest_dojo_web/api/dojos/12/points.json"
-  }
-]
+{
+  "data": [
+    {
+      "id": 8,
+      "label": "2016-05-01 Air",
+      "state": "past",
+      "dojoType": "cluedo",
+      "teamsUrl": "/rest_dojo_web/api/dojos/8/teams.json",
+      "eventsUrl": "/rest_dojo_web/api/dojos/8/events.json",
+      "pointHistoryUrl": "/rest_dojo_web/api/dojos/8/points.json"
+    },
+    {
+      "id": 9,
+      "label": "2016-05-02 US Presidents",
+      "state": "past",
+      "dojoType": "minesweeper",
+      "teamsUrl": "/rest_dojo_web/api/dojos/9/teams.json",
+      "eventsUrl": "/rest_dojo_web/api/dojos/9/events.json",
+      "pointHistoryUrl": "/rest_dojo_web/api/dojos/9/points.json"
+    },
+    {
+      "id": 11,
+      "label": "2016-10-29 US States",
+      "state": "running",
+      "dojoType": "cluedo",
+      "teamsUrl": "/rest_dojo_web/api/dojos/11/teams.json",
+      "eventsUrl": "/rest_dojo_web/api/dojos/11/events.json",
+      "pointHistoryUrl": "/rest_dojo_web/api/dojos/11/points.json"
+    },
+    {
+      "id": 12,
+      "label": "2016-12-13 Luca",
+      "state": "running",
+      "dojoType": "cluedo",
+      "teamsUrl": "/rest_dojo_web/api/dojos/12/teams.json",
+      "eventsUrl": "/rest_dojo_web/api/dojos/12/events.json",
+      "pointHistoryUrl": "/rest_dojo_web/api/dojos/12/points.json"
+    }
+  ]
+}

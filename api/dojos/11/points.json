@@ -1,28 +1,40 @@
 {
-  "games" : [ "M", "T", "W", "T", "F", "S", "S" ],
-  "teams": [ {
-      "teamName" : "Alabama",
-      "data" : [ 0, 5, 7, 14, 14, 14, 14 ]
+  "data": [
+    {
+      "labelX": "09:14",
+      "teamPoints": [{"teamName" : "Alabama", "point" : 1}]
     },
     {
-      "teamName" : "Connecticut",
-      "data" : [ 0, 5, 5, 12, 13, 20, 21 ]
+      "labelX": "09:15",
+      "teamPoints": [{"teamName" : "Florida", "point" : 1}]
     },
     {
-      "teamName" : "Florida",
-      "data" : [ 0, 2, 3, 3, 3, 4, 21 ]
+      "labelX": "09:16",
+      "teamPoints": [{"teamName" : "Nebraska", "point" : 1}]
     },
     {
-      "teamName" : "Nebraska",
-      "data" : [ 0, 7, 8, 8, 9, 10, 10 ]
+      "labelX": "09:17",
+      "teamPoints": [{"teamName" : "Nebraska", "point" : 1}]
     },
     {
-      "teamName" : "Oklahoma",
-      "data" : [ 0, 3, 3, 3, 3, 3, 4 ]
+      "labelX": "09:18",
+      "teamPoints": [{"teamName" : "Alabama", "point" : 1}]
     },
     {
-      "teamName" : "Utah",
-      "data" : [ 0, 1, 1, 1, 1, 1, 1 ]
+      "labelX": "09:19",
+      "teamPoints": [{"teamName" : "Oklahoma", "point" : 1}]
+    },
+    {
+      "labelX": "09:20",
+      "teamPoints": [{"teamName" : "Utah", "point" : 1}]
+    },
+    {
+      "labelX": "09:21",
+      "teamPoints": [{"teamName" : "Utah", "point" : 1}]
+    },
+    {
+      "labelX": "09:22",
+      "teamPoints": [{"teamName" : "Utah", "point" : 1}]
     }
   ]
 }
