@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "id": 8,
+      "objectId": 8,
       "label": "2016-05-01 Air",
       "state": "past",
       "dojoType": "cluedo",
@@ -10,7 +10,7 @@
       "pointHistoryUrl": "/rest_dojo_web/api/dojos/8/points.json"
     },
     {
-      "id": 9,
+      "objectId": 9,
       "label": "2016-05-02 US Presidents",
       "state": "past",
       "dojoType": "minesweeper",
@@ -19,7 +19,7 @@
       "pointHistoryUrl": "/rest_dojo_web/api/dojos/9/points.json"
     },
     {
-      "id": 11,
+      "objectId": 11,
       "label": "2016-10-29 US States",
       "state": "running",
       "dojoType": "cluedo",
@@ -28,7 +28,7 @@
       "pointHistoryUrl": "/rest_dojo_web/api/dojos/11/points.json"
     },
     {
-      "id": 12,
+      "objectId": 12,
       "label": "2016-12-13 Luca",
       "state": "running",
       "dojoType": "cluedo",
