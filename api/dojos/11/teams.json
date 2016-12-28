@@ -1,6 +1,6 @@
 {
   "data": [
-    { "id": 1,
+    { "objectId": "1",
       "name": "Alabama",
       "descr" : "ver first",
       "points": 201,
@@ -13,7 +13,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
     },
-    { "id": 2,
+    { "objectId": "2",
       "name": "Connecticut",
       "descr" : "ver 0.100",
       "points": 310,
@@ -26,7 +26,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
     },
-    { "id": 3,
+    { "objectId": "3",
       "name": "Florida",
       "descr" : "ver 0.3",
       "points": 109,
@@ -64,7 +64,7 @@
       ],
       "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
     },
-    { "id": 4,
+    { "objectId": "4",
       "name": "Nebraska",
       "descr" : "blabla",
       "points": 156,
@@ -77,7 +77,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
     },
-    { "id": 5,
+    { "objectId": "5",
       "name": "Oklahoma",
       "descr" : "ver 0.6",
       "points": 210,
@@ -90,7 +90,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/11/teams.json"
     },
-    { "id": 6,
+    { "objectId": "6",
       "name": "Utah",
       "descr" : "ver 0.1.99",
       "points": 315,

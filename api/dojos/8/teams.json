@@ -1,6 +1,6 @@
 {
   "data": [
-    { "id": 1,
+    { "objectId": "1",
       "name": "Alpha",
       "descr" : "ver 0.1",
       "points": 145,
@@ -13,7 +13,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/8/teams.json"
     },
-    { "id": 2,
+    { "objectId": "2",
       "name": "Bravo",
       "descr" : "ver 0.100",
       "points": 68,
@@ -26,7 +26,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/8/teams.json"
     },
-    { "id": 3,
+    { "objectId": "3",
       "name": "Charlie",
       "descr" : "ver 0.3",
       "points": 362,
@@ -39,7 +39,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/8/teams.json"
     },
-    { "id": 4,
+    { "objectId": "4",
       "name": "Delta",
       "descr" : "blabla",
       "points": 68,
@@ -52,7 +52,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/8/teams.json"
     },
-    { "id": 5,
+    { "objectId": "5",
       "name": "Echo",
       "descr" : "ver 0.6",
       "points": 21,
@@ -65,7 +65,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/8/teams.json"
     },
-    { "id": 6,
+    { "objectId": "6",
       "name": "Foxtrot",
       "descr" : "ver 0.1.99",
       "points": 247,

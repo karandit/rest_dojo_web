@@ -1,6 +1,6 @@
 {
   "data": [
-    { "id": 1,
+    { "objectId": "1",
       "name": "Washington",
       "descr" : "ver first",
       "points": 45,
@@ -13,7 +13,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/9/teams.json"
     },
-    { "id": 2,
+    { "objectId": "2",
       "name": "Jefferson",
       "descr" : "ver 0.100",
       "points": 24,
@@ -26,7 +26,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/9/teams.json"
     },
-    { "id": 3,
+    { "objectId": "3",
       "name": "Lincoln",
       "descr" : "ver 0.3",
       "points": 11,
@@ -39,7 +39,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/9/teams.json"
     },
-    { "id": 4,
+    { "objectId": "4",
       "name": "Grant",
       "descr" : "blabla",
       "points": 101,
@@ -52,7 +52,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/9/teams.json"
     },
-    { "id": 5,
+    { "objectId": "5",
       "name": "Roosevelt",
       "descr" : "ver 0.6",
       "points": 37,
@@ -65,7 +65,7 @@
       "members": [],
       "joinUrl": "/rest_dojo_web/api/dojos/9/teams.json"
     },
-    { "id": 6,
+    { "objectId": "6",
       "name": "Kennedy",
       "descr" : "ver 0.1.99",
       "points": 57,
