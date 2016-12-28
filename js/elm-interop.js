@@ -15,7 +15,8 @@ if (null != idToken) {
   }
 }
 
-var app = Elm.RestDojo.Main.fullscreen({baseUrl: 'http://localhost:3000/billboard', headers: [], user: user});
+restdojo_main_args.user = user;
+var app = Elm.RestDojo.Main.fullscreen(restdojo_main_args);
 var restdojo_chart = undefined;
 
 // ----------------------------------- Elm ports -----------------------------------------------------------------------
