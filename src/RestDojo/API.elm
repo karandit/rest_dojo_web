@@ -169,7 +169,7 @@ delete headers url body =
 billboardDecoder : Decoder Billboard
 billboardDecoder =
     Json.map Billboard
-        (Json.field "dojos" Json.string)
+        (Json.field "dojosUrl" Json.string)
 
 
 dojosDecoder : Decoder (List Dojo)

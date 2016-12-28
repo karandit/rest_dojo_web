@@ -1,6 +1,6 @@
 {
   "billboard": {
-    "dojos": "http://localhost:3000/dojos"
+    "dojosUrl": "http://localhost:3000/dojos"
   },
   "dojos": [
     {
