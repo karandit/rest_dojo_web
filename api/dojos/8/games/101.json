@@ -1,7 +1,6 @@
 {
-  "content":
-  {
-    "objectId": "101",
+  "objectId": "101",
+  "content": {
     "secret": {
       "weapon": "Revolver",
       "location" : "Kitchen",
