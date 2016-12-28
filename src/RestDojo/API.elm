@@ -4,7 +4,7 @@ module RestDojo.API
         , getEvents
         , getBillboard
         , getDojos
-        , getPointHistory
+        , getPoints
         , getGame
         , postNewTeam
         , postJoinTeam
@@ -87,9 +87,9 @@ deleteDenyTeamMember headers url =
     delete headers url Http.emptyBody
 
 
-getPointHistory : List HeaderFlag -> String -> Request PointHistory
-getPointHistory headers url =
-    get headers url pointHistoryDecoder
+getPoints : List HeaderFlag -> String -> Request (List GamePoint)
+getPoints headers url =
+    get headers url gamePointsDecoder
 
 
 getEvents : List HeaderFlag -> String -> List Team -> Request (List Event)
@@ -223,17 +223,18 @@ dojoTypeDecoder =
         Json.string |> Json.andThen decodeToType
 
 
-pointHistoryDecoder : Decoder PointHistory
-pointHistoryDecoder =
-    Json.map2 PointHistory
-        (Json.field "games" <| Json.list Json.string)
-        (Json.field "teams" <|
-            Json.list
-                (Json.map2 TeamPoints
-                    (Json.field "teamName" Json.string)
-                    (Json.field "data" <| Json.list Json.int)
-                )
-        )
+gamePointsDecoder : Decoder (List GamePoint)
+gamePointsDecoder =
+    Json.list <|
+        Json.map2 GamePoint
+            (Json.field "labelX" Json.string)
+            (Json.field "teamPoints" <|
+                Json.list
+                    (Json.map2 TeamPoint
+                        (Json.field "teamName" Json.string)
+                        (Json.field "point" Json.int)
+                    )
+            )
 
 
 teamMemberStatusDecoder : Json.Decoder TeamMemberStatus

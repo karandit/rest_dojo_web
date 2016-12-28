@@ -109,15 +109,15 @@ type Event
     = GameWonBy GameUrl (Maybe Team)
 
 
-type alias TeamPoints =
+type alias TeamPoint =
     { teamName : String
-    , data : List Int
+    , point : Int
     }
 
 
-type alias PointHistory =
-    { games : List String
-    , teams : List TeamPoints
+type alias GamePoint =
+    { labelX : String
+    , teamPoints : List TeamPoint
     }
 
 
@@ -148,7 +148,7 @@ type Msg
     | LoadDojos (Result Http.Error (List Dojo))
     | LoadTeams Dojo (Result Http.Error (List Team))
     | LoadEvents Dojo (Result Http.Error (List Event))
-    | LoadPointHistory (Result Http.Error PointHistory)
+    | LoadPoints (Result Http.Error (List GamePoint))
     | LoadGame Dojo (Result Http.Error Game)
     | CreateTeam Dojo String
     | CreatedTeam Dojo (Result Http.Error Team)

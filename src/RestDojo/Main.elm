@@ -1,9 +1,11 @@
 port module RestDojo.Main exposing (..)
 
+import Dict
 import Html
 import Http
 import Task
 import Navigation exposing (Location)
+import RestDojo.Util exposing (fillList)
 import RestDojo.Types exposing (..)
 import RestDojo.API as API exposing (..)
 import RestDojo.View exposing (..)
@@ -66,14 +68,50 @@ port logout : () -> Cmd msg
 port authentications : (Maybe User -> msg) -> Sub msg
 
 
-mapToChartInput : PointHistory -> ChartInput
-mapToChartInput pointHistory =
-    { labels = pointHistory.games
-    , datasets =
-        pointHistory.teams
-            |> List.Extra.zip [ "#7e5ae2", "#e25abc", "#e25a77", "#7e9ce2", "#f78764", "#1784c7" ]
-            |> List.map (\( color, teamPoints ) -> { label = teamPoints.teamName, data = teamPoints.data, borderColor = color })
-    }
+pointsToChartInput : List GamePoint -> ChartInput
+pointsToChartInput gamePoints =
+    let
+        addMissingTeam dict len teamPoint =
+            if Dict.member teamPoint.teamName dict then
+                dict
+            else
+                Dict.insert teamPoint.teamName (fillList len 0) dict
+
+        addTeamPoint dict len teamPoint =
+            Dict.map
+                (\teamName points ->
+                    let
+                        delta =
+                            if (teamName == teamPoint.teamName) then
+                                teamPoint.point
+                            else
+                                0
+
+                        lastItem =
+                            case List.head points of
+                                Just x ->
+                                    x
+
+                                Nothing ->
+                                    0
+                    in
+                        (delta + lastItem) :: points
+                )
+            <|
+                addMissingTeam dict len teamPoint
+
+        addTeamPoints dict len teamPoints =
+            List.foldl (\teamPoint acc -> addTeamPoint acc len teamPoint) dict teamPoints
+    in
+        { labels = List.map .labelX gamePoints
+        , datasets =
+            gamePoints
+                |> List.foldl (\gamePoint ( acc, len ) -> ( addTeamPoints acc len gamePoint.teamPoints, len + 1 )) ( Dict.empty, 0 )
+                |> Tuple.first
+                |> Dict.toList
+                |> List.Extra.zip [ "#7e5ae2", "#e25abc", "#e25a77", "#7e9ce2", "#f78764", "#1784c7" ]
+                |> List.map (\( color, ( teamName, points ) ) -> { label = teamName, data = List.reverse points, borderColor = color })
+        }
 
 
 
@@ -108,9 +146,9 @@ loadTeams headers dojo =
     Http.send (LoadTeams dojo) (API.getTeams headers dojo.teamsUrl)
 
 
-loadPointHistory : List HeaderFlag -> Dojo -> Cmd Msg
-loadPointHistory headers dojo =
-    Http.send LoadPointHistory (API.getPointHistory headers dojo.pointHistoryUrl)
+loadPoints : List HeaderFlag -> Dojo -> Cmd Msg
+loadPoints headers dojo =
+    Http.send LoadPoints (API.getPoints headers dojo.pointHistoryUrl)
 
 
 loadEvents : List HeaderFlag -> Dojo -> List Team -> Cmd Msg
@@ -172,10 +210,10 @@ update msg model =
         LoadDojos (Err err) ->
             addAlert model err "Couldn't load dojos" ! []
 
-        LoadPointHistory (Ok pointHistory) ->
-            model ! [ chart <| mapToChartInput pointHistory ]
+        LoadPoints (Ok points) ->
+            model ! [ chart <| pointsToChartInput points ]
 
-        LoadPointHistory (Err err) ->
+        LoadPoints (Err err) ->
             addAlert model err "Couldn't load points" ! []
 
         LoadGame dojo (Ok game) ->
@@ -254,7 +292,7 @@ update msg model =
             { model | route = HomeRoute } ! []
 
         SelectDojo dojo ->
-            { model | route = DojoRoute dojo.id } ! [ loadTeams model.headers dojo, loadPointHistory model.headers dojo ]
+            { model | route = DojoRoute dojo.id } ! [ loadTeams model.headers dojo, loadPoints model.headers dojo ]
 
         SelectGame dojo gameUrl ->
             model ! [ loadGame model.headers dojo gameUrl ]

@@ -10,7 +10,7 @@
       "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/8/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/8/events",
-      "pointHistoryUrl": "http://localhost:3000/points/8"
+      "pointHistoryUrl": "http://localhost:3000/dojos/8/points"
     },
     {
       "id": 9,
@@ -19,7 +19,7 @@
       "dojoType": "minesweeper",
       "teamsUrl": "http://localhost:3000/dojos/9/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/9/events",
-      "pointHistoryUrl": "http://localhost:3000/points/9"
+      "pointHistoryUrl": "http://localhost:3000/dojos/9/points"
     },
     {
       "id": 11,
@@ -28,7 +28,7 @@
       "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/11/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/11/events",
-      "pointHistoryUrl": "http://localhost:3000/points/11"
+      "pointHistoryUrl": "http://localhost:3000/dojos/11/points"
     },
     {
       "id": 12,
@@ -37,7 +37,7 @@
       "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/12/teams/?_embed=members",
       "eventsUrl": "http://localhost:3000/dojos/12/events",
-      "pointHistoryUrl": "http://localhost:3000/points/12"
+      "pointHistoryUrl": "http://localhost:3000/dojos/12/points"
     }
   ],
   "members": [
@@ -316,267 +316,49 @@
   ],
   "points": [
     {
-      "id": 8,
-      "games": [
-        "M",
-        "T",
-        "W",
-        "T",
-        "F",
-        "S",
-        "S"
-      ],
-      "teams": [
-        {
-          "teamName": "Alpha",
-          "data": [
-            0,
-            5,
-            7,
-            14,
-            14,
-            14,
-            14
-          ]
-        },
-        {
-          "teamName": "Bravo",
-          "data": [
-            0,
-            5,
-            5,
-            12,
-            13,
-            20,
-            21
-          ]
-        },
-        {
-          "teamName": "Charlie",
-          "data": [
-            0,
-            3,
-            3,
-            3,
-            3,
-            4,
-            21
-          ]
-        },
-        {
-          "teamName": "Delta",
-          "data": [
-            0,
-            7,
-            8,
-            8,
-            9,
-            10,
-            10
-          ]
-        },
-        {
-          "teamName": "Echo",
-          "data": [
-            0,
-            3,
-            3,
-            3,
-            3,
-            3,
-            4
-          ]
-        },
-        {
-          "teamName": "Foxtrot",
-          "data": [
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-          ]
-        }
-      ]
+      "dojoId": 8,
+      "labelX": "09:14",
+      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
     },
     {
-      "id": 9,
-      "games": [
-        "M",
-        "T",
-        "W",
-        "T",
-        "F",
-        "S",
-        "S"
-      ],
-      "teams": [
-        {
-          "teamName": "Washington",
-          "data": [
-            0,
-            5,
-            7,
-            14,
-            14,
-            14,
-            14
-          ]
-        },
-        {
-          "teamName": "Jefferson",
-          "data": [
-            0,
-            5,
-            5,
-            12,
-            13,
-            20,
-            21
-          ]
-        },
-        {
-          "teamName": "Lincoln",
-          "data": [
-            0,
-            1,
-            3,
-            3,
-            3,
-            4,
-            21
-          ]
-        },
-        {
-          "teamName": "Grant",
-          "data": [
-            0,
-            7,
-            8,
-            8,
-            9,
-            10,
-            10
-          ]
-        },
-        {
-          "teamName": "Roosevelt",
-          "data": [
-            0,
-            3,
-            3,
-            3,
-            3,
-            3,
-            4
-          ]
-        },
-        {
-          "teamName": "Kennedy",
-          "data": [
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-          ]
-        }
-      ]
+      "dojoId": 8,
+      "labelX": "09:15",
+      "teamPoints": [{"teamName" : "Bravo", "point" : 1}]
     },
     {
-      "id": 11,
-      "games": [
-        "M",
-        "T",
-        "W",
-        "T",
-        "F",
-        "S",
-        "S"
-      ],
-      "teams": [
-        {
-          "teamName": "Alabama",
-          "data": [
-            0,
-            5,
-            7,
-            14,
-            14,
-            14,
-            14
-          ]
-        },
-        {
-          "teamName": "Connecticut",
-          "data": [
-            0,
-            5,
-            5,
-            12,
-            13,
-            20,
-            21
-          ]
-        },
-        {
-          "teamName": "Florida",
-          "data": [
-            0,
-            2,
-            3,
-            3,
-            3,
-            4,
-            21
-          ]
-        },
-        {
-          "teamName": "Nebraska",
-          "data": [
-            0,
-            7,
-            8,
-            8,
-            9,
-            10,
-            10
-          ]
-        },
-        {
-          "teamName": "Oklahoma",
-          "data": [
-            0,
-            3,
-            3,
-            3,
-            3,
-            3,
-            4
-          ]
-        },
-        {
-          "teamName": "Utah",
-          "data": [
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-          ]
-        }
-      ]
+      "dojoId": 8,
+      "labelX": "09:16",
+      "teamPoints": [{"teamName" : "Charlie", "point" : 1}]
     },
     {
-      "id": 12,
-      "games": [],
-      "teams": []
+      "dojoId": 8,
+      "labelX": "09:17",
+      "teamPoints": [{"teamName" : "Delta", "point" : 1}]
+    },
+    {
+      "dojoId": 8,
+      "labelX": "09:18",
+      "teamPoints": [{"teamName" : "Charlie", "point" : 1}]
+    },
+    {
+      "dojoId": 8,
+      "labelX": "09:19",
+      "teamPoints": [{"teamName" : "Delta", "point" : 1}]
+    },
+    {
+      "dojoId": 8,
+      "labelX": "09:20",
+      "teamPoints": [{"teamName" : "Foxtrot", "point" : 1}]
+    },
+    {
+      "dojoId": 8,
+      "labelX": "09:21",
+      "teamPoints": [{"teamName" : "Echo", "point" : 1}]
+    },
+    {
+      "dojoId": 8,
+      "labelX": "09:22",
+      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
     }
   ],
   "events": [
