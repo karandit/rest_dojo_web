@@ -39,12 +39,13 @@ getTeams headers url =
     get headers url teamsDecoder
 
 
-postNewTeam : List HeaderFlag -> String -> String -> User -> Request Team
-postNewTeam headers url teamName user =
+postNewTeam : List HeaderFlag -> String -> DojoId -> String -> User -> Request Team
+postNewTeam headers url dojoId teamName user =
     let
         teamJson =
             JsonEnc.object
-                [ ( "teamName", JsonEnc.string teamName )
+                [ ( "dojoId", JsonEnc.string dojoId )
+                , ( "teamName", JsonEnc.string teamName )
                 , ( "captainName", JsonEnc.string user.name )
                 , ( "captainFullname", JsonEnc.string user.fullname )
                 , ( "captainPicture", JsonEnc.string user.picture )

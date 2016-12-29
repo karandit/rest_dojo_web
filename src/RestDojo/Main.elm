@@ -165,7 +165,7 @@ createTeam : List HeaderFlag -> Dojo -> String -> Maybe User -> List (Cmd Msg)
 createTeam headers dojo teamName loggedUser =
     case loggedUser of
         Just user ->
-            [ Http.send (CreatedTeam dojo) (API.postNewTeam headers dojo.addTeamUrl teamName user) ]
+            [ Http.send (CreatedTeam dojo) (API.postNewTeam headers dojo.addTeamUrl dojo.id teamName user) ]
 
         Nothing ->
             []
