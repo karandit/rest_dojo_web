@@ -8,7 +8,7 @@ module RestDojo.API
         , getGame
         , postNewTeam
         , putJoinTeam
-        , patchAccepTeamMember
+        , putAccepTeamMember
         , deleteDenyTeamMember
         )
 
@@ -96,13 +96,13 @@ putJoinTeam headers url teamToAdd user =
         put headers url (Http.jsonBody body) onlyOneTeamMemberDecoder
 
 
-patchAccepTeamMember : List HeaderFlag -> String -> Request TeamMember
-patchAccepTeamMember headers url =
+putAccepTeamMember : List HeaderFlag -> String -> Request TeamMember
+putAccepTeamMember headers url =
     let
         body =
             JsonEnc.object [ ( "status", JsonEnc.string "crew" ) ]
     in
-        patch headers url (Http.jsonBody body) teamMemberDecoder
+        put headers url (Http.jsonBody body) teamMemberDecoder
 
 
 deleteDenyTeamMember : List HeaderFlag -> String -> Request ()
@@ -172,17 +172,18 @@ put headers url body decoder =
         }
 
 
-patch : List HeaderFlag -> String -> Body -> Decoder a -> Request a
-patch headers url body decoder =
-    Http.request
-        { method = "PATCH"
-        , headers = List.map (\h -> Http.header h.key h.value) headers
-        , url = url
-        , body = body
-        , expect = Http.expectJson decoder
-        , timeout = Nothing
-        , withCredentials = False
-        }
+
+-- patch : List HeaderFlag -> String -> Body -> Decoder a -> Request a
+-- patch headers url body decoder =
+--     Http.request
+--         { method = "PATCH"
+--         , headers = List.map (\h -> Http.header h.key h.value) headers
+--         , url = url
+--         , body = body
+--         , expect = Http.expectJson decoder
+--         , timeout = Nothing
+--         , withCredentials = False
+--         }
 
 
 delete : List HeaderFlag -> String -> Body -> Request ()

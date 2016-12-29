@@ -183,7 +183,7 @@ joinTeam headers dojo team loggedUser =
 
 acceptTeamMember : List HeaderFlag -> Dojo -> Team -> TeamMember -> List (Cmd Msg)
 acceptTeamMember headers dojo team teamMember =
-    [ Http.send (JoinedTeamAsCrew dojo team) (API.patchAccepTeamMember headers teamMember.selfUrl) ]
+    [ Http.send (JoinedTeamAsCrew dojo team) (API.putAccepTeamMember headers teamMember.selfUrl) ]
 
 
 denyTeamMember : List HeaderFlag -> Dojo -> Team -> TeamMember -> List (Cmd Msg)
