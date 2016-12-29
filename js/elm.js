@@ -11738,24 +11738,6 @@ var _user$project$RestDojo_API$delete = F3(
 				withCredentials: false
 			});
 	});
-var _user$project$RestDojo_API$patch = F4(
-	function (headers, url, body, decoder) {
-		return _elm_lang$http$Http$request(
-			{
-				method: 'PATCH',
-				headers: A2(
-					_elm_lang$core$List$map,
-					function (h) {
-						return A2(_elm_lang$http$Http$header, h.key, h.value);
-					},
-					headers),
-				url: url,
-				body: body,
-				expect: _elm_lang$http$Http$expectJson(decoder),
-				timeout: _elm_lang$core$Maybe$Nothing,
-				withCredentials: false
-			});
-	});
 var _user$project$RestDojo_API$put = F4(
 	function (headers, url, body, decoder) {
 		return _elm_lang$http$Http$request(
@@ -11841,7 +11823,7 @@ var _user$project$RestDojo_API$deleteDenyTeamMember = F2(
 	function (headers, url) {
 		return A3(_user$project$RestDojo_API$delete, headers, url, _elm_lang$http$Http$emptyBody);
 	});
-var _user$project$RestDojo_API$patchAccepTeamMember = F2(
+var _user$project$RestDojo_API$putAccepTeamMember = F2(
 	function (headers, url) {
 		var body = _elm_lang$core$Json_Encode$object(
 			{
@@ -11854,7 +11836,7 @@ var _user$project$RestDojo_API$patchAccepTeamMember = F2(
 				_1: {ctor: '[]'}
 			});
 		return A4(
-			_user$project$RestDojo_API$patch,
+			_user$project$RestDojo_API$put,
 			headers,
 			url,
 			_elm_lang$http$Http$jsonBody(body),
@@ -14065,7 +14047,7 @@ var _user$project$RestDojo_Main$acceptTeamMember = F4(
 			_0: A2(
 				_elm_lang$http$Http$send,
 				A2(_user$project$RestDojo_Types$JoinedTeamAsCrew, dojo, team),
-				A2(_user$project$RestDojo_API$patchAccepTeamMember, headers, teamMember.selfUrl)),
+				A2(_user$project$RestDojo_API$putAccepTeamMember, headers, teamMember.selfUrl)),
 			_1: {ctor: '[]'}
 		};
 	});
