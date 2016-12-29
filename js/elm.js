@@ -11393,7 +11393,9 @@ var _user$project$RestDojo_Types$Dojo = function (a) {
 							return function (h) {
 								return function (i) {
 									return function (j) {
-										return {teams: a, events: b, dialog: c, id: d, label: e, state: f, dojoType: g, teamsUrl: h, eventsUrl: i, pointHistoryUrl: j};
+										return function (k) {
+											return {teams: a, events: b, dialog: c, id: d, label: e, state: f, dojoType: g, teamsUrl: h, addTeamUrl: i, eventsUrl: j, pointHistoryUrl: k};
+										};
 									};
 								};
 							};
@@ -11695,8 +11697,8 @@ var _user$project$RestDojo_API$dojosDecoder = A2(
 	_elm_lang$core$Json_Decode$field,
 	'data',
 	_elm_lang$core$Json_Decode$list(
-		A8(
-			_elm_lang$core$Json_Decode$map7,
+		A9(
+			_elm_lang$core$Json_Decode$map8,
 			A3(
 				_user$project$RestDojo_Types$Dojo,
 				{ctor: '[]'},
@@ -11707,6 +11709,7 @@ var _user$project$RestDojo_API$dojosDecoder = A2(
 			A2(_elm_lang$core$Json_Decode$field, 'state', _user$project$RestDojo_API$dojoStateDecoder),
 			A2(_elm_lang$core$Json_Decode$field, 'dojoType', _user$project$RestDojo_API$dojoTypeDecoder),
 			A2(_elm_lang$core$Json_Decode$field, 'teamsUrl', _elm_lang$core$Json_Decode$string),
+			A2(_elm_lang$core$Json_Decode$field, 'addTeamUrl', _elm_lang$core$Json_Decode$string),
 			A2(_elm_lang$core$Json_Decode$field, 'eventsUrl', _elm_lang$core$Json_Decode$string),
 			A2(_elm_lang$core$Json_Decode$field, 'pointHistoryUrl', _elm_lang$core$Json_Decode$string))));
 var _user$project$RestDojo_API$billboardDecoder = A2(
@@ -11889,38 +11892,46 @@ var _user$project$RestDojo_API$postJoinTeam = F4(
 			_elm_lang$http$Http$jsonBody(body),
 			_user$project$RestDojo_API$teamMemberDecoder);
 	});
-var _user$project$RestDojo_API$postNewTeam = F4(
-	function (headers, url, teamName, user) {
+var _user$project$RestDojo_API$postNewTeam = F5(
+	function (headers, url, dojoId, teamName, user) {
 		var teamJson = _elm_lang$core$Json_Encode$object(
 			{
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: 'teamName',
-					_1: _elm_lang$core$Json_Encode$string(teamName)
+					_0: 'dojoId',
+					_1: _elm_lang$core$Json_Encode$string(dojoId)
 				},
 				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: 'captainName',
-						_1: _elm_lang$core$Json_Encode$string(user.name)
+						_0: 'teamName',
+						_1: _elm_lang$core$Json_Encode$string(teamName)
 					},
 					_1: {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: 'captainFullname',
-							_1: _elm_lang$core$Json_Encode$string(user.fullname)
+							_0: 'captainName',
+							_1: _elm_lang$core$Json_Encode$string(user.name)
 						},
 						_1: {
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: 'captainPicture',
-								_1: _elm_lang$core$Json_Encode$string(user.picture)
+								_0: 'captainFullname',
+								_1: _elm_lang$core$Json_Encode$string(user.fullname)
 							},
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'captainPicture',
+									_1: _elm_lang$core$Json_Encode$string(user.picture)
+								},
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}
@@ -14037,7 +14048,7 @@ var _user$project$RestDojo_Main$createTeam = F4(
 				_0: A2(
 					_elm_lang$http$Http$send,
 					_user$project$RestDojo_Types$CreatedTeam(dojo),
-					A4(_user$project$RestDojo_API$postNewTeam, headers, dojo.teamsUrl, teamName, _p2._0)),
+					A5(_user$project$RestDojo_API$postNewTeam, headers, dojo.addTeamUrl, dojo.id, teamName, _p2._0)),
 				_1: {ctor: '[]'}
 			};
 		} else {
