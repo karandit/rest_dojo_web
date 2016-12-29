@@ -11756,6 +11756,24 @@ var _user$project$RestDojo_API$patch = F4(
 				withCredentials: false
 			});
 	});
+var _user$project$RestDojo_API$put = F4(
+	function (headers, url, body, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'PUT',
+				headers: A2(
+					_elm_lang$core$List$map,
+					function (h) {
+						return A2(_elm_lang$http$Http$header, h.key, h.value);
+					},
+					headers),
+				url: url,
+				body: body,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
 var _user$project$RestDojo_API$post = F4(
 	function (headers, url, body, decoder) {
 		return _elm_lang$http$Http$request(
@@ -11842,55 +11860,83 @@ var _user$project$RestDojo_API$patchAccepTeamMember = F2(
 			_elm_lang$http$Http$jsonBody(body),
 			_user$project$RestDojo_API$teamMemberDecoder);
 	});
-var _user$project$RestDojo_API$postJoinTeam = F4(
-	function (headers, url, team, user) {
+var _user$project$RestDojo_API$putJoinTeam = F4(
+	function (headers, url, teamToAdd, user) {
+		var unwrapTeamMember = function (teamMembers) {
+			var _p7 = _elm_lang$core$List$head(teamMembers);
+			if (_p7.ctor === 'Just') {
+				return _elm_lang$core$Json_Decode$succeed(_p7._0);
+			} else {
+				return _elm_lang$core$Json_Decode$fail('Exactly one team member is expected');
+			}
+		};
+		var teamMembersDecoder = A2(
+			_elm_lang$core$Json_Decode$field,
+			'members',
+			_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamMemberDecoder));
+		var onlyOneTeamMemberDecoder = A2(_elm_lang$core$Json_Decode$andThen, unwrapTeamMember, teamMembersDecoder);
 		var body = _elm_lang$core$Json_Encode$object(
 			{
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: 'teamId',
-					_1: _elm_lang$core$Json_Encode$string(team.id)
-				},
-				_1: {
-					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'status',
-						_1: _elm_lang$core$Json_Encode$string('entrant')
-					},
-					_1: {
-						ctor: '::',
-						_0: {
-							ctor: '_Tuple2',
-							_0: 'name',
-							_1: _elm_lang$core$Json_Encode$string(user.name)
-						},
-						_1: {
+					_0: 'members',
+					_1: _elm_lang$core$Json_Encode$list(
+						{
 							ctor: '::',
-							_0: {
-								ctor: '_Tuple2',
-								_0: 'fullname',
-								_1: _elm_lang$core$Json_Encode$string(user.fullname)
-							},
-							_1: {
-								ctor: '::',
-								_0: {
-									ctor: '_Tuple2',
-									_0: 'picture',
-									_1: _elm_lang$core$Json_Encode$string(user.picture)
-								},
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
+							_0: _elm_lang$core$Json_Encode$object(
+								{
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: '___class',
+										_1: _elm_lang$core$Json_Encode$string('teammember')
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 'status',
+											_1: _elm_lang$core$Json_Encode$string('entrant')
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'name',
+												_1: _elm_lang$core$Json_Encode$string(user.name)
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: 'fullname',
+													_1: _elm_lang$core$Json_Encode$string(user.fullname)
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: 'picture',
+														_1: _elm_lang$core$Json_Encode$string(user.picture)
+													},
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						})
+				},
+				_1: {ctor: '[]'}
 			});
-		return A3(
-			_elm_lang$http$Http$post,
+		return A4(
+			_user$project$RestDojo_API$put,
+			headers,
 			url,
 			_elm_lang$http$Http$jsonBody(body),
-			_user$project$RestDojo_API$teamMemberDecoder);
+			onlyOneTeamMemberDecoder);
 	});
 var _user$project$RestDojo_API$postNewTeam = F5(
 	function (headers, url, dojoId, teamName, user) {
@@ -14032,7 +14078,7 @@ var _user$project$RestDojo_Main$joinTeam = F4(
 				_0: A2(
 					_elm_lang$http$Http$send,
 					A2(_user$project$RestDojo_Types$JoinedTeamAsEntrant, dojo, team),
-					A4(_user$project$RestDojo_API$postJoinTeam, headers, team.joinUrl, team, _p1._0)),
+					A4(_user$project$RestDojo_API$putJoinTeam, headers, team.joinUrl, team, _p1._0)),
 				_1: {ctor: '[]'}
 			};
 		} else {
