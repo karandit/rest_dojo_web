@@ -67,6 +67,7 @@ type alias Dojo =
     , state : DojoState
     , dojoType : DojoType
     , teamsUrl : String
+    , addTeamUrl : String
     , eventsUrl : String
     , pointHistoryUrl : String
     }

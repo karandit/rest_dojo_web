@@ -9,6 +9,7 @@
       "state": "past",
       "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/8/teams/?_embed=members",
+      "addTeamUrl": "http://localhost:3000/dojos/8/teams/",
       "eventsUrl": "http://localhost:3000/dojos/8/events",
       "pointHistoryUrl": "http://localhost:3000/dojos/8/points"
     },
@@ -18,6 +19,7 @@
       "state": "past",
       "dojoType": "minesweeper",
       "teamsUrl": "http://localhost:3000/dojos/9/teams/?_embed=members",
+      "addTeamUrl": "http://localhost:3000/dojos/9/teams/",
       "eventsUrl": "http://localhost:3000/dojos/9/events",
       "pointHistoryUrl": "http://localhost:3000/dojos/9/points"
     },
@@ -27,6 +29,7 @@
       "state": "running",
       "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/11/teams/?_embed=members",
+      "addTeamUrl": "http://localhost:3000/dojos/11/teams/",
       "eventsUrl": "http://localhost:3000/dojos/11/events",
       "pointHistoryUrl": "http://localhost:3000/dojos/11/points"
     },
@@ -36,6 +39,7 @@
       "state": "running",
       "dojoType": "cluedo",
       "teamsUrl": "http://localhost:3000/dojos/12/teams/?_embed=members",
+      "addTeamUrl": "http://localhost:3000/dojos/12/teams/",
       "eventsUrl": "http://localhost:3000/dojos/12/events",
       "pointHistoryUrl": "http://localhost:3000/dojos/12/points"
     }
@@ -318,47 +322,92 @@
     {
       "dojoId": 8,
       "labelX": "09:14",
-      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Alpha",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:15",
-      "teamPoints": [{"teamName" : "Bravo", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Bravo",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:16",
-      "teamPoints": [{"teamName" : "Charlie", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Charlie",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:17",
-      "teamPoints": [{"teamName" : "Delta", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Delta",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:18",
-      "teamPoints": [{"teamName" : "Charlie", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Charlie",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:19",
-      "teamPoints": [{"teamName" : "Delta", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Delta",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:20",
-      "teamPoints": [{"teamName" : "Foxtrot", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Foxtrot",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:21",
-      "teamPoints": [{"teamName" : "Echo", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Echo",
+          "point": 1
+        }
+      ]
     },
     {
       "dojoId": 8,
       "labelX": "09:22",
-      "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
+      "teamPoints": [
+        {
+          "teamName": "Alpha",
+          "point": 1
+        }
+      ]
     }
   ],
   "events": [

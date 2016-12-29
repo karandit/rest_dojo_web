@@ -176,12 +176,13 @@ dojosDecoder : Decoder (List Dojo)
 dojosDecoder =
     Json.field "data" <|
         Json.list <|
-            Json.map7 (Dojo [] [] Nothing)
+            Json.map8 (Dojo [] [] Nothing)
                 (Json.field "objectId" Json.string)
                 (Json.field "label" Json.string)
                 (Json.field "state" dojoStateDecoder)
                 (Json.field "dojoType" dojoTypeDecoder)
                 (Json.field "teamsUrl" Json.string)
+                (Json.field "addTeamUrl" Json.string)
                 (Json.field "eventsUrl" Json.string)
                 (Json.field "pointHistoryUrl" Json.string)
 

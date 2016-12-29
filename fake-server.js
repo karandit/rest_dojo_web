@@ -1,4 +1,3 @@
-
 var jsonServer = require('json-server')
 var server = jsonServer.create()
 var router = jsonServer.router('db.json')
@@ -29,10 +28,23 @@ server.use(function (req, res, next) {
 })
 
 router.render = (req, res) => {
+  console.log('xxx Render', req.url);
 
   var handled = false;
+  if (req.method === 'POST') {
+    var urlParts = req.url.split('/').filter(s => s.length != 0);
+
+    if (urlParts[0] === 'teams') {
+      console.log('xxx New team created');
+      var team = res.locals.data;
+      team.objectId = team.id.toString();
+      res.jsonp(team);
+      handled = true;
+    }
+  } // if req.method === 'POST'
+
   if (req.method === 'GET') {
-    const urlParts = req.url.split('/').filter(s => s.length != 0);
+    var urlParts = req.url.split('/').filter(s => s.length != 0);
 
     if (urlParts[0] === 'teams') {
       var teams = res.locals.data;
@@ -91,9 +103,6 @@ router.render = (req, res) => {
       res.jsonp(game)
       handled = true;
     }
-
-
-
   } //if (req.method === 'GET')
 
   if (!handled) {
