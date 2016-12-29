@@ -175,7 +175,7 @@ joinTeam : List HeaderFlag -> Dojo -> Team -> Maybe User -> List (Cmd Msg)
 joinTeam headers dojo team loggedUser =
     case loggedUser of
         Just user ->
-            [ Http.send (JoinedTeamAsEntrant dojo team) (API.postJoinTeam headers team.joinUrl team user) ]
+            [ Http.send (JoinedTeamAsEntrant dojo team) (API.putJoinTeam headers team.joinUrl team user) ]
 
         Nothing ->
             []

@@ -7,7 +7,7 @@ module RestDojo.API
         , getPoints
         , getGame
         , postNewTeam
-        , postJoinTeam
+        , putJoinTeam
         , patchAccepTeamMember
         , deleteDenyTeamMember
         )
@@ -58,20 +58,42 @@ postNewTeam headers url dojoId teamName user =
 -- TODO here the Team is redundant as we don't need the team.Id if it is encoded in the url
 
 
-postJoinTeam : List HeaderFlag -> String -> Team -> User -> Request TeamMember
-postJoinTeam headers url team user =
+putJoinTeam : List HeaderFlag -> String -> Team -> User -> Request TeamMember
+putJoinTeam headers url teamToAdd user =
     let
         body =
             JsonEnc.object
-                [ ( "teamId", JsonEnc.string team.id )
-                  --TODO: after changing id from int to string we can't use teamId, weneed real url
-                , ( "status", JsonEnc.string "entrant" )
-                , ( "name", JsonEnc.string user.name )
-                , ( "fullname", JsonEnc.string user.fullname )
-                , ( "picture", JsonEnc.string user.picture )
+                [ ( "members"
+                  , JsonEnc.list
+                        [ JsonEnc.object
+                            [ -- ( "teamId", JsonEnc.string teamToAdd.id )
+                              --TODO: after changing id from int to string we can't use teamId, weneed real url
+                              ( "___class", JsonEnc.string "teammember" )
+                            , ( "status", JsonEnc.string "entrant" )
+                            , ( "name", JsonEnc.string user.name )
+                            , ( "fullname", JsonEnc.string user.fullname )
+                            , ( "picture", JsonEnc.string user.picture )
+                            ]
+                        ]
+                  )
                 ]
+
+        teamMembersDecoder =
+            Json.field "members" <|
+                Json.list teamMemberDecoder
+
+        unwrapTeamMember teamMembers =
+            case List.head teamMembers of
+                Just firstMember ->
+                    Json.succeed firstMember
+
+                Nothing ->
+                    Json.fail "Exactly one team member is expected"
+
+        onlyOneTeamMemberDecoder =
+            teamMembersDecoder |> Json.andThen unwrapTeamMember
     in
-        Http.post url (Http.jsonBody body) teamMemberDecoder
+        put headers url (Http.jsonBody body) onlyOneTeamMemberDecoder
 
 
 patchAccepTeamMember : List HeaderFlag -> String -> Request TeamMember
@@ -128,6 +150,19 @@ post : List HeaderFlag -> String -> Body -> Decoder a -> Request a
 post headers url body decoder =
     Http.request
         { method = "POST"
+        , headers = List.map (\h -> Http.header h.key h.value) headers
+        , url = url
+        , body = body
+        , expect = Http.expectJson decoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+
+
+put : List HeaderFlag -> String -> Body -> Decoder a -> Request a
+put headers url body decoder =
+    Http.request
+        { method = "PUT"
         , headers = List.map (\h -> Http.header h.key h.value) headers
         , url = url
         , body = body
