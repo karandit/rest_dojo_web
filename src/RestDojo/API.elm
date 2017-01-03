@@ -321,7 +321,7 @@ dateDecoder s =
 
 teamDecoder : Decoder Team
 teamDecoder =
-    Json.map8 Team
+    Json.map8 (Team 0)
         (Json.field "objectId" Json.string)
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
@@ -339,8 +339,15 @@ teamDecoder =
 
 teamsDecoder : Decoder (List Team)
 teamsDecoder =
-    Json.field "data" <|
-        Json.list teamDecoder
+    let
+        orderedTeams teams =
+            teams
+                |> List.sortBy (\team -> team.createdAt |> Date.toTime)
+                |> List.indexedMap (\idx team -> { team | index = idx })
+    in
+        Json.andThen (\teams -> Json.succeed (orderedTeams teams)) <|
+            Json.field "data" <|
+                Json.list teamDecoder
 
 
 eventsDecoder : Dict TeamId Team -> Decoder (List Event)

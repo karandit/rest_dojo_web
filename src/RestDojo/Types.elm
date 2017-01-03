@@ -93,7 +93,8 @@ type alias TeamMember =
 
 
 type alias Team =
-    { id : TeamId
+    { index : Int
+    , id : TeamId
     , name : String
     , descr : String
     , points : Int
