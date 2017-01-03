@@ -6429,6 +6429,39 @@ var _elm_lang$core$Array$repeat = F2(
 	});
 var _elm_lang$core$Array$Array = {ctor: 'Array'};
 
+//import Result //
+
+var _elm_lang$core$Native_Date = function() {
+
+function fromString(str)
+{
+	var date = new Date(str);
+	return isNaN(date.getTime())
+		? _elm_lang$core$Result$Err('Unable to parse \'' + str + '\' as a date. Dates must be in the ISO 8601 format.')
+		: _elm_lang$core$Result$Ok(date);
+}
+
+var dayTable = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var monthTable =
+	['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+	 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+
+return {
+	fromString: fromString,
+	year: function(d) { return d.getFullYear(); },
+	month: function(d) { return { ctor: monthTable[d.getMonth()] }; },
+	day: function(d) { return d.getDate(); },
+	hour: function(d) { return d.getHours(); },
+	minute: function(d) { return d.getMinutes(); },
+	second: function(d) { return d.getSeconds(); },
+	millisecond: function(d) { return d.getMilliseconds(); },
+	toTime: function(d) { return d.getTime(); },
+	fromTime: function(t) { return new Date(t); },
+	dayOfWeek: function(d) { return { ctor: dayTable[d.getDay()] }; }
+};
+
+}();
 var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
 var _elm_lang$core$Task$andThen = _elm_lang$core$Native_Scheduler.andThen;
 var _elm_lang$core$Task$spawnCmd = F2(
@@ -6840,6 +6873,39 @@ var _elm_lang$core$Time$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Time'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Time$init, onEffects: _elm_lang$core$Time$onEffects, onSelfMsg: _elm_lang$core$Time$onSelfMsg, tag: 'sub', subMap: _elm_lang$core$Time$subMap};
+
+var _elm_lang$core$Date$millisecond = _elm_lang$core$Native_Date.millisecond;
+var _elm_lang$core$Date$second = _elm_lang$core$Native_Date.second;
+var _elm_lang$core$Date$minute = _elm_lang$core$Native_Date.minute;
+var _elm_lang$core$Date$hour = _elm_lang$core$Native_Date.hour;
+var _elm_lang$core$Date$dayOfWeek = _elm_lang$core$Native_Date.dayOfWeek;
+var _elm_lang$core$Date$day = _elm_lang$core$Native_Date.day;
+var _elm_lang$core$Date$month = _elm_lang$core$Native_Date.month;
+var _elm_lang$core$Date$year = _elm_lang$core$Native_Date.year;
+var _elm_lang$core$Date$fromTime = _elm_lang$core$Native_Date.fromTime;
+var _elm_lang$core$Date$toTime = _elm_lang$core$Native_Date.toTime;
+var _elm_lang$core$Date$fromString = _elm_lang$core$Native_Date.fromString;
+var _elm_lang$core$Date$now = A2(_elm_lang$core$Task$map, _elm_lang$core$Date$fromTime, _elm_lang$core$Time$now);
+var _elm_lang$core$Date$Date = {ctor: 'Date'};
+var _elm_lang$core$Date$Sun = {ctor: 'Sun'};
+var _elm_lang$core$Date$Sat = {ctor: 'Sat'};
+var _elm_lang$core$Date$Fri = {ctor: 'Fri'};
+var _elm_lang$core$Date$Thu = {ctor: 'Thu'};
+var _elm_lang$core$Date$Wed = {ctor: 'Wed'};
+var _elm_lang$core$Date$Tue = {ctor: 'Tue'};
+var _elm_lang$core$Date$Mon = {ctor: 'Mon'};
+var _elm_lang$core$Date$Dec = {ctor: 'Dec'};
+var _elm_lang$core$Date$Nov = {ctor: 'Nov'};
+var _elm_lang$core$Date$Oct = {ctor: 'Oct'};
+var _elm_lang$core$Date$Sep = {ctor: 'Sep'};
+var _elm_lang$core$Date$Aug = {ctor: 'Aug'};
+var _elm_lang$core$Date$Jul = {ctor: 'Jul'};
+var _elm_lang$core$Date$Jun = {ctor: 'Jun'};
+var _elm_lang$core$Date$May = {ctor: 'May'};
+var _elm_lang$core$Date$Apr = {ctor: 'Apr'};
+var _elm_lang$core$Date$Mar = {ctor: 'Mar'};
+var _elm_lang$core$Date$Feb = {ctor: 'Feb'};
+var _elm_lang$core$Date$Jan = {ctor: 'Jan'};
 
 //import Maybe, Native.Array, Native.List, Native.Utils, Result //
 
@@ -11410,9 +11476,9 @@ var _user$project$RestDojo_Types$TeamMember = F5(
 	function (a, b, c, d, e) {
 		return {name: a, fullname: b, picture: c, status: d, selfUrl: e};
 	});
-var _user$project$RestDojo_Types$Team = F7(
-	function (a, b, c, d, e, f, g) {
-		return {id: a, name: b, descr: c, points: d, captain: e, members: f, joinUrl: g};
+var _user$project$RestDojo_Types$Team = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {index: a, id: b, name: c, descr: d, points: e, createdAt: f, captain: g, members: h, joinUrl: i};
 	});
 var _user$project$RestDojo_Types$TeamPoint = F2(
 	function (a, b) {
@@ -11586,10 +11652,18 @@ var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 					A2(_elm_lang$core$Json_Decode$field, 'gameUrl', _elm_lang$core$Json_Decode$string),
 					A2(_elm_lang$core$Json_Decode$field, 'gameWonBy', _elm_lang$core$Json_Decode$string)))));
 };
+var _user$project$RestDojo_API$dateDecoder = function (s) {
+	var _p3 = _elm_lang$core$Date$fromString(s);
+	if (_p3.ctor === 'Ok') {
+		return _elm_lang$core$Json_Decode$succeed(_p3._0);
+	} else {
+		return _elm_lang$core$Json_Decode$fail(_p3._0);
+	}
+};
 var _user$project$RestDojo_API$teamMemberStatusDecoder = function () {
 	var decodeToType = function (string) {
-		var _p3 = string;
-		switch (_p3) {
+		var _p4 = string;
+		switch (_p4) {
 			case 'crew':
 				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$Crew);
 			case 'entrant':
@@ -11616,13 +11690,17 @@ var _user$project$RestDojo_API$teamMemberDecoder = A6(
 		_elm_lang$core$Maybe$withDefault(''),
 		_elm_lang$core$Json_Decode$maybe(
 			A2(_elm_lang$core$Json_Decode$field, 'selfUrl', _elm_lang$core$Json_Decode$string))));
-var _user$project$RestDojo_API$teamDecoder = A8(
-	_elm_lang$core$Json_Decode$map7,
-	_user$project$RestDojo_Types$Team,
+var _user$project$RestDojo_API$teamDecoder = A9(
+	_elm_lang$core$Json_Decode$map8,
+	_user$project$RestDojo_Types$Team(0),
 	A2(_elm_lang$core$Json_Decode$field, 'objectId', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode$field, 'descr', _elm_lang$core$Json_Decode$string),
 	A2(_elm_lang$core$Json_Decode$field, 'points', _elm_lang$core$Json_Decode$int),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'created',
+		A2(_elm_lang$core$Json_Decode$andThen, _user$project$RestDojo_API$dateDecoder, _elm_lang$core$Json_Decode$string)),
 	A2(_elm_lang$core$Json_Decode$field, 'captain', _user$project$RestDojo_API$teamMemberDecoder),
 	A2(
 		_elm_lang$core$Json_Decode$map,
@@ -11634,10 +11712,34 @@ var _user$project$RestDojo_API$teamDecoder = A8(
 				'members',
 				_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamMemberDecoder)))),
 	A2(_elm_lang$core$Json_Decode$field, 'joinUrl', _elm_lang$core$Json_Decode$string));
-var _user$project$RestDojo_API$teamsDecoder = A2(
-	_elm_lang$core$Json_Decode$field,
-	'data',
-	_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder));
+var _user$project$RestDojo_API$teamsDecoder = function () {
+	var orderedTeams = function (teams) {
+		return A2(
+			_elm_lang$core$List$indexedMap,
+			F2(
+				function (idx, team) {
+					return _elm_lang$core$Native_Utils.update(
+						team,
+						{index: idx});
+				}),
+			A2(
+				_elm_lang$core$List$sortBy,
+				function (team) {
+					return _elm_lang$core$Date$toTime(team.createdAt);
+				},
+				teams));
+	};
+	return A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (teams) {
+			return _elm_lang$core$Json_Decode$succeed(
+				orderedTeams(teams));
+		},
+		A2(
+			_elm_lang$core$Json_Decode$field,
+			'data',
+			_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder)));
+}();
 var _user$project$RestDojo_API$gamePointsDecoder = A2(
 	_elm_lang$core$Json_Decode$field,
 	'data',
@@ -11657,8 +11759,8 @@ var _user$project$RestDojo_API$gamePointsDecoder = A2(
 						A2(_elm_lang$core$Json_Decode$field, 'point', _elm_lang$core$Json_Decode$int)))))));
 var _user$project$RestDojo_API$dojoTypeDecoder = function () {
 	var decodeToType = function (string) {
-		var _p4 = string;
-		switch (_p4) {
+		var _p5 = string;
+		switch (_p5) {
 			case 'cluedo':
 				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$CluedoDojo);
 			case 'minesweeper':
@@ -11675,8 +11777,8 @@ var _user$project$RestDojo_API$dojoTypeDecoder = function () {
 }();
 var _user$project$RestDojo_API$dojoStateDecoder = function () {
 	var decodeToType = function (string) {
-		var _p5 = string;
-		switch (_p5) {
+		var _p6 = string;
+		switch (_p6) {
 			case 'running':
 				return _elm_lang$core$Json_Decode$succeed(_user$project$RestDojo_Types$Running);
 			case 'past':
@@ -11730,7 +11832,7 @@ var _user$project$RestDojo_API$delete = F3(
 				url: url,
 				body: body,
 				expect: _elm_lang$http$Http$expectStringResponse(
-					function (_p6) {
+					function (_p7) {
 						return _elm_lang$core$Result$Ok(
 							{ctor: '_Tuple0'});
 					}),
@@ -11845,9 +11947,9 @@ var _user$project$RestDojo_API$putAccepTeamMember = F2(
 var _user$project$RestDojo_API$putJoinTeam = F4(
 	function (headers, url, teamToAdd, user) {
 		var unwrapTeamMember = function (teamMembers) {
-			var _p7 = _elm_lang$core$List$head(teamMembers);
-			if (_p7.ctor === 'Just') {
-				return _elm_lang$core$Json_Decode$succeed(_p7._0);
+			var _p8 = _elm_lang$core$List$head(teamMembers);
+			if (_p8.ctor === 'Just') {
+				return _elm_lang$core$Json_Decode$succeed(_p8._0);
 			} else {
 				return _elm_lang$core$Json_Decode$fail('Exactly one team member is expected');
 			}
@@ -12595,7 +12697,7 @@ var _user$project$RestDojo_ViewDojo$isMyTeam = F2(
 					team.members)));
 	});
 var _user$project$RestDojo_ViewDojo$teamNumber = function (team) {
-	var mod6 = 1;
+	var mod6 = A2(_elm_lang$core$Basics_ops['%'], team.index, 6);
 	var m1to6 = _elm_lang$core$Native_Utils.eq(mod6, 0) ? 6 : mod6;
 	return _elm_lang$core$Basics$toString(m1to6);
 };
