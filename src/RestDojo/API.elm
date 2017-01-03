@@ -264,17 +264,23 @@ dojoTypeDecoder =
 
 gamePointsDecoder : Decoder (List GamePoint)
 gamePointsDecoder =
-    Json.field "data" <|
-        Json.list <|
-            Json.map2 GamePoint
-                (Json.field "labelX" Json.string)
-                (Json.field "teamPoints" <|
-                    Json.list
-                        (Json.map2 TeamPoint
-                            (Json.field "teamName" Json.string)
-                            (Json.field "point" Json.int)
-                        )
+    Json.andThen (\points -> Json.succeed <| List.sortBy (\team -> Date.toTime team.createdAt) points) <|
+        Json.field "data" <|
+            Json.list gamePointDecoder
+
+
+gamePointDecoder : Decoder GamePoint
+gamePointDecoder =
+    Json.map3 GamePoint
+        (Json.field "labelX" Json.string)
+        (Json.field "created" (Json.float |> Json.andThen floatToDateDecoder))
+        (Json.field "teamPoints" <|
+            Json.list
+                (Json.map2 TeamPoint
+                    (Json.field "teamName" Json.string)
+                    (Json.field "point" Json.int)
                 )
+        )
 
 
 teamMemberStatusDecoder : Json.Decoder TeamMemberStatus
@@ -309,8 +315,13 @@ teamMemberDecoder =
         )
 
 
-dateDecoder : String -> Json.Decoder Date
-dateDecoder s =
+floatToDateDecoder : Float -> Json.Decoder Date
+floatToDateDecoder t =
+    Json.succeed <| Date.fromTime t
+
+
+stringToDateDecoder : String -> Json.Decoder Date
+stringToDateDecoder s =
     case Date.fromString s of
         Ok date ->
             Json.succeed date
@@ -326,7 +337,7 @@ teamDecoder =
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
-        (Json.field "created" (Json.string |> Json.andThen dateDecoder))
+        (Json.field "created" (Json.string |> Json.andThen stringToDateDecoder))
         (Json.field "captain" teamMemberDecoder)
         (Json.map
             (Maybe.withDefault [])

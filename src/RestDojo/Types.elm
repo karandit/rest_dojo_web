@@ -121,6 +121,7 @@ type alias TeamPoint =
 
 type alias GamePoint =
     { labelX : String
+    , createdAt : Date
     , teamPoints : List TeamPoint
     }
 
