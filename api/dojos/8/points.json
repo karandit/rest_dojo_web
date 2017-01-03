@@ -2,38 +2,47 @@
   "data": [
     {
       "labelX": "09:14",
+      "created": 1482943450000,
       "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
     },
     {
       "labelX": "09:15",
+      "created": 1482943455000,
       "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
     },
     {
       "labelX": "09:16",
+      "created": 1482943460000,
       "teamPoints": [{"teamName" : "Bravo", "point" : 1}]
     },
     {
       "labelX": "09:17",
+      "created": 1482943465000,
       "teamPoints": [{"teamName" : "Delta", "point" : 1}]
     },
     {
       "labelX": "09:18",
+      "created": 1482943470000,
       "teamPoints": [{"teamName" : "Charlie", "point" : 1}]
     },
     {
       "labelX": "09:19",
+      "created": 1482943475000,
       "teamPoints": [{"teamName" : "Delta", "point" : 1}]
     },
     {
       "labelX": "09:20",
+      "created": 1482943480000,
       "teamPoints": [{"teamName" : "Foxtrot", "point" : 1}]
     },
     {
       "labelX": "09:21",
+      "created": 1482943485000,
       "teamPoints": [{"teamName" : "Echo", "point" : 1}]
     },
     {
       "labelX": "09:22",
+      "created": 1482943490000,
       "teamPoints": [{"teamName" : "Alpha", "point" : 1}]
     }
   ]
