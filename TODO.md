@@ -11,7 +11,7 @@
  - Dojo
 
   * ~~Display the team members with padding, margin in the dialog~~
-  * Add created to Team to order by the creation time
+  * ~~Add created to Team to order by the creation time~~
   * Add timeStamp to gamepoints to order by the creation time
   * Fix in the 'New team' dialog the 'Team name' input field
 
