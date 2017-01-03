@@ -71,6 +71,7 @@
       "name": "Alpha",
       "descr": "ver 0.1",
       "points": 145,
+      "created" : "2016-12-29T13:18:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -85,6 +86,7 @@
       "name": "Bravo",
       "descr": "ver 0.100",
       "points": 68,
+      "created" : "2016-12-29T13:20:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -99,6 +101,7 @@
       "name": "Charlie",
       "descr": "ver 0.3",
       "points": 362,
+      "created" : "2016-12-29T13:22:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -113,6 +116,7 @@
       "name": "Delta",
       "descr": "blabla",
       "points": 68,
+      "created" : "2016-12-29T13:24:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -127,6 +131,7 @@
       "name": "Echo",
       "descr": "ver 0.6",
       "points": 21,
+      "created" : "2016-12-29T13:26:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -141,6 +146,7 @@
       "name": "Foxtrot",
       "descr": "ver 0.1.99",
       "points": 247,
+      "created" : "2016-12-29T13:28:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -155,6 +161,7 @@
       "name": "Washington",
       "descr": "ver first",
       "points": 45,
+      "created" : "2016-12-30T14:01:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -169,6 +176,7 @@
       "name": "Jefferson",
       "descr": "ver 0.100",
       "points": 24,
+      "created" : "2016-12-30T14:11:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -183,6 +191,7 @@
       "name": "Lincoln",
       "descr": "ver 0.3",
       "points": 11,
+      "created" : "2016-12-30T14:16:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -197,6 +206,7 @@
       "name": "Grant",
       "descr": "blabla",
       "points": 101,
+      "created" : "2016-12-30T14:21:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -211,6 +221,7 @@
       "name": "Roosevelt",
       "descr": "ver 0.6",
       "points": 37,
+      "created" : "2016-12-30T14:26:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -225,6 +236,7 @@
       "name": "Kennedy",
       "descr": "ver 0.1.99",
       "points": 57,
+      "created" : "2016-12-30T14:31:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -239,6 +251,7 @@
       "name": "Alabama",
       "descr": "ver first",
       "points": 201,
+      "created" : "2016-12-30T18:30:07.000Z",
       "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
@@ -253,6 +266,7 @@
       "name": "Connecticut",
       "descr": "ver 0.100",
       "points": 310,
+      "created" : "2016-12-30T18:31:07.000Z",
       "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
@@ -267,6 +281,7 @@
       "name": "Florida",
       "descr": "ver 0.3",
       "points": 109,
+      "created" : "2016-12-30T18:32:07.000Z",
       "captain": {
         "name": "bublag",
         "fullname": "Gábor Bubla",
@@ -281,6 +296,7 @@
       "name": "Nebraska",
       "descr": "blabla",
       "points": 156,
+      "created" : "2016-12-30T18:33:07.000Z",
       "captain": {
         "name": "szokebarnabas",
         "fullname": "Barnabás Szőke",
@@ -295,6 +311,7 @@
       "name": "Oklahoma",
       "descr": "ver 0.6",
       "points": 210,
+      "created" : "2016-12-30T18:34:07.000Z",
       "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
@@ -309,6 +326,7 @@
       "name": "Utah",
       "descr": "ver 0.1.99",
       "points": 315,
+      "created" : "2016-12-30T18:35:07.000Z",
       "captain": {
         "name": "zeldan",
         "fullname": "Dániel Zelei",
