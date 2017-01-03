@@ -1,5 +1,6 @@
 module RestDojo.Types exposing (..)
 
+import Date exposing (Date)
 import Http
 import RestDojo.Cluedo.CluedoTypes exposing (..)
 import RestDojo.Minesweeper.MinesweeperTypes exposing (..)
@@ -96,6 +97,7 @@ type alias Team =
     , name : String
     , descr : String
     , points : Int
+    , createdAt : Date
     , captain : TeamMember
     , members : List TeamMember
     , joinUrl : String

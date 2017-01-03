@@ -12,6 +12,7 @@ module RestDojo.API
         , deleteDenyTeamMember
         )
 
+import Date exposing (Date)
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (..)
 import Json.Encode as JsonEnc exposing (..)
@@ -308,13 +309,24 @@ teamMemberDecoder =
         )
 
 
+dateDecoder : String -> Json.Decoder Date
+dateDecoder s =
+    case Date.fromString s of
+        Ok date ->
+            Json.succeed date
+
+        Err error ->
+            Json.fail error
+
+
 teamDecoder : Decoder Team
 teamDecoder =
-    Json.map7 Team
+    Json.map8 Team
         (Json.field "objectId" Json.string)
         (Json.field "name" Json.string)
         (Json.field "descr" Json.string)
         (Json.field "points" Json.int)
+        (Json.field "created" (Json.string |> Json.andThen dateDecoder))
         (Json.field "captain" teamMemberDecoder)
         (Json.map
             (Maybe.withDefault [])
