@@ -4,6 +4,7 @@
       "name": "Alabama",
       "descr" : "ver first",
       "points": 201,
+      "created" : "2016-12-29T16:08:07.000Z",
       "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
@@ -17,6 +18,7 @@
       "name": "Connecticut",
       "descr" : "ver 0.100",
       "points": 310,
+      "created" : "2016-12-29T16:10:07.000Z",
       "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
@@ -30,6 +32,7 @@
       "name": "Florida",
       "descr" : "ver 0.3",
       "points": 109,
+      "created" : "2016-12-29T16:12:07.000Z",
       "captain": {
         "name": "bublag",
         "fullname": "Gábor Bubla",
@@ -65,6 +68,7 @@
       "name": "Nebraska",
       "descr" : "blabla",
       "points": 156,
+      "created" : "2016-12-29T16:14:07.000Z",
       "captain": {
         "name": "szokebarnabas",
         "fullname": "Barnabás Szőke",
@@ -78,6 +82,7 @@
       "name": "Oklahoma",
       "descr" : "ver 0.6",
       "points": 210,
+      "created" : "2016-12-29T16:16:07.000Z",
       "captain": {
         "name": "bali182",
         "fullname": "Balázs Édes",
@@ -91,6 +96,7 @@
       "name": "Utah",
       "descr" : "ver 0.1.99",
       "points": 315,
+      "created" : "2016-12-29T16:18:07.000Z",
       "captain": {
         "name": "zeldan",
         "fullname": "Dániel Zelei",

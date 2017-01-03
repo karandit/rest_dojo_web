@@ -4,6 +4,7 @@
       "name": "Alpha",
       "descr" : "ver 0.1",
       "points": 145,
+      "created" : "2016-12-29T13:20:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -17,6 +18,7 @@
       "name": "Bravo",
       "descr" : "ver 0.100",
       "points": 68,
+      "created" : "2016-12-29T13:23:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -30,6 +32,7 @@
       "name": "Charlie",
       "descr" : "ver 0.3",
       "points": 362,
+      "created" : "2016-12-29T13:26:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -43,6 +46,7 @@
       "name": "Delta",
       "descr" : "blabla",
       "points": 68,
+      "created" : "2016-12-29T13:29:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -56,6 +60,7 @@
       "name": "Echo",
       "descr" : "ver 0.6",
       "points": 21,
+      "created" : "2016-12-29T13:32:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
@@ -69,6 +74,7 @@
       "name": "Foxtrot",
       "descr" : "ver 0.1.99",
       "points": 247,
+      "created" : "2016-12-29T13:35:07.000Z",
       "captain": {
         "name": "karandit",
         "fullname": "Kárándi Tamás",
