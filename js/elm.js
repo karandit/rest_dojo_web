@@ -11484,9 +11484,9 @@ var _user$project$RestDojo_Types$TeamPoint = F2(
 	function (a, b) {
 		return {teamName: a, point: b};
 	});
-var _user$project$RestDojo_Types$GamePoint = F2(
-	function (a, b) {
-		return {labelX: a, teamPoints: b};
+var _user$project$RestDojo_Types$GamePoint = F3(
+	function (a, b, c) {
+		return {labelX: a, createdAt: b, teamPoints: c};
 	});
 var _user$project$RestDojo_Types$Billboard = function (a) {
 	return {dojosUrl: a};
@@ -11652,13 +11652,17 @@ var _user$project$RestDojo_API$eventsDecoder = function (teamsByTeamId) {
 					A2(_elm_lang$core$Json_Decode$field, 'gameUrl', _elm_lang$core$Json_Decode$string),
 					A2(_elm_lang$core$Json_Decode$field, 'gameWonBy', _elm_lang$core$Json_Decode$string)))));
 };
-var _user$project$RestDojo_API$dateDecoder = function (s) {
+var _user$project$RestDojo_API$stringToDateDecoder = function (s) {
 	var _p3 = _elm_lang$core$Date$fromString(s);
 	if (_p3.ctor === 'Ok') {
 		return _elm_lang$core$Json_Decode$succeed(_p3._0);
 	} else {
 		return _elm_lang$core$Json_Decode$fail(_p3._0);
 	}
+};
+var _user$project$RestDojo_API$floatToDateDecoder = function (t) {
+	return _elm_lang$core$Json_Decode$succeed(
+		_elm_lang$core$Date$fromTime(t));
 };
 var _user$project$RestDojo_API$teamMemberStatusDecoder = function () {
 	var decodeToType = function (string) {
@@ -11700,7 +11704,7 @@ var _user$project$RestDojo_API$teamDecoder = A9(
 	A2(
 		_elm_lang$core$Json_Decode$field,
 		'created',
-		A2(_elm_lang$core$Json_Decode$andThen, _user$project$RestDojo_API$dateDecoder, _elm_lang$core$Json_Decode$string)),
+		A2(_elm_lang$core$Json_Decode$andThen, _user$project$RestDojo_API$stringToDateDecoder, _elm_lang$core$Json_Decode$string)),
 	A2(_elm_lang$core$Json_Decode$field, 'captain', _user$project$RestDojo_API$teamMemberDecoder),
 	A2(
 		_elm_lang$core$Json_Decode$map,
@@ -11740,23 +11744,38 @@ var _user$project$RestDojo_API$teamsDecoder = function () {
 			'data',
 			_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$teamDecoder)));
 }();
+var _user$project$RestDojo_API$gamePointDecoder = A4(
+	_elm_lang$core$Json_Decode$map3,
+	_user$project$RestDojo_Types$GamePoint,
+	A2(_elm_lang$core$Json_Decode$field, 'labelX', _elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'created',
+		A2(_elm_lang$core$Json_Decode$andThen, _user$project$RestDojo_API$floatToDateDecoder, _elm_lang$core$Json_Decode$float)),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'teamPoints',
+		_elm_lang$core$Json_Decode$list(
+			A3(
+				_elm_lang$core$Json_Decode$map2,
+				_user$project$RestDojo_Types$TeamPoint,
+				A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
+				A2(_elm_lang$core$Json_Decode$field, 'point', _elm_lang$core$Json_Decode$int)))));
 var _user$project$RestDojo_API$gamePointsDecoder = A2(
-	_elm_lang$core$Json_Decode$field,
-	'data',
-	_elm_lang$core$Json_Decode$list(
-		A3(
-			_elm_lang$core$Json_Decode$map2,
-			_user$project$RestDojo_Types$GamePoint,
-			A2(_elm_lang$core$Json_Decode$field, 'labelX', _elm_lang$core$Json_Decode$string),
+	_elm_lang$core$Json_Decode$andThen,
+	function (points) {
+		return _elm_lang$core$Json_Decode$succeed(
 			A2(
-				_elm_lang$core$Json_Decode$field,
-				'teamPoints',
-				_elm_lang$core$Json_Decode$list(
-					A3(
-						_elm_lang$core$Json_Decode$map2,
-						_user$project$RestDojo_Types$TeamPoint,
-						A2(_elm_lang$core$Json_Decode$field, 'teamName', _elm_lang$core$Json_Decode$string),
-						A2(_elm_lang$core$Json_Decode$field, 'point', _elm_lang$core$Json_Decode$int)))))));
+				_elm_lang$core$List$sortBy,
+				function (team) {
+					return _elm_lang$core$Date$toTime(team.createdAt);
+				},
+				points));
+	},
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'data',
+		_elm_lang$core$Json_Decode$list(_user$project$RestDojo_API$gamePointDecoder)));
 var _user$project$RestDojo_API$dojoTypeDecoder = function () {
 	var decodeToType = function (string) {
 		var _p5 = string;
